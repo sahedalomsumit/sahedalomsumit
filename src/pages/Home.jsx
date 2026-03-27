@@ -88,7 +88,7 @@ export default function Home() {
             Building <span className="text-white font-semibold">high-performance websites</span> and <span className="text-violet-400 font-semibold">intelligent AI automations</span> that scale your business on autopilot.
           </p>
           <div className="flex flex-wrap gap-4 justify-center pt-12 hero-el">
-            <Link to="/work" className="px-10 py-4 bg-white text-black font-black rounded-2xl text-xs tracking-[0.2em] hover:bg-violet-500 hover:text-white transition-all transform hover:-translate-y-1 shadow-2xl shadow-violet-500/10 uppercase">View_Works</Link>
+            <Link to="/portfolio" className="px-10 py-4 bg-white text-black font-black rounded-2xl text-xs tracking-[0.2em] hover:bg-violet-500 hover:text-white transition-all transform hover:-translate-y-1 shadow-2xl shadow-violet-500/10 uppercase">View_Portfolio</Link>
             <a href="#contact" className="px-10 py-4 bento-card text-white font-bold rounded-2xl text-xs tracking-[0.2em] hover:border-violet-500 transition-all transform hover:-translate-y-1 uppercase">Connect_Me</a>
           </div>
         </div>
@@ -270,7 +270,7 @@ export default function Home() {
         </section>
       </RevealOnScroll>
 
-      {/* Featured Work */}
+      {/* Featured Portfolio */}
       <RevealOnScroll>
         <section id="work" className="py-24 px-6 max-w-7xl mx-auto">
           <div className="flex flex-col md:flex-row justify-between items-end mb-16 gap-6">
@@ -278,7 +278,7 @@ export default function Home() {
               <h2 className="text-5xl sm:text-6xl font-extrabold tracking-tighter text-white uppercase">Main_Builds</h2>
               <p className="text-gray-500 mt-3 text-lg italic">Curated high-performance web solutions.</p>
             </div>
-            <Link to="/work" className="px-8 py-3 bento-card text-[10px] font-mono font-bold hover:bg-white hover:text-black transition uppercase tracking-widest">Explore_All_Work</Link>
+            <Link to="/portfolio" className="px-8 py-3 bento-card text-[10px] font-mono font-bold hover:bg-white hover:text-black transition uppercase tracking-widest">Explore_Portfolio</Link>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
             {featured.map(p => <ProjectCard key={p.id} project={p} />)}

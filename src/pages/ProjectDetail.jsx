@@ -14,7 +14,7 @@ export default function ProjectDetail() {
         <div className="text-center">
           <h1 className="text-6xl font-black text-white mb-4">404</h1>
           <p className="text-gray-500 font-mono mb-8">PROJECT_NOT_FOUND</p>
-          <Link to="/work" className="px-8 py-3 bg-white text-black font-bold rounded-full text-xs uppercase tracking-widest hover:bg-violet-500 hover:text-white transition">Back_to_Work</Link>
+          <Link to="/portfolio" className="px-8 py-3 bg-white text-black font-bold rounded-full text-xs uppercase tracking-widest hover:bg-violet-500 hover:text-white transition">Back_to_Portfolio</Link>
         </div>
       </section>
     )
@@ -26,7 +26,7 @@ export default function ProjectDetail() {
       <section className="py-16 px-6 max-w-7xl mx-auto">
         <RevealOnScroll>
           <div className="mb-8">
-            <Link to="/work" className="font-mono text-xs text-gray-500 hover:text-violet-400 transition tracking-widest uppercase">
+            <Link to="/portfolio" className="font-mono text-xs text-gray-500 hover:text-violet-400 transition tracking-widest uppercase">
               ← Back_to_All_Builds
             </Link>
           </div>
@@ -157,12 +157,12 @@ export default function ProjectDetail() {
         {/* Navigation */}
         <RevealOnScroll>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            <Link to={`/work/${prev.slug}`} className="bento-card p-8 group hover:border-violet-500 transition-all">
+            <Link to={`/portfolio/${prev.slug}`} className="bento-card p-8 group hover:border-violet-500 transition-all">
               <p className="font-mono text-[10px] text-gray-500 uppercase tracking-widest mb-3">← Previous_Build</p>
               <h4 className="text-2xl font-bold text-white group-hover:text-violet-400 transition">{prev.title}</h4>
               <p className="text-gray-500 text-xs font-mono mt-2">{prev.industry}</p>
             </Link>
-            <Link to={`/work/${next.slug}`} className="bento-card p-8 group hover:border-emerald-500 transition-all text-right">
+            <Link to={`/portfolio/${next.slug}`} className="bento-card p-8 group hover:border-emerald-500 transition-all text-right">
               <p className="font-mono text-[10px] text-gray-500 uppercase tracking-widest mb-3">Next_Build →</p>
               <h4 className="text-2xl font-bold text-white group-hover:text-emerald-400 transition">{next.title}</h4>
               <p className="text-gray-500 text-xs font-mono mt-2">{next.industry}</p>

@@ -3,12 +3,12 @@ import ProjectCard from '../components/ProjectCard'
 import ContactSection from '../components/ContactSection'
 import { getProjects } from '../data/projects'
 
-export default function Work() {
+export default function Portfolio() {
   const projects = getProjects()
 
   return (
     <>
-      <section id="work" className="py-24 px-6 max-w-7xl mx-auto">
+      <section id="portfolio" className="py-24 px-6 max-w-7xl mx-auto">
         <RevealOnScroll>
           <div className="flex flex-col md:flex-row justify-between items-end mb-16 gap-6">
             <div>

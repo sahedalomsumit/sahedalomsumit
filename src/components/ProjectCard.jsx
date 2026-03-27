@@ -5,7 +5,7 @@ export default function ProjectCard({ project, layout = 'grid' }) {
 
   return (
     <div className="group reveal">
-      <Link to={`/work/${project.slug}`}>
+      <Link to={`/portfolio/${project.slug}`}>
         <div className={`${isGrid ? 'aspect-[16/10]' : 'aspect-[16/9]'} bento-card overflow-hidden mb-8 relative border-none bg-[#0a0a0a]`}>
           {/* Hover Overlay */}
           <div className="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity z-10 flex items-center justify-center p-8">

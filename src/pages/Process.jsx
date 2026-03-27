@@ -80,7 +80,7 @@ export default function Process() {
           <RevealOnScroll>
             <div className="font-mono text-emerald-500 text-xs tracking-[0.4em] font-bold uppercase mb-4">Methodology_Explorer</div>
             <h2 className="text-6xl md:text-8xl font-black tracking-tighter text-white uppercase leading-none">
-              My Work<br /><span className="text-violet-500">Process</span>
+              My Portfolio<br /><span className="text-violet-500">Process</span>
             </h2>
           </RevealOnScroll>
           <RevealOnScroll>

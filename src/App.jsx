@@ -6,7 +6,7 @@ import TopBar from './components/TopBar'
 import Header from './components/Header'
 import Footer from './components/Footer'
 import Home from './pages/Home'
-import Work from './pages/Work'
+import Portfolio from './pages/Portfolio'
 import Process from './pages/Process'
 import ProjectDetail from './pages/ProjectDetail'
 
@@ -28,8 +28,8 @@ export default function App() {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/process" element={<Process />} />
-          <Route path="/work" element={<Work />} />
-          <Route path="/work/:slug" element={<ProjectDetail />} />
+          <Route path="/portfolio" element={<Portfolio />} />
+          <Route path="/portfolio/:slug" element={<ProjectDetail />} />
         </Routes>
       </main>
       <Footer />

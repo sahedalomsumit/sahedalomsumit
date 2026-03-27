@@ -20,7 +20,7 @@ export default function Footer() {
           <ul className="space-y-4 text-xs font-mono text-gray-500">
             <li><Link to="/" className="hover:text-white transition tracking-widest">./ ROOT</Link></li>
             <li><Link to="/process" className="hover:text-white transition tracking-widest">./ PROCESS</Link></li>
-            <li><Link to="/work" className="hover:text-white transition tracking-widest">./ WORK</Link></li>
+            <li><Link to="/portfolio" className="hover:text-white transition tracking-widest">./ PORTFOLIO</Link></li>
           </ul>
         </div>
 
