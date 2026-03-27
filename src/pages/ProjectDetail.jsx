@@ -1,12 +1,39 @@
+import { useState, useEffect } from 'react'
 import { useParams, Link } from 'react-router-dom'
-import { getProjectBySlug, getAdjacentProjects } from '../data/projects'
 import RevealOnScroll from '../components/RevealOnScroll'
 import ContactSection from '../components/ContactSection'
+import { fetchProjectBySlug, fetchAdjacentProjects } from '../lib/supabase'
 
 export default function ProjectDetail() {
   const { slug } = useParams()
-  const project = getProjectBySlug(slug)
-  const { prev, next } = getAdjacentProjects(slug)
+  const [project, setProject] = useState(null)
+  const [adjacent, setAdjacent] = useState({ prev: null, next: null })
+  const [loading, setLoading] = useState(true)
+
+  useEffect(() => {
+    async function loadData() {
+      setLoading(true)
+      const projectData = await fetchProjectBySlug(slug)
+      if (projectData) {
+        setProject(projectData)
+        const adj = await fetchAdjacentProjects(slug)
+        setAdjacent(adj)
+      }
+      setLoading(false)
+    }
+    loadData()
+  }, [slug])
+
+  if (loading) {
+    return (
+      <section className="min-h-screen flex items-center justify-center px-6">
+        <div className="text-center font-mono text-emerald-500 uppercase tracking-widest text-xs flex items-center justify-center gap-2">
+          <span className="w-2 h-2 bg-emerald-500 rounded-full animate-ping" />
+          Loading_Project_Data...
+        </div>
+      </section>
+    )
+  }
 
   if (!project) {
     return (
@@ -157,16 +184,20 @@ export default function ProjectDetail() {
         {/* Navigation */}
         <RevealOnScroll>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            <Link to={`/portfolio/${prev.slug}`} className="bento-card p-8 group hover:border-violet-500 transition-all">
-              <p className="font-mono text-[10px] text-gray-500 uppercase tracking-widest mb-3">← Previous_Build</p>
-              <h4 className="text-2xl font-bold text-white group-hover:text-violet-400 transition">{prev.title}</h4>
-              <p className="text-gray-500 text-xs font-mono mt-2">{prev.industry}</p>
-            </Link>
-            <Link to={`/portfolio/${next.slug}`} className="bento-card p-8 group hover:border-emerald-500 transition-all text-right">
-              <p className="font-mono text-[10px] text-gray-500 uppercase tracking-widest mb-3">Next_Build →</p>
-              <h4 className="text-2xl font-bold text-white group-hover:text-emerald-400 transition">{next.title}</h4>
-              <p className="text-gray-500 text-xs font-mono mt-2">{next.industry}</p>
-            </Link>
+            {adjacent.prev && (
+              <Link to={`/portfolio/${adjacent.prev.slug}`} className="bento-card p-8 group hover:border-violet-500 transition-all">
+                <p className="font-mono text-[10px] text-gray-500 uppercase tracking-widest mb-3">← Previous_Build</p>
+                <h4 className="text-2xl font-bold text-white group-hover:text-violet-400 transition">{adjacent.prev.title}</h4>
+                <p className="text-gray-500 text-xs font-mono mt-2">{adjacent.prev.industry}</p>
+              </Link>
+            )}
+            {adjacent.next && (
+              <Link to={`/portfolio/${adjacent.next.slug}`} className="bento-card p-8 group hover:border-emerald-500 transition-all text-right">
+                <p className="font-mono text-[10px] text-gray-500 uppercase tracking-widest mb-3">Next_Build →</p>
+                <h4 className="text-2xl font-bold text-white group-hover:text-emerald-400 transition">{adjacent.next.title}</h4>
+                <p className="text-gray-500 text-xs font-mono mt-2">{adjacent.next.industry}</p>
+              </Link>
+            )}
           </div>
         </RevealOnScroll>
       </section>

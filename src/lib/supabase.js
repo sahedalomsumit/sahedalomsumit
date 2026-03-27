@@ -19,26 +19,45 @@ export const supabase = supabaseUrl && supabaseAnonKey
 // Helper to check if Supabase is configured
 export const isSupabaseConfigured = () => !!supabase
 
+// Map Supabase snake_case database fields to camelCase expected by components
+export function mapProject(project) {
+  if (!project) return null
+  return {
+    ...project,
+    shortDescription: project.short_description,
+    fullDescription: project.full_description,
+    keyFeatures: project.key_features || [],
+    techStack: project.tech_stack || [],
+    liveUrl: project.live_url,
+    thumbnailUrl: project.thumbnail_url,
+    galleryUrls: project.gallery_urls || [],
+    isFeatured: project.is_featured,
+    displayOrder: project.display_order,
+  }
+}
+
 // Supabase query helpers (use these when Supabase is set up)
 export async function fetchProjects() {
-  if (!supabase) return null
+  if (!supabase) return []
   const { data, error } = await supabase
     .from('projects')
     .select('*')
     .order('display_order', { ascending: true })
-  if (error) { console.error('Error fetching projects:', error); return null }
-  return data
+  
+  if (error) { console.error('Error fetching projects:', error); return [] }
+  return data.map(mapProject)
 }
 
 export async function fetchFeaturedProjects() {
-  if (!supabase) return null
+  if (!supabase) return []
   const { data, error } = await supabase
     .from('projects')
     .select('*')
     .eq('is_featured', true)
     .order('display_order', { ascending: true })
-  if (error) { console.error('Error fetching featured projects:', error); return null }
-  return data
+    
+  if (error) { console.error('Error fetching featured projects:', error); return [] }
+  return data.map(mapProject)
 }
 
 export async function fetchProjectBySlug(slug) {
@@ -48,6 +67,28 @@ export async function fetchProjectBySlug(slug) {
     .select('*')
     .eq('slug', slug)
     .single()
+    
   if (error) { console.error('Error fetching project:', error); return null }
-  return data
+  return mapProject(data)
+}
+
+export async function fetchAdjacentProjects(slug) {
+  if (!supabase) return { prev: null, next: null }
+  
+  const { data: allProjects, error } = await supabase
+    .from('projects')
+    .select('slug, title, industry, display_order')
+    .order('display_order', { ascending: true })
+    
+  if (error || !allProjects || allProjects.length === 0) {
+    return { prev: null, next: null }
+  }
+  
+  const idx = allProjects.findIndex(p => p.slug === slug)
+  if (idx === -1) return { prev: null, next: null }
+  
+  const prev = idx > 0 ? allProjects[idx - 1] : allProjects[allProjects.length - 1]
+  const next = idx < allProjects.length - 1 ? allProjects[idx + 1] : allProjects[0]
+  
+  return { prev, next }
 }

@@ -6,7 +6,7 @@ import RevealOnScroll from '../components/RevealOnScroll'
 import Carousel from '../components/Carousel'
 import ProjectCard from '../components/ProjectCard'
 import ContactSection from '../components/ContactSection'
-import { getFeaturedProjects } from '../data/projects'
+import { useState } from 'react'
 
 gsap.registerPlugin(TextPlugin)
 
@@ -45,9 +45,17 @@ for (let i = 0; i < reviewImages.length; i += 2) {
 export default function Home() {
   const typewriterRef = useRef(null)
   const heroRef = useRef(null)
-  const featured = getFeaturedProjects()
+  const [featured, setFeatured] = useState([])
+  const [loading, setLoading] = useState(true)
 
   useEffect(() => {
+    async function loadFeatured() {
+      const { fetchFeaturedProjects } = await import('../lib/supabase')
+      const data = await fetchFeaturedProjects()
+      if (data) setFeatured(data)
+      setLoading(false)
+    }
+    loadFeatured()
     // Hero animations — set initial state then animate in
     gsap.set('.hero-el', { opacity: 0, y: 20 })
     gsap.to('.hero-el', { opacity: 1, y: 0, duration: 1.2, stagger: 0.15, ease: 'power4.out' })
@@ -283,7 +291,14 @@ export default function Home() {
             <Link to="/portfolio" className="px-8 py-3 bento-card text-[10px] font-mono font-bold hover:bg-white hover:text-black transition uppercase tracking-widest">Explore_Portfolio</Link>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
-            {featured.map(p => <ProjectCard key={p.id} project={p} />)}
+            {loading ? (
+              <div className="md:col-span-2 text-center font-mono text-emerald-500 uppercase tracking-widest text-xs flex items-center justify-center gap-2 py-10">
+                <span className="w-2 h-2 bg-emerald-500 rounded-full animate-ping" />
+                Fetching_Featured_Builds...
+              </div>
+            ) : (
+              featured.map(p => <ProjectCard key={p.id || p.slug} project={p} />)
+            )}
           </div>
         </section>
       </RevealOnScroll>
