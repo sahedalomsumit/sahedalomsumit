@@ -5,7 +5,7 @@ export default function Footer() {
 
   return (
     <footer className="py-20 px-6 md:px-12 border-t border-white/5 bg-black relative overflow-hidden">
-      <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-4 gap-12 relative z-10">
+      <div className="max-w-7xl mx-auto grid grid-cols-1 sm:grid-cols-2 md:grid-cols-5 gap-8 lg:gap-12 relative z-10">
         {/* Brand Column */}
         <div className="md:col-span-1">
           <img src="/img/logo-transparent.png" alt="Sahed Alom Sumit Transparent Logo" className="w-full h-auto -ml-4 max-w-48" />
@@ -15,7 +15,7 @@ export default function Footer() {
         </div>
 
         {/* Links Column */}
-        <div className="hidden md:block">
+        <div>
           <h4 className="text-[10px] font-mono font-bold uppercase tracking-widest mb-8 text-violet-500">Sitemap_Root</h4>
           <ul className="space-y-4 text-xs font-mono text-gray-400">
             <li><Link to="/" className="hover:text-white transition tracking-widest">./ ROOT</Link></li>
@@ -45,6 +45,19 @@ export default function Footer() {
             <span className="w-1.5 h-1.5 bg-emerald-500 rounded-full" />
             GMT +2:00
           </div>
+        </div>
+
+        {/* Favourite Projects Column */}
+        <div>
+          <h4 className="text-[10px] font-mono font-bold uppercase tracking-widest mb-8 text-violet-500">Favourite_Projects</h4>
+          <ul className="space-y-4 text-xs font-mono text-gray-400">
+            <li><Link to="/work/twintwo" className="hover:text-white transition tracking-widest">TWINTWO</Link></li>
+            <li><a href="https://www.metodo-ongaro.com/" target="_blank" rel="noopener noreferrer" className="hover:text-white transition tracking-widest">ONGARO METODO</a></li>
+            <li><a href="https://e-service.parts/" target="_blank" rel="noopener noreferrer" className="hover:text-white transition tracking-widest">E-SERVICE</a></li>
+            <li><Link to="/work/notifi" className="hover:text-white transition tracking-widest">NOTIFI</Link></li>
+            <li><Link to="/work/james-crossing" className="hover:text-white transition tracking-widest">JAMES CROSSING</Link></li>
+            <li><Link to="/work/ovulio-baby" className="hover:text-white transition tracking-widest">OVULIO BABY</Link></li>
+          </ul>
         </div>
       </div>
 

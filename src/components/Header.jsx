@@ -13,7 +13,6 @@ export default function Header() {
 
   const navLinks = [
     { to: '/', label: './ROOT' },
-    { to: '/process', label: './PROCESS' },
     { to: '/portfolio', label: './PORTFOLIO' },
   ]
 
