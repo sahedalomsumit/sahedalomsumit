@@ -13,10 +13,10 @@ gsap.registerPlugin(TextPlugin)
 const certificates = [
   { id: 1, label: 'Certi_Entry_1', title: 'Google UX Design', date: 'Dec 2024 · Coursera', skills: ['UX Basics','UX Process','Wireframes & Prototypes','UX Research','High-Fidelity Designs','Dynamic UI','Social Good UX & Jobs'], img: '/img/certificates/Google-UX-Design-Coursera-1SHUXJFXGATW.png' },
   { id: 2, label: 'Certi_Entry_2', title: 'Master HTML & CSS', date: 'Aug 2024 · Udemy', skills: ['HTML5','CSS3','Responsive Design','Flexbox & Grid','Accessibility','Animations'], img: '/img/certificates/master-html-and-css-by-building-real-world-projetcs-certificate-udemy-sahedalomsumit.png' },
-  { id: 3, label: 'Certi_Entry_3', title: 'Design Sprint Days', date: 'May 2024 · Alma Talent Oy', skills: ['Understand','Ideate','Decide','Prototype','Test'], img: '/img/certificates/design sprint days - alma talent oy - sahedalomsumit.png' },
-  { id: 4, label: 'Certi_Entry_4', title: 'Responsive Web Design', date: 'Dec 2023 · FreeCodeCamp', skills: ['HTML','CSS','UI/UX Design','Responsive Layout','Visual Design'], img: '/img/certificates/Responsive Web Design - Freecodecamp - sahedalomsumit.png' },
-  { id: 5, label: 'Certi_Entry_5', title: 'Web Design & Development', date: 'Mar 2021 · LEDP', skills: ['HTML','CSS','JavaScript','PHP','MySQL','Figma','WordPress','Webflow'], img: '/img/certificates/Web Design & Development - LEDP -sahedalomsumit.png' },
-  { id: 6, label: 'Certi_Entry_6', title: 'Webflow Expert', date: 'Mar 2021 · Webflow', skills: ['Webflow Design','Webflow Development','Webflow Animation','Spline 3D','Responsive Design','SEO Principles'], img: '/img/certificates/Webflow 101 - sahedalomsumit.png' },
+  { id: 3, label: 'Certi_Entry_3', title: 'Design Sprint Days', date: 'May 2024 · Alma Talent Oy', skills: ['Understand','Ideate','Decide','Prototype','Test'], img: '/img/certificates/design-sprint-days-alma-talent-oy-sahedalomsumit.png' },
+  { id: 4, label: 'Certi_Entry_4', title: 'Responsive Web Design', date: 'Dec 2023 · FreeCodeCamp', skills: ['HTML','CSS','UI/UX Design','Responsive Layout','Visual Design'], img: '/img/certificates/responsive-web-design-freecodecamp-sahedalomsumit.png' },
+  { id: 5, label: 'Certi_Entry_5', title: 'Web Design & Development', date: 'Mar 2021 · LEDP', skills: ['HTML','CSS','JavaScript','PHP','MySQL','Figma','WordPress','Webflow'], img: '/img/certificates/web-design-and-development-ledp-sahedalomsumit.png' },
+  { id: 6, label: 'Certi_Entry_6', title: 'Webflow Expert', date: 'Mar 2021 · Webflow', skills: ['Webflow Design','Webflow Development','Webflow Animation','Spline 3D','Responsive Design','SEO Principles'], img: '/img/certificates/webflow-101-sahedalomsumit.png' },
 ]
 
 const experiences = [
@@ -34,7 +34,7 @@ const testimonials = [
 
 const reviewImages = Array.from({ length: 18 }, (_, i) => {
   const nums = [1,2,3,4,5,6,7,8,9,10,11,12,13,15,16,17,18,21]
-  return nums[i] ? `/img/testimonials/fiverr review - sahedalomsumit (${nums[i]}).webp` : null
+  return nums[i] ? `/img/testimonials/fiverr-review-sahedalomsumit-${nums[i]}.webp` : null
 }).filter(Boolean)
 
 const reviewSlides = []
@@ -229,7 +229,7 @@ export default function Home() {
                     <ul className="grid md:grid-cols-2 gap-3 text-gray-400 text-sm">
                       {cert.skills.map(s => <li key={s}>{s}</li>)}
                     </ul>
-                    <img src={cert.img} className="rounded-2xl mt-6 w-full" alt={cert.title} loading="lazy" />
+                    <img src={cert.img} className="rounded-2xl mt-6 w-full" alt={`${cert.title} Certificate for Sahed Alom Sumit`} loading="lazy" />
                   </div>
                 ))}
               </Carousel>

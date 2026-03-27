@@ -24,7 +24,7 @@ export default function ProjectCard({ project, layout = 'grid' }) {
           <div className="w-full h-full flex items-center justify-center group-hover:scale-105 transition-transform duration-1000 grayscale group-hover:grayscale-0">
             <img
               src={project.thumbnailUrl}
-              alt={`${project.title} Website Thumbnail`}
+              alt={`${project.title} - ${project.industry} Website Design and Development by Sahed Alom Sumit`}
               className="object-cover w-full h-full rounded-2xl"
               loading="lazy"
             />

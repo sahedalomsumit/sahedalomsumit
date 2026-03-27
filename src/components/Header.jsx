@@ -25,8 +25,8 @@ export default function Header() {
       <Link to="/" className="flex items-center group cursor-pointer">
         <img
           className="sas-logo transition-transform group-hover:scale-105 w-32"
-          src="/img/Logo - Sahed Alom Sumit.png"
-          alt="Sahed Alom Sumit Logo"
+          src="/img/logo-sahed-alom-sumit.png"
+          alt="Sahed Alom Sumit Official Logo"
         />
         <div className="hidden md:block h-6 w-[1px] bg-white/10 mx-4" />
         <div className="hidden lg:block text-[9px] font-mono text-gray-500 uppercase tracking-tighter">

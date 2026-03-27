@@ -8,7 +8,7 @@ export default function Footer() {
       <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-4 gap-12 relative z-10">
         {/* Brand Column */}
         <div className="md:col-span-1">
-          <img src="/img/Logo transparent.png" alt="SAS Logo" className="w-full h-auto -ml-4 max-w-48" />
+          <img src="/img/logo-transparent.png" alt="Sahed Alom Sumit Transparent Logo" className="w-full h-auto -ml-4 max-w-48" />
           <p className="mt-6 text-gray-500 text-xs leading-relaxed font-mono max-w-[200px] uppercase">
             ./ No-Code Web Developer<br />./ AI Automation Expert<br />./ UI/UX Designer
           </p>

@@ -66,7 +66,7 @@ export default function ProjectDetail() {
           <div className="aspect-[16/9] bento-card overflow-hidden relative border-none bg-[#0a0a0a] mb-16">
             <img
               src={project.thumbnailUrl}
-              alt={`${project.title} Website`}
+              alt={`${project.title} - Custom ${project.industry} Website Design and Development`}
               className="object-cover w-full h-full rounded-2xl"
             />
           </div>
