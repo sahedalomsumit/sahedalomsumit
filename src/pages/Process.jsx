@@ -39,7 +39,7 @@ function ProcessStep({ step }) {
       </div>
       <h3 className="text-2xl font-bold text-white mb-4 uppercase">{step.title}</h3>
       <p className="text-gray-400 text-sm mb-8 leading-relaxed">{step.desc}</p>
-      <ul className="grid grid-cols-1 md:grid-cols-2 gap-3 text-[11px] font-mono text-gray-500">
+      <ul className="grid grid-cols-1 md:grid-cols-2 gap-3 text-[11px] font-mono text-gray-400">
         {step.items.map((item, i) => (
           <li key={i} className="flex items-center gap-2">
             <span className={isViolet ? 'text-violet-400' : 'text-emerald-500'}>+</span> {item}
@@ -87,13 +87,15 @@ export default function Process() {
             <div className="flex bg-white/5 p-1 rounded-2xl border border-white/10">
               <button
                 onClick={() => switchTab('design')}
-                className={`px-6 py-3 rounded-xl text-xs font-mono font-bold transition-all ${isDesign ? 'bg-white text-black' : 'text-gray-500 hover:text-white'}`}
+                title="Design System Process"
+                className={`px-6 py-3 rounded-xl text-xs font-mono font-bold transition-all ${isDesign ? 'bg-white text-black' : 'text-gray-400 hover:text-white'}`}
               >
                 DESIGN_SYSTEM
               </button>
               <button
                 onClick={() => switchTab('dev')}
-                className={`px-6 py-3 rounded-xl text-xs font-mono font-bold transition-all ${!isDesign ? 'bg-white text-black' : 'text-gray-500 hover:text-white'}`}
+                title="Development Engine Process"
+                className={`px-6 py-3 rounded-xl text-xs font-mono font-bold transition-all ${!isDesign ? 'bg-white text-black' : 'text-gray-400 hover:text-white'}`}
               >
                 DEVELOPMENT_ENGINE
               </button>

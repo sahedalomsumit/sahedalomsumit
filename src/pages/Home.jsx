@@ -84,7 +84,7 @@ export default function Home() {
             <span ref={typewriterRef} className="font-mono text-sm md:text-2xl text-gray-400 uppercase tracking-[0.3em]" />
             <span className="inline-block w-2 h-6 bg-violet-500 animate-pulse align-middle" />
           </div>
-          <p className="max-w-2xl mx-auto text-gray-500 text-base md:text-lg font-light hero-el pt-4 leading-relaxed italic">
+          <p className="max-w-2xl mx-auto text-gray-400 text-base md:text-lg font-light hero-el pt-4 leading-relaxed italic">
             Building <span className="text-white font-semibold">high-performance websites</span> and <span className="text-violet-400 font-semibold">intelligent AI automations</span> that scale your business on autopilot.
           </p>
           <div className="flex flex-wrap gap-4 justify-center pt-12 hero-el">
@@ -115,11 +115,11 @@ export default function Home() {
             <div className="mt-16 grid grid-cols-2 lg:grid-cols-3 gap-10">
               <div className="border-l-2 border-emerald-500/30 pl-6 group">
                 <div className="text-5xl font-black text-white tracking-tighter group-hover:text-emerald-500 transition-colors">150+</div>
-                <div className="font-mono text-[10px] text-gray-500 uppercase mt-2 tracking-widest">Successful_Builds</div>
+                <div className="font-mono text-[10px] text-gray-400 uppercase mt-2 tracking-widest">Successful_Builds</div>
               </div>
               <div className="border-l-2 border-violet-500/30 pl-6 group">
                 <div className="text-5xl font-black text-white tracking-tighter group-hover:text-violet-500 transition-colors">5yr+</div>
-                <div className="font-mono text-[10px] text-gray-500 uppercase mt-2 tracking-widest">Active_Service</div>
+                <div className="font-mono text-[10px] text-gray-400 uppercase mt-2 tracking-widest">Active_Service</div>
               </div>
             </div>
           </div>
@@ -134,14 +134,14 @@ export default function Home() {
                 { label: 'LinkedIn_Profile', value: 'sahedalomsumit', href: 'https://linkedin.com/in/sahedalomsumit' },
               ].map((item) => (
                 <div key={item.label} className="group">
-                  <p className="text-[10px] text-gray-500 uppercase tracking-widest font-bold mb-2">{item.label}</p>
+                  <p className="text-[10px] text-gray-400 uppercase tracking-widest font-bold mb-2">{item.label}</p>
                   <p className="text-white text-lg font-semibold truncate group-hover:text-violet-400 transition">
                     <a href={item.href} target="_blank" rel="noopener noreferrer">{item.value}</a>
                   </p>
                 </div>
               ))}
               <div className="pt-10 border-t border-white/5">
-                <p className="text-[10px] text-gray-500 uppercase tracking-widest font-bold mb-4">Availability_Metrics</p>
+                <p className="text-[10px] text-gray-400 uppercase tracking-widest font-bold mb-4">Availability_Metrics</p>
                 <div className="flex items-center gap-2">
                   <span className="w-2 h-2 bg-emerald-500 rounded-full animate-ping" />
                   <p className="text-white font-bold text-sm">System_Ready_to_Collab</p>
@@ -264,6 +264,7 @@ export default function Home() {
                 frameBorder="0"
                 referrerPolicy="strict-origin-when-cross-origin"
                 allowFullScreen
+                loading="lazy"
               />
             </div>
           </div>
@@ -276,7 +277,7 @@ export default function Home() {
           <div className="flex flex-col md:flex-row justify-between items-end mb-16 gap-6">
             <div>
               <h2 className="text-5xl sm:text-6xl font-extrabold tracking-tighter text-white uppercase">Main_Builds</h2>
-              <p className="text-gray-500 mt-3 text-lg italic">Curated high-performance web solutions.</p>
+              <p className="text-gray-400 mt-3 text-lg italic">Curated high-performance web solutions.</p>
             </div>
             <Link to="/portfolio" className="px-8 py-3 bento-card text-[10px] font-mono font-bold hover:bg-white hover:text-black transition uppercase tracking-widest">Explore_Portfolio</Link>
           </div>
@@ -299,7 +300,7 @@ export default function Home() {
                     <div className={`w-12 h-12 ${t.color} rounded-2xl flex items-center justify-center text-sm font-black shadow-lg ${t.shadow}`}>{t.initials}</div>
                     <div>
                       <p className="text-white font-bold">{t.name}</p>
-                      <p className="text-[10px] font-mono text-gray-600 uppercase tracking-widest">{t.role}</p>
+                      <p className="text-[10px] font-mono text-gray-400 uppercase tracking-widest">{t.role}</p>
                     </div>
                   </div>
                 </div>

@@ -46,17 +46,18 @@ export default function Carousel({ children, className = '' }) {
 
       {/* Controls */}
       <div className="flex justify-between items-center mt-8">
-        <button onClick={prev} className="bg-zinc-800 hover:bg-zinc-700 px-6 py-2 rounded-full text-sm transition">Prev</button>
+        <button onClick={prev} aria-label="Previous Slide" className="bg-zinc-800 hover:bg-zinc-700 px-6 py-2 rounded-full text-sm transition">Prev</button>
         <div className="flex gap-2">
           {slides.map((_, i) => (
             <button
               key={i}
               onClick={() => goTo(i)}
+              aria-label={`Go to slide ${i + 1}`}
               className={`w-3 h-3 rounded-full transition ${i === index ? 'bg-emerald-500' : 'bg-zinc-600'}`}
             />
           ))}
         </div>
-        <button onClick={next} className="bg-zinc-800 hover:bg-zinc-700 px-6 py-2 rounded-full text-sm transition">Next</button>
+        <button onClick={next} aria-label="Next Slide" className="bg-zinc-800 hover:bg-zinc-700 px-6 py-2 rounded-full text-sm transition">Next</button>
       </div>
     </div>
   )

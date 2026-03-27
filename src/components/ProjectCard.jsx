@@ -33,10 +33,10 @@ export default function ProjectCard({ project, layout = 'grid' }) {
       </Link>
       <div className="flex justify-between items-start px-2">
         <div>
-          <h4 className="text-2xl font-bold mb-1 text-white group-hover:text-violet-400 transition">
+          <h3 className="text-2xl font-bold mb-1 text-white group-hover:text-violet-400 transition">
             {project.title}
-          </h4>
-          <p className="text-gray-500 text-xs font-mono">
+          </h3>
+          <p className="text-gray-400 text-xs font-mono">
             {project.shortDescription}
           </p>
         </div>

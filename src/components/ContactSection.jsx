@@ -18,7 +18,7 @@ export default function ContactSection() {
                 <p className="font-mono text-[9px] text-emerald-500 font-bold uppercase mb-2 tracking-widest">Sync_Email</p>
                 <h3 className="text-l md:text-2xl font-bold text-white truncate">sahedalomsumit@gmail.com</h3>
               </div>
-              <p className="mt-8 text-gray-500 group-hover:text-violet-400 transition text-xs font-mono">Initialize_Chat_Sequence »</p>
+              <p className="mt-8 text-gray-400 group-hover:text-violet-400 transition text-xs font-mono">Initialize_Chat_Sequence »</p>
             </a>
           </div>
           <div className="bento-card p-10 flex flex-col justify-between group cursor-pointer hover:border-emerald-500 transition-all">
@@ -32,7 +32,7 @@ export default function ContactSection() {
                 <p className="font-mono text-[9px] text-emerald-500 font-bold uppercase mb-2 tracking-widest">Instant_Ping</p>
                 <h3 className="text-l md:text-2xl font-bold text-white">+358 41 576 5539</h3>
               </div>
-              <p className="mt-8 text-gray-500 group-hover:text-emerald-400 transition text-xs font-mono">Sync_Mobile_Node »</p>
+              <p className="mt-8 text-gray-400 group-hover:text-emerald-400 transition text-xs font-mono">Sync_Mobile_Node »</p>
             </a>
           </div>
         </div>
