@@ -56,7 +56,7 @@ It features reusable React components, individual project detail pages, GSAP ani
 - Client-side routing with React Router
 
 ### 2. Individual Project Detail Pages
-- Each of the 14 portfolio projects has its own `/work/:slug` detail page
+- Each of the 14 portfolio projects has its own `/portfolio/:slug` detail page
 - Rich content: overview, challenge, solution, results, key features, tech stack
 - Previous/Next navigation between projects
 
@@ -82,7 +82,9 @@ It features reusable React components, individual project detail pages, GSAP ani
 ## 📂 Project Structure
 
 ```
-├── index.html              # Vite entry point
+├── .github/                 # GitHub Actions (CI/CD)
+│   └── workflows/deploy.yml
+├── index.html               # Vite entry point
 ├── vite.config.js           # Vite configuration
 ├── tailwind.config.js       # Tailwind CSS config
 ├── package.json             # Dependencies & scripts
@@ -102,51 +104,21 @@ It features reusable React components, individual project detail pages, GSAP ani
 │   │   └── TopBar.jsx
 │   ├── pages/
 │   │   ├── Home.jsx
-│   │   ├── Work.jsx
+│   │   ├── Portfolio.jsx
 │   │   ├── Process.jsx
 │   │   └── ProjectDetail.jsx
 │   ├── data/
 │   │   └── projects.js      # All 14 projects with detailed content
 │   └── lib/
 │       └── supabase.js      # Supabase client (optional)
-├── img/                     # Images & assets
-│   ├── works/               # Project thumbnails
-│   ├── certificates/        # Certificate images
-│   └── testimonials/        # Review screenshots
+├── public/                  # Static assets (copied to root on build)
+│   ├── img/                 # Images & optimized SEO assets
+│   │   ├── portfolio/       # Project thumbnails
+│   │   ├── certificates/    # Certificate images
+│   │   └── testimonials/    # Review screenshots
+│   └── robots.txt, etc.
 ├── _old/                    # Backup of original HTML files
 └── README.md
-```
-
----
-
-## ⚙️ Setup & Development
-
-### Prerequisites
-- Node.js 18+ 
-- npm
-
-### Install dependencies
-
-```bash
-npm install
-```
-
-### Start development server
-
-```bash
-npm run dev
-```
-
-### Build for production
-
-```bash
-npm run build
-```
-
-### Preview production build
-
-```bash
-npm run preview
 ```
 
 ---
@@ -194,21 +166,6 @@ VITE_SUPABASE_ANON_KEY=your-anon-key
 
 ---
 
-## 🚀 GitHub Pages Deployment
-
-1. Update `vite.config.js` base path if using a subpath:
-```js
-base: '/your-repo-name/'
-```
-
-2. Build and deploy:
-```bash
-npm run build
-```
-
-3. Push the `dist/` folder to `gh-pages` branch, or use GitHub Actions.
-
----
 
 ## 📬 Contact
 
