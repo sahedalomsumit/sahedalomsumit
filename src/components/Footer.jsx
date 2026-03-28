@@ -16,19 +16,19 @@ export default function Footer() {
 
         {/* Favourite Projects Column */}
         <div>
-          <h4 className="text-[10px] font-mono font-bold uppercase tracking-widest mb-8 text-violet-500">Favourite_Project</h4>
+          <h4 className="text-[10px] font-mono font-bold uppercase tracking-widest mb-8 text-violet-500">Featured_Build</h4>
           <ul className="space-y-4 text-xs font-mono text-gray-400">
-            <li><Link to="/work/twintwo" className="hover:text-white transition tracking-widest">TWINTWO</Link></li>
-            <li><Link to="/work/ongaro-metodo" className="hover:text-white transition tracking-widest">ONGARO METODO</Link></li>
-            <li><Link to="/work/e-service" className="hover:text-white transition tracking-widest">E-SERVICE</Link></li>
-            <li><Link to="/work/notifi" className="hover:text-white transition tracking-widest">NOTIFI</Link></li>
-            <li><Link to="/work/ovulio-baby" className="hover:text-white transition tracking-widest">OVULIO BABY</Link></li>
+            <li><Link to="/portfolio/twintwo" className="hover:text-white transition tracking-widest">TWINTWO</Link></li>
+            <li><Link to="/portfolio/ongaro-metodo" className="hover:text-white transition tracking-widest">ONGARO METODO</Link></li>
+            <li><Link to="/portfolio/e-service" className="hover:text-white transition tracking-widest">E-SERVICE</Link></li>
+            <li><Link to="/portfolio/notifi" className="hover:text-white transition tracking-widest">NOTIFI</Link></li>
+            <li><Link to="/portfolio/ovulio-baby" className="hover:text-white transition tracking-widest">OVULIO BABY</Link></li>
           </ul>
         </div>
 
         {/* Links Column */}
         <div>
-          <h4 className="text-[10px] font-mono font-bold uppercase tracking-widest mb-8 text-violet-500">Sitemap_Root</h4>
+          <h4 className="text-[10px] font-mono font-bold uppercase tracking-widest mb-8 text-emerald-500">Sitemap_Root</h4>
           <ul className="space-y-4 text-xs font-mono text-gray-400">
             <li><Link to="/" className="hover:text-white transition tracking-widest">./ ROOT</Link></li>
             <li><Link to="/process" className="hover:text-white transition tracking-widest">./ PROCESS</Link></li>
@@ -38,7 +38,7 @@ export default function Footer() {
 
         {/* Follow Column */}
         <div>
-          <h4 className="text-[10px] font-mono font-bold uppercase tracking-widest mb-8 text-emerald-500">Follow_Stream</h4>
+          <h4 className="text-[10px] font-mono font-bold uppercase tracking-widest mb-8 text-violet-500">Follow_Stream</h4>
           <ul className="space-y-4 text-xs font-mono text-gray-400">
             <li><a href="https://www.linkedin.com/in/sahedalomsumit" target="_blank" rel="noopener noreferrer" className="hover:text-white transition tracking-widest">LINKEDIN</a></li>
             <li><a href="https://wa.me/358415765539" target="_blank" rel="noopener noreferrer" className="hover:text-white transition tracking-widest">WHATSAPP</a></li>
@@ -49,7 +49,7 @@ export default function Footer() {
 
         {/* Office Column */}
         <div>
-          <h4 className="text-[10px] font-mono font-bold uppercase tracking-widest mb-8 text-white">Base_Operation</h4>
+          <h4 className="text-[10px] font-mono font-bold uppercase tracking-widest mb-8 text-emerald-500">Base_Operation</h4>
           <p className="text-xs font-mono text-gray-400 leading-relaxed uppercase tracking-widest">
             [encrypted]<br />00420, Helsinki<br />Finland, Europe
           </p>
