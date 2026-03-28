@@ -1,21 +1,28 @@
-# Sahed Alom Sumit | No-Code & AI Expert Portfolio v3.0.0
+# Sahed Alom Sumit | Vibe Web Designer & Developer Portfolio v3.5.0
 
-A high-end cyber-minimalist portfolio built with **React**, **Vite**, and **Tailwind CSS**.  
-This project showcases Sahed Alom Sumit — a No-Code Web Developer & AI Automation Expert based in Helsinki, Finland.
+A high-end cyber-minimalist portfolio built with **React**, **Vite**, **Tailwind CSS**, and **GSAP**.  
+This project showcases Sahed Alom Sumit — a Vibe Web Designer & Developer based in Helsinki, Finland.
 
 ---
 
 ## 🚀 Overview
 
-This portfolio blends technical structure with visual clarity using a "Coder Mode" aesthetic.  
-It features reusable React components, individual project detail pages, GSAP animations, and a Supabase-ready backend for easy project management.
+This portfolio blends technical structure with visual clarity using a "Coder Mode" aesthetic, featuring reusable React components, a dynamic Supabase-powered backend for Projects and FAQ, and high-end GSAP animations.
 
 ### Core Identity
 
 - **Name:** Sahed Alom Sumit  
-- **Role:** No-Code Web Developer & AI Automation Expert  
-- **Specialization:** Webflow, Framer, WordPress, AI Workflows, Make.com  
+- **Role:** Vibe Web Designer & Developer  
+- **Bio:** Vibe web design. Clean development. AI automation that actually makes sense. That's what I do.
+
+Good design and purposeful development should feel effortless. That's what I chase with every project — that moment when someone lands on a site and just gets it without thinking twice.
+
+I've spent the past 5+ years working with founders, brands, and agencies across the world, helping them turn rough ideas into polished digital products. My work sits right at the intersection of design thinking and full-stack development. I care about the vibe of a page as much as I care about how fast it loads.
+
+Smooth animations that make people stop scrolling. Dynamic systems that just work. Prototypes that feel so real clients forget it's not live yet. Whatever the project needs — I show up with the same care, the same eye, and the same drive to get it right. With a background Bachelor's in Business IT, I also understand the business side of things. So I'm not just making things look good — I'm making sure they actually work for your goals.  
+- **Specialization:** Webflow, Framer, WordPress, AI Workflows, Motion Design  
 - **Location:** Helsinki, Finland  
+- **Availability:** Integrated real-time availability indicator
 
 ---
 
@@ -23,24 +30,24 @@ It features reusable React components, individual project detail pages, GSAP ani
 
 **Frontend Framework**
 - React 18 (Vite)
-- React Router DOM (client-side routing)
+- React Router DOM v6 (client-side routing)
 
 **Styling**
 - Tailwind CSS v3 (utility-first framework)
-- Custom CSS (bento cards, glassmorphism, cursor effects)
+- Custom CSS (bento cards, glassmorphism, aura gradients)
 
 **Animation Engine**
 - GSAP (GreenSock)  
 - ScrollTrigger (scroll-based reveal animations)  
-- TextPlugin (typewriter effects)  
+- Staggered timeline sequences for mobile menu
 
 **Typography**
 - JetBrains Mono (developer-style aesthetic)  
 - Inter (modern sans-serif)  
 
-**Backend (Optional)**
-- Supabase (PostgreSQL + REST API with free tier)
-- Currently uses local JSON data — switch to Supabase for a web dashboard to manage projects
+**Backend (Core)**
+- Supabase (PostgreSQL + REST API)
+- Dynamic data fetching for Projects and FAQ
 
 **Build & Deploy**
 - Vite (fast HMR, optimized builds)
@@ -50,32 +57,32 @@ It features reusable React components, individual project detail pages, GSAP ani
 
 ## ✨ Key Features
 
-### 1. React Component Architecture
-- 10+ reusable components (TopBar, Header, Footer, ContactSection, ProjectCard, Carousel, etc.)
-- Eliminated all HTML duplication from the original static site
-- Client-side routing with React Router
+### 1. Dynamic FAQ Knowledge Base
+- All FAQ data is fetched in real-time from Supabase.
+- Features categorized filtering system for easy navigation.
+- **Sticky Mobile Navigation:** Filter FAQ items on the go with a modern sticky dropdown.
+- **Rich Content Support:** Auto-detection for URLs, emails, and WhatsApp numbers in answers.
 
-### 2. Individual Project Detail Pages
-- Each of the 14 portfolio projects has its own `/portfolio/:slug` detail page
-- Rich content: overview, challenge, solution, results, key features, tech stack
-- Previous/Next navigation between projects
+### 2. Full-Screen GSAP Mobile Menu
+- Custom-built mobile navigation with high-end staggered animations.
+- Premium UI transitions and menu links animated via GSAP timelines.
+- Integrated availability status "High" to attract client interest.
 
-### 3. Cyber-Minimalist Bento UI
-- Asymmetric grid layout  
-- Structured "data block" presentation  
-- Glassmorphism effect with backdrop filters  
-- Premium layered visual depth  
+### 3. Individual Project Detail Pages
+- Each of the 14+ portfolio projects has its own `/portfolio/:slug` detail page.
+- Rich content: overview, challenge, solution, results, and tech stack.
+- Previous/Next navigation for a seamless browsing experience.
 
-### 4. Advanced Interactions
-- Custom dot cursor with `mix-blend-mode: difference`  
-- Scroll-triggered reveal animations (GSAP ScrollTrigger)
-- Typewriter text cycling on hero section
-- Background aura gradients that follow the viewport  
+### 4. Cyber-Minimalist Bento UI
+- Asymmetric grid layout structured as "data blocks".  
+- Glassmorphism effects with backdrop filters.
+- Layered visual depth achieved through custom CSS tokens.
 
-### 5. Supabase CMS Backend
-- Free-tier PostgreSQL database with REST API
-- Web dashboard to add/update/delete projects (no code needed)
-- Falls back to local data when not configured
+### 5. Advanced Interactions
+- **Custom Dot Cursor:** Features `mix-blend-mode: difference` for high visibility.  
+- **Breadcrumb Navigation:** Consistent navigational trail across FAQ and Project pages.
+- **Scroll-Triggered Reveals:** GSAP ScrollTrigger ensures elements animate smoothly into view.
+- **Aura Background:** Dynamic background gradients that follow the viewport.
 
 ---
 
@@ -83,14 +90,13 @@ It features reusable React components, individual project detail pages, GSAP ani
 
 ```
 ├── .github/                 # GitHub Actions (CI/CD)
-│   └── workflows/deploy.yml
 ├── index.html               # Vite entry point
 ├── vite.config.js           # Vite configuration
 ├── tailwind.config.js       # Tailwind CSS config
 ├── package.json             # Dependencies & scripts
 ├── src/
 │   ├── main.jsx             # React entry point
-│   ├── App.jsx              # Routes & layout
+│   ├── App.jsx              # Routes & global layout
 │   ├── index.css            # Global styles + Tailwind
 │   ├── components/
 │   │   ├── AuraBackground.jsx
@@ -98,39 +104,32 @@ It features reusable React components, individual project detail pages, GSAP ani
 │   │   ├── ContactSection.jsx
 │   │   ├── CustomCursor.jsx
 │   │   ├── Footer.jsx
-│   │   ├── Header.jsx
+│   │   ├── Header.jsx       # Staggered mobile menu & logic
 │   │   ├── ProjectCard.jsx
 │   │   ├── RevealOnScroll.jsx
 │   │   └── TopBar.jsx
 │   ├── pages/
-│   │   ├── Home.jsx
-│   │   ├── Portfolio.jsx
-│   │   ├── Process.jsx
+│   │   ├── Home.jsx         # Hero, Services, Featured Projects
+│   │   ├── Faq.jsx          # FAQ Knowledge Base with Filtering
+│   │   ├── Portfolio.jsx    # Complete projects listing
+│   │   ├── Process.jsx      # Workflow & Methodology
 │   │   └── ProjectDetail.jsx
-│   ├── data/
-│   │   └── projects.js      # All 14 projects with detailed content
-│   └── lib/
-│       └── supabase.js      # Supabase client (optional)
-├── public/                  # Static assets (copied to root on build)
-│   ├── img/                 # Images & optimized SEO assets
-│   │   ├── portfolio/       # Project thumbnails
-│   │   ├── certificates/    # Certificate images
-│   │   └── testimonials/    # Review screenshots
-│   └── robots.txt, etc.
-├── _old/                    # Backup of original HTML files
+│   ├── lib/
+│   │   └── supabase.js      # Core Supabase client & fetch helpers
+│   └── data/
+│       └── projects.js      # Local fallback for project data
+├── public/                  # Static assets
 └── README.md
 ```
 
 ---
 
-## 🗄️ Supabase Setup (Optional)
+## 🗄️ Supabase Setup
 
-To enable the web dashboard for managing projects:
+This project uses Supabase for dynamic content management. To replicate:
 
 1. Create a free account at [supabase.com](https://supabase.com)
-2. Create a new project
-3. Create the `projects` table with this SQL:
-
+2. Create the `projects` table:
 ```sql
 CREATE TABLE projects (
   id UUID DEFAULT gen_random_uuid() PRIMARY KEY,
@@ -155,17 +154,25 @@ CREATE TABLE projects (
 );
 ```
 
-4. Create a `.env` file in the project root:
+3. Create the `faqs` table:
+```sql
+CREATE TABLE faqs (
+  id UUID DEFAULT gen_random_uuid() PRIMARY KEY,
+  question TEXT NOT NULL,
+  answer TEXT NOT NULL,
+  topic TEXT DEFAULT 'General',
+  display_order INTEGER DEFAULT 0,
+  created_at TIMESTAMPTZ DEFAULT now()
+);
+```
 
+4. Configure `.env`:
 ```env
 VITE_SUPABASE_URL=your-project-url
 VITE_SUPABASE_ANON_KEY=your-anon-key
 ```
 
-5. The app will automatically use Supabase when these env vars are set.
-
 ---
-
 
 ## 📬 Contact
 
@@ -176,5 +183,4 @@ VITE_SUPABASE_ANON_KEY=your-anon-key
 ---
 
 © 2026 SAS // ALL SYSTEMS FUNCTIONAL  
-
 Built with React, Vite, Tailwind CSS, GSAP, and ❤️ for high-performing digital experiences.

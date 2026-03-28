@@ -31,7 +31,7 @@ export default function App() {
           <Route path="/process" element={<Process />} />
           <Route path="/portfolio" element={<Portfolio />} />
           <Route path="/portfolio/:slug" element={<ProjectDetail />} />
-          <Route path="/faqs" element={<Faq />} />
+          <Route path="/faq" element={<Faq />} />
         </Routes>
       </main>
       <Footer />

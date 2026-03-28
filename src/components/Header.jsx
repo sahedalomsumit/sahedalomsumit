@@ -52,7 +52,7 @@ export default function Header() {
         { to: '/', label: 'ROOT', num: '01' },
         { to: '/portfolio', label: 'PORTFOLIO', num: '02' },
         { to: '/process', label: 'PROCESS', num: '03' },
-        { to: '/faqs', label: 'FAQS', num: '04' },
+        { to: '/faq', label: 'FAQ', num: '04' },
     ]
 
     const closeMenu = () => setIsMenuOpen(false)

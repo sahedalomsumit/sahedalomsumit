@@ -80,7 +80,7 @@ export default function Faq() {
             <nav aria-label="breadcrumb" className="text-[10px] font-mono uppercase tracking-widest text-gray-500 mb-8 flex items-center justify-start gap-2">
               <Link to="/" className="hover:text-emerald-500 transition">Home</Link>
               <span>/</span>
-              <span className="text-white">FAQs</span>
+              <span className="text-white">FAQ</span>
             </nav>
             <div className="font-mono text-emerald-500 text-xs tracking-[0.4em] font-bold uppercase mb-4">Knowledge_Base</div>
             <h1 className="text-5xl md:text-8xl font-black tracking-tighter text-white uppercase leading-none">
