@@ -1,25 +1,164 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 
+  <!-- ============================================ -->
+  <!--         MAIN PAGES (3)                       -->
+  <!-- ============================================ -->
+
+  <!-- Home -->
   <url>
     <loc>https://sahedalomsumit.com/</loc>
-    <lastmod>2026-03-27</lastmod>
+    <lastmod>2026-03-28</lastmod>
     <changefreq>monthly</changefreq>
     <priority>1.0</priority>
   </url>
 
+  <!-- Work / Portfolio -->
   <url>
     <loc>https://sahedalomsumit.com/portfolio</loc>
-    <lastmod>2026-03-27</lastmod>
+    <lastmod>2026-03-28</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
 
+  <!-- Process -->
   <url>
     <loc>https://sahedalomsumit.com/process</loc>
-    <lastmod>2026-03-27</lastmod>
+    <lastmod>2026-03-28</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
+  </url>
+
+  <!-- ============================================ -->
+  <!--         PORTFOLIO SUBPAGES (16)              -->
+  <!-- ============================================ -->
+
+  <!-- 01 - TwinTwo -->
+  <url>
+    <loc>https://sahedalomsumit.com/portfolio/twintwo</loc>
+    <lastmod>2026-03-28</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <!-- 02 - James Crossing -->
+  <url>
+    <loc>https://sahedalomsumit.com/portfolio/james-crossing</loc>
+    <lastmod>2026-03-28</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <!-- 03 - Innovation Alliance -->
+  <url>
+    <loc>https://sahedalomsumit.com/portfolio/innovation-alliance</loc>
+    <lastmod>2026-03-28</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <!-- 04 - Notifi -->
+  <url>
+    <loc>https://sahedalomsumit.com/portfolio/notifi</loc>
+    <lastmod>2026-03-28</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <!-- 05 - Ovulio Baby -->
+  <url>
+    <loc>https://sahedalomsumit.com/portfolio/ovulio-baby</loc>
+    <lastmod>2026-03-28</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <!-- 06 - Photo Purge -->
+  <url>
+    <loc>https://sahedalomsumit.com/portfolio/photo-purge</loc>
+    <lastmod>2026-03-28</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <!-- 07 - Flagrant Media -->
+  <url>
+    <loc>https://sahedalomsumit.com/portfolio/flagrant-media</loc>
+    <lastmod>2026-03-28</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <!-- 08 - True Pivot -->
+  <url>
+    <loc>https://sahedalomsumit.com/portfolio/true-pivot</loc>
+    <lastmod>2026-03-28</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <!-- 09 - Sourcify -->
+  <url>
+    <loc>https://sahedalomsumit.com/portfolio/sourcify</loc>
+    <lastmod>2026-03-28</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <!-- 10 - Crep Circle -->
+  <url>
+    <loc>https://sahedalomsumit.com/portfolio/crep-circle</loc>
+    <lastmod>2026-03-28</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <!-- 11 - Bonding -->
+  <url>
+    <loc>https://sahedalomsumit.com/portfolio/bonding</loc>
+    <lastmod>2026-03-28</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <!-- 12 - Altshare -->
+  <url>
+    <loc>https://sahedalomsumit.com/portfolio/altshare</loc>
+    <lastmod>2026-03-28</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <!-- 13 - DCGMWA -->
+  <url>
+    <loc>https://sahedalomsumit.com/portfolio/dcgmwa</loc>
+    <lastmod>2026-03-28</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <!-- 14 - Buildoor -->
+  <url>
+    <loc>https://sahedalomsumit.com/portfolio/buildoor</loc>
+    <lastmod>2026-03-28</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <!-- 15 - E-Service Parts -->
+  <url>
+    <loc>https://sahedalomsumit.com/portfolio/e-service</loc>
+    <lastmod>2026-03-28</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <!-- 16 - Ongaro Metodo -->
+  <url>
+    <loc>https://sahedalomsumit.com/portfolio/ongaro-metodo</loc>
+    <lastmod>2026-03-28</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
   </url>
 
 </urlset>
