@@ -92,3 +92,14 @@ export async function fetchAdjacentProjects(slug) {
   
   return { prev, next }
 }
+
+export async function fetchFaqs() {
+  if (!supabase) return []
+  const { data, error } = await supabase
+    .from('faqs')
+    .select('*')
+    .order('display_order', { ascending: true })
+    
+  if (error) { console.error('Error fetching faqs:', error); return [] }
+  return data
+}

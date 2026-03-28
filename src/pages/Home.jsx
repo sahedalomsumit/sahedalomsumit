@@ -98,7 +98,7 @@ export default function Home() {
             <span className="inline-block w-2 h-6 bg-violet-500 animate-pulse align-middle" />
           </div>
           <p className="max-w-2xl mx-auto text-gray-400 text-base md:text-lg font-light hero-el pt-4 leading-relaxed italic">
-            Where good design meets purposeful code — I build digital experiences that just feel right.
+            Vibe web design. Clean development. AI automation that actually makes sense. That's what I do.
           </p>
           <div className="flex flex-wrap gap-4 justify-center pt-12 hero-el">
             <Link to="/portfolio" className="px-10 py-4 bg-white text-black font-black rounded-2xl text-xs tracking-[0.2em] hover:bg-violet-500 hover:text-white transition-all transform hover:-translate-y-1 shadow-2xl shadow-violet-500/10 uppercase">View My Portfolio</Link>

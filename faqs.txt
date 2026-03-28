@@ -1,80 +1,274 @@
-=========================================================
-FREQUENTLY ASKED QUESTIONS (FAQS) - SAHED ALOM SUMIT
-=========================================================
-
---- GENERAL & BACKGROUND ---
+Frequently Asked Questions (FAQs)
+Sahed Alom Sumit - Vibe Web Designer, Developer & AI Automation Expert
+General & Background
 
 Q: Who are you and what do you do?
-A: I am Sahed Alom Sumit, a Vibe Web Designer & Developer and AI Automation Expert. I sit at the intersection of design thinking and full-stack development. I build high-performance, accessible, and visually stunning digital products that help founders, brands, and agencies achieve their business goals.
+A: I am Sahed Alom Sumit, a Vibe Web Designer & Developer and AI Automation Expert based in Helsinki, Finland. I sit at the intersection of design thinking and full-stack development. I build high-performance, accessible, and visually stunning digital products that help founders, brands, and agencies achieve their business goals.
 
 Q: Where are you based?
-A: I am based in Helsinki, Finland, but I work with clients and agencies all over the world.
+A: I am based in Helsinki, Finland (Helsinki Metropolitan Area), but I work with clients and agencies all over the world. I have delivered projects for clients across 10+ countries mostly USA, UK, Europe, Canada, Swizerland.
 
 Q: What is your educational background?
-A: I hold a Bachelor of Science (B.Sc.) in Business Information Technology from Haaga-Helia University of Applied Sciences (Graduated 2025). This business IT background ensures that I don't just make things look good—I make them work for your specific business goals.
+A: I hold a Bachelor of Science (B.B.A.) in Business Information Technology from Haaga-Helia University of Applied Sciences (Graduated 2025, GPA: 3.57 / 75.7%). My major was Design Services, and my thesis was titled "The Future of No-code Web Development: Evaluating the Potential and Limitations of Webflow." Key areas of study included Digital User Experience, Website Design & Development, Digital Service Design, Innovation & Prototyping, React Fundamentals, Cloud Technologies (AWS), Data Management & Databases, Applied AI, ICT Project Management, and Linux Basics.
 
 Q: What languages do you speak?
-A: I provide services in English (Fluent), Bengali (Native/Bilingual), and Hindi (Conversational).
+A: I provide services in English (Full Professional Proficiency), Bengali (Native/Bilingual), and Hindi/Urdu (Professional Working Proficiency).
 
 Q: What does "Vibe Web Designer & Developer" mean?
-A: It means I focus equally on the aesthetic "vibe" (UI/UX) and the technical perfection (clean code) of a site. I ensure your site looks visually captivating, feels alive with smooth interactions, and consistently hits 100/100 performance, accessibility, and SEO scores.
+A: It means I focus equally on the aesthetic "vibe" (UI/UX) and the technical perfection (clean code) of a site. I ensure your site looks visually captivating, feels alive with smooth interactions, and consistently hits 100/100 performance, accessibility, best practice, and SEO scores. Where good design meets purposeful code — I build digital experiences that just feel right.
+
+Q: What is your personal philosophy or motto?
+A: "Vibe web design. Clean development. AI automation that actually makes sense. That's what I do." I care about the vibe of a page as much as I care about how fast it loads — and when AI can quietly handle the repetitive stuff in the background.
+
+Q: What makes you different from other web designers and developers?
+A: Three things set me apart: (1) I combine strong design sense with real development skills, so I can take a project from Figma mockup to deployed product without losing quality. (2) I consistently achieve perfect 100/100 scores in Performance, Accessibility, Best Practices, and SEO on Google PageSpeed Insights. (3) I integrate AI automation into my workflow, helping businesses save time and scale efficiently.
 
 
---- SERVICES & EXPERTISE ---
+Services & Expertise
 
 Q: What services do you actually provide?
-A: I cover everything from Vibe Web Design (UI/UX) to Full-Stack Development using React, Webflow, and WordPress. I also build AI Automation systems using tools like Make.com, Zapier, n8n, and custom APIs (like Claude/GPT) to make your business processes run on autopilot.
+A: I cover everything from Vibe Web Design (UI/UX) to Full-Stack Development using React, Webflow, Framer, WordPress, and Kajabi. I also build AI Automation systems using tools like Make.com, Zapier, n8n, Claude Code, and custom APIs to make your business processes run on autopilot. My services include: Website Design & Development, UI/UX Design (Figma), Conversion of Figma/PSD/XD/Sketch designs to live websites, eCommerce Development (WooCommerce), SEO & Speed Optimization, and AI Workflow Automation.
 
 Q: What platforms and tech stacks do you specialize in?
-A: I primarily work with React, Webflow, Framer, and WordPress (specifically Elementor and WooCommerce).
+A: I primarily work with Webflow, WordPress (Elementor, WooCommerce, Crocoblock), Framer, Kajabi, and custom-coded solutions. For custom development, I use React, Node.js, Tailwind CSS, HTML, CSS, JavaScript, Supabase, and SQL with the help of AI(Cluade and Antigravity) for saving times. For design, I use Figma, Stitch and AI.
 
 Q: Do you only use no-code tools like Webflow?
-A: Not at all. While I love Webflow and WordPress for their speed and client-friendly CMS, I am also a seasoned developer. I frequently build custom web apps using React, Tailwind CSS, JavaScript, and database solutions like Supabase when a project requires highly custom functionality.
+A: Not at all. While I love Webflow, Framer, and WordPress for their speed and client-friendly CMS, I am also a seasoned developer. I frequently build custom web apps using React, Node.js, Tailwind CSS, JavaScript, and database solutions like Supabase when a project requires highly custom functionality. My own portfolio site is a fully custom React app with a Supabase backend.
 
 Q: Can you help with AI automation for my business?
-A: Yes! I look at your repetitive, manual tasks and build intelligent workflows to connect your apps. Whether it is automatically generating client reports, syncing CRM data, or building AI-assisted content pipelines, I use platforms like Zapier, Make.com, and Claude to save you hours of work each week.
+A: Yes! I look at your repetitive, manual tasks and build intelligent workflows to connect your apps. Whether it is automatically generating client reports, syncing CRM data, or building AI-assisted content pipelines, I use platforms like Zapier, Make.com, n8n, Claude Code, and Antigravity to save you hours of work each week. I specialize in Prompt Engineering, AI-Assisted Design, AI Content Workflows, AI Website Building, Vibe Coding, AI UI Generation, and Automated Testing.
 
 Q: Are you experienced in eCommerce development?
-A: Absolutely. I am a WooCommerce expert and have extensive experience building retail and eCommerce web journeys. For example, I recently developed a comprehensive e-commerce platform for TwinTwo and rebuilt the site for e-service.parts, the UK's first independent spares specialist.
+A: Absolutely. I am a WooCommerce expert and have extensive experience building retail and eCommerce web journeys. Notable eCommerce projects include TwinTwo (a retail merchandise marketplace), e-service.parts (the UK's first independent spares specialist, featuring a complex custom filtering system), JamesCrossing and several Shopify and WooCommerce stores for international clients.
 
-
---- PROCESS & QUALITY ---
-
-Q: What is your typical design process?
-A: My vibe-first design process is human-centered and problem-solving driven. It starts with Discovery and Research to understand business needs and user journeys, followed by high-fidelity UI/UX visual design in Figma, and ends with clean-code development, animation implementation, and strict performance optimization.
-
-Q: How do you measure website quality and performance?
-A: My core value proposition is hitting top-tier metrics: 100 Performance, 100 Accessibility, 100 Best Practices, and 100 SEO on Google PageSpeed Insights and Core Web Vitals.
-
-Q: How do you ensure website accessibility?
-A: Every site I build undergoes a strict accessibility audit to ensure high contrast standards, smooth keyboard navigation, inclusive design standards, and proper ARIA implementations. 
-
-Q: How long does a typical website project take?
-A: It usually takes between 2 to 6 weeks, depending on the complexity. A standard landing page might take a couple of weeks, whereas a fully custom web application with CMS and complex animations will take longer. We establish a clear timeline during the DISCOVERY phase.
-
-
---- EXPERIENCE & PORTFOLIO ---
-
-Q: How much experience do you have?
-A: I have over 5+ years of professional experience as a Freelance Web Developer and UI/UX Designer. I have successfully designed and developed over 150+ websites. I am a Top Rated Freelancer on Upwork and a Level 2 Seller on Fiverr with a 4.9+ rating.
-
-Q: Do you have any relevant certifications?
-A: Yes, I hold several certifications including the Google UX Design Professional Certificate, AI-3D Render Course, Webflow 101 from Webflow University, and a Verified Freelancer Certificate from the Bangladesh Government.
-
-Q: What are some notable projects you've worked on?
-A: Some of my recent top-tier builds include e-service.parts (UK independent spares specialist), TwinTwo (retail merchandise marketplace), Ganttify/Uxertiv (project management platform integration), Ovulio Baby (fertility app marketing site), and Innovation Alliance.
+Q: Do you build WordPress sites?
+A: Yes, WordPress is one of my core platforms. I build and customize websites using Elementor, WooCommerce, Crocoblock, and other essential plugins to enhance functionality and user experience. I specialize in WordPress filters, complex CMS integrations, and high-performance WordPress sites.
 
 Q: Can you handle complex filtering systems?
-A: Yes, I am a WordPress Filter Specialist. I specialize in engineering complex, high-performance filter systems for directories or WooCommerce stores, like the custom filtering I built for e-service.parts.
+A: Yes, I am a WordPress Filter Specialist. I specialize in engineering complex, high-performance filter systems for directories or WooCommerce stores. A prime example is the custom filtering system I built for e-service.parts, which allows users to search through thousands of spare parts with layered, intuitive filters.
+
+Q: Do you offer Webflow development services?
+A: Absolutely. Webflow is one of my primary platforms. I hold a Webflow 101 certification from Webflow University and have completed over 40+ Webflow projects. I work on Webflow design, development, animations (including GSAP and Spline 3D), CMS architecture, responsive builds, and SEO optimization within Webflow.
+
+Q: Do you offer Framer website development?
+A: Yes! I build custom Framer websites including full website creation, custom Framer components, smooth animations, and responsive designs. Framer is excellent for marketing sites and landing pages that need dynamic, interactive designs.
+
+Q: What design skills do you have?
+A: My design skill set covers 14+ core areas: Design Principles, Responsive Design, Accessibility, Prototyping, Wireframing, User Research, Usability Testing, Interaction Design, Visual Design, User Flows, Design Systems, 3D Design, Brand Design, and UX Research. I design primarily in Figma but also work with other design tools..
+
+Q: Can you convert my Figma design to a live website?
+A: Yes! This is one of my most popular services. I convert Figma, PSD, XD, and Sketch designs into pixel-perfect, responsive, and interactive websites using Webflow, WordPress (Elementor), Framer, or custom code (React/HTML/CSS/JS). I ensure the final build matches the design with complete visual accuracy.
+
+Q: Do you offer SEO services?
+A: SEO is built into every project I deliver. I implement technical SEO best practices including proper meta tags, alt text, semantic HTML structure, site speed optimization, Core Web Vitals optimization, lazy loading, font tuning, and image/video compression. My sites consistently score 100/100 on Google PageSpeed Insights for SEO.
+
+Q: What about website speed and performance optimization?
+A: Performance is a core part of my value proposition. I optimize for 100/100 on Google PageSpeed Insights and Core Web Vitals. This includes image and video compression, lazy loading, font optimization, code splitting, responsive asset loading, and clean code architecture. Fast sites convert better — that is a fact I build around.
+
+Q: Can you build marketing sites and landing pages?
+A: Yes! I have extensive experience building marketing sites and landing pages for SaaS products, apps, and brands. Notable examples include Ovulio Baby (fertility app marketing site), Notifi (CRM/Field management software marketing site), and Innovation Alliance (global consulting website). I focus on conversion-rate-optimized (CRO) design with compelling visual hierarchy.
+
+Q: Do you build custom web applications?
+A: Yes. While many of my projects use no-code/low-code platforms, I also build fully custom web applications using React, Node.js, Tailwind CSS, Supabase, and SQL. My own portfolio is a custom React application with a Supabase database, GSAP animations, and dynamic content fetching.
 
 
---- PRICING & AVAILABILITY ---
+Design & Development Process
+
+Q: What is your typical design process?
+A: My vibe-first design process is human-centered and problem-solving driven. It follows 8 structured steps: (1) Discovery & Define Problem — understand business needs and user goals, (2) Research & Define Solution — competitor analysis, user personas, and journey mapping, (3) Gather Content — collect assets, plan sitemap, optimize copy, (4) Design System & Components — build reusable UI components with accessibility, (5) Wireframing — define page structure and user flow, (6) Visual Design in Figma — apply styling and create high-fidelity designs, (7) Prototyping in Figma — simulate the website experience with interactive flows, (8) Developer Handoff — prepare design assets and collaborate during the build phase.
+
+Q: What is your typical development process?
+A: My development process follows 8 efficient steps: (1) Style Guide Setup — typography, color tokens, and naming conventions, (2) Client-First & Variables — global spacing, scalable folder structure, (3) Components & Layouts — modular navbar, CTAs, and responsive components, (4) Wireframes to Layout — translate wireframes into functional layouts, (5) Visual Design Implementation — pixel-perfect styles based on Figma, (6) Animation & Interactions — hover, click, and scroll-based effects using GSAP/Framer Motion, (7) SEO & Speed Optimization — meta tags, image compression, Core Web Vitals, (8) Domain & Launch — custom domain, SSL, final QA, documentation, and post-launch support.
+
+Q: How do you measure website quality and performance?
+A: My core value proposition is hitting top-tier metrics: 100 Performance, 100 Accessibility, 100 Best Practices, and 100 SEO on Google PageSpeed Insights and Core Web Vitals. Every site I deliver is tested against these benchmarks before going live.
+
+Q: How do you ensure website accessibility?
+A: Every site I build undergoes a strict accessibility audit. This includes high contrast standards (WCAG compliant), smooth keyboard navigation, inclusive design standards, proper ARIA implementations, accessible motion safety checks, and usability testing with real users. Accessibility is not an afterthought — it is built into my design system from Step 1.
+
+Q: Do you follow a Design Sprint methodology?
+A: Yes! I trained in Design Sprint methodology at Alma Talent Oy, covering the full 5-day sprint: Understand, Ideate, Decide, Prototype, and Test. I apply these rapid prototyping principles when clients need quick validation of concepts before committing to full development.
+
+
+Experience & Portfolio
+
+Q: How much experience do you have?
+A: I have over 5+ years of professional experience as a Freelance Web Developer and UI/UX Designer. I have successfully designed and developed over 150+ websites for clients across 10+ countries. I am a Top Rated Freelancer on Upwork (100% Job Success Score) and a Level 2 Seller on Fiverr with a consistent 5-star rating. Worked at 3 agencies.
+
+Q: What are some notable projects you've worked on?
+A: Some of my top-tier builds include: (1) E-Services — UK's first independent spares specialist, featuring a custom WordPress filter system for thousands of parts, (2) TwinTwo — Retail merchandise marketplace focused on empowering business journeys, (3) Ongaro Metodo — A custom Health & Wellness digital experience built for engaging design and unmatched performance., (4) Ovulio Baby — Fertility app marketing site with modern UI and design, (5) Innovation Alliance — Global consulting website built on Webflow, (6) Notifi — Marketing site for CRM/field management software, (7) James Crossing — High-end WordPress site for European fabrics and wallpapers, (8) Antico Gusto — Restaurant website featuring modern, immersive UI, (9) Blue Water — Digital catalog for an innovative luxury towel brand.
+
+Q: Do you have any relevant certifications?
+A: Yes, I hold 8 professional certifications: (1) AI-3D Render Course — Finpolar Cultural Center & Wecode Platform (May 2025), (2) Google UX Design Professional Certificate — Coursera (Dec 2024), covering UX Process, Wireframes & Prototypes, UX Research, High-Fidelity Designs, Dynamic UI, and Social Good UX, (3) Master HTML & CSS — Udemy (Aug 2024), covering HTML5, CSS3, Responsive Design, Flexbox & Grid, Accessibility, Animations, (4) Design Sprint Days — Alma Talent Oy (May 2024), (5) Responsive Web Design — FreeCodeCamp (Dec 2023), (6) Webflow 101 — Webflow University (Sep 2023), (7) Web Design & Development — LEDP (Sep 2020), covering HTML, CSS, JavaScript, PHP, MySQL, Figma, WordPress, Webflow, (8) Verified Freelancer Certificate — Bangladesh Government ICT Division (Valid Jan 2026 – Jan 2029).
+
+Q: Where have you worked professionally?
+A: My professional experience includes: (1) Fiverr Freelancer (May 2020 – Present) — Delivered 50+ websites for clients across 10+ countries with consistent 5-star ratings and a 40% repeat client rate, (2) Upwork Freelancer (Mar 2021 – Present) — 100% Job Success Score, specializing in custom Figma-to-Webflow/WordPress conversions, (3) UI/UX Designer at Vesko (Mar 2024 – Feb 2025, Part-time) — Product design for mobile app, desktop webshop, and tablet interfaces, (4) No-Code Web Designer & Developer at Artic Maze (Feb 2022 – Jan 2024, Full-time) — Designed and developed WordPress and Webflow sites with advanced animations and CMS, (5) Webflow Developer at Sixforces (Mar 2023 – Nov 2023, Freelance) — Completed 40+ projects turning designs into clean, modern Webflow sites.
+
+Q: What is your repeat client rate?
+A: I have a 40% repeat client rate, which means nearly half of my clients come back for additional projects. This reflects the trust and satisfaction clients have in my work quality, communication, and reliability.
+
+Q: What do your clients say about you?
+A: I consistently receive 5-star reviews. Rahil Khan (Founder @ Artic Maze) says: "Sahed is pretty good at Webflow and WordPress, I have done several projects with him and he always did amazing work." Leo Fadi (Founder @ Vesko) says: "I had the pleasure to work with Sahed on Vesko's UI/UX development." On Upwork, clients describe me as "the most hard-working and committed individual" with "amazing work" and a high "level of detail and care."
+
+Q: Do you have a thesis or published academic work?
+A: Yes, my Bachelor's thesis is titled "The Future of No-code Web Development: Evaluating the Potential and Limitations of Webflow." It was published via Theseus.fi, the repository for Finnish Universities of Applied Sciences. The thesis evaluates Webflow's strengths and limitations as a development platform, informed by my extensive professional experience with the tool.
+
+
+Freelance Platforms
+
+Q: Are you on Fiverr?
+A: Yes! I am a Level 2 Seller on Fiverr completed over 80+ projects and 57 reviews with 4.9+ star rating. I primarily offer UI/UX Web Design, Framer Development & Design, WordPress Design & Development, and Webflow Design & Development services. My standard hourly rate on Fiverr is $45/hour because of a 20% cut. You can find me at: https://www.fiverr.com/sellers/sahedalomsumit/
+
+Q: Are you on Upwork?
+A: Yes! I am a Top Rated Freelancer on Upwork with a 100% Job Success Score, consistent 5.0/5.0 ratings across 10+ global projects, over $10K in earnings, and 400+ hours of work. My standard hourly rate on Upwork is approximately $40/hour because of a 10% cut. You can find me at: https://www.upwork.com/freelancers/~0109ec295b78baac26
+
+Q: Are you on LinkedIn?
+A: Yes! You can connect with me on LinkedIn at https://linkedin.com/in/sahedalomsumit. I have a verified linkedin account with  2K+ followers and 500+ connections. I regularly share insights about web design, development, and AI automation.
+
+
+Tools & Technology
+
+Q: What AI tools do you use in your workflow?
+A: I work with cutting-edge AI tools including Claude Code, Antigravity (Google DeepMind), ChatGPT Pro, Stitch, and AI-integrated automation platforms like Make.com, n8n, and Zapier. My AI capabilities cover: AI-Assisted Design, AI Content Workflows, Prompt Engineering, AI Website Building, Vibe Coding, AI UI Generation, and Automated Testing.
+
+Q: What animation tools and libraries do you use?
+A: I use GSAP (GreenSock Animation Platform), Framer Motion, Spline 3D, and native CSS animations and transitions. I build hover effects, click interactions, scroll-based animations, and purposeful micro-interactions. All animations are accessibility-tested to respect users' motion preferences.
+
+Q: What design tools do you use?
+A: My primary design tool is Figma for wireframing, visual design, prototyping, and developer handoff. I also work with Adobe XD, Photoshop, and Sketch when clients provide designs in those formats.
+
+Q: What CMS platforms do you work with?
+A: I work with Webflow CMS, WordPress CMS (with Elementor, WooCommerce, and Crocoblock), Framer CMS, and Kajabi. I also build custom CMS solutions using Supabase for clients who need more flexibility than a traditional CMS provides.
+
+Q: Do you use version control and modern development practices?
+A: Yes. I use Git and GitHub for version control, follow modular and component-based architecture, implement responsive and mobile-first design standards, and use automated deployment pipelines (including GitHub Pages and CI/CD workflows).
+
+
+Pricing, Payment & Availability
 
 Q: What is your payment structure?
-A: For most projects, I work on a standard 50% upfront deposit to secure your slot in my schedule, with the remaining 50% due upon final approval before the website goes live. For larger, ongoing systems, we can arrange milestone-based payments.
+A: For most projects, I work on a standard 50% upfront deposit to secure your slot in my schedule, with the remaining 50%(depending on hours took) due upon final approval before the website goes live. For larger, ongoing systems, we can arrange milestone-based payments.
 
 Q: What is your hourly rate?
-A: My standard hourly rate for ongoing or consulting work is approximately €40 - €45/hour, though I often prefer fixed-price contracts for well-defined website projects to ensure clear deliverables and expectations.
+A: My standard hourly rate for ongoing or consulting work is approximately €30/hour. I prefer hourly basis work because it's a win for both sides, you will pay only how many hours i worked. But I also offer fixed-price contracts for well-defined website projects to ensure clear deliverables and expectations.
+
+Q: Will you estimate before starting the project?
+A: Yes, once I got most of the details like it’s only design or development or both. How many pages do you need and which functionality you intent to have.
+
+Q: How do you estimate the project? What’s your pricing?
+A: If it’s a direct project I calculate the estimated hours multiplied by €30/H. If you want to do using platform like upwork, it will apply platform fees so it will be around $40/H.
+
+Q: How much does a 5-page business website cost if you handle both design and development?
+A: A 5-page business website (Homepage + About, Services, Detail Page, and Contact) typically takes 58–108 hours in total. The homepage alone is the heaviest page at 18–28 hours. The remaining four pages average 10–20 hours each. At €30/h, the total comes to €1,740–3,240. For most clients, a fixed project price of €2,500 covers the full scope cleanly.
+
+Q: What's the cost for just a landing page if you handle both design and development?
+A: A single landing page takes roughly 18–28 hours covering design, development, revisions, and basic SEO. This puts the cost at €540–840. A straightforward fixed price to quote is €700.
+
+Q: What payment methods do you accept?
+A: I accept Wise/Revolut (international bank transfer), Stripe, PayPal, cryptocurrency (USDT, Bitcoin, Ethereum, Solana), and Fiverr/Upwork escrow (platform fees apply). Payments in other currencies are also accepted and will be converted at the current exchange rate to euro.
+
+Q: Do you issue invoices?
+A: A: Yes. Invoices are provided for all payments. If you pay via Stripe, Revolut, or PayPal, you will receive the invoice directly from that platform. For direct bank transfers (e.g., Wise) or cryptocurrency payments, I issue a separate professional invoice.
+VAT rules vary depending on your location — EU B2B clients may receive invoices under the reverse charge mechanism, while clients outside the EU are invoiced without VAT. This   can be clarified before the project starts.
+
+Q: How long does a typical website project take?
+A: It usually takes between 1 to 6 weeks, depending on the complexity. A standard landing page might take a couple of days, whereas a fully custom web application with CMS and complex animations will take longer. We establish a clear timeline when I get all of the details about the project.
 
 Q: Are you available for freelance collaborations?
-A: Yes, I am currently taking on new projects. You can reach out to me via email, LinkedIn, or through my Upwork and Fiverr profiles to discuss your specific needs.
+A: Yes, I am currently taking on new projects and available for freelance collaborations. You can reach out to me via email (sahedalomsumit@gmail.com), WhatsApp (+358 41 576 5539), LinkedIn, or through my Upwork or fiverr profiles(platform fees apply)) to discuss your specific needs.
+
+Q: Do you work with agencies?
+A: Yes! I have extensive experience working with agencies. I worked full-time at Artic Maze for 2 years, collaborated with Sixforces on 40+ projects, and regularly partner with agencies and small teams who need a reliable design-and-dev professional to extend their capacity.
+
+Q: Can you work within my time zone?
+A: Absolutely. While I am based in Finland (EET/EEST, UTC+2/+3), I have worked with clients across 10+ countries in different time zones. I am flexible with scheduling calls and meetings to accommodate your time zone.
+
+
+Contact & Communication
+
+Q: How can I hire you?
+A: (1) Direct — Email me at sahedalomsumit@gmail.com or message me on WhatsApp at +358 41 576 5539 to book a free discovery call or discuss your project in detail. (2) Upwork — Search for Sahed Alom Sumit (platform fees apply). I prefer Direct projects because it moves faster and offers more flexibility in scope.
+
+Q: How can I contact you?
+A: You can reach me through several channels: Email: sahedalomsumit@gmail.com, WhatsApp: +358 41 576 5539, LinkedIn: linkedin.com/in/sahedalomsumit, Upwork: upwork.com/freelancers/~0109ec295b78baac26.
+
+Q: What platform do you prefer to communicate?
+A: You prefer WhatsApp: +358 41 576 5539 to communicate regularly and quickly.
+
+Q: What is your website URL?
+A: My portfolio website is https://sahedalomsumit.com. It showcases my latest projects, design process, certifications, work experience, and testimonials. The site itself is a custom React application I built with a Supabase backend, demonstrating my full-stack capabilities.
+
+Q: What is your response time?
+A: I typically respond to inquiries within an hour. For ongoing projects, I maintain regular communication through scheduled check-ins, weekly meetings, and real-time messaging to keep everything aligned and transparent.
+
+Q: Do you have social media profiles?
+A: Yes! You can find me on LinkedIn (linkedin.com/in/sahedalomsumit), Facebook (facebook.com/sahedalomsumit), Instagram (instagram.com/sahedalomsumit), and Telegram (t.me/sahedalomsumit).
+
+
+Technical Deep-Dives
+
+Q: What is your approach to responsive design?
+A: I follow a mobile-first responsive design philosophy. Every layout is built to adapt seamlessly from the smallest phone screen to the largest desktop monitor. I use CSS Grid, Flexbox, and fluid typography/spacing to ensure a consistent experience across all devices. I test on multiple screen sizes and real devices before deployment.
+
+Q: What is your approach to website animations?
+A: I believe animations should be purposeful, not decorative. I use GSAP, Framer Motion, and CSS transitions to create smooth hover effects, click interactions, scroll-triggered reveals, and typewriter effects. All animations are performance-optimized and include accessible motion safety checks (respecting the `prefers-reduced-motion` system preference).
+
+Q: How do you handle content management for clients?
+A: I set up user-friendly CMS solutions that empower clients to update their own content without touching code. Whether it is Webflow CMS, WordPress with Elementor, or a custom Supabase backend, I ensure clients can manage blog posts, portfolio items, product listings, and general page content independently. I provide documentation and training during handoff.
+
+Q: What is Client-First naming convention?
+A: Client-First is a professional naming and folder structure methodology I follow in Webflow projects. It creates a clear, maintainable, and scalable class structure using consistent naming conventions (like folder_component-name), global spacing variables, and organized wrapper logic. This approach ensures any future developer — or the client themselves — can easily manage and extend the site.
+
+Q: Do you implement structured data and SEO schemas?
+A: Yes. I implement JSON-LD structured data (Schema.org) for every site I build. This includes Person/Organization schemas, product schemas for eCommerce, FAQ schemas, breadcrumb schemas, and any other relevant structured data. This helps search engines better understand and display your content in rich search results.
+
+Q: How do you handle browser compatibility?
+A: I test all my builds across major browsers (Chrome, Firefox, Safari, Edge) and devices (desktop, tablet, mobile). I follow web standards, use progressive enhancement techniques, and ensure graceful degradation for older browsers when necessary. Final QA testing is a mandatory step before any launch.
+
+
+Working With Me
+
+Q: What do you need from me to start a project?
+A: It depends on the scope:
+
+1) Website Design Only (UI/UX)
+
+Project goals and target audience
+Content (or at least rough text/structure)
+Brand assets (logo, colors, fonts)
+Reference websites or style inspiration
+Sitemap or list of pages (if available)
+
+2) Website Development Only
+
+Final design files (Figma, Sketch, etc.) or reference website
+Access to platform (Webflow/WordPress/Framer/ hosting and domain)
+Content (text, images, videos)
+Any required integrations (forms, CRM, APIs, etc.)
+Basic SEO info (page titles, descriptions if available)
+
+3) Design + Development (Full Project)
+
+Project goals and target audience
+Brand assets (or I can help create them)
+Content (or I can guide you on it)
+Reference websites or style direction
+Required features (e.g., CMS, e-commerce, booking, etc.)
+Sitemap or list of pages (if available)
+
+I’ll guide you step by step if anything is missing, so you don’t need to have everything ready from the start.
+
+Q: Do you sign NDAs or contracts?
+A: Absolutely. I am happy to sign Non-Disclosure Agreements (NDAs) and work contracts to protect your intellectual property and ensure clear expectations. Through platforms like Upwork and Fiverr, the platform's built-in contracts and dispute resolution provide additional protection.
+
+Q: Can I see work-in-progress during the project?
+A: Yes! Transparency is a core part of my process. I provide regular design reviews in Figma, staging site previews during development, and weekly status updates. I encourage client feedback at every stage to ensure the final product matches your vision perfectly.
+
+Q: Do you provide a warranty on your work?
+A: Yes. After the website goes live, I provide a post-launch support period to fix any bugs or issues that arise. The duration depends on the project scope, but typically 2 weeks. For ongoing support beyond that, we can discuss retainer arrangements.
+
+Q: What happens if I am not satisfied with the design?
+A: Client satisfaction is my top priority. My process includes multiple revision rounds at the wireframe, visual design, and prototype stages. If you are not happy with a direction, we discuss and iterate until we find the right vibe. With a 40% repeat client rate and consistent 5-star reviews, I have a strong track record of meeting and exceeding expectations.
+
+Q: Can you work as part of my existing team?
+A: Yes! I have experience working both independently and as part of teams. At Vesko, I was part of a small design team collaborating on mobile, desktop, and tablet interfaces. At Sixforces, I joined weekly meetings and worked closely with the team on 40+ projects. I am comfortable with tools like Slack, Teams, Notion, Jira, and other collaboration platforms.
