@@ -45,8 +45,8 @@ export default function Carousel({ children, className = '' }) {
       </div>
 
       {/* Controls */}
-      <div className="flex justify-between items-center mt-8">
-        <button onClick={prev} aria-label="Previous Slide" className="bg-zinc-800 hover:bg-zinc-700 px-6 py-2 rounded-full text-sm transition">Prev</button>
+      <div className="flex justify-center sm:justify-between items-center mt-8">
+        <button onClick={prev} aria-label="Previous Slide" className="hidden sm:block bg-zinc-800 hover:bg-zinc-700 px-6 py-2 rounded-full text-sm transition">Prev</button>
         <div className="flex gap-2">
           {slides.map((_, i) => (
             <button
@@ -57,7 +57,7 @@ export default function Carousel({ children, className = '' }) {
             />
           ))}
         </div>
-        <button onClick={next} aria-label="Next Slide" className="bg-zinc-800 hover:bg-zinc-700 px-6 py-2 rounded-full text-sm transition">Next</button>
+        <button onClick={next} aria-label="Next Slide" className="hidden sm:block bg-zinc-800 hover:bg-zinc-700 px-6 py-2 rounded-full text-sm transition">Next</button>
       </div>
     </div>
   )

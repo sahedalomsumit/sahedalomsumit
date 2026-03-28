@@ -11,20 +11,20 @@ import { useState } from 'react'
 gsap.registerPlugin(TextPlugin)
 
 const certificates = [
-  { id: 1, label: 'Certi_Entry_1', title: 'Google UX Design', date: 'Dec 2024 · Coursera', skills: ['UX Basics','UX Process','Wireframes & Prototypes','UX Research','High-Fidelity Designs','Dynamic UI','Social Good UX & Jobs'], img: '/img/certificates/Google-UX-Design-Coursera-1SHUXJFXGATW.png' },
-  { id: 2, label: 'Certi_Entry_2', title: 'Master HTML & CSS', date: 'Aug 2024 · Udemy', skills: ['HTML5','CSS3','Responsive Design','Flexbox & Grid','Accessibility','Animations'], img: '/img/certificates/master-html-and-css-by-building-real-world-projetcs-certificate-udemy-sahedalomsumit.png' },
-  { id: 3, label: 'Certi_Entry_3', title: 'Design Sprint Days', date: 'May 2024 · Alma Talent Oy', skills: ['Understand','Ideate','Decide','Prototype','Test'], img: '/img/certificates/design-sprint-days-alma-talent-oy-sahedalomsumit.png' },
-  { id: 4, label: 'Certi_Entry_4', title: 'Responsive Web Design', date: 'Dec 2023 · FreeCodeCamp', skills: ['HTML','CSS','UI/UX Design','Responsive Layout','Visual Design'], img: '/img/certificates/responsive-web-design-freecodecamp-sahedalomsumit.png' },
-  { id: 5, label: 'Certi_Entry_5', title: 'Web Design & Development', date: 'Mar 2021 · LEDP', skills: ['HTML','CSS','JavaScript','PHP','MySQL','Figma','WordPress','Webflow'], img: '/img/certificates/web-design-and-development-ledp-sahedalomsumit.png' },
-  { id: 6, label: 'Certi_Entry_6', title: 'Webflow Expert', date: 'Mar 2021 · Webflow', skills: ['Webflow Design','Webflow Development','Webflow Animation','Spline 3D','Responsive Design','SEO Principles'], img: '/img/certificates/webflow-101-sahedalomsumit.png' },
+  { id: 1, label: 'Certi_Entry_1', title: 'Google UX Design', date: 'Dec 2024 · Coursera', skills: ['UX Basics', 'UX Process', 'Wireframes & Prototypes', 'UX Research', 'High-Fidelity Designs', 'Dynamic UI', 'Social Good UX & Jobs'], img: '/img/certificates/Google-UX-Design-Coursera-1SHUXJFXGATW.png' },
+  { id: 2, label: 'Certi_Entry_2', title: 'Master HTML & CSS', date: 'Aug 2024 · Udemy', skills: ['HTML5', 'CSS3', 'Responsive Design', 'Flexbox & Grid', 'Accessibility', 'Animations'], img: '/img/certificates/master-html-and-css-by-building-real-world-projetcs-certificate-udemy-sahedalomsumit.png' },
+  { id: 3, label: 'Certi_Entry_3', title: 'Design Sprint Days', date: 'May 2024 · Alma Talent Oy', skills: ['Understand', 'Ideate', 'Decide', 'Prototype', 'Test'], img: '/img/certificates/design-sprint-days-alma-talent-oy-sahedalomsumit.png' },
+  { id: 4, label: 'Certi_Entry_4', title: 'Responsive Web Design', date: 'Dec 2023 · FreeCodeCamp', skills: ['HTML', 'CSS', 'UI/UX Design', 'Responsive Layout', 'Visual Design'], img: '/img/certificates/responsive-web-design-freecodecamp-sahedalomsumit.png' },
+  { id: 5, label: 'Certi_Entry_5', title: 'Web Design & Development', date: 'Mar 2021 · LEDP', skills: ['HTML', 'CSS', 'JavaScript', 'PHP', 'MySQL', 'Figma', 'WordPress', 'Webflow'], img: '/img/certificates/web-design-and-development-ledp-sahedalomsumit.png' },
+  { id: 6, label: 'Certi_Entry_6', title: 'Webflow Expert', date: 'Mar 2021 · Webflow', skills: ['Webflow Design', 'Webflow Development', 'Webflow Animation', 'Spline 3D', 'Responsive Design', 'SEO Principles'], img: '/img/certificates/webflow-101-sahedalomsumit.png' },
 ]
 
 const experiences = [
-  { id: 1, label: 'Exp_Entry_1', title: 'No-Code Web Developer & UI/UX Designer', period: 'May 2020 – Present · Fiverr (Freelance)', bullets: ['Delivered 50+ websites for clients across 10+ countries with consistent 5-star ratings and a 40% repeat client rate.','Built scalable WordPress and Webflow projects with strong focus on UX, performance, responsiveness, and clean structure.','Managed full workflow from research and wireframes to final launch.'] },
-  { id: 2, label: 'Exp_Entry_2', title: 'No-Code Web Developer & UI/UX Designer', period: 'Mar 2021 – Present · Upwork (Freelance)', bullets: ['Maintains a 100% Job Success Score across over 10 global projects, specializing in creating custom Figma designs and translating them into pixel-perfect Webflow, WordPress, Framer, Kajabi websites.','Provides full-cycle services from user research to frontend implementation (HTML/CSS/JS), ensuring optimal performance and SEO.','Consistently rated 5/5 stars for technical expertise, successfully delivering complex CMS integrations and immersive animations.'] },
-  { id: 3, label: 'Exp_Entry_3', title: 'UI/UX Designer', period: 'Mar 2024 – Feb 2025 · Vesko (Part-time)', bullets: ['As part of a small design team, I\'ve been closely involved in Vesko\'s product design, working on mobile app, desktop webshop, and tablet interface designs.','We\'re also developing the Vesko website, which will serve as both a landing page and a multi-page site.','Our goal is to create a seamless, user-friendly experience across all platforms, ensuring the product is both functional and visually appealing.'] },
-  { id: 4, label: 'Exp_Entry_4', title: 'No-Code Web Designer & Developer', period: 'Feb 2022 – Jan 2024 · Artic Maze (Full-time)', bullets: ['I designed and developed website projects from start to finish, using WordPress and Webflow to create custom sites that exceeded client expectations.','In WordPress, I built and customized websites using Elementor, WooCommerce, Crocoblock, and other essential plugins to enhance functionality and user experience.','I implemented advanced Webflow features like animations, CMS, and 3D Spline, optimizing performance for speed and functionality.','I also quickly resolved technical issues to ensure a seamless user experience.'] },
-  { id: 5, label: 'Exp_Entry_5', title: 'Webflow Developer', period: 'Mar 2023 – Nov 2023 · Sixforces (Freelance)', bullets: ['I\'ve completed over 40 projects where I turned designs or older websites into clean, modern Webflow sites.','I focused on improving content, adding smooth animations, and making each page feel more engaging.','I also worked closely with clients on features, integrations, and deployment to ensure everything ran smoothly.','Along the way, I optimized loading speed, responsiveness, and overall user experience, while joining weekly meetings to keep communication clear and steady.'] },
+  { id: 1, label: 'Exp_Entry_1', title: 'No-Code Web Developer & UI/UX Designer', period: 'May 2020 – Present · Fiverr (Freelance)', bullets: ['Delivered 50+ websites for clients across 10+ countries with consistent 5-star ratings and a 40% repeat client rate.', 'Built scalable WordPress and Webflow projects with strong focus on UX, performance, responsiveness, and clean structure.', 'Managed full workflow from research and wireframes to final launch.'] },
+  { id: 2, label: 'Exp_Entry_2', title: 'No-Code Web Developer & UI/UX Designer', period: 'Mar 2021 – Present · Upwork (Freelance)', bullets: ['Maintains a 100% Job Success Score across over 10 global projects, specializing in creating custom Figma designs and translating them into pixel-perfect Webflow, WordPress, Framer, Kajabi websites.', 'Provides full-cycle services from user research to frontend implementation (HTML/CSS/JS), ensuring optimal performance and SEO.', 'Consistently rated 5/5 stars for technical expertise, successfully delivering complex CMS integrations and immersive animations.'] },
+  { id: 3, label: 'Exp_Entry_3', title: 'UI/UX Designer', period: 'Mar 2024 – Feb 2025 · Vesko (Part-time)', bullets: ['As part of a small design team, I\'ve been closely involved in Vesko\'s product design, working on mobile app, desktop webshop, and tablet interface designs.', 'We\'re also developing the Vesko website, which will serve as both a landing page and a multi-page site.', 'Our goal is to create a seamless, user-friendly experience across all platforms, ensuring the product is both functional and visually appealing.'] },
+  { id: 4, label: 'Exp_Entry_4', title: 'No-Code Web Designer & Developer', period: 'Feb 2022 – Jan 2024 · Artic Maze (Full-time)', bullets: ['I designed and developed website projects from start to finish, using WordPress and Webflow to create custom sites that exceeded client expectations.', 'In WordPress, I built and customized websites using Elementor, WooCommerce, Crocoblock, and other essential plugins to enhance functionality and user experience.', 'I implemented advanced Webflow features like animations, CMS, and 3D Spline, optimizing performance for speed and functionality.', 'I also quickly resolved technical issues to ensure a seamless user experience.'] },
+  { id: 5, label: 'Exp_Entry_5', title: 'Webflow Developer', period: 'Mar 2023 – Nov 2023 · Sixforces (Freelance)', bullets: ['I\'ve completed over 40 projects where I turned designs or older websites into clean, modern Webflow sites.', 'I focused on improving content, adding smooth animations, and making each page feel more engaging.', 'I also worked closely with clients on features, integrations, and deployment to ensure everything ran smoothly.', 'Along the way, I optimized loading speed, responsiveness, and overall user experience, while joining weekly meetings to keep communication clear and steady.'] },
 ]
 
 const testimonials = [
@@ -33,7 +33,7 @@ const testimonials = [
 ]
 
 const reviewImages = Array.from({ length: 18 }, (_, i) => {
-  const nums = [1,2,3,4,5,6,7,8,9,10,11,12,13,15,16,17,18,21]
+  const nums = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 15, 16, 17, 18, 21]
   return nums[i] ? `/img/testimonials/fiverr-review-sahedalomsumit-${nums[i]}.webp` : null
 }).filter(Boolean)
 
@@ -61,7 +61,12 @@ export default function Home() {
     gsap.to('.hero-el', { opacity: 1, y: 0, duration: 1.2, stagger: 0.15, ease: 'power4.out' })
 
     // Typewriter
-    const words = ['No-Code Web Developer', 'AI Automation Expert']
+    const words = [
+      'Vibe Web Designer',
+      'Vibe Web Developer',
+      'Vibe AI Automation',
+      'Design. Code. Vibes.'
+    ]
     let i = 0
     const typeWord = () => {
       gsap.to(typewriterRef.current, {
@@ -78,7 +83,7 @@ export default function Home() {
       <section id="hero" ref={heroRef} className="min-h-screen flex flex-col justify-center items-center px-6 text-center relative">
         <div className="space-y-6 flex flex-col items-center">
           <div className="font-mono text-violet-500 text-xs tracking-[0.2em] sm:tracking-[0.5em] font-bold uppercase hero-el">
-            Initializing_System_Registry...
+            Loading Good Vibes...
           </div>
           <div className="flex items-center gap-1.5 bg-emerald-500/10 border border-emerald-500/20 px-4 py-1.5 rounded-full hero-el transform transition-all hover:bg-emerald-500/20 mb-2">
             <span className="w-2 h-2 bg-emerald-500 rounded-full shadow-[0_0_8px_#10b981]" />
@@ -87,17 +92,17 @@ export default function Home() {
           <h1 className="text-5xl md:text-7xl lg:text-[9rem] font-extrabold tracking-tighter text-white hero-el leading-[0.85] mb-2 uppercase">
             SAHED ALOM <span className="text-violet-500">SUMIT<span className="animate-pulse">.</span></span>
           </h1>
-          <p className="sr-only">No-Code Web Developer & AI Automation Expert based in Helsinki, Finland</p>
+          <p className="sr-only">Vibe Web Designer & Developer based in Helsinki, Finland</p>
           <div className="h-10 hero-el">
             <span ref={typewriterRef} className="font-mono text-sm md:text-2xl text-gray-400 uppercase tracking-[0.3em]" />
             <span className="inline-block w-2 h-6 bg-violet-500 animate-pulse align-middle" />
           </div>
           <p className="max-w-2xl mx-auto text-gray-400 text-base md:text-lg font-light hero-el pt-4 leading-relaxed italic">
-            Building <span className="text-white font-semibold">high-performance websites</span> and <span className="text-violet-400 font-semibold">intelligent AI automations</span> that scale your business on autopilot.
+            Where good design meets purposeful code — I build digital experiences that just feel right.
           </p>
           <div className="flex flex-wrap gap-4 justify-center pt-12 hero-el">
-            <Link to="/portfolio" className="px-10 py-4 bg-white text-black font-black rounded-2xl text-xs tracking-[0.2em] hover:bg-violet-500 hover:text-white transition-all transform hover:-translate-y-1 shadow-2xl shadow-violet-500/10 uppercase">View_Portfolio</Link>
-            <a href="#contact" className="px-10 py-4 bento-card text-white font-bold rounded-2xl text-xs tracking-[0.2em] hover:border-violet-500 transition-all transform hover:-translate-y-1 uppercase">Connect_Me</a>
+            <Link to="/portfolio" className="px-10 py-4 bg-white text-black font-black rounded-2xl text-xs tracking-[0.2em] hover:bg-violet-500 hover:text-white transition-all transform hover:-translate-y-1 shadow-2xl shadow-violet-500/10 uppercase">View My Portfolio</Link>
+            <a href="#contact" className="px-10 py-4 bento-card text-white font-bold rounded-2xl text-xs tracking-[0.2em] hover:border-violet-500 transition-all transform hover:-translate-y-1 uppercase">Connect With Me</a>
           </div>
         </div>
       </section>
@@ -107,27 +112,30 @@ export default function Home() {
         <section id="bio" className="py-24 px-6 max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-12 gap-6">
           <div className="md:col-span-8 bento-card p-10 md:p-14 flex flex-col justify-between">
             <div>
-              <div className="font-mono text-emerald-500 text-[10px] uppercase tracking-widest mb-6 flex items-center gap-2">/ Bio_Entry</div>
+              <div className="font-mono text-emerald-500 text-[10px] uppercase tracking-widest mb-6 flex items-center gap-2">/ About Me</div>
               <h2 className="text-2xl md:text-3xl font-bold mb-10 text-white leading-tight">
-                My goal is simple: I build websites and AI automations that don't just look good — they work, scale, and generate results.
+                Vibe web design. Clean development. AI automation that actually makes sense. That's what I do.
               </h2>
               <div className="space-y-6 text-gray-400 text-lg md:text-xl leading-relaxed font-light max-w-2xl">
                 <p>
-                  I help businesses grow by developing high-performance websites and intelligent automation workflows that save time and run on autopilot. Every project starts with clear technical planning — I study your goals, user flow, and business model, then turn them into a structured, scalable solution. From clean no-code builds to advanced AI-powered systems, I focus on performance, accessibility, SEO, and smooth functionality across all devices.
+                  Good design and purposeful development should feel effortless. That's what I chase with every project — that moment when someone lands on a site and just gets it without thinking twice.
                 </p>
                 <p>
-                  Over the past 5 years, I've built 150+ websites and automation systems that combine strong UI/UX thinking with solid technical foundations. I work with tools like Webflow, WordPress, Make.com, and AI APIs to create responsive, conversion-focused platforms that are easy to manage and ready to grow. With a background in Business IT (Digital Services), I bring both technical precision and business understanding to every project — building digital products that actually work.
+                  I've spent the past 5+ years working with founders, brands, and agencies across the world, helping them turn rough ideas into polished digital products. My work sits right at the intersection of design thinking and full-stack development. I care about the vibe of a page as much as I care about how fast it loads.
+                </p>
+                <p>
+                  Smooth animations that make people stop scrolling. Dynamic systems that just work. Prototypes that feel so real clients forget it's not live yet. Whatever the project needs — I show up with the same care, the same eye, and the same drive to get it right. With a background Bachelor's in Business IT, I also understand the business side of things. So I'm not just making things look good — I'm making sure they actually work for your goals.
                 </p>
               </div>
             </div>
             <div className="mt-16 grid grid-cols-2 lg:grid-cols-3 gap-10">
               <div className="border-l-2 border-emerald-500/30 pl-6 group">
                 <div className="text-5xl font-black text-white tracking-tighter group-hover:text-emerald-500 transition-colors">150+</div>
-                <div className="font-mono text-[10px] text-gray-400 uppercase mt-2 tracking-widest">Successful_Builds</div>
+                <div className="font-mono text-[10px] text-gray-400 uppercase mt-2 tracking-widest">Sites Built</div>
               </div>
               <div className="border-l-2 border-violet-500/30 pl-6 group">
                 <div className="text-5xl font-black text-white tracking-tighter group-hover:text-violet-500 transition-colors">5yr+</div>
-                <div className="font-mono text-[10px] text-gray-400 uppercase mt-2 tracking-widest">Active_Service</div>
+                <div className="font-mono text-[10px] text-gray-400 uppercase mt-2 tracking-widest">Experience</div>
               </div>
             </div>
           </div>
@@ -165,13 +173,16 @@ export default function Home() {
         <section id="skills" className="py-24 px-6 max-w-7xl mx-auto">
           <div className="block sm:flex items-center justify-between mb-16 border-b border-white/5 pb-8">
             <h2 className="text-4xl font-bold tracking-tighter text-white uppercase">Skill_Inventory</h2>
-            <span className="font-mono text-xs text-emerald-500">28_MODULES_LOADED</span>
+            <span className="font-mono text-xs text-emerald-500">39_MODULES_LOADED</span>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             <div className="bento-card p-10">
               <div className="font-mono text-emerald-500 text-[10px] uppercase tracking-widest mb-8">/ Design_Dev_Unit</div>
               <div className="flex flex-wrap gap-2">
-                {['Design Principle','Prototyping','Wireframing','User Research','Testing','Interaction Design','Visual Design','Responsive Design','User Flow','Design System','Usability','Accessibility'].map(s => (
+                {['Design Principles', 'Responsive Design', 'Accessibility'].map(s => (
+                  <span key={s} className="skill-tag border-emerald-400/50 bg-white/10 text-white font-bold">{s}</span>
+                ))}
+                {['Prototyping', 'Wireframing', 'User Research', 'Usability Testing', 'Interaction Design', 'Visual Design', 'User Flows', 'Design Systems'].map(s => (
                   <span key={s} className="skill-tag">{s}</span>
                 ))}
               </div>
@@ -179,18 +190,21 @@ export default function Home() {
             <div className="bento-card p-10 border-violet-500/20 bg-violet-500/5">
               <div className="font-mono text-violet-400 text-[10px] uppercase tracking-widest mb-8">/ Design_Dev_Stack</div>
               <div className="flex flex-wrap gap-2">
-                {['Webflow','WordPress','Figma'].map(s => (
+                {['Webflow', 'WordPress', 'Figma', 'Custom Coding Website'].map(s => (
                   <span key={s} className="skill-tag border-violet-400/50 bg-white/10 text-white font-bold">{s}</span>
                 ))}
-                {['HTML','CSS','JavaScript','Framer','Adobe Creative Suite','Canva','Ai','SEO','Speed Optimization','Make.com','Airtable','AI Integration','API Automation'].map(s => (
+                {['React', 'node.js', 'Tailwind CSS', 'Supabase', 'SQL', 'HTML', 'CSS', 'JavaScript', 'Framer', 'Kajabi', 'SEO', 'Speed Optimization'].map(s => (
                   <span key={s} className="skill-tag">{s}</span>
                 ))}
               </div>
             </div>
             <div className="bento-card p-10">
-              <div className="font-mono text-emerald-500 text-[10px] uppercase tracking-widest mb-8">/ Growth_Modules</div>
+              <div className="font-mono text-emerald-500 text-[10px] uppercase tracking-widest mb-8">/ Design_Dev_AI</div>
               <div className="flex flex-wrap gap-2">
-                {['Communication','Collaboration','Creativity','Adaptability','Problem Solving','Attention to Detail','Open to Feedback'].map(s => (
+                {['Claude Code', 'Antigravity', 'Stitch', 'Make.com', 'n8n', 'Zapier'].map(s => (
+                  <span key={s} className="skill-tag border-emerald-400/50 bg-white/10 text-white font-bold">{s}</span>
+                ))}
+                {['AI-Assisted Design', 'AI Content Workflows', 'Prompt Engineering', 'AI Website Building', 'Vibe Coding', 'AI UI Generation', 'Automated Testing'].map(s => (
                   <span key={s} className="skill-tag">{s}</span>
                 ))}
               </div>
@@ -218,7 +232,7 @@ export default function Home() {
                   <div>
                     <p className="text-white font-medium mb-2">Key Areas of Study:</p>
                     <ul className="grid grid-cols-1 md:grid-cols-2 gap-y-2 gap-x-6 text-gray-400">
-                      {['Digital User Experience','Website Design & Development','Digital Service Design','Innovation & Prototyping','React Fundamentals','Cloud Technologies (AWS)','Data Management & Databases','Applied AI','ICT Project Management','Linux Basics'].map(a => (
+                      {['Digital User Experience', 'Website Design & Development', 'Digital Service Design', 'Innovation & Prototyping', 'React Fundamentals', 'Cloud Technologies (AWS)', 'Data Management & Databases', 'Applied AI', 'ICT Project Management', 'Linux Basics'].map(a => (
                         <li key={a}>{a}</li>
                       ))}
                     </ul>

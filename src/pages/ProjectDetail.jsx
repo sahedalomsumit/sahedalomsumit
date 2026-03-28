@@ -52,28 +52,34 @@ export default function ProjectDetail() {
       {/* Hero Banner */}
       <section className="py-16 px-6 max-w-7xl mx-auto">
         <RevealOnScroll>
-          <div className="mb-8">
-            <Link to="/portfolio" className="font-mono text-xs text-gray-500 hover:text-violet-400 transition tracking-widest uppercase">
-              ← Back_to_All_Builds
-            </Link>
-          </div>
-          <div className="flex flex-col lg:flex-row justify-between items-start lg:items-end gap-6 mb-12">
-            <div>
-              <div className="font-mono text-emerald-500 text-[10px] uppercase tracking-widest mb-4 flex items-center gap-2">
-                <span className="w-2 h-2 bg-emerald-500 rounded-full" />
-                / Project_Detail
+          <header className="mb-12">
+            <nav aria-label="breadcrumb" className="text-[10px] font-mono uppercase tracking-widest text-gray-500 mb-8 flex items-center gap-2">
+               <Link to="/" className="hover:text-emerald-500 transition">Home</Link>
+               <span>/</span>
+               <Link to="/portfolio" className="hover:text-emerald-500 transition">Portfolio</Link>
+               <span>/</span>
+               <span className="text-white truncate">{project.title}</span>
+            </nav>
+            <div className="flex flex-col lg:flex-row justify-between items-start lg:items-end gap-6 mb-12">
+              <div>
+                <div className="font-mono text-emerald-500 text-[10px] uppercase tracking-widest mb-4 flex items-center gap-2">
+                  <span className="w-2 h-2 bg-emerald-500 rounded-full" />
+                  / Project_Detail
+                </div>
+                <h1 className="text-5xl md:text-7xl font-extrabold tracking-tighter text-white uppercase leading-[0.9]">
+                  {project.title}
+                </h1>
+                <p className="mt-6 text-gray-400 text-lg max-w-2xl font-light">
+                  A custom {project.industry} digital experience built for engaging design and unmatched performance.
+                </p>
+                <div className="flex flex-wrap gap-3 mt-6">
+                  {project.tags.map(tag => (
+                    <span key={tag} className="px-4 py-1.5 bg-white/5 border border-white/10 rounded-full text-[10px] font-mono uppercase tracking-widest text-gray-400">
+                      {tag}
+                    </span>
+                  ))}
+                </div>
               </div>
-              <h1 className="text-5xl md:text-7xl font-extrabold tracking-tighter text-white uppercase leading-[0.9]">
-                {project.title}
-              </h1>
-              <div className="flex flex-wrap gap-3 mt-6">
-                {project.tags.map(tag => (
-                  <span key={tag} className="px-4 py-1.5 bg-white/5 border border-white/10 rounded-full text-[10px] font-mono uppercase tracking-widest text-gray-400">
-                    {tag}
-                  </span>
-                ))}
-              </div>
-            </div>
             <a
               href={project.liveUrl}
               target="_blank"
@@ -86,6 +92,7 @@ export default function ProjectDetail() {
               </svg>
             </a>
           </div>
+          </header>
         </RevealOnScroll>
 
         {/* Project Hero Image */}

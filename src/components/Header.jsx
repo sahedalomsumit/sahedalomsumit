@@ -29,7 +29,7 @@ export default function Header() {
         />
         <div className="hidden md:block h-6 w-[1px] bg-white/10 mx-4" />
         <div className="hidden lg:block text-[9px] font-mono text-gray-500 uppercase tracking-tighter">
-          No-Code & AI Expert<br />
+          Vibe Designer & Dev<br />
           <span className="text-emerald-500 italic">Availability: High</span>
         </div>
       </Link>

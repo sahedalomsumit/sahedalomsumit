@@ -18,7 +18,7 @@ export default function TopBar() {
         </a>
         <span className="text-white/10 hidden md:block">|</span>
         <a
-          href="/img/ui_ux-designer-and-no-code-web-developer-sahed-alom-sumit.pdf"
+          href="/img/vibe-web-designer-and-developer-sahed-alom-sumit.pdf"
           className="text-white font-bold hover:text-violet-400 transition underline underline-offset-4 decoration-violet-500/50"
         >
           DOWNLOAD_RESUME.PDF

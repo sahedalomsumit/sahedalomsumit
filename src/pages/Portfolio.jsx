@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react'
+import { Link } from 'react-router-dom'
 import RevealOnScroll from '../components/RevealOnScroll'
 import ProjectCard from '../components/ProjectCard'
 import ContactSection from '../components/ContactSection'
@@ -21,12 +22,22 @@ export default function Portfolio() {
     <>
       <section id="portfolio" className="py-24 px-6 max-w-7xl mx-auto">
         <RevealOnScroll>
-          <div className="flex flex-col md:flex-row justify-between items-end mb-16 gap-6">
+          <header className="mb-16 text-center md:text-left flex flex-col md:flex-row justify-between items-end gap-6">
             <div>
-              <h2 className="text-4xl md:text-6xl font-extrabold tracking-tighter text-white uppercase">Main_All_Builds</h2>
-              <p className="text-gray-500 mt-3 text-lg italic">Curated high-performance web solutions.</p>
+              <nav aria-label="breadcrumb" className="text-[10px] font-mono uppercase tracking-widest text-gray-500 mb-8 flex items-center justify-center md:justify-start gap-2">
+                 <Link to="/" className="hover:text-emerald-500 transition">Home</Link>
+                 <span>/</span>
+                 <span className="text-white">Portfolio</span>
+              </nav>
+              <div className="font-mono text-emerald-500 text-xs tracking-[0.4em] font-bold uppercase mb-4">Main_All_Builds</div>
+              <h1 className="text-5xl md:text-7xl font-black tracking-tighter text-white uppercase leading-none">
+                Curated<br /><span className="text-violet-500">Portfolio</span>
+              </h1>
+              <p className="mt-6 text-gray-400 text-lg max-w-2xl font-light">
+                Explore a collection of high-performance web solutions built with clean code and modern vibe design.
+              </p>
             </div>
-          </div>
+          </header>
         </RevealOnScroll>
 
         <div className="grid grid-cols-1 gap-16 min-h-[50vh]">

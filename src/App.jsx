@@ -9,6 +9,7 @@ import Home from './pages/Home'
 import Portfolio from './pages/Portfolio'
 import Process from './pages/Process'
 import ProjectDetail from './pages/ProjectDetail'
+import Faq from './pages/Faq'
 
 function ScrollToTop() {
   const { pathname } = useLocation()
@@ -30,6 +31,7 @@ export default function App() {
           <Route path="/process" element={<Process />} />
           <Route path="/portfolio" element={<Portfolio />} />
           <Route path="/portfolio/:slug" element={<ProjectDetail />} />
+          <Route path="/faqs" element={<Faq />} />
         </Routes>
       </main>
       <Footer />

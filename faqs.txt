@@ -1,0 +1,80 @@
+=========================================================
+FREQUENTLY ASKED QUESTIONS (FAQS) - SAHED ALOM SUMIT
+=========================================================
+
+--- GENERAL & BACKGROUND ---
+
+Q: Who are you and what do you do?
+A: I am Sahed Alom Sumit, a Vibe Web Designer & Developer and AI Automation Expert. I sit at the intersection of design thinking and full-stack development. I build high-performance, accessible, and visually stunning digital products that help founders, brands, and agencies achieve their business goals.
+
+Q: Where are you based?
+A: I am based in Helsinki, Finland, but I work with clients and agencies all over the world.
+
+Q: What is your educational background?
+A: I hold a Bachelor of Science (B.Sc.) in Business Information Technology from Haaga-Helia University of Applied Sciences (Graduated 2025). This business IT background ensures that I don't just make things look good—I make them work for your specific business goals.
+
+Q: What languages do you speak?
+A: I provide services in English (Fluent), Bengali (Native/Bilingual), and Hindi (Conversational).
+
+Q: What does "Vibe Web Designer & Developer" mean?
+A: It means I focus equally on the aesthetic "vibe" (UI/UX) and the technical perfection (clean code) of a site. I ensure your site looks visually captivating, feels alive with smooth interactions, and consistently hits 100/100 performance, accessibility, and SEO scores.
+
+
+--- SERVICES & EXPERTISE ---
+
+Q: What services do you actually provide?
+A: I cover everything from Vibe Web Design (UI/UX) to Full-Stack Development using React, Webflow, and WordPress. I also build AI Automation systems using tools like Make.com, Zapier, n8n, and custom APIs (like Claude/GPT) to make your business processes run on autopilot.
+
+Q: What platforms and tech stacks do you specialize in?
+A: I primarily work with React, Webflow, Framer, and WordPress (specifically Elementor and WooCommerce).
+
+Q: Do you only use no-code tools like Webflow?
+A: Not at all. While I love Webflow and WordPress for their speed and client-friendly CMS, I am also a seasoned developer. I frequently build custom web apps using React, Tailwind CSS, JavaScript, and database solutions like Supabase when a project requires highly custom functionality.
+
+Q: Can you help with AI automation for my business?
+A: Yes! I look at your repetitive, manual tasks and build intelligent workflows to connect your apps. Whether it is automatically generating client reports, syncing CRM data, or building AI-assisted content pipelines, I use platforms like Zapier, Make.com, and Claude to save you hours of work each week.
+
+Q: Are you experienced in eCommerce development?
+A: Absolutely. I am a WooCommerce expert and have extensive experience building retail and eCommerce web journeys. For example, I recently developed a comprehensive e-commerce platform for TwinTwo and rebuilt the site for e-service.parts, the UK's first independent spares specialist.
+
+
+--- PROCESS & QUALITY ---
+
+Q: What is your typical design process?
+A: My vibe-first design process is human-centered and problem-solving driven. It starts with Discovery and Research to understand business needs and user journeys, followed by high-fidelity UI/UX visual design in Figma, and ends with clean-code development, animation implementation, and strict performance optimization.
+
+Q: How do you measure website quality and performance?
+A: My core value proposition is hitting top-tier metrics: 100 Performance, 100 Accessibility, 100 Best Practices, and 100 SEO on Google PageSpeed Insights and Core Web Vitals.
+
+Q: How do you ensure website accessibility?
+A: Every site I build undergoes a strict accessibility audit to ensure high contrast standards, smooth keyboard navigation, inclusive design standards, and proper ARIA implementations. 
+
+Q: How long does a typical website project take?
+A: It usually takes between 2 to 6 weeks, depending on the complexity. A standard landing page might take a couple of weeks, whereas a fully custom web application with CMS and complex animations will take longer. We establish a clear timeline during the DISCOVERY phase.
+
+
+--- EXPERIENCE & PORTFOLIO ---
+
+Q: How much experience do you have?
+A: I have over 5+ years of professional experience as a Freelance Web Developer and UI/UX Designer. I have successfully designed and developed over 150+ websites. I am a Top Rated Freelancer on Upwork and a Level 2 Seller on Fiverr with a 4.9+ rating.
+
+Q: Do you have any relevant certifications?
+A: Yes, I hold several certifications including the Google UX Design Professional Certificate, AI-3D Render Course, Webflow 101 from Webflow University, and a Verified Freelancer Certificate from the Bangladesh Government.
+
+Q: What are some notable projects you've worked on?
+A: Some of my recent top-tier builds include e-service.parts (UK independent spares specialist), TwinTwo (retail merchandise marketplace), Ganttify/Uxertiv (project management platform integration), Ovulio Baby (fertility app marketing site), and Innovation Alliance.
+
+Q: Can you handle complex filtering systems?
+A: Yes, I am a WordPress Filter Specialist. I specialize in engineering complex, high-performance filter systems for directories or WooCommerce stores, like the custom filtering I built for e-service.parts.
+
+
+--- PRICING & AVAILABILITY ---
+
+Q: What is your payment structure?
+A: For most projects, I work on a standard 50% upfront deposit to secure your slot in my schedule, with the remaining 50% due upon final approval before the website goes live. For larger, ongoing systems, we can arrange milestone-based payments.
+
+Q: What is your hourly rate?
+A: My standard hourly rate for ongoing or consulting work is approximately €40 - €45/hour, though I often prefer fixed-price contracts for well-defined website projects to ensure clear deliverables and expectations.
+
+Q: Are you available for freelance collaborations?
+A: Yes, I am currently taking on new projects. You can reach out to me via email, LinkedIn, or through my Upwork and Fiverr profiles to discuss your specific needs.

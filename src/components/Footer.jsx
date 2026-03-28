@@ -10,7 +10,7 @@ export default function Footer() {
         <div className="md:col-span-1">
           <img src="/img/logo-transparent.png" alt="Sahed Alom Sumit Transparent Logo" className="w-full h-auto -ml-4 max-w-48" />
           <p className="mt-6 text-gray-400 text-xs leading-relaxed font-mono max-w-[200px] uppercase">
-            ./ No-Code Web Developer<br />./ AI Automation Expert<br />./ UI/UX Designer
+            ./ Vibe Web Designer<br />./ Vibe Web Developer<br />./ Vibe AI Automation<br />./ Design. Code. Vibes.
           </p>
         </div>
 
@@ -33,6 +33,7 @@ export default function Footer() {
             <li><Link to="/" className="hover:text-white transition tracking-widest">./ ROOT</Link></li>
             <li><Link to="/process" className="hover:text-white transition tracking-widest">./ PROCESS</Link></li>
             <li><Link to="/portfolio" className="hover:text-white transition tracking-widest">./ PORTFOLIO</Link></li>
+            <li><Link to="/faqs" className="hover:text-white transition tracking-widest">./ FAQS</Link></li>
           </ul>
         </div>
 
@@ -63,7 +64,7 @@ export default function Footer() {
       {/* Bottom Copyright */}
       <div className="max-w-7xl mx-auto mt-20 pt-8 border-t border-white/5 flex flex-col md:flex-row justify-between items-center gap-6">
         <p className="font-mono text-[9px] text-gray-400 uppercase tracking-widest">
-          © {currentYear} Sahed Alom Sumit // All Systems Functional
+          © {currentYear} Sahed Alom Sumit // Built with good vibes and clean code
         </p>
         <div className="flex gap-4 text-[9px] font-mono text-gray-400">
           <span>V3.0.0_REACT</span>
