@@ -60,13 +60,15 @@ export default function Faq() {
 
   const handleTabChange = (topic) => {
     setActiveTab(topic)
-
-    // Smooth scroll back to the start of the FAQ questions
-    const el = document.getElementById('faq-list')
-    if (el) {
-      // 180px offset accounts for the sticky Navbar (60px) + sticky mobile dropdown + some padding
-      const y = el.getBoundingClientRect().top + window.scrollY - 180
-      window.scrollTo({ top: y, behavior: 'smooth' })
+    
+    // Smooth scroll back to the start of the FAQ questions (Mobile only)
+    if (window.innerWidth < 768) {
+      const el = document.getElementById('faq-list')
+      if (el) {
+        // 180px offset accounts for the sticky Navbar (60px) + sticky mobile dropdown + some padding
+        const y = el.getBoundingClientRect().top + window.scrollY - 180
+        window.scrollTo({ top: y, behavior: 'smooth' })
+      }
     }
   }
 
