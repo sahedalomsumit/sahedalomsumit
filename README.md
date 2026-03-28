@@ -13,14 +13,8 @@ This portfolio blends technical structure with visual clarity using a "Coder Mod
 
 - **Name:** Sahed Alom Sumit  
 - **Role:** Vibe Web Designer & Developer  
-- **Bio:** Vibe web design. Clean development. AI automation that actually makes sense. That's what I do.
-
-Good design and purposeful development should feel effortless. That's what I chase with every project — that moment when someone lands on a site and just gets it without thinking twice.
-
-I've spent the past 5+ years working with founders, brands, and agencies across the world, helping them turn rough ideas into polished digital products. My work sits right at the intersection of design thinking and full-stack development. I care about the vibe of a page as much as I care about how fast it loads.
-
-Smooth animations that make people stop scrolling. Dynamic systems that just work. Prototypes that feel so real clients forget it's not live yet. Whatever the project needs — I show up with the same care, the same eye, and the same drive to get it right. With a background Bachelor's in Business IT, I also understand the business side of things. So I'm not just making things look good — I'm making sure they actually work for your goals.  
-- **Specialization:** Webflow, Framer, WordPress, AI Workflows, Motion Design  
+- **Bio:** Vibe web design. Clean development. AI automation that actually makes sense. That's what I do. Good design and purposeful development should feel effortless. That's what I chase with every project — that moment when someone lands on a site and just gets it without thinking twice. I've spent the past 5+ years working with founders, brands, and agencies across the world, helping them turn rough ideas into polished digital products. My work sits right at the intersection of design thinking and full-stack development. I care about the vibe of a page as much as I care about how fast it loads. Smooth animations that make people stop scrolling. Dynamic systems that just work. Prototypes that feel so real clients forget it's not live yet. Whatever the project needs — I show up with the same care, the same eye, and the same drive to get it right. With a background Bachelor's in Business IT, I also understand the business side of things. So I'm not just making things look good — I'm making sure they actually work for your goals.  
+- **Specialization:** Webflow, Framer, WordPress, Figma, AI Workflows, Full-stack Web Development, Website Design, UI/UX Design  
 - **Location:** Helsinki, Finland  
 - **Availability:** Integrated real-time availability indicator
 
