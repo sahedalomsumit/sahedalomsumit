@@ -81,13 +81,13 @@ export default function Process() {
           <RevealOnScroll>
             <header className="mb-16 text-left">
               <nav aria-label="breadcrumb" className="text-[10px] font-mono uppercase tracking-widest text-gray-500 mb-8 flex items-center justify-start gap-2">
-                 <Link to="/" className="hover:text-emerald-500 transition">Home</Link>
-                 <span>/</span>
-                 <span className="text-white">Process</span>
+                <Link to="/" className="hover:text-emerald-500 transition">Home</Link>
+                <span>/</span>
+                <span className="text-white">Process</span>
               </nav>
               <div className="font-mono text-emerald-500 text-xs tracking-[0.4em] font-bold uppercase mb-4">Methodology_Explorer</div>
-              <h1 className="text-6xl md:text-8xl font-black tracking-tighter text-white uppercase leading-none">
-                My Portfolio<br /><span className="text-violet-500">Process</span>
+              <h1 className="text-5xl md:text-8xl font-black tracking-tighter text-white uppercase leading-none">
+                My Work<br /><span className="text-violet-500">Process</span>
               </h1>
               <p className="mt-6 text-gray-400 text-lg max-w-2xl font-light">
                 A structured breakdown of my vibe-first design methodology and scalable, clean code development engine.

@@ -39,7 +39,7 @@ export default function ProjectDetail() {
     return (
       <section className="min-h-screen flex items-center justify-center px-6">
         <div className="text-center">
-          <h1 className="text-6xl font-black text-white mb-4">404</h1>
+          <h1 className="text-5xl font-black text-white mb-4">404</h1>
           <p className="text-gray-500 font-mono mb-8">PROJECT_NOT_FOUND</p>
           <Link to="/portfolio" className="px-8 py-3 bg-white text-black font-bold rounded-full text-xs uppercase tracking-widest hover:bg-violet-500 hover:text-white transition">Back_to_Portfolio</Link>
         </div>

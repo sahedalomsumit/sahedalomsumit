@@ -60,7 +60,7 @@ export default function Faq() {
 
   const handleTabChange = (topic) => {
     setActiveTab(topic)
-    
+
     // Smooth scroll back to the start of the FAQ questions (Mobile only)
     if (window.innerWidth < 768) {
       const el = document.getElementById('faq-list')
@@ -83,7 +83,7 @@ export default function Faq() {
               <span className="text-white">FAQs</span>
             </nav>
             <div className="font-mono text-emerald-500 text-xs tracking-[0.4em] font-bold uppercase mb-4">Knowledge_Base</div>
-            <h1 className="text-6xl md:text-8xl font-black tracking-tighter text-white uppercase leading-none">
+            <h1 className="text-5xl md:text-8xl font-black tracking-tighter text-white uppercase leading-none">
               Frequently Asked<br /><span className="text-violet-500">Questions</span>
             </h1>
             <p className="mt-6 text-gray-400 text-lg max-w-2xl font-light">

@@ -22,9 +22,9 @@ export default function Portfolio() {
     <>
       <section id="portfolio" className="py-24 px-6 max-w-7xl mx-auto">
         <RevealOnScroll>
-          <header className="mb-16 text-center md:text-left flex flex-col md:flex-row justify-between items-end gap-6">
+          <header className="mb-16 text-left flex flex-col md:flex-row justify-between items-start md:items-end gap-6">
             <div>
-              <nav aria-label="breadcrumb" className="text-[10px] font-mono uppercase tracking-widest text-gray-500 mb-8 flex items-center justify-center md:justify-start gap-2">
+              <nav aria-label="breadcrumb" className="text-[10px] font-mono uppercase tracking-widest text-gray-500 mb-8 flex items-center justify-start gap-2">
                  <Link to="/" className="hover:text-emerald-500 transition">Home</Link>
                  <span>/</span>
                  <span className="text-white">Portfolio</span>
