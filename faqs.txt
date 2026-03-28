@@ -231,7 +231,7 @@ Working With Me
 Q: What do you need from me to start a project?
 A: It depends on the scope:
 
-1) Website Design Only (UI/UX)
+1) Website Design Only (UI/UX):
 
 Project goals and target audience
 Content (or at least rough text/structure)
@@ -239,7 +239,7 @@ Brand assets (logo, colors, fonts)
 Reference websites or style inspiration
 Sitemap or list of pages (if available)
 
-2) Website Development Only
+2) Website Development Only:
 
 Final design files (Figma, Sketch, etc.) or reference website
 Access to platform (Webflow/WordPress/Framer/ hosting and domain)
@@ -247,7 +247,7 @@ Content (text, images, videos)
 Any required integrations (forms, CRM, APIs, etc.)
 Basic SEO info (page titles, descriptions if available)
 
-3) Design + Development (Full Project)
+3) Design + Development (Full Project):
 
 Project goals and target audience
 Brand assets (or I can help create them)
