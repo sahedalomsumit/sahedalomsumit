@@ -57,6 +57,16 @@ export default function Header() {
 
     const closeMenu = () => setIsMenuOpen(false)
 
+    const scrollToContact = (e) => {
+        e.preventDefault()
+        closeMenu()
+        const element = document.getElementById('contact')
+        if (element) {
+            element.scrollIntoView({ behavior: 'smooth' })
+            window.history.pushState(null, null, '#contact')
+        }
+    }
+
     return (
         <>
             <header
@@ -91,7 +101,8 @@ export default function Header() {
                         </Link>
                     ))}
                     <a
-                        href="/#contact"
+                        href="#contact"
+                        onClick={scrollToContact}
                         className="hidden sm:flex px-6 py-2.5 bg-white text-black rounded-full text-[10px] font-black hover:bg-violet-500 hover:text-white transition-all tracking-[0.2em] items-center gap-2"
                     >
                         HIRE_ME
@@ -139,8 +150,8 @@ export default function Header() {
                     <div ref={el => linkRef.current[navLinks.length] = el} className="mt-8 flex flex-col items-center gap-6">
                         <div className="w-12 h-[1px] bg-white/10" />
                         <a
-                            href="/#contact"
-                            onClick={closeMenu}
+                            href="#contact"
+                            onClick={scrollToContact}
                             className="px-10 py-4 bg-violet-600 text-white rounded-full text-xs font-black tracking-[0.3em] hover:bg-white hover:text-black transition-all"
                         >
                             HIRE_ME
