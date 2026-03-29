@@ -28,10 +28,22 @@ body {
 }
 
 /* Custom Scrollbar */
-::-webkit-scrollbar { width: 6px; }
-::-webkit-scrollbar-track { background: var(--bg); }
-::-webkit-scrollbar-thumb { background: #1a1a1a; border-radius: 10px; }
-::-webkit-scrollbar-thumb:hover { background: var(--accent); }
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--bg);
+}
+
+::-webkit-scrollbar-thumb {
+  background: #1a1a1a;
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--accent);
+}
 
 /* Bento Cards */
 .bento-card {
@@ -41,6 +53,7 @@ body {
   border-radius: 24px;
   transition: all 0.5s cubic-bezier(0.23, 1, 0.32, 1);
 }
+
 .bento-card:hover {
   border-color: var(--accent);
   background: rgba(255, 255, 255, 0.04);
@@ -85,9 +98,23 @@ body {
 }
 
 /* Carousel grab cursor */
-.carousel-track { cursor: grab; touch-action: pan-y; }
-.carousel-track.grabbing { cursor: grabbing; }
+.carousel-track {
+  cursor: grab;
+  touch-action: pan-y;
+}
+
+.carousel-track.grabbing {
+  cursor: grabbing;
+}
 
 /* Page transitions */
-.page-enter { opacity: 0; transform: translateY(20px); }
-.page-enter-active { opacity: 1; transform: translateY(0); transition: all 0.5s ease; }
+.page-enter {
+  opacity: 0;
+  transform: translateY(20px);
+}
+
+.page-enter-active {
+  opacity: 1;
+  transform: translateY(0);
+  transition: all 0.5s ease;
+}

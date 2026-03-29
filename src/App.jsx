@@ -10,6 +10,7 @@ import Portfolio from './pages/Portfolio'
 import Process from './pages/Process'
 import ProjectDetail from './pages/ProjectDetail'
 import Faq from './pages/Faq'
+import SahedChatbot from './components/SahedChatbot'
 
 function ScrollToTop() {
   const { pathname } = useLocation()
@@ -33,6 +34,7 @@ export default function App() {
           <Route path="/portfolio/:slug" element={<ProjectDetail />} />
           <Route path="/faq" element={<Faq />} />
         </Routes>
+        <SahedChatbot />
       </main>
       <Footer />
     </>
