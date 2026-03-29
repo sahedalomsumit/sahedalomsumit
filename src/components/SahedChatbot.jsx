@@ -426,10 +426,10 @@ After your answer, on a new line write exactly one tag:
 
   // ── RENDER ──────────────────────────────────────
   return (
-    <div className="fixed bottom-[26px] right-[26px] z-[99999]">
+    <div className="fixed bottom-4 right-4 md:bottom-[26px] md:right-[26px] z-[99999]">
       {open && (
         <div
-          className="absolute bottom-[70px] right-0 w-[385px] h-[590px] bento-card flex flex-col overflow-hidden animate-in fade-in slide-in-from-bottom-5 duration-300"
+          className="absolute bottom-[72px] right-0 w-[calc(100vw-32px)] sm:w-[385px] h-[calc(100vh-120px)] sm:h-[590px] max-h-[750px] bento-card flex flex-col overflow-hidden animate-in fade-in slide-in-from-bottom-5 duration-300"
           style={{ background: "rgb(0 0 0 / 50%)" }}
         >
 
