@@ -431,7 +431,10 @@ After your answer, on a new line write exactly one tag:
   return (
     <div className="fixed bottom-[26px] right-[26px] z-[99999]">
       {open && (
-        <div className="absolute bottom-[70px] right-0 w-[385px] h-[590px] bento-card flex flex-col overflow-hidden animate-in fade-in slide-in-from-bottom-5 duration-300">
+        <div
+          className="absolute bottom-[70px] right-0 w-[385px] h-[590px] bento-card flex flex-col overflow-hidden animate-in fade-in slide-in-from-bottom-5 duration-300"
+          style={{ background: "rgb(0 0 0 / 50%)" }}
+        >
 
           {/* Header */}
           <div className="p-4 px-[18px] bg-[#15151f] border-b border-white/10 flex items-center gap-[11px] shrink-0">
