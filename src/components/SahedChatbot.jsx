@@ -1,11 +1,11 @@
 import { useState, useRef, useEffect } from "react";
+import { supabase } from "../lib/supabase";
 
 // ════════════════════════════════════════════════════
-//  🔑  YOUR GEMINI API KEY
-//  Get one free at: https://aistudio.google.com
+//  🤖 AI CONFIGURATION
+//  Now secured via Supabase Edge Functions
 // ════════════════════════════════════════════════════
-const GEMINI_API_KEY = "AIzaSyBPBRfPQWas35f38mVw_H-XzB43MRFdz5I";
-const GEMINI_MODEL = "gemini-2.5-flash-lite"; // or "gemini-1.5-pro"
+const GEMINI_MODEL = "gemini-2.5-flash-lite"; // Managed in Supabase Secrets
 
 // ════════════════════════════════════════════════════
 //  📄  SOURCE 1 — FAQ DOCUMENT (primary source)
@@ -356,24 +356,21 @@ After your answer, on a new line write exactly one tag:
     ];
 
     try {
-      const res = await fetch(
-        `https://generativelanguage.googleapis.com/v1beta/models/${GEMINI_MODEL}:generateContent?key=${GEMINI_API_KEY}`,
-        {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({
-            system_instruction: { parts: [{ text: SYSTEM_PROMPT }] },
-            contents: turnHistory,
-            generationConfig: {
-              temperature: 0.65,    // ✏️ 0=strict, 1=creative
-              maxOutputTokens: 500, // ✏️ increase for longer replies
-            },
-          }),
-        }
-      );
+      const { data: edgeData, error: edgeError } = await supabase.functions.invoke('gemini-chatbot', {
+        body: {
+          model: GEMINI_MODEL,
+          system_instruction: { parts: [{ text: SYSTEM_PROMPT }] },
+          contents: turnHistory,
+          generationConfig: {
+            temperature: 0.65,
+            maxOutputTokens: 500,
+          },
+        },
+      });
 
-      const data = await res.json();
-      if (!res.ok) throw new Error(data?.error?.message || "API error");
+      if (edgeError) throw new Error(edgeError.message || "Edge Function error");
+
+      const data = edgeData;
 
       const rawReply = data?.candidates?.[0]?.content?.parts?.[0]?.text || "";
 
