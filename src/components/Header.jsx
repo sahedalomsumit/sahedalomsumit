@@ -52,18 +52,19 @@ export default function Header() {
         { to: '/', label: 'ROOT', num: '01' },
         { to: '/portfolio', label: 'PORTFOLIO', num: '02' },
         { to: '/process', label: 'PROCESS', num: '03' },
-        { to: '/faq', label: 'FAQ', num: '04' },
+        { to: '/services', label: 'SERVICES', num: '04' },
+        { to: '/faq', label: 'FAQ', num: '05' },
+        { to: '/quote', label: 'QUOTE', num: '06' },
     ]
 
     const closeMenu = () => setIsMenuOpen(false)
 
     const scrollToContact = (e) => {
-        e.preventDefault()
-        closeMenu()
-        const element = document.getElementById('contact')
-        if (element) {
-            element.scrollIntoView({ behavior: 'smooth' })
-            window.history.pushState(null, null, '#contact')
+        const contactSection = document.getElementById('contact');
+        if (contactSection) {
+            e.preventDefault();
+            contactSection.scrollIntoView({ behavior: 'smooth' });
+            closeMenu();
         }
     }
 
@@ -100,8 +101,8 @@ export default function Header() {
                             ./{link.label}
                         </Link>
                     ))}
-                    <a
-                        href="#contact"
+                    <Link
+                        to="/#contact"
                         onClick={scrollToContact}
                         className="hidden sm:flex px-6 py-2.5 bg-white text-black rounded-full text-[10px] font-black hover:bg-violet-500 hover:text-white transition-all tracking-[0.2em] items-center gap-2"
                     >
@@ -109,7 +110,7 @@ export default function Header() {
                         <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path d="M14 5l7 7m0 0l-7 7m7-7H3" strokeWidth="3" />
                         </svg>
-                    </a>
+                    </Link>
                 </nav>
 
                 {/* Mobile Hamburger Button */}
@@ -149,13 +150,13 @@ export default function Header() {
 
                     <div ref={el => linkRef.current[navLinks.length] = el} className="mt-8 flex flex-col items-center gap-6">
                         <div className="w-12 h-[1px] bg-white/10" />
-                        <a
-                            href="#contact"
+                        <Link
+                            to="/#contact"
                             onClick={scrollToContact}
                             className="px-10 py-4 bg-violet-600 text-white rounded-full text-xs font-black tracking-[0.3em] hover:bg-white hover:text-black transition-all"
                         >
                             HIRE_ME
-                        </a>
+                        </Link>
                         <div className="flex gap-6 mt-4">
                             <span className="text-[10px] font-mono text-gray-500 uppercase">Helsinki, Finland</span>
                         </div>

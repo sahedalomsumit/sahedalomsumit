@@ -102,7 +102,7 @@ export default function Home() {
           </p>
           <div className="flex flex-wrap gap-4 justify-center pt-12 hero-el">
             <Link to="/portfolio" className="px-10 py-4 bg-white text-black font-black rounded-full text-xs tracking-[0.2em] hover:bg-violet-500 hover:text-white transition-all transform hover:-translate-y-1 shadow-2xl shadow-violet-500/10 uppercase">View My Portfolio</Link>
-            <a href="#contact" className="px-10 py-4 bento-card text-white font-bold rounded-full text-xs tracking-[0.2em] hover:border-violet-500 transition-all transform hover:-translate-y-1 uppercase">Connect With Me</a>
+            <Link to="/#contact" className="px-10 py-4 bento-card text-white font-bold rounded-full text-xs tracking-[0.2em] hover:border-violet-500 transition-all transform hover:-translate-y-1 uppercase">Connect With Me</Link>
           </div>
         </div>
       </section>

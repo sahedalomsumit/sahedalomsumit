@@ -43,7 +43,7 @@ export async function fetchProjects() {
     .from('projects')
     .select('*')
     .order('display_order', { ascending: true })
-  
+
   if (error) { console.error('Error fetching projects:', error); return [] }
   return data.map(mapProject)
 }
@@ -55,7 +55,7 @@ export async function fetchFeaturedProjects() {
     .select('*')
     .eq('is_featured', true)
     .order('display_order', { ascending: true })
-    
+
   if (error) { console.error('Error fetching featured projects:', error); return [] }
   return data.map(mapProject)
 }
@@ -67,29 +67,29 @@ export async function fetchProjectBySlug(slug) {
     .select('*')
     .eq('slug', slug)
     .single()
-    
+
   if (error) { console.error('Error fetching project:', error); return null }
   return mapProject(data)
 }
 
 export async function fetchAdjacentProjects(slug) {
   if (!supabase) return { prev: null, next: null }
-  
+
   const { data: allProjects, error } = await supabase
     .from('projects')
     .select('slug, title, industry, display_order')
     .order('display_order', { ascending: true })
-    
+
   if (error || !allProjects || allProjects.length === 0) {
     return { prev: null, next: null }
   }
-  
+
   const idx = allProjects.findIndex(p => p.slug === slug)
   if (idx === -1) return { prev: null, next: null }
-  
+
   const prev = idx > 0 ? allProjects[idx - 1] : allProjects[allProjects.length - 1]
   const next = idx < allProjects.length - 1 ? allProjects[idx + 1] : allProjects[0]
-  
+
   return { prev, next }
 }
 
@@ -99,7 +99,29 @@ export async function fetchFaqs() {
     .from('faqs')
     .select('*')
     .order('display_order', { ascending: true })
-    
+
   if (error) { console.error('Error fetching faqs:', error); return [] }
   return data
+}
+export async function uploadBlueprintPdf(file, fileName) {
+  if (!supabase) return { error: 'Supabase not configured' }
+  const { data, error } = await supabase.storage
+    .from('blueprints')
+    .upload(fileName, file, {
+      contentType: 'application/pdf',
+      upsert: true
+    })
+
+  if (error) { console.error('Error uploading PDF:', error); return { error } }
+  return { data }
+}
+
+export async function submitQuoteLead(leadData) {
+  if (!supabase) return { error: 'Supabase not configured' }
+  const { data, error } = await supabase
+    .from('blueprint_leads')
+    .insert([leadData])
+
+  if (error) { console.error('Error submitting lead:', error); return { error } }
+  return { data }
 }

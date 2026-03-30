@@ -25,12 +25,12 @@ export default function Portfolio() {
           <header className="mb-16 text-left flex flex-col md:flex-row justify-between items-start md:items-end gap-6">
             <div>
               <nav aria-label="breadcrumb" className="text-[10px] font-mono uppercase tracking-widest text-gray-500 mb-8 flex items-center justify-start gap-2">
-                 <Link to="/" className="hover:text-emerald-500 transition">Home</Link>
-                 <span>/</span>
-                 <span className="text-white">Portfolio</span>
+                <Link to="/" className="hover:text-emerald-500 transition">Home</Link>
+                <span>/</span>
+                <span className="text-white">Portfolio</span>
               </nav>
               <div className="font-mono text-emerald-500 text-xs tracking-[0.4em] font-bold uppercase mb-4">Main_All_Builds</div>
-              <h1 className="text-5xl md:text-7xl font-black tracking-tighter text-white uppercase leading-none">
+              <h1 className="text-5xl md:text-8xl font-black tracking-tighter text-white uppercase leading-none">
                 Curated<br /><span className="text-violet-500">Portfolio</span>
               </h1>
               <p className="mt-6 text-gray-400 text-lg max-w-2xl font-light">

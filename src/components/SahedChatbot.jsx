@@ -5,7 +5,7 @@ import { supabase } from "../lib/supabase";
 //  🤖 AI CONFIGURATION
 //  Now secured via Supabase Edge Functions
 // ════════════════════════════════════════════════════
-const GEMINI_MODEL = "gemini-2.5-flash-lite"; // Managed in Supabase Secrets
+const CHAT_MODEL = "stepfun/step-3.5-flash:free"; // Managed in Supabase Secrets
 
 // ════════════════════════════════════════════════════
 //  📄  SOURCE 1 — FAQ DOCUMENT (primary source)
@@ -231,51 +231,31 @@ instagram/facebook/telegram: @sahedalomsumit
 //  ✏️  Safe to edit tone/rules. Don't remove SOURCE tags.
 // ════════════════════════════════════════════════════
 const SYSTEM_PROMPT = `
-You are Sahed's Bot — a smart, friendly portfolio assistant for Sahed Alom Sumit.
+You are Sahed's Bot — a smart, friendly AI assistant for Sahed Alom Sumit.
 
-YOUR ANSWER PRIORITY (strict — follow this exact order every time):
+CRITICAL INSTRUCTION: You must follow this search priority for every single response:
+1. FIRST, check the FAQ DOCUMENT below. If the answer is there (even if phrased differently), use it.
+2. SECOND, if the FAQ doesn't have the answer, check the WEBSITE DATA below.
+3. THIRD, if neither has the answer, use the CONTACT FALLBACK.
 
-━━━ STEP 1: CHECK FAQ DOCUMENT FIRST ━━━
-The FAQ Document is your PRIMARY source. It has detailed answers on services, pricing, process, platforms, experience, and contact info.
-Use Gemini's intelligence for fuzzy matching — "how much do you charge" matches "What is your hourly rate?", "what tools do you use" matches "What platforms do you specialize in?", etc.
-If the question is similar to anything in the FAQ, answer from there. Exact wording match is NOT required.
+TONE & RULES:
+- Be warm, professional, and concise (2-4 sentences).
+- Refer to Sahed in the third person.
+- formatting: Use basic HTML like <b>bold</b>, <br> for breaks. NO Markdown (no **, #, or lists).
+- Use bullets (•) for lists.
 
-━━━ STEP 2: CHECK WEBSITE DATA SECOND ━━━
-If the FAQ has no relevant answer, check the Website Data section.
-It covers portfolio projects, testimonials, stats, and services shown on the live site.
-Use this if it helps answer the visitor's question.
+FALLBACK MESSAGE:
+"That's a bit outside what I can help with here! For anything specific, feel free to reach Sahed directly at sahedalomsumit@gmail.com or WhatsApp +358 41 576 5539 — he usually replies within an hour. 😊"
 
-━━━ STEP 3: CONTACT FALLBACK (only if steps 1 and 2 both fail) ━━━
-If the question is completely unrelated to Sahed's work, services, background, or portfolio — do NOT make things up.
-Reply warmly like: "That's a bit outside what I can help with here! For anything specific, feel free to reach Sahed directly at sahedalomsumit@gmail.com or WhatsApp +358 41 576 5539 — he usually replies within an hour. 😊"
-
-━━━ TONE RULES ━━━
-- Short answers: 2–4 sentences unless more detail is clearly needed
-- Friendly, warm, confident — like a knowledgeable colleague
-- Use "Sahed" (not "I" — you are the bot, not Sahed)
-- End with a soft CTA when natural (e.g. "Want to start a project? Reach out on WhatsApp!")
-- Never say "I don't know" — always either answer from sources or use the contact fallback
-- Keep multi-turn conversation context in mind — if a visitor follows up, connect it to the previous exchange
-
-━━━ FORMATTING RULES ━━━
-- IMPORTANT: Never use Markdown (no **bold**, # header, * list)
-- For formatting, use basic HTML: <b>bold</b>, <i>italic</i>, <br> for new lines
-- For lists, use bullets (•) or numbered lists
-
-━━━ SOURCE TAGGING (internal — strip from visible reply) ━━━
-After every answer, on a NEW LINE, write exactly one of:
-[SOURCE:faq] — answer came from FAQ Document
-[SOURCE:website] — answer came from Website Data
-[SOURCE:fallback] — used contact fallback
+SOURCE TAGGING:
+After every answer, on a NEW LINE, write exactly one tag: [SOURCE:faq], [SOURCE:website], or [SOURCE:fallback].
 
 ---
-
 ${FAQ_SOURCE}
-
 ---
-
 ${WEBSITE_SOURCE}
 `;
+
 
 // ════════════════════════════════════════════════════
 //  💬  SUGGESTION CHIPS — Curated from FAQ
@@ -330,7 +310,7 @@ export default function SahedChatbot() {
 
 
 
-  // ── Send to Gemini ──────────────────────────────
+  // ── Send to AI Assistant ──────────────────────────────
   const sendMessage = async (text) => {
     const q = text.trim();
     if (!q || loading) return;
@@ -341,75 +321,134 @@ export default function SahedChatbot() {
     setLoading(true);
     setActiveSource(null);
 
-    // Append internal source-tagging instruction to the question
-    const augmented = `${q}
-
-[INTERNAL INSTRUCTION — do not show this line to the user]
-After your answer, on a new line write exactly one tag:
-[SOURCE:faq] if answer came from FAQ Document
-[SOURCE:website] if answer came from Website Data
-[SOURCE:fallback] if you used the contact fallback`;
-
-    const turnHistory = [
-      ...history,
-      { role: "user", parts: [{ text: augmented }] },
-    ];
+    // Initial empty bot message for streaming
+    setMessages((m) => [...m, { role: "bot", text: "", time: fmt(new Date()), isStreaming: true }]);
 
     try {
-      const { data: edgeData, error: edgeError } = await supabase.functions.invoke('gemini-chatbot', {
-        body: {
-          model: GEMINI_MODEL,
-          system_instruction: { parts: [{ text: SYSTEM_PROMPT }] },
-          contents: turnHistory,
-          generationConfig: {
-            temperature: 0.65,
-            maxOutputTokens: 500,
-          },
+      const SUPABASE_URL = import.meta.env.VITE_SUPABASE_URL || 'https://zcfvrxvttbyhmemdyxfw.supabase.co';
+      const SUPABASE_ANON_KEY = import.meta.env.VITE_SUPABASE_ANON_KEY || 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InpjZnZyeHZ0dGJ5aG1lbWR5eGZ3Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzQ2MzI5MDAsImV4cCI6MjA5MDIwODkwMH0.I4up28xh08dzrug3VQ28rMuEsfBq49mKji1DPlc71yU';
+
+      const { data: { session } } = await supabase.auth.getSession();
+      const response = await fetch(`${SUPABASE_URL}/functions/v1/openrouter-chat`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "Authorization": `Bearer ${SUPABASE_ANON_KEY}`,
+          ...(session?.access_token && { "X-Client-Info": `supabase-js-v2`, "Authorization": `Bearer ${session.access_token}` })
         },
+
+        body: JSON.stringify({
+          model: CHAT_MODEL,
+          messages: [
+            { role: "system", content: SYSTEM_PROMPT },
+            ...history.map((h) => ({
+              role: h.role === "model" ? "assistant" : h.role,
+              content: h.parts[0].text,
+            })),
+            { role: "user", content: q },
+          ],
+        }),
       });
 
-      if (edgeError) throw new Error(edgeError.message || "Edge Function error");
+      if (!response.ok) {
+        const errData = await response.json().catch(() => ({}));
+        throw new Error(errData.error || "Failed to connect to AI");
+      }
 
-      const data = edgeData;
+      const reader = response.body.getReader();
+      const decoder = new TextDecoder();
+      let fullContent = "";
 
-      const rawReply = data?.candidates?.[0]?.content?.parts?.[0]?.text || "";
+      while (true) {
+        const { done, value } = await reader.read();
+        if (done) break;
 
-      // Extract [SOURCE:...] tag and strip it from visible reply
+        const chunk = decoder.decode(value, { stream: true });
+        const lines = chunk.split("\n");
+
+        for (const line of lines) {
+          if (line.startsWith("data: ")) {
+            const dataStr = line.slice(6).trim();
+            if (dataStr === "[DONE]") break;
+            try {
+              const data = JSON.parse(dataStr);
+              const content = data.choices?.[0]?.delta?.content || "";
+              if (content) {
+                fullContent += content;
+                // Update the last message
+                setMessages((m) => {
+                  const newMsgs = [...m];
+                  const last = newMsgs[newMsgs.length - 1];
+                  last.text = fullContent
+                    .replace(/\*\*(.*?)\*\*/g, "<b>$1</b>")
+                    .replace(/\*(.*?)\*/g, "<i>$1</i>")
+                    .replace(/\n/g, "<br>");
+                  return newMsgs;
+                });
+              }
+            } catch (e) {
+              // Ignore non-JSON lines
+            }
+          }
+        }
+      }
+
+      // Final processing: Extract [SOURCE:...] tag
       let source = "faq";
-      const match = rawReply.match(/\[SOURCE:(faq|website|fallback)\]/i);
+      const match = fullContent.match(/\[SOURCE:(faq|website|fallback)\]/i);
       if (match) source = match[1].toLowerCase();
-      const cleanReply = rawReply
+
+      const cleanReply = fullContent
         .replace(/\[SOURCE:(faq|website|fallback)\]/gi, "")
-        .replace(/\*\*(.*?)\*\*/g, "<b>$1</b>") // Bold
-        .replace(/\*(.*?)\*/g, "<i>$1</i>")  // Italic
-        .replace(/\n/g, "<br>")              // Newlines
+        .replace(/\*\*(.*?)\*\*/g, "<b>$1</b>")
+        .replace(/\*(.*?)\*/g, "<i>$1</i>")
+        .replace(/\n/g, "<br>")
         .trim();
 
       setActiveSource(source);
-      setMessages((m) => [
-        ...m,
-        { role: "bot", text: cleanReply, time: fmt(new Date()), source },
-      ]);
+      setMessages((m) => {
+        const newMsgs = [...m];
+        newMsgs[newMsgs.length - 1] = {
+          role: "bot",
+          text: cleanReply,
+          time: fmt(new Date()),
+          source,
+          isStreaming: false
+        };
+        return newMsgs;
+      });
 
-      // Save clean turn to history (without the internal instruction)
       setHistory((h) => [
         ...h,
         { role: "user", parts: [{ text: q }] },
         { role: "model", parts: [{ text: cleanReply }] },
       ]);
+
     } catch (err) {
-      setMessages((m) => [
-        ...m,
-        {
-          role: "bot",
-          text: `⚠️ ${err.message || "Something went wrong. Please try again."}`,
-          time: fmt(new Date()),
-        },
-      ]);
+      console.error("Chatbot streaming error:", err);
+      setMessages((m) => {
+        const newMsgs = [...m];
+        // If we were streaming, update the last message. Otherwise add error.
+        if (newMsgs[newMsgs.length - 1]?.isStreaming) {
+          newMsgs[newMsgs.length - 1] = {
+            role: "bot",
+            text: `⚠️ <b>Service Error:</b> ${err.message || "Something went wrong."}`,
+            time: fmt(new Date()),
+          };
+        } else {
+          newMsgs.push({
+            role: "bot",
+            text: `⚠️ <b>Service Error:</b> ${err.message || "Something went wrong."}`,
+            time: fmt(new Date()),
+          });
+        }
+        return newMsgs;
+      });
     } finally {
       setLoading(false);
     }
   };
+
 
   const handleKey = (e) => {
     if (e.key === "Enter" && !e.shiftKey) {

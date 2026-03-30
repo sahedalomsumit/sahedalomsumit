@@ -11,6 +11,15 @@ import Process from './pages/Process'
 import ProjectDetail from './pages/ProjectDetail'
 import Faq from './pages/Faq'
 import SahedChatbot from './components/SahedChatbot'
+import Services from './pages/Services'
+import FigmaDesign from './pages/FigmaDesign'
+import WebflowDevelopment from './pages/WebflowDevelopment'
+import WordPressDevelopment from './pages/WordPressDevelopment'
+import FramerDevelopment from './pages/FramerDevelopment'
+import CustomDevelopment from './pages/CustomDevelopment'
+import AIAutomation from './pages/AIAutomation'
+import SEOOptimization from './pages/SEOOptimization'
+import Quote from './pages/Quote'
 
 function ScrollToTop() {
   const { pathname, hash } = useLocation()
@@ -43,6 +52,15 @@ export default function App() {
           <Route path="/portfolio" element={<Portfolio />} />
           <Route path="/portfolio/:slug" element={<ProjectDetail />} />
           <Route path="/faq" element={<Faq />} />
+          <Route path="/services" element={<Services />} />
+          <Route path="/services/figma-design" element={<FigmaDesign />} />
+          <Route path="/services/webflow-development" element={<WebflowDevelopment />} />
+          <Route path="/services/wordpress-development" element={<WordPressDevelopment />} />
+          <Route path="/services/framer-development" element={<FramerDevelopment />} />
+          <Route path="/services/custom-development" element={<CustomDevelopment />} />
+          <Route path="/services/ai-automation" element={<AIAutomation />} />
+          <Route path="/services/seo-optimization" element={<SEOOptimization />} />
+          <Route path="/quote" element={<Quote />} />
         </Routes>
         <SahedChatbot />
       </main>

@@ -1,3 +1,5 @@
+import { Link } from 'react-router-dom'
+
 export default function ContactSection() {
   return (
     <section id="contact" className="py-32 px-6">
@@ -37,14 +39,12 @@ export default function ContactSection() {
           </div>
         </div>
 
-        <a
-          href="mailto:sahedalomsumit@gmail.com"
-          target="_blank"
-          rel="noopener noreferrer"
+        <Link
+          to="/quote"
           className="px-16 py-6 bg-white text-black font-black text-xs uppercase tracking-[0.4em] rounded-full hover:bg-violet-500 hover:text-white transition-all transform hover:scale-105 shadow-2xl shadow-white/5 inline-block"
         >
-          Execute_Handshake
-        </a>
+          Execute_Quote
+        </Link>
       </div>
     </section>
   )
