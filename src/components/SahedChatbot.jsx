@@ -5,7 +5,7 @@ import { supabase } from "../lib/supabase";
 //  🤖 AI CONFIGURATION
 //  Now secured via Supabase Edge Functions
 // ════════════════════════════════════════════════════
-const CHAT_MODEL = "stepfun/step-3.5-flash:free"; // Managed in Supabase Secrets
+const CHAT_MODEL = "gemini-2.5-flash-lite"; // Managed in Supabase Secrets (Primary: Gemini, Backup: OpenRouter)
 
 // ════════════════════════════════════════════════════
 //  📄  SOURCE 1 — FAQ DOCUMENT (primary source)
@@ -329,7 +329,7 @@ export default function SahedChatbot() {
       const SUPABASE_ANON_KEY = import.meta.env.VITE_SUPABASE_ANON_KEY || 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InpjZnZyeHZ0dGJ5aG1lbWR5eGZ3Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzQ2MzI5MDAsImV4cCI6MjA5MDIwODkwMH0.I4up28xh08dzrug3VQ28rMuEsfBq49mKji1DPlc71yU';
 
       const { data: { session } } = await supabase.auth.getSession();
-      const response = await fetch(`${SUPABASE_URL}/functions/v1/openrouter-chat`, {
+      const response = await fetch(`${SUPABASE_URL}/functions/v1/gemini-chat`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -507,27 +507,30 @@ export default function SahedChatbot() {
 
           {/* Messages */}
           <div className="flex-1 overflow-y-auto p-4 pb-2.5 flex flex-col gap-3 scroll-smooth scrollbar-thin scrollbar-thumb-white/10">
-            {messages.map((m, i) => (
-              <div key={i}>
-                <div className={`flex gap-2 items-end ${m.role === 'user' ? 'flex-row-reverse' : ''}`}>
-                  {m.role === "bot" && <div className="w-6 h-6 rounded-md bg-gradient-to-br from-[#7c6dfa] to-[#c084fc] flex items-center justify-center font-bold text-[9px] text-white shrink-0 mb-1"><img src="/img/ask-sahed-icon-only-sahedalomsumit.svg" alt="" /></div>}
-                  <div className={`max-w-[85%] p-3 px-4 rounded-[18px] text-[13.5px] leading-relaxed break-words ${m.role === 'bot' ? 'bg-[#1e1e2c] text-[#eeeef5] border border-white/10 rounded-bl-[4px]' : 'bg-gradient-to-br from-[#7c6dfa] to-[#c084fc] text-white rounded-br-[4px]'}`} dangerouslySetInnerHTML={{ __html: m.text }} />
-                </div>
-                <div className={`text-[10px] text-[#6e6e88] mt-1 px-1 ${m.role === "bot" ? "pl-[31px]" : "text-right"}`}>
-                  {m.time}
-                </div>
-                {/* Suggestions pinned to the first message */}
-                {i === 0 && (
-                  <div className="p-2 pl-[31px] pb-2.5 flex flex-wrap gap-2 shrink-0 animate-in fade-in slide-in-from-bottom-2 delay-300 duration-500">
-                    {SUGGESTIONS.map((s) => (
-                      <button key={s} className="bg-[#1e1e2c] border border-white/10 text-[#eeeef5] text-[11.5px] px-3.5 py-1.5 rounded-full transition-all hover:bg-[#7c6dfa]/10 hover:border-[#7c6dfa] hover:-translate-y-0.5 font-medium" onClick={() => sendMessage(s)}>
-                        {s}
-                      </button>
-                    ))}
+            {messages.map((m, i) => {
+              if (m.role === "bot" && !m.text && m.isStreaming) return null;
+              return (
+                <div key={i}>
+                  <div className={`flex gap-2 items-end ${m.role === 'user' ? 'flex-row-reverse' : ''}`}>
+                    {m.role === "bot" && <div className="w-6 h-6 rounded-md bg-gradient-to-br from-[#7c6dfa] to-[#c084fc] flex items-center justify-center font-bold text-[9px] text-white shrink-0 mb-1"><img src="/img/ask-sahed-icon-only-sahedalomsumit.svg" alt="" /></div>}
+                    <div className={`max-w-[85%] p-3 px-4 rounded-[18px] text-[13.5px] leading-relaxed break-words ${m.role === 'bot' ? 'bg-[#1e1e2c] text-[#eeeef5] border border-white/10 rounded-bl-[4px]' : 'bg-gradient-to-br from-[#7c6dfa] to-[#c084fc] text-white rounded-br-[4px]'}`} dangerouslySetInnerHTML={{ __html: m.text }} />
                   </div>
-                )}
-              </div>
-            ))}
+                  <div className={`text-[10px] text-[#6e6e88] mt-1 px-1 ${m.role === "bot" ? "pl-[31px]" : "text-right"}`}>
+                    {m.time}
+                  </div>
+                  {/* Suggestions pinned to the first message */}
+                  {i === 0 && (
+                    <div className="p-2 pl-[31px] pb-2.5 flex flex-wrap gap-2 shrink-0 animate-in fade-in slide-in-from-bottom-2 delay-300 duration-500">
+                      {SUGGESTIONS.map((s) => (
+                        <button key={s} className="bg-[#1e1e2c] border border-white/10 text-[#eeeef5] text-[11.5px] px-3.5 py-1.5 rounded-full transition-all hover:bg-[#7c6dfa]/10 hover:border-[#7c6dfa] hover:-translate-y-0.5 font-medium" onClick={() => sendMessage(s)}>
+                          {s}
+                        </button>
+                      ))}
+                    </div>
+                  )}
+                </div>
+              );
+            })}
 
             {loading && (
               <div className="flex gap-2 items-end">
