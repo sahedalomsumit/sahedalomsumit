@@ -496,7 +496,7 @@ export default function Quote() {
         {showPrompt && (
           <div className="fixed inset-0 z-[100] flex items-center justify-center p-6 backdrop-blur-xl bg-black/60 font-sans">
             <RevealOnScroll>
-              <div className="bento-card p-10 max-w-lg w-full border-violet-500/20 bg-black shadow-[0_0_80px_rgba(139,92,246,0.15)]">
+              <div className="bento-card p-8 max-w-lg w-full border-violet-500/20 bg-black shadow-[0_0_80px_rgba(139,92,246,0.15)]">
                 <div className="font-mono text-violet-500 text-[10px] uppercase tracking-[0.3em] mb-6 font-bold italic">./ Initializing_Proposal</div>
                 <h3 className="text-3xl font-black text-white uppercase tracking-tighter mb-4 leading-none italic">Formalize_Quote</h3>
                 <p className="text-gray-400 text-xs font-light mb-8 leading-relaxed max-w-xs tracking-tighter">

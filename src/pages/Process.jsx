@@ -29,7 +29,7 @@ const devSteps = [
 function ProcessStep({ step }) {
   const isViolet = step.color === 'violet'
   return (
-    <div className="bento-card p-10 group border-white/5">
+    <div className="bento-card p-8 group border-white/5">
       <div className="flex items-start justify-between mb-8">
         <span className={`text-6xl font-black text-white/5 ${isViolet ? 'group-hover:text-violet-500/20' : 'group-hover:text-emerald-500/20'} transition-colors`}>
           {step.num} /

@@ -178,7 +178,7 @@ export default function Services() {
         {/* Service Cards Grid */}
         <RevealOnScroll>
           <div className="mb-6">
-            <div className="flex items-center justify-between mb-10 border-b border-white/5 pb-6">
+            <div className="block sm:flex items-center justify-between mb-10 border-b border-white/5 pb-6">
               <h2 className="text-2xl font-bold tracking-tighter text-white uppercase">Service_Inventory</h2>
               <span className="font-mono text-xs text-emerald-500">07_MODULES_ACTIVE</span>
             </div>

@@ -9,7 +9,7 @@ export default function ContactSection() {
         </h2>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 text-left mb-20">
-          <div className="bento-card p-10 flex flex-col justify-between group cursor-pointer hover:border-violet-500 transition-all">
+          <div className="bento-card p-8 flex flex-col justify-between group cursor-pointer hover:border-violet-500 transition-all">
             <a href="mailto:sahedalomsumit@gmail.com" target="_blank" rel="noopener noreferrer">
               <div>
                 <div className="w-10 h-10 bg-white/5 rounded-xl flex items-center justify-center mb-6 border border-white/10 group-hover:border-violet-500 transition">
@@ -23,7 +23,7 @@ export default function ContactSection() {
               <p className="mt-8 text-gray-400 group-hover:text-violet-400 transition text-xs font-mono">Initialize_Chat_Sequence »</p>
             </a>
           </div>
-          <div className="bento-card p-10 flex flex-col justify-between group cursor-pointer hover:border-emerald-500 transition-all">
+          <div className="bento-card p-8 flex flex-col justify-between group cursor-pointer hover:border-emerald-500 transition-all">
             <a href="https://wa.me/+358415765539" target="_blank" rel="noopener noreferrer">
               <div>
                 <div className="w-10 h-10 bg-white/5 rounded-xl flex items-center justify-center mb-6 border border-white/10 group-hover:border-emerald-500 transition">

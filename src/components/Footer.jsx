@@ -6,10 +6,10 @@ export default function Footer() {
   const buildVersion = "3.5.0"
 
   return (
-    <footer className="py-20 px-6 md:px-12 border-t border-white/5 bg-black relative overflow-hidden">
-      <div className="max-w-7xl mx-auto grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-8 lg:gap-12 relative z-10">
+    <footer className="py-16 px-6 md:px-12 border-t border-white/5 bg-black relative overflow-hidden">
+      <div className="max-w-7xl mx-auto grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-8 lg:gap-12 relative z-10">
         {/* Brand Column */}
-        <div className="md:col-span-1">
+        <div className="col-span-2 md:col-span-1">
           <img src="/img/logo-transparent.png" alt="Sahed Alom Sumit Transparent Logo" className="w-full h-auto -ml-4 max-w-48" />
           <p className="mt-6 text-gray-400 text-xs leading-relaxed font-mono max-w-[200px] uppercase">
             ./ Vibe Web Designer<br />./ Vibe Web Developer<br />./ Vibe AI Automation<br />./ Design. Code. Vibes.
@@ -20,11 +20,11 @@ export default function Footer() {
         <div>
           <h4 className="text-[10px] font-mono font-bold uppercase tracking-widest mb-8 text-violet-500">Featured_Build</h4>
           <ul className="space-y-4 text-xs font-mono text-gray-400">
-            <li><Link to="/portfolio/twintwo" className="hover:text-white transition tracking-widest">TWINTWO</Link></li>
-            <li><Link to="/portfolio/ongaro-metodo" className="hover:text-white transition tracking-widest">ONGARO METODO</Link></li>
-            <li><Link to="/portfolio/e-service" className="hover:text-white transition tracking-widest">E-SERVICE</Link></li>
-            <li><Link to="/portfolio/notifi" className="hover:text-white transition tracking-widest">NOTIFI</Link></li>
-            <li><Link to="/portfolio/ovulio-baby" className="hover:text-white transition tracking-widest">OVULIO BABY</Link></li>
+            <li><Link to="/portfolio/twintwo" className="hover:text-white transition tracking-widest">./ TWINTWO</Link></li>
+            <li><Link to="/portfolio/ongaro-metodo" className="hover:text-white transition tracking-widest">./ ONGARO METODO</Link></li>
+            <li><Link to="/portfolio/e-service" className="hover:text-white transition tracking-widest">./ E-SERVICE</Link></li>
+            <li><Link to="/portfolio/notifi" className="hover:text-white transition tracking-widest">./ NOTIFI</Link></li>
+            <li><Link to="/portfolio/ovulio-baby" className="hover:text-white transition tracking-widest">./ OVULIO BABY</Link></li>
           </ul>
         </div>
 
@@ -45,13 +45,13 @@ export default function Footer() {
         <div>
           <h4 className="text-[10px] font-mono font-bold uppercase tracking-widest mb-8 text-violet-500">Services_Master</h4>
           <ul className="space-y-4 text-xs font-mono text-gray-400 uppercase">
-            <li><Link to="/services/figma-design" className="hover:text-white transition tracking-widest">Figma Design</Link></li>
-            <li><Link to="/services/webflow-development" className="hover:text-white transition tracking-widest">Webflow Dev</Link></li>
-            <li><Link to="/services/wordpress-development" className="hover:text-white transition tracking-widest">WordPress Dev</Link></li>
-            <li><Link to="/services/framer-development" className="hover:text-white transition tracking-widest">Framer Dev</Link></li>
-            <li><Link to="/services/custom-development" className="hover:text-white transition tracking-widest">Custom Dev</Link></li>
-            <li><Link to="/services/ai-automation" className="hover:text-white transition tracking-widest">AI_Automation</Link></li>
-            <li><Link to="/services/seo-optimization" className="hover:text-white transition tracking-widest">SEO strategy</Link></li>
+            <li><Link to="/services/figma-design" className="hover:text-white transition tracking-widest">./ Figma Design</Link></li>
+            <li><Link to="/services/webflow-development" className="hover:text-white transition tracking-widest">./ Webflow Dev</Link></li>
+            <li><Link to="/services/wordpress-development" className="hover:text-white transition tracking-widest">./ WordPress Dev</Link></li>
+            <li><Link to="/services/framer-development" className="hover:text-white transition tracking-widest">./ Framer Dev</Link></li>
+            <li><Link to="/services/custom-development" className="hover:text-white transition tracking-widest">./ Custom Dev</Link></li>
+            <li><Link to="/services/ai-automation" className="hover:text-white transition tracking-widest">./ AI Automation</Link></li>
+            <li><Link to="/services/seo-optimization" className="hover:text-white transition tracking-widest">./ SEO strategy</Link></li>
           </ul>
         </div>
 
@@ -59,21 +59,21 @@ export default function Footer() {
         <div>
           <h4 className="text-[10px] font-mono font-bold uppercase tracking-widest mb-8 text-violet-500">Follow_Stream</h4>
           <ul className="space-y-4 text-xs font-mono text-gray-400">
-            <li><a href="https://www.linkedin.com/in/sahedalomsumit" target="_blank" rel="noopener noreferrer" className="hover:text-white transition tracking-widest">LINKEDIN</a></li>
-            <li><a href="https://wa.me/358415765539" target="_blank" rel="noopener noreferrer" className="hover:text-white transition tracking-widest">WHATSAPP</a></li>
-            <li><a href="https://t.me/sahedalomsumit" target="_blank" rel="noopener noreferrer" className="hover:text-white transition tracking-widest">TELEGRAM</a></li>
-            <li><a href="https://www.facebook.com/sahedalomsumit" target="_blank" rel="noopener noreferrer" className="hover:text-white transition tracking-widest">FACEBOOK</a></li>
-            <li><a href="https://www.instagram.com/sahedalomsumit" target="_blank" rel="noopener noreferrer" className="hover:text-white transition tracking-widest">INSTAGRAM</a></li>
+            <li><a href="https://www.linkedin.com/in/sahedalomsumit" target="_blank" rel="noopener noreferrer" className="hover:text-white transition tracking-widest">./ LINKEDIN</a></li>
+            <li><a href="https://wa.me/358415765539" target="_blank" rel="noopener noreferrer" className="hover:text-white transition tracking-widest">./ WHATSAPP</a></li>
+            <li><a href="https://t.me/sahedalomsumit" target="_blank" rel="noopener noreferrer" className="hover:text-white transition tracking-widest">./ TELEGRAM</a></li>
+            <li><a href="https://www.facebook.com/sahedalomsumit" target="_blank" rel="noopener noreferrer" className="hover:text-white transition tracking-widest">./ FACEBOOK</a></li>
+            <li><a href="https://www.instagram.com/sahedalomsumit" target="_blank" rel="noopener noreferrer" className="hover:text-white transition tracking-widest">./ INSTAGRAM</a></li>
           </ul>
         </div>
       </div>
 
       {/* Bottom Copyright */}
       <div className="max-w-7xl mx-auto mt-20 pt-8 border-t border-white/5 flex flex-col md:flex-row justify-between items-center gap-6">
-        <p className="font-mono text-[9px] text-gray-400 uppercase tracking-widest">
+        <p className="font-mono text-[9px] text-gray-400 uppercase tracking-widest text-center md:text-left">
           © {currentYear} Sahed Alom Sumit // Built with good vibes and clean code
         </p>
-        <div className="flex gap-4 text-[9px] font-mono text-gray-400">
+        <div className="hidden md:flex gap-4 text-[9px] font-mono text-gray-400">
           <span>V{buildVersion}_BUILD</span>
           <div className="flex items-center gap-2 text-emerald-500">
             <span className="w-1.5 h-1.5 bg-emerald-500 rounded-full animate-pulse" />

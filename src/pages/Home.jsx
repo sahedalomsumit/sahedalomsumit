@@ -110,7 +110,7 @@ export default function Home() {
       {/* Bio Section */}
       <RevealOnScroll>
         <section id="bio" className="py-24 px-6 max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-12 gap-6">
-          <div className="md:col-span-8 bento-card p-10 md:p-14 flex flex-col justify-between">
+          <div className="md:col-span-8 bento-card p-8 md:p-14 flex flex-col justify-between">
             <div>
               <div className="font-mono text-emerald-500 text-[10px] uppercase tracking-widest mb-6 flex items-center gap-2">/ About Me</div>
               <h2 className="text-2xl md:text-3xl font-bold mb-10 text-white leading-tight">
@@ -140,7 +140,7 @@ export default function Home() {
             </div>
           </div>
 
-          <div className="md:col-span-4 bento-card p-10">
+          <div className="md:col-span-4 bento-card p-8">
             <div className="font-mono text-emerald-500 text-[10px] uppercase tracking-widest mb-8">/ Core_Node</div>
             <div className="space-y-10">
               {[
@@ -176,7 +176,7 @@ export default function Home() {
             <span className="font-mono text-xs text-emerald-500">39_MODULES_LOADED</span>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            <div className="bento-card p-10">
+            <div className="bento-card p-8">
               <div className="font-mono text-emerald-500 text-[10px] uppercase tracking-widest mb-8">/ Design_Dev_Unit</div>
               <div className="flex flex-wrap gap-2">
                 {['Design Principles', 'Responsive Design', 'Accessibility'].map(s => (
@@ -187,7 +187,7 @@ export default function Home() {
                 ))}
               </div>
             </div>
-            <div className="bento-card p-10 border-violet-500/20 bg-violet-500/5">
+            <div className="bento-card p-8 border-violet-500/20 bg-violet-500/5">
               <div className="font-mono text-violet-400 text-[10px] uppercase tracking-widest mb-8">/ Design_Dev_Stack</div>
               <div className="flex flex-wrap gap-2">
                 {['Webflow', 'WordPress', 'Figma', 'Custom Coding Website'].map(s => (
@@ -198,7 +198,7 @@ export default function Home() {
                 ))}
               </div>
             </div>
-            <div className="bento-card p-10">
+            <div className="bento-card p-8">
               <div className="font-mono text-emerald-500 text-[10px] uppercase tracking-widest mb-8">/ Design_Dev_AI</div>
               <div className="flex flex-wrap gap-2">
                 {['Claude Code', 'Antigravity', 'Stitch', 'Make.com', 'n8n', 'Zapier'].map(s => (
@@ -218,7 +218,7 @@ export default function Home() {
         <section className="py-24 px-6 max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-12 gap-6">
           <div className="md:col-span-6">
             {/* Education */}
-            <div className="bento-card p-10 md:p-14 flex flex-col justify-between">
+            <div className="bento-card p-8 md:p-14 flex flex-col justify-between">
               <div>
                 <div className="font-mono text-emerald-500 text-[10px] uppercase tracking-widest mb-6 flex items-center gap-2">/ Edu_Entry</div>
                 <h2 className="text-xl md:text-3xl font-bold mb-6 text-white leading-tight">Bachelor's | 2023 - 2025</h2>
@@ -244,7 +244,7 @@ export default function Home() {
             <div className="max-w-5xl mx-auto py-8">
               <Carousel>
                 {certificates.map(cert => (
-                  <div key={cert.id} className="bg-zinc-900 rounded-3xl p-10">
+                  <div key={cert.id} className="bg-zinc-900 rounded-3xl p-8">
                     <p className="text-emerald-500 text-xs uppercase tracking-widest mb-4">/ {cert.label}</p>
                     <h2 className="text-2xl md:text-3xl font-bold mb-2">{cert.title}</h2>
                     <p className="text-emerald-300 text-sm mb-6">{cert.date}</p>
@@ -263,7 +263,7 @@ export default function Home() {
             <div className="max-w-5xl mx-auto mb-8">
               <Carousel>
                 {experiences.map(exp => (
-                  <div key={exp.id} className="bg-zinc-900 rounded-3xl p-10 md:p-14 flex flex-col justify-between">
+                  <div key={exp.id} className="bg-zinc-900 rounded-3xl p-8 md:p-14 flex flex-col justify-between">
                     <div>
                       <div className="text-emerald-500 text-[10px] uppercase tracking-widest mb-6">/ {exp.label}</div>
                       <h2 className="text-xl md:text-3xl font-bold mb-4">{exp.title}</h2>
@@ -277,7 +277,7 @@ export default function Home() {
               </Carousel>
             </div>
             {/* Intro Video */}
-            <div className="bento-card p-10 md:p-14 flex flex-col justify-between">
+            <div className="bento-card p-8 md:p-14 flex flex-col justify-between">
               <div className="font-mono text-emerald-500 text-[10px] uppercase tracking-widest mb-6 flex items-center gap-2">/ Intro_Entry</div>
               <iframe
                 className="w-full h-auto rounded-xl sm:h-64"
@@ -324,7 +324,7 @@ export default function Home() {
             <h2 className="text-2xl sm:text-6xl font-bold text-center mb-20 text-white uppercase tracking-[0.2em]">Validation_Logs</h2>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
               {testimonials.map((t, i) => (
-                <div key={i} className="bento-card p-10 flex flex-col justify-between hover:bg-white/[0.03]">
+                <div key={i} className="bento-card p-8 flex flex-col justify-between hover:bg-white/[0.03]">
                   <p className="text-gray-400 italic text-lg leading-relaxed mb-10">{t.quote}</p>
                   <div className="flex items-center gap-4">
                     <div className={`w-12 h-12 ${t.color} rounded-2xl flex items-center justify-center text-sm font-black shadow-lg ${t.shadow}`}>{t.initials}</div>
@@ -337,7 +337,7 @@ export default function Home() {
               ))}
             </div>
             {/* Review screenshots carousel */}
-            <div className="relative bento-card p-10 mt-8">
+            <div className="relative bento-card p-8 mt-8">
               <Carousel>
                 {reviewSlides.map((pair, i) => (
                   <div key={i} className="grid grid-cols-1 md:grid-cols-2 gap-6">

@@ -73,7 +73,7 @@ export default function CustomDevelopment() {
         {/* Deliverables */}
         <RevealOnScroll>
           <div className="mb-20">
-            <div className="flex items-center justify-between mb-10 border-b border-white/5 pb-6">
+            <div className="block sm:flex items-center justify-between mb-10 border-b border-white/5 pb-6">
               <h2 className="text-3xl font-black tracking-tighter text-white uppercase">What_You_Get</h2>
               <span className="font-mono text-xs text-violet-500">06_DELIVERABLES</span>
             </div>

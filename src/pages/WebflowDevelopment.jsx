@@ -93,7 +93,7 @@ export default function WebflowDevelopment() {
         {/* Deliverables */}
         <RevealOnScroll>
           <div className="mb-20">
-            <div className="flex items-center justify-between mb-10 border-b border-white/5 pb-6">
+            <div className="block sm:flex items-center justify-between mb-10 border-b border-white/5 pb-6">
               <h2 className="text-3xl font-black tracking-tighter text-white uppercase">What_You_Get</h2>
               <span className="font-mono text-xs text-emerald-500">06_DELIVERABLES</span>
             </div>
@@ -130,7 +130,7 @@ export default function WebflowDevelopment() {
 
         {/* Tools */}
         <RevealOnScroll>
-          <div className="bento-card p-10 mb-20 border-emerald-500/10 bg-emerald-500/5">
+          <div className="bento-card p-8 mb-20 border-emerald-500/10 bg-emerald-500/5">
             <div className="font-mono text-emerald-400 text-[10px] uppercase tracking-widest mb-8">/ Webflow_Stack</div>
             <div className="flex flex-wrap gap-2">
               {tools.map((t) => (
