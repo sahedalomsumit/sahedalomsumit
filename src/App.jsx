@@ -1,4 +1,4 @@
-import { Routes, Route, useLocation } from 'react-router-dom'
+import { Routes, Route, useLocation, Navigate } from 'react-router-dom'
 import { useEffect } from 'react'
 import CustomCursor from './components/CustomCursor'
 import AuraBackground from './components/AuraBackground'
@@ -20,6 +20,7 @@ import CustomDevelopment from './pages/CustomDevelopment'
 import AIAutomation from './pages/AIAutomation'
 import SEOOptimization from './pages/SEOOptimization'
 import Quote from './pages/Quote'
+import NotFound from './pages/NotFound'
 
 function ScrollToTop() {
   const { pathname, hash } = useLocation()
@@ -61,6 +62,8 @@ export default function App() {
           <Route path="/services/ai-automation" element={<AIAutomation />} />
           <Route path="/services/seo-optimization" element={<SEOOptimization />} />
           <Route path="/quote" element={<Quote />} />
+          <Route path="/work" element={<Navigate to="/portfolio" replace />} />
+          <Route path="*" element={<NotFound />} />
         </Routes>
         <SahedChatbot />
       </main>

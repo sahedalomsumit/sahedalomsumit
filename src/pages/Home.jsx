@@ -148,6 +148,7 @@ export default function Home() {
                 { label: 'Primary_Mail', value: 'sahedalomsumit@gmail.com', href: 'mailto:sahedalomsumit@gmail.com' },
                 { label: 'WhatsApp_Node', value: '+358415765539', href: 'https://wa.me/+358415765539' },
                 { label: 'LinkedIn_Profile', value: 'sahedalomsumit', href: 'https://linkedin.com/in/sahedalomsumit' },
+                { label: 'GitHub_Repository', value: 'sahedalomsumit', href: 'https://github.com/sahedalomsumit' },
               ].map((item) => (
                 <div key={item.label} className="group">
                   <p className="text-[10px] text-gray-400 uppercase tracking-widest font-bold mb-2">{item.label}</p>

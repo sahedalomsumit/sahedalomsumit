@@ -60,6 +60,7 @@ export default function Footer() {
           <h4 className="text-[10px] font-mono font-bold uppercase tracking-widest mb-8 text-violet-500">Follow_Stream</h4>
           <ul className="space-y-4 text-xs font-mono text-gray-400">
             <li><a href="https://www.linkedin.com/in/sahedalomsumit" target="_blank" rel="noopener noreferrer" className="hover:text-white transition tracking-widest">./ LINKEDIN</a></li>
+            <li><a href="https://github.com/sahedalomsumit" target="_blank" rel="noopener noreferrer" className="hover:text-white transition tracking-widest">./ GITHUB</a></li>
             <li><a href="https://wa.me/358415765539" target="_blank" rel="noopener noreferrer" className="hover:text-white transition tracking-widest">./ WHATSAPP</a></li>
             <li><a href="https://t.me/sahedalomsumit" target="_blank" rel="noopener noreferrer" className="hover:text-white transition tracking-widest">./ TELEGRAM</a></li>
             <li><a href="https://www.facebook.com/sahedalomsumit" target="_blank" rel="noopener noreferrer" className="hover:text-white transition tracking-widest">./ FACEBOOK</a></li>
