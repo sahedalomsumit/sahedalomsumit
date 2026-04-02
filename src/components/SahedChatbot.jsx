@@ -259,7 +259,7 @@ const SUGGESTIONS = [
   "'Vibe Web Designer & Developer' mean?",
   "What services do you offer?",
   "What is your hourly rate?",
-  "How much does a website cost(design+dev)?",
+  "How much does a website cost?",
   "What's your tech stack?",
   "What's your payment structure?",
   "Are you available for hiring?",
