@@ -69,7 +69,7 @@ Q: Do you offer SEO services?
 A: SEO is built into every project — meta tags, semantic HTML, Core Web Vitals, speed optimization, JSON-LD structured data, image compression. 100/100 SEO scores on every delivery.
 
 Q: Do you build custom web applications?
-A: Yes. React, Node.js, Tailwind CSS, Supabase, SQL — full custom apps when no-code isn't the right fit.
+A: Yes. React, Node.js, Express.js, Tailwind CSS, Supabase, SQL — full custom apps when no-code isn't the right fit.
 
 DESIGN & DEVELOPMENT PROCESS
 Q: What is your design process?
@@ -101,14 +101,8 @@ PRICING, PAYMENT & AVAILABILITY
 Q: What is your hourly rate?
 A: €30/hour direct. ~$40/hour on Upwork (10% cut). ~$45/hour on Fiverr (20% cut).
 
-Q: How much does a 5-page website cost?
-A: 58–108 hours total at €30/h = €1,740–3,240 (design+development). Fixed price: ~€2,500.
-
-Q: How much does a landing page cost?
-A: 18–28 hours at €30/h = €540–840 (design+development). Fixed price: ~€700.
-
-Q: How much does a large website cost?
-A: It depends on the number of pages and the complexity of the website. I will estimate the cost after understanding your requirements and how many hours it will take at €30/h.
+Q: How much does a website cost?
+A: Check the estimate cost with breakdown pdf based on your project details. Quote: https://sahedalomsumit.com/quote.
 
 Q: What is your payment structure?
 A: 50% upfront to secure your slot, 50% on final approval(depends on hours it can be less or more). Milestone payments for larger projects.
