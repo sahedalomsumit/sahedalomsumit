@@ -266,14 +266,22 @@ export default function SalahTrackerApp() {
           </div>
         </RevealOnScroll>
 
-        {/* Link to Privacy Policy */}
+        {/* Legal Links */}
         <RevealOnScroll>
-          <div className="bg-[#0a0a0a] border border-white/5 p-8 text-center rounded-3xl shadow-[inset_0_0_50px_rgba(16,185,129,0.05)]">
+          <div className="bg-[#0a0a0a] border border-white/5 p-8 text-center rounded-3xl shadow-[inset_0_0_50px_rgba(16,185,129,0.05)] flex flex-col md:flex-row items-center justify-center gap-6">
              <Link 
                to="/salah-tracker-app/privacy-policy" 
                className="inline-flex items-center gap-3 text-gray-500 font-mono text-sm hover:text-emerald-500 transition-colors uppercase tracking-widest group"
              >
-               <span>Salah Tracker Privacy Policy</span>
+               <span>Privacy Policy</span>
+               <span className="group-hover:translate-x-1 transition-transform">&rarr;</span>
+             </Link>
+             <span className="text-white/10 hidden md:inline">|</span>
+             <Link 
+               to="/salah-tracker-app/data-deletion" 
+               className="inline-flex items-center gap-3 text-gray-500 font-mono text-sm hover:text-red-500 transition-colors uppercase tracking-widest group"
+             >
+               <span>Data Deletion Request</span>
                <span className="group-hover:translate-x-1 transition-transform">&rarr;</span>
              </Link>
           </div>

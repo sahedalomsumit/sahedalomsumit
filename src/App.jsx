@@ -23,6 +23,7 @@ import Quote from './pages/Quote'
 import NotFound from './pages/NotFound'
 import SalahTrackerPrivacyPolicy from './pages/SalahTrackerPrivacyPolicy'
 import SalahTrackerApp from './pages/SalahTrackerApp'
+import SalahTrackerDataDeletion from './pages/SalahTrackerDataDeletion'
 
 
 function ScrollToTop() {
@@ -67,6 +68,7 @@ export default function App() {
           <Route path="/quote" element={<Quote />} />
           <Route path="/salah-tracker-app" element={<SalahTrackerApp />} />
           <Route path="/salah-tracker-app/privacy-policy" element={<SalahTrackerPrivacyPolicy />} />
+          <Route path="/salah-tracker-app/data-deletion" element={<SalahTrackerDataDeletion />} />
           <Route path="/work" element={<Navigate to="/portfolio" replace />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
