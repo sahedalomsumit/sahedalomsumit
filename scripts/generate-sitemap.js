@@ -25,7 +25,9 @@ const STATIC_ROUTES = [
   '/services/custom-development',
   '/services/ai-automation',
   '/services/seo-optimization',
-  '/quote'
+  '/quote',
+  '/salah-tracker-app',
+  '/salah-tracker-app/privacy-policy'
 ]
 
 async function generateSitemap() {
