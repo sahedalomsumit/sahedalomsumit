@@ -137,7 +137,7 @@ const stats = [
 
 export default function Services() {
   useSEO({
-    title: 'Services | Sahed Alom Sumit — Figma, Webflow, WordPress, AI Automation',
+    title: 'Services | Figma, Webflow, WordPress, AI Automation',
     description: 'Explore Sahed Alom Sumit\'s full-stack web services: Figma design, Webflow development, WordPress, Framer, custom coding, AI automation, and SEO optimization.',
     canonical: '/services',
   })

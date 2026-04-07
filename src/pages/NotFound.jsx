@@ -2,9 +2,15 @@ import { Link } from 'react-router-dom'
 import RevealOnScroll from '../components/RevealOnScroll'
 import { useEffect, useRef } from 'react'
 import gsap from 'gsap'
+import { useSEO } from '../hooks/useSEO'
 
 export default function NotFound() {
   const containerRef = useRef(null)
+
+  useSEO({
+    title: '404 - Page Not Found',
+    description: 'The page you are looking for has either drifted into another dimension or never existed in this vibe.',
+  })
 
   useEffect(() => {
     // Basic 404 animation

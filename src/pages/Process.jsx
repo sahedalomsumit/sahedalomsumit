@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom'
 import gsap from 'gsap'
 import RevealOnScroll from '../components/RevealOnScroll'
 import ContactSection from '../components/ContactSection'
+import { useSEO } from '../hooks/useSEO'
 
 const designSteps = [
   { num: '01', badge: 'DISCOVERY', color: 'emerald', title: 'Discovery & Define Problem', desc: 'Focus: Understand business needs, user goals, and clearly define the problem.', items: ['Kick-off meeting with stakeholders', 'Define project scope & timeline', 'Understand business vision', 'Identify user pain points'] },
@@ -53,6 +54,13 @@ function ProcessStep({ step }) {
 
 export default function Process() {
   const [activeTab, setActiveTab] = useState('design')
+
+  useSEO({
+    title: 'My Process',
+    description: 'Learn about the transparent, efficient, and vibe-driven process Sahed Alom Sumit uses to deliver premium web design and development projects.',
+    canonical: '/process',
+  })
+
   const isDesign = activeTab === 'design'
 
   const switchTab = (tab) => {

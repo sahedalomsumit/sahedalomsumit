@@ -30,7 +30,7 @@ const related = [
 
 export default function FigmaDesign() {
   useSEO({
-    title: 'Figma Design Services | UI/UX Design — Sahed Alom Sumit',
+    title: 'Figma UI/UX Design | High-Fidelity Prototypes',
     description: 'Professional Figma UI/UX design services: wireframing, high-fidelity prototypes, design systems, and dev-ready handoffs. Based in Helsinki, working globally.',
     canonical: '/services/figma-design',
   })

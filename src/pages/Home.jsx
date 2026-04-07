@@ -7,6 +7,7 @@ import Carousel from '../components/Carousel'
 import ProjectCard from '../components/ProjectCard'
 import ContactSection from '../components/ContactSection'
 import { useState } from 'react'
+import { useSEO } from '../hooks/useSEO'
 
 gsap.registerPlugin(TextPlugin)
 
@@ -47,6 +48,11 @@ export default function Home() {
   const heroRef = useRef(null)
   const [featured, setFeatured] = useState([])
   const [loading, setLoading] = useState(true)
+
+  useSEO({
+    description: 'Sahed Alom Sumit is a Vibe Web Designer & Developer based in Helsinki, Finland. I build websites that feel alive — where good design meets clean code.',
+    canonical: '/',
+  })
 
   useEffect(() => {
     async function loadFeatured() {

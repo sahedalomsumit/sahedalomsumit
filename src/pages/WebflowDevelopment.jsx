@@ -37,7 +37,7 @@ const related = [
 
 export default function WebflowDevelopment() {
   useSEO({
-    title: 'Webflow Development Services | Expert Webflow Developer — Sahed Alom Sumit',
+    title: 'Webflow Development Services | Expert Webflow Developer',
     description: 'Expert Webflow development: custom sites, CMS, animations, e-commerce, and Spline 3D. Webflow certified. 40+ projects delivered globally.',
     canonical: '/services/webflow-development',
   })

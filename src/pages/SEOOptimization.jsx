@@ -37,7 +37,7 @@ const related = [
 
 export default function SEOOptimization() {
   useSEO({
-    title: 'SEO & Optimization Services | Technical SEO Expert — Sahed Alom Sumit',
+    title: 'SEO & Optimization Services | Technical SEO Expert',
     description: 'Technical SEO, Core Web Vitals optimization, schema markup, and page speed tuning. Improve rankings and performance for Webflow, WordPress, and custom sites.',
     canonical: '/services/seo-optimization',
   })

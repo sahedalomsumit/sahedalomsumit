@@ -30,7 +30,7 @@ const related = [
 
 export default function WordPressDevelopment() {
   useSEO({
-    title: 'WordPress Development Services | Custom WordPress Developer — Sahed Alom Sumit',
+    title: 'WordPress Development Services | Custom WordPress Developer',
     description: 'Expert WordPress development: custom themes, Elementor, WooCommerce, Crocoblock, speed optimization, and migrations. Based in Helsinki, working globally.',
     canonical: '/services/wordpress-development',
   })

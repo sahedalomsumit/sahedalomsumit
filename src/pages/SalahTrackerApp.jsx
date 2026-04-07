@@ -2,9 +2,16 @@ import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
 import RevealOnScroll from '../components/RevealOnScroll'
 import ContactSection from '../components/ContactSection'
+import { useSEO } from '../hooks/useSEO'
 
 export default function SalahTrackerApp() {
   const [showDarkMode, setShowDarkMode] = useState(true)
+
+  useSEO({
+    title: 'Salah Tracker App',
+    description: 'Salah Tracker – A mindful prayer companion for the modern Muslim. Track your prayers, build consistency, and stay mindful with this 100% ad-free app.',
+    canonical: '/salah-tracker-app',
+  })
 
   const darkScreenshots = [
     "/img/salah-tracker-app/salah tracker app - screenshot (1).webp",

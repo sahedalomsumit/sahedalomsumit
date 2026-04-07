@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom'
 import RevealOnScroll from '../components/RevealOnScroll'
 import ContactSection from '../components/ContactSection'
 import { fetchFaqs } from '../lib/supabase'
+import { useSEO } from '../hooks/useSEO'
 
 function FaqItem({ faq }) {
   const [isOpen, setIsOpen] = useState(false)
@@ -42,6 +43,12 @@ export default function Faq() {
   const [faqs, setFaqs] = useState([])
   const [loading, setLoading] = useState(true)
   const [activeTab, setActiveTab] = useState('All')
+
+  useSEO({
+    title: 'FAQ',
+    description: 'Frequently asked questions about working with Sahed Alom Sumit on web design, development, and AI automation projects.',
+    canonical: '/faq',
+  })
 
   useEffect(() => {
     async function loadFaqs() {

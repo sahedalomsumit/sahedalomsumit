@@ -30,7 +30,7 @@ const related = [
 
 export default function FramerDevelopment() {
   useSEO({
-    title: 'Framer Development Services | Framer Developer — Sahed Alom Sumit',
+    title: 'Framer Development Services | Framer Developer',
     description: 'Expert Framer development: motion-rich sites, CMS integrations, portfolio builds, and custom code overrides. Premium Framer developer based in Helsinki.',
     canonical: '/services/framer-development',
   })

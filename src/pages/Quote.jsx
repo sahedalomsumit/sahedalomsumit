@@ -23,7 +23,7 @@ export default function Quote() {
   const pdfRef = useRef()
 
   useSEO({
-    title: 'Project Quote Calculator | Sahed Alom Sumit — Vibe Web Designer',
+    title: 'Project Quote Calculator',
     description: 'Get an instant project quote for your web build. Transparent pricing at €30/h for high-end Webflow, WordPress, and Custom development.',
     canonical: '/quote',
   })

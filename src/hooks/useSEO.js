@@ -1,40 +1,45 @@
 import { useEffect } from 'react'
 
-/**
- * Lightweight SEO hook — updates document title and meta description dynamically.
- * @param {string} title - Page <title> text
- * @param {string} description - Meta description content
- * @param {string} [canonical] - Optional canonical URL path (e.g. "/services/figma-design")
- */
 export function useSEO({ title, description, canonical }) {
   useEffect(() => {
-    // Title
-    document.title = title
+    // 1. Update Title Tag
+    const baseTitle = 'Sahed Alom Sumit'
+    const fullTitle = title ? `${title} | ${baseTitle}` : `${baseTitle} | Vibe Web Designer & Developer`
+    document.title = fullTitle
 
-    // Meta description
+    // 2. Prepare Defaults
+    const defaultDescription = "Sahed Alom Sumit is a Vibe Web Designer & Developer based in Helsinki, Finland. I build websites that feel alive — where good design meets clean code."
+    const activeDescription = description || defaultDescription
+
+    // 3. Update Meta Description
     const metaDesc = document.querySelector('meta[name="description"]')
-    if (metaDesc) metaDesc.setAttribute('content', description)
+    if (metaDesc) metaDesc.setAttribute('content', activeDescription)
 
-    // OG title
+    // 4. Update OpenGraph Tags
     const ogTitle = document.querySelector('meta[property="og:title"]')
-    if (ogTitle) ogTitle.setAttribute('content', title)
+    if (ogTitle) ogTitle.setAttribute('content', fullTitle)
 
-    // OG description
     const ogDesc = document.querySelector('meta[property="og:description"]')
-    if (ogDesc) ogDesc.setAttribute('content', description)
+    if (ogDesc) ogDesc.setAttribute('content', activeDescription)
 
-    // Canonical
+    // 5. Update Twitter Tags
+    const twitterTitle = document.querySelector('meta[name="twitter:title"]')
+    if (twitterTitle) twitterTitle.setAttribute('content', fullTitle)
+
+    const twitterDesc = document.querySelector('meta[name="twitter:description"]')
+    if (twitterDesc) twitterDesc.setAttribute('content', activeDescription)
+
+    // 6. Update Canonical Link
     const canonicalEl = document.querySelector('link[rel="canonical"]')
-    if (canonical && canonicalEl) {
-      canonicalEl.setAttribute('href', `https://sahedalomsumit.com${canonical}`)
+    if (canonicalEl) {
+      const fullCanonical = canonical ? `https://sahedalomsumit.com${canonical.startsWith('/') ? '' : '/'}${canonical}` : 'https://sahedalomsumit.com/'
+      canonicalEl.setAttribute('href', fullCanonical)
     }
 
-    // Cleanup — restore defaults on unmount
+    // Cleanup — optionally restore some defaults on unmount
     return () => {
-      document.title = 'Sahed Alom Sumit | Vibe Web Designer & Developer'
-      if (metaDesc) metaDesc.setAttribute('content', 'Sahed Alom Sumit is a Vibe Web Designer & Developer based in Helsinki, Finland. I build websites that feel alive — where good design meets clean code.')
-      if (canonicalEl) canonicalEl.setAttribute('href', 'https://sahedalomsumit.com/')
+      // We don't necessarily want to flicker back to home title while transitioning
+      // but we can if the next page doesn't have useSEO (though they all should now)
     }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [title, description, canonical])
 }

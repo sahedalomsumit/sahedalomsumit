@@ -39,7 +39,7 @@ const related = [
 
 export default function AIAutomation() {
   useSEO({
-    title: 'AI Automation Services | Make.com, n8n, Zapier — Sahed Alom Sumit',
+    title: 'AI Automation Services | Make.com, n8n, Zapier',
     description: 'AI automation and workflow design using Make.com, n8n, Zapier, Claude, and GPT-4. Build systems that work while you sleep.',
     canonical: '/services/ai-automation',
   })

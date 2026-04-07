@@ -4,10 +4,17 @@ import RevealOnScroll from '../components/RevealOnScroll'
 import ProjectCard from '../components/ProjectCard'
 import ContactSection from '../components/ContactSection'
 import { fetchProjects } from '../lib/supabase'
+import { useSEO } from '../hooks/useSEO'
 
 export default function Portfolio() {
   const [projects, setProjects] = useState([])
   const [loading, setLoading] = useState(true)
+
+  useSEO({
+    title: 'Portfolio',
+    description: 'Explore the selected works of Sahed Alom Sumit, featuring high-performance websites across Webflow, WordPress, and custom development.',
+    canonical: '/portfolio',
+  })
 
   useEffect(() => {
     async function loadProjects() {

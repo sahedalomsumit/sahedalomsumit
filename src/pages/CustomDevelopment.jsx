@@ -34,7 +34,7 @@ const related = [
 
 export default function CustomDevelopment() {
   useSEO({
-    title: 'Custom Web Development Services | React Developer — Sahed Alom Sumit',
+    title: 'Custom Web Development Services | React Developer',
     description: 'Custom web development with React, Supabase, Tailwind CSS, and Node.js. Scalable, performant apps built from scratch when no-code platforms fall short.',
     canonical: '/services/custom-development',
   })

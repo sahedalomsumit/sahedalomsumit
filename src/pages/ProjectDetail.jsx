@@ -3,12 +3,19 @@ import { useParams, Link } from 'react-router-dom'
 import RevealOnScroll from '../components/RevealOnScroll'
 import ContactSection from '../components/ContactSection'
 import { fetchProjectBySlug, fetchAdjacentProjects } from '../lib/supabase'
+import { useSEO } from '../hooks/useSEO'
 
 export default function ProjectDetail() {
   const { slug } = useParams()
   const [project, setProject] = useState(null)
   const [adjacent, setAdjacent] = useState({ prev: null, next: null })
   const [loading, setLoading] = useState(true)
+
+  useSEO({
+    title: project ? `${project.title}` : 'Loading Project...',
+    description: project ? project.fullDescription.slice(0, 160) + '...' : 'Explore detailed project insights, design process, and technical implementation by Sahed Alom Sumit.',
+    canonical: `/portfolio/${slug}`,
+  })
 
   useEffect(() => {
     async function loadData() {

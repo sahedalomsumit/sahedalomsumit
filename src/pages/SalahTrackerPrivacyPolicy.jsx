@@ -2,8 +2,14 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 import RevealOnScroll from '../components/RevealOnScroll'
 import ContactSection from '../components/ContactSection'
+import { useSEO } from '../hooks/useSEO'
 
 export default function SalahTrackerPrivacyPolicy() {
+  useSEO({
+    title: 'Salah Tracker Privacy Policy',
+    description: 'Privacy policy for the Salah Tracker application, outlining how we handle your data with respect and transparency.',
+    canonical: '/salah-tracker-app/privacy-policy',
+  })
   return (
     <>
       <main className="py-24 px-6 max-w-4xl mx-auto min-h-screen font-sans">

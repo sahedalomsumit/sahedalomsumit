@@ -2,8 +2,14 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 import RevealOnScroll from '../components/RevealOnScroll'
 import ContactSection from '../components/ContactSection'
+import { useSEO } from '../hooks/useSEO'
 
 export default function SalahTrackerDataDeletion() {
+  useSEO({
+    title: 'Salah Tracker Data Deletion',
+    description: 'Instructions and request form for deleting your Salah Tracker account and associated data.',
+    canonical: '/salah-tracker-app/data-deletion',
+  })
   return (
     <>
       <main className="py-24 px-6 max-w-4xl mx-auto min-h-screen font-sans">
