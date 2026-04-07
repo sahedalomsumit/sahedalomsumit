@@ -235,7 +235,7 @@ export default function SalahTrackerApp() {
                  <div className="w-16 h-16 bg-[#635BFF]/10 rounded-full flex items-center justify-center mb-6 text-[#635BFF]">
                     <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z"></path></svg>
                  </div>
-                 <h3 className="text-2xl font-bold text-white mb-4">International (Stripe)</h3>
+                 <h3 className="text-xl font-bold text-white mb-4">International (Stripe)</h3>
                  <p className="text-gray-400 font-light mb-8 flex-grow">
                    Fast and secure international donations via Stripe.
                  </p>
@@ -249,12 +249,12 @@ export default function SalahTrackerApp() {
                  <div className="w-16 h-16 bg-[#E2136E]/10 rounded-full flex items-center justify-center mb-6 text-[#E2136E]">
                     <span className="font-bold text-2xl">b</span>
                  </div>
-                 <h3 className="text-2xl font-bold text-white mb-4">Bangladesh (bKash)</h3>
+                 <h3 className="text-xl font-bold text-white mb-4">Bangladesh (bKash)</h3>
                  <p className="text-gray-400 font-light mb-6 flex-grow">
                    For Bangladeshi people, you can send Sadaqah via bKash Send Money to the following number:
                  </p>
                  <div className="w-full bg-white/5 border border-[#E2136E]/30 rounded-xl p-4 flex flex-col items-center justify-center">
-                    <span className="text-3xl font-black text-[#E2136E] tracking-widest mb-1">01773615582</span>
+                    <span className="text-2xl font-black text-[#E2136E] tracking-widest mb-1">01773615582</span>
                     <span className="text-[10px] text-gray-500 uppercase tracking-widest font-mono">Personal Account</span>
                  </div>
               </div>
