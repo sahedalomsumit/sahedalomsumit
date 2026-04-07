@@ -190,7 +190,7 @@ export default function Quote() {
             </nav>
             <div className="font-mono text-emerald-500 text-xs tracking-[0.4em] font-bold uppercase mb-4">Quote_Calculator</div>
             <h1 className="text-5xl md:text-8xl font-black tracking-tighter text-white uppercase leading-none">
-              Get a <span className="text-violet-500">Quote</span>
+              Get a <br/><span className="text-violet-500">Quote</span>
             </h1>
             <p className="mt-6 text-gray-300 text-lg max-w-2xl font-light">
               Premium estimation engine. Select your service scope and project footprint for a professional pricing blueprint.
