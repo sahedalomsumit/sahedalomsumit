@@ -155,7 +155,7 @@ export default function Services() {
             </nav>
             <div className="font-mono text-emerald-500 text-xs tracking-[0.4em] font-bold uppercase mb-6">Service_Stack</div>
             <h1 className="text-5xl md:text-8xl font-black tracking-tighter text-white uppercase leading-none mb-6">
-              What I<br /><span className="text-violet-500">Build_</span>
+              What I<br /><span className="text-violet-500">Build</span>
             </h1>
             <p className="mt-6 text-gray-400 text-lg md:text-xl max-w-3xl font-light leading-relaxed">
               From Figma concepts to fully deployed, SEO-optimized websites — I cover the full spectrum. Design thinking meets clean code. Vibe-coded to convert.
