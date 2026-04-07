@@ -38,6 +38,13 @@ function ScrollToTop() {
         element.scrollIntoView({ behavior: 'smooth' })
       }
     }
+
+    // Google Analytics pageview tracking
+    if (window.gtag) {
+      window.gtag('config', 'G-0HJ38WFG8P', {
+        page_path: pathname,
+      })
+    }
   }, [pathname, hash])
   return null
 }
