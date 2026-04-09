@@ -1,6 +1,6 @@
 export default function TopBar() {
   return (
-    <div className="w-full bg-[#080808] py-2.5 px-6 md:px-12 flex flex-col md:flex-row justify-center items-center text-[10px] font-mono tracking-[0.2em] border-b border-white/5 z-[60] relative">
+    <div className="w-full bg-[#080808] py-2.5 px-4 flex flex-col md:flex-row justify-center items-center text-[10px] font-mono tracking-[0.2em] border-b border-white/5 z-[60] relative">
       <div className="flex items-center gap-2 text-emerald-500">
         <span className="w-2 h-2 bg-emerald-500 rounded-full animate-pulse" />
         <span className="text-white">SYSTEM_STATUS:</span>

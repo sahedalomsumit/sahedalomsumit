@@ -81,7 +81,7 @@ export default function Faq() {
 
   return (
     <>
-      <main className="py-24 px-6 max-w-7xl mx-auto min-h-screen">
+      <main className="py-24 px-4 max-w-7xl mx-auto min-h-screen">
         <RevealOnScroll>
           <header className="mb-16 text-left">
             <nav aria-label="breadcrumb" className="text-[10px] font-mono uppercase tracking-widest text-gray-500 mb-8 flex items-center justify-start gap-2">
@@ -108,7 +108,7 @@ export default function Faq() {
           ) : (
             <>
               {/* Mobile Dropdown (Sticky) */}
-              <div className="md:hidden sticky top-[60px] z-40 bg-[#0a0a0a]/95 backdrop-blur-xl pb-4 pt-[1.8rem] -mx-6 px-6 mb-8 border-b border-white/5">
+              <div className="md:hidden sticky top-[60px] z-40 bg-[#0a0a0a]/95 backdrop-blur-xl pb-4 pt-[1.8rem] -mx-4 px-4 mb-8 border-b border-white/5">
                 <div className="relative">
                   <select
                     value={activeTab}

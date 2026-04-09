@@ -86,8 +86,8 @@ export default function Home() {
   return (
     <>
       {/* Hero Section */}
-      <section id="hero" ref={heroRef} className="min-h-screen flex flex-col justify-center items-center px-6 text-center relative">
-        <div className="space-y-6 flex flex-col items-center">
+      <section id="hero" ref={heroRef} className="min-h-screen flex flex-col justify-center items-center text-center relative">
+        <div className="space-y-6 flex flex-col items-center px-4 max-w-7xl mx-auto">
           <div className="font-mono text-violet-500 text-xs tracking-[0.2em] sm:tracking-[0.5em] font-bold uppercase hero-el">
             Loading Good Vibes...
           </div>
@@ -95,7 +95,7 @@ export default function Home() {
             <span className="w-2 h-2 bg-emerald-500 rounded-full shadow-[0_0_8px_#10b981]" />
             <span className="text-[9px] md:text-[11px] font-mono text-white-500 font-bold uppercase tracking-[0.2em]">BASED IN HELSINKI, FINLAND</span>
           </div>
-          <h1 className="text-5xl md:text-7xl lg:text-[9rem] font-extrabold tracking-tighter text-white hero-el leading-[0.85] mb-2 uppercase">
+          <h1 className="text-5xl md:text-7xl lg:text-[8rem] font-extrabold tracking-tighter text-white hero-el leading-[0.85] mb-2 uppercase">
             SAHED ALOM <span className="text-violet-500">SUMIT<span className="animate-pulse">.</span></span>
           </h1>
           <p className="sr-only">Vibe Web Designer & Developer based in Helsinki, Finland</p>
@@ -115,7 +115,7 @@ export default function Home() {
 
       {/* Bio Section */}
       <RevealOnScroll>
-        <section id="bio" className="py-24 px-6 max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-12 gap-6">
+        <section id="bio" className="py-24 px-4 max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-12 gap-6">
           <div className="md:col-span-8 bento-card p-8 md:p-14 flex flex-col justify-between">
             <div>
               <div className="font-mono text-emerald-500 text-[10px] uppercase tracking-widest mb-6 flex items-center gap-2">/ About Me</div>
@@ -177,7 +177,7 @@ export default function Home() {
 
       {/* Skills Section */}
       <RevealOnScroll>
-        <section id="skills" className="py-24 px-6 max-w-7xl mx-auto">
+        <section id="skills" className="py-24 px-4 max-w-7xl mx-auto">
           <div className="block sm:flex items-center justify-between mb-16 border-b border-white/5 pb-8">
             <h2 className="text-4xl font-bold tracking-tighter text-white uppercase">Skill_Inventory</h2>
             <span className="font-mono text-xs text-emerald-500">39_MODULES_LOADED</span>
@@ -222,7 +222,7 @@ export default function Home() {
 
       {/* Education, Experience, Certificates */}
       <RevealOnScroll>
-        <section className="py-24 px-6 max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-12 gap-6">
+        <section className="py-24 px-4 max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-12 gap-6">
           <div className="md:col-span-6">
             {/* Education */}
             <div className="bento-card p-8 md:p-14 flex flex-col justify-between">
@@ -303,7 +303,7 @@ export default function Home() {
 
       {/* Featured Portfolio */}
       <RevealOnScroll>
-        <section id="work" className="py-24 px-6 max-w-7xl mx-auto">
+        <section id="work" className="py-24 px-4 max-w-7xl mx-auto">
           <div className="flex flex-col md:flex-row justify-between items-end mb-16 gap-6">
             <div>
               <h2 className="text-5xl sm:text-6xl font-extrabold tracking-tighter text-white uppercase">Main_Builds</h2>
@@ -326,8 +326,8 @@ export default function Home() {
 
       {/* Testimonials */}
       <RevealOnScroll>
-        <section className="py-32 px-6 bg-[#030303] border-y border-white/5">
-          <div className="max-w-7xl mx-auto">
+        <section className="py-32 bg-[#030303] border-y border-white/5">
+          <div className="max-w-7xl px-4 mx-auto">
             <h2 className="text-2xl sm:text-6xl font-bold text-center mb-20 text-white uppercase tracking-[0.2em]">Validation_Logs</h2>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
               {testimonials.map((t, i) => (

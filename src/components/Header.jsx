@@ -71,60 +71,62 @@ export default function Header() {
     return (
         <>
             <header
-                className={`sticky top-0 w-full z-[70] sticky-header px-6 md:px-12 flex items-center justify-between transition-all ${scrolled || isMenuOpen ? 'py-3 bg-[#0a0a0a]/80 backdrop-blur-md' : 'py-4'}`}
+                className={`sticky top-0 w-full z-[70] sticky-header transition-all ${scrolled || isMenuOpen ? 'bg-[#0a0a0a]/80 backdrop-blur-md' : ''}`}
                 id="main-header"
             >
-                <Link to="/" onClick={closeMenu} className="flex items-center group cursor-pointer z-[60]">
-                    <img
-                        className="sas-logo transition-transform group-hover:scale-105 w-32"
-                        src="/img/logo-sahed-alom-sumit.png"
-                        alt="Sahed Alom Sumit Official Logo"
-                    />
-                    <div className="hidden md:block h-6 w-[1px] bg-white/10 mx-4" />
-                    <div className="hidden lg:block text-[9px] font-mono text-gray-500 uppercase tracking-tighter">
-                        Vibe Designer & Dev<br />
-                        <span className="text-emerald-500 italic">Availability: High</span>
-                    </div>
-                </Link>
-
-                {/* Desktop Nav */}
-                <nav className="hidden md:flex items-center gap-8 lg:gap-12">
-                    {navLinks.map((link) => (
-                        <Link
-                            key={link.to}
-                            to={link.to}
-                            className={`text-[10px] font-mono font-bold tracking-widest hover:text-violet-400 transition-all border-b pb-1 ${location.pathname === link.to
-                                ? 'border-violet-500 text-violet-400'
-                                : 'border-transparent hover:border-violet-500/50'
-                                }`}
-                        >
-                            ./{link.label}
-                        </Link>
-                    ))}
-                    <Link
-                        to="/#contact"
-                        onClick={scrollToContact}
-                        className="hidden sm:flex px-6 py-2.5 bg-white text-black rounded-full text-[10px] font-black hover:bg-violet-500 hover:text-white transition-all tracking-[0.2em] items-center gap-2"
-                    >
-                        HIRE_ME
-                        <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path d="M14 5l7 7m0 0l-7 7m7-7H3" strokeWidth="3" />
-                        </svg>
+                <div className={`px-4 max-w-7xl mx-auto flex items-center justify-between transition-all ${scrolled || isMenuOpen ? 'py-3' : 'py-4'}`}>
+                    <Link to="/" onClick={closeMenu} className="flex items-center group cursor-pointer z-[60]">
+                        <img
+                            className="sas-logo transition-transform group-hover:scale-105 w-32"
+                            src="/img/logo-sahed-alom-sumit.png"
+                            alt="Sahed Alom Sumit Official Logo"
+                        />
+                        <div className="hidden md:block h-6 w-[1px] bg-white/10 mx-4" />
+                        <div className="hidden lg:block text-[9px] font-mono text-gray-500 uppercase tracking-tighter">
+                            Vibe Designer & Dev<br />
+                            <span className="text-emerald-500 italic">Availability: High</span>
+                        </div>
                     </Link>
-                </nav>
 
-                {/* Mobile Hamburger Button */}
-                <button
-                    className="md:hidden z-[80] relative w-10 h-10 flex items-center justify-center focus:outline-none"
-                    onClick={() => setIsMenuOpen(!isMenuOpen)}
-                    aria-label="Toggle Menu"
-                >
-                    <div className="w-6 flex flex-col items-end gap-1.5">
-                        <span className={`block h-0.5 bg-white transition-all duration-300 ${isMenuOpen ? 'w-6 translate-y-2 rotate-45' : 'w-6'}`}></span>
-                        <span className={`block h-0.5 bg-white transition-all duration-300 ${isMenuOpen ? 'opacity-0 translate-x-3' : 'w-4'}`}></span>
-                        <span className={`block h-0.5 bg-white transition-all duration-300 ${isMenuOpen ? 'w-6 -translate-y-2 -rotate-45' : 'w-5'}`}></span>
-                    </div>
-                </button>
+                    {/* Desktop Nav */}
+                    <nav className="hidden md:flex items-center gap-8 lg:gap-12">
+                        {navLinks.map((link) => (
+                            <Link
+                                key={link.to}
+                                to={link.to}
+                                className={`text-[10px] font-mono font-bold tracking-widest hover:text-violet-400 transition-all border-b pb-1 ${location.pathname === link.to
+                                    ? 'border-violet-500 text-violet-400'
+                                    : 'border-transparent hover:border-violet-500/50'
+                                    }`}
+                            >
+                                ./{link.label}
+                            </Link>
+                        ))}
+                        <Link
+                            to="/#contact"
+                            onClick={scrollToContact}
+                            className="hidden sm:flex px-6 py-2.5 bg-white text-black rounded-full text-[10px] font-black hover:bg-violet-500 hover:text-white transition-all tracking-[0.2em] items-center gap-2"
+                        >
+                            HIRE_ME
+                            <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path d="M14 5l7 7m0 0l-7 7m7-7H3" strokeWidth="3" />
+                            </svg>
+                        </Link>
+                    </nav>
+
+                    {/* Mobile Hamburger Button */}
+                    <button
+                        className="md:hidden z-[80] relative w-10 h-10 flex items-center justify-center focus:outline-none"
+                        onClick={() => setIsMenuOpen(!isMenuOpen)}
+                        aria-label="Toggle Menu"
+                    >
+                        <div className="w-6 flex flex-col items-end gap-1.5">
+                            <span className={`block h-0.5 bg-white transition-all duration-300 ${isMenuOpen ? 'w-6 translate-y-2 rotate-45' : 'w-6'}`}></span>
+                            <span className={`block h-0.5 bg-white transition-all duration-300 ${isMenuOpen ? 'opacity-0 translate-x-3' : 'w-4'}`}></span>
+                            <span className={`block h-0.5 bg-white transition-all duration-300 ${isMenuOpen ? 'w-6 -translate-y-2 -rotate-45' : 'w-5'}`}></span>
+                        </div>
+                    </button>
+                </div>
             </header>
 
             {/* Fullscreen Mobile Overlay */}

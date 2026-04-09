@@ -33,7 +33,7 @@ export default function ProjectDetail() {
 
   if (loading) {
     return (
-      <section className="min-h-screen flex items-center justify-center px-6">
+      <section className="min-h-screen flex items-center justify-center px-4">
         <div className="text-center font-mono text-emerald-500 uppercase tracking-widest text-xs flex items-center justify-center gap-2">
           <span className="w-2 h-2 bg-emerald-500 rounded-full animate-ping" />
           Loading_Project_Data...
@@ -44,7 +44,7 @@ export default function ProjectDetail() {
 
   if (!project) {
     return (
-      <section className="min-h-screen flex items-center justify-center px-6">
+      <section className="min-h-screen flex items-center justify-center px-4">
         <div className="text-center">
           <h1 className="text-5xl font-black text-white mb-4">404</h1>
           <p className="text-gray-500 font-mono mb-8">PROJECT_NOT_FOUND</p>
@@ -57,7 +57,7 @@ export default function ProjectDetail() {
   return (
     <>
       {/* Hero Banner */}
-      <section className="py-16 px-6 max-w-7xl mx-auto">
+      <section className="py-16 px-4 max-w-7xl mx-auto">
         <RevealOnScroll>
           <header className="mb-12">
             <nav aria-label="breadcrumb" className="text-[10px] font-mono uppercase tracking-widest text-gray-500 mb-8 flex items-center gap-2">

@@ -12,7 +12,7 @@ export default function SalahTrackerPrivacyPolicy() {
   })
   return (
     <>
-      <main className="py-24 px-6 max-w-4xl mx-auto min-h-screen font-sans">
+      <section className="pt-32 pb-20 px-4 max-w-4xl mx-auto min-h-screen">
         <RevealOnScroll>
           <header className="mb-16 text-left">
             <nav aria-label="breadcrumb" className="text-[10px] font-mono uppercase tracking-widest text-gray-500 mb-8 flex items-center justify-start gap-2">
@@ -326,7 +326,7 @@ export default function SalahTrackerPrivacyPolicy() {
             </footer>
           </article>
         </RevealOnScroll>
-      </main>
+      </section>
       <ContactSection />
     </>
   )

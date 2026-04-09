@@ -84,7 +84,7 @@ export default function Process() {
 
   return (
     <>
-      <section className="py-24 px-6 max-w-7xl mx-auto">
+      <section className="py-24 px-4 max-w-7xl mx-auto">
         <div className="flex flex-col md:flex-row justify-between items-end mb-16 gap-6">
           <RevealOnScroll>
             <header className="mb-16 text-left">

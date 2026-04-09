@@ -46,7 +46,7 @@ export default function AIAutomation() {
 
   return (
     <>
-      <section className="pt-32 pb-20 px-6 max-w-7xl mx-auto">
+      <section className="pt-32 pb-20 px-4 max-w-7xl mx-auto">
         <RevealOnScroll>
           <header className="mb-20">
             <nav aria-label="breadcrumb" className="text-[10px] font-mono uppercase tracking-widest text-gray-500 mb-8 flex items-center gap-2 flex-wrap">

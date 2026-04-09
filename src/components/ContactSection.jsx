@@ -2,7 +2,7 @@ import { Link } from 'react-router-dom'
 
 export default function ContactSection() {
   return (
-    <section id="contact" className="py-32 px-6">
+    <section id="contact" className="py-32 px-4">
       <div className="max-w-5xl mx-auto text-center reveal">
         <h2 className="text-5xl sm:text-6xl md:text-[8rem] font-extrabold mb-14 tracking-tighter leading-none text-white uppercase">
           Let's build_

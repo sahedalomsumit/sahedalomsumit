@@ -19,7 +19,7 @@ export default function NotFound() {
 
   return (
     <>
-      <section ref={containerRef} className="min-h-[80vh] flex flex-col justify-center items-center px-6 text-center">
+      <section ref={containerRef} className="min-h-[80vh] flex flex-col justify-center items-center px-4 text-center">
         <RevealOnScroll>
           <div className="space-y-8 flex flex-col items-center">
             <div className="font-mono text-violet-500 text-xs tracking-[0.5em] font-bold uppercase not-found-el">

@@ -145,7 +145,7 @@ export default function Services() {
   return (
     <>
       {/* Hero */}
-      <section className="pt-32 pb-20 px-6 max-w-7xl mx-auto">
+      <section className="pt-32 pb-20 px-4 max-w-7xl mx-auto">
         <RevealOnScroll>
           <header className="mb-20">
             <nav aria-label="breadcrumb" className="text-[10px] font-mono uppercase tracking-widest text-gray-500 mb-8 flex items-center gap-2">
@@ -233,7 +233,7 @@ export default function Services() {
 
       {/* Process Overview */}
       <RevealOnScroll>
-        <section className="py-24 px-6 border-y border-white/5 bg-[#030303]">
+        <section className="py-24 px-4 border-y border-white/5 bg-[#030303]">
           <div className="max-w-7xl mx-auto">
             <div className="font-mono text-emerald-500 text-[10px] uppercase tracking-widest mb-6">/ How_It_Works</div>
             <h2 className="text-4xl md:text-6xl font-black tracking-tighter text-white uppercase mb-16">

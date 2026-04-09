@@ -6,31 +6,19 @@ export default function Footer() {
   const buildVersion = "3.5.0"
 
   return (
-    <footer className="py-16 px-6 md:px-12 border-t border-white/5 bg-black relative overflow-hidden">
-      <div className="max-w-7xl mx-auto grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-8 lg:gap-12 relative z-10">
+    <footer className="py-16 border-t border-white/5 bg-black relative overflow-hidden">
+      <div className="max-w-7xl px-4 mx-auto grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-8 lg:gap-12 relative z-10  justify-between">
         {/* Brand Column */}
-        <div className="col-span-2 md:col-span-1">
-          <img src="/img/logo-transparent.png" alt="Sahed Alom Sumit Transparent Logo" className="w-full h-auto -ml-4 max-w-48" />
+        <div>
+          <img src="/img/logo-sahed-alom-sumit.png" alt="Sahed Alom Sumit Transparent Logo" className="sas-logo transition-transform group-hover:scale-105 w-32" />
           <p className="mt-6 text-gray-400 text-xs leading-relaxed font-mono max-w-[200px] uppercase">
             ./ Vibe Web Designer<br />./ Vibe Web Developer<br />./ Vibe AI Automation<br />./ Design. Code. Vibes.
           </p>
         </div>
 
-        {/* Favourite Projects Column */}
-        <div>
-          <h4 className="text-[10px] font-mono font-bold uppercase tracking-widest mb-8 text-violet-500">Featured_Build</h4>
-          <ul className="space-y-4 text-xs font-mono text-gray-400">
-            <li><Link to="/portfolio/twintwo" className="hover:text-white transition tracking-widest">./ TWINTWO</Link></li>
-            <li><Link to="/portfolio/ongaro-metodo" className="hover:text-white transition tracking-widest">./ ONGARO METODO</Link></li>
-            <li><Link to="/portfolio/e-service" className="hover:text-white transition tracking-widest">./ E-SERVICE</Link></li>
-            <li><Link to="/portfolio/notifi" className="hover:text-white transition tracking-widest">./ NOTIFI</Link></li>
-            <li><Link to="/portfolio/ovulio-baby" className="hover:text-white transition tracking-widest">./ OVULIO BABY</Link></li>
-          </ul>
-        </div>
-
         {/* Links Column */}
         <div>
-          <h4 className="text-[10px] font-mono font-bold uppercase tracking-widest mb-8 text-emerald-500">Sitemap_Root</h4>
+          <h4 className="text-[10px] font-mono font-bold uppercase tracking-widest mb-8 text-violet-500">Sitemap_Root</h4>
           <ul className="space-y-4 text-xs font-mono text-gray-400">
             <li><Link to="/" className="hover:text-white transition tracking-widest">./ ROOT</Link></li>
             <li><Link to="/process" className="hover:text-white transition tracking-widest">./ PROCESS</Link></li>
@@ -40,6 +28,20 @@ export default function Footer() {
             <li><Link to="/quote" className="hover:text-emerald-400 transition tracking-widest font-bold">./ QUOTE</Link></li>
           </ul>
         </div>
+
+
+        {/* Favourite Projects Column */}
+        <div>
+          <h4 className="text-[10px] font-mono font-bold uppercase tracking-widest mb-8 text-emerald-500">Featured_Build</h4>
+          <ul className="space-y-4 text-xs font-mono text-gray-400">
+            <li><Link to="/portfolio/twintwo" className="hover:text-white transition tracking-widest">./ TWINTWO</Link></li>
+            <li><Link to="/portfolio/ongaro-metodo" className="hover:text-white transition tracking-widest">./ ONGARO METODO</Link></li>
+            <li><Link to="/portfolio/e-service" className="hover:text-white transition tracking-widest">./ E-SERVICE</Link></li>
+            <li><Link to="/portfolio/notifi" className="hover:text-white transition tracking-widest">./ NOTIFI</Link></li>
+            <li><Link to="/portfolio/ovulio-baby" className="hover:text-white transition tracking-widest">./ OVULIO BABY</Link></li>
+          </ul>
+        </div>
+
 
         {/* Services Column */}
         <div>
@@ -52,6 +54,15 @@ export default function Footer() {
             <li><Link to="/services/custom-development" className="hover:text-white transition tracking-widest">./ Custom Dev</Link></li>
             <li><Link to="/services/ai-automation" className="hover:text-white transition tracking-widest">./ AI Automation</Link></li>
             <li><Link to="/services/seo-optimization" className="hover:text-white transition tracking-widest">./ SEO strategy</Link></li>
+          </ul>
+        </div>
+
+        {/* Other Builds Column */}
+        <div>
+          <h4 className="text-[10px] font-mono font-bold uppercase tracking-widest mb-8 text-emerald-500">OTHER_BUILD</h4>
+          <ul className="space-y-4 text-xs font-mono text-gray-400">
+            <li><a href="https://sahedalomsumit.github.io/my-cover-letter-generator/" target="_blank" rel="noopener noreferrer" className="hover:text-white transition tracking-widest">./ COVER LETTER GEN</a></li>
+            <li><a href="/salah-tracker-app" target="_blank" rel="noopener noreferrer" className="hover:text-white transition tracking-widest">./ SALAH TRACKER</a></li>
           </ul>
         </div>
 

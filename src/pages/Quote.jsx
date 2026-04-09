@@ -180,7 +180,7 @@ export default function Quote() {
 
   return (
     <>
-      <div className="pt-32 pb-20 px-6 max-w-7xl mx-auto min-h-screen">
+      <div className="pt-32 pb-20 px-4 max-w-7xl mx-auto min-h-screen">
         <RevealOnScroll>
           <header className="mb-16">
             <nav aria-label="breadcrumb" className="text-[10px] font-mono uppercase tracking-widest text-gray-400 mb-8 flex items-center justify-start gap-2">

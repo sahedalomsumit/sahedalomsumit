@@ -27,7 +27,7 @@ export default function Portfolio() {
 
   return (
     <>
-      <section id="portfolio" className="py-24 px-6 max-w-7xl mx-auto">
+      <section id="portfolio" className="py-24 px-4 max-w-7xl mx-auto">
         <RevealOnScroll>
           <header className="mb-16 text-left flex flex-col md:flex-row justify-between items-start md:items-end gap-6">
             <div>
