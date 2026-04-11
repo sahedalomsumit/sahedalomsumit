@@ -5,7 +5,15 @@ import { supabase } from "../lib/supabase";
 //  🤖 AI CONFIGURATION
 //  Now secured via Supabase Edge Functions
 // ════════════════════════════════════════════════════
-const CHAT_MODEL = "gemini-2.5-flash-lite"; // Managed in Supabase Secrets (Primary: Gemini, Backup: OpenRouter)
+const CHAT_MODELS = [
+  "gemini-3-pro-preview",
+  "gemini-2.5-flash-lite",
+  "gemini-3-flash",
+  "gemini-2.5-flash",
+  "gemini-2.5-pro",
+  "gemini-2-flash",
+  "gemini-2-flash-lite",
+]; // Managed in Supabase Secrets (Primary: Gemini, Backup: OpenRouter)
 
 // ════════════════════════════════════════════════════
 //  📄  SOURCE 1 — FAQ DOCUMENT (primary source)
@@ -250,7 +258,6 @@ ${FAQ_SOURCE}
 ${WEBSITE_SOURCE}
 `;
 
-
 // ════════════════════════════════════════════════════
 //  💬  SUGGESTION CHIPS — Curated from FAQ
 // ════════════════════════════════════════════════════
@@ -264,12 +271,11 @@ const SUGGESTIONS = [
   "What's your payment structure?",
   "Are you available for hiring?",
   "How can I get in touch?",
-  "What is your response time?"
+  "What is your response time?",
 ];
 
-
-
-const fmt = (d) => d.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" });
+const fmt = (d) =>
+  d.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" });
 
 // ════════════════════════════════════════════════════
 //  MAIN COMPONENT
@@ -302,8 +308,6 @@ export default function SahedChatbot() {
     ta.style.height = Math.min(ta.scrollHeight, 100) + "px";
   }, [input]);
 
-
-
   // ── Send to AI Assistant ──────────────────────────────
   const sendMessage = async (text) => {
     const q = text.trim();
@@ -316,133 +320,157 @@ export default function SahedChatbot() {
     setActiveSource(null);
 
     // Initial empty bot message for streaming
-    setMessages((m) => [...m, { role: "bot", text: "", time: fmt(new Date()), isStreaming: true }]);
+    setMessages((m) => [
+      ...m,
+      { role: "bot", text: "", time: fmt(new Date()), isStreaming: true },
+    ]);
 
-    try {
-      const SUPABASE_URL = import.meta.env.VITE_SUPABASE_URL || 'https://zcfvrxvttbyhmemdyxfw.supabase.co';
-      const SUPABASE_ANON_KEY = import.meta.env.VITE_SUPABASE_ANON_KEY || 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InpjZnZyeHZ0dGJ5aG1lbWR5eGZ3Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzQ2MzI5MDAsImV4cCI6MjA5MDIwODkwMH0.I4up28xh08dzrug3VQ28rMuEsfBq49mKji1DPlc71yU';
+    let success = false;
+    let lastError = null;
 
-      const { data: { session } } = await supabase.auth.getSession();
-      const response = await fetch(`${SUPABASE_URL}/functions/v1/gemini-chat`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          "Authorization": `Bearer ${SUPABASE_ANON_KEY}`,
-          ...(session?.access_token && { "X-Client-Info": `supabase-js-v2`, "Authorization": `Bearer ${session.access_token}` })
-        },
+    for (const model of CHAT_MODELS) {
+      if (success) break;
 
-        body: JSON.stringify({
-          model: CHAT_MODEL,
-          messages: [
-            { role: "system", content: SYSTEM_PROMPT },
-            ...history.map((h) => ({
-              role: h.role === "model" ? "assistant" : h.role,
-              content: h.parts[0].text,
-            })),
-            { role: "user", content: q },
-          ],
-        }),
-      });
+      try {
+        const SUPABASE_URL =
+          import.meta.env.VITE_SUPABASE_URL ||
+          "https://zcfvrxvttbyhmemdyxfw.supabase.co";
+        const SUPABASE_ANON_KEY =
+          import.meta.env.VITE_SUPABASE_ANON_KEY ||
+          "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InpjZnZyeHZ0dGJ5aG1lbWR5eGZ3Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzQ2MzI5MDAsImV4cCI6MjA5MDIwODkwMH0.I4up28xh08dzrug3VQ28rMuEsfBq49mKji1DPlc71yU";
 
-      if (!response.ok) {
-        const errData = await response.json().catch(() => ({}));
-        throw new Error(errData.error || "Failed to connect to AI");
-      }
+        const {
+          data: { session },
+        } = await supabase.auth.getSession();
+        const response = await fetch(
+          `${SUPABASE_URL}/functions/v1/gemini-chat`,
+          {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${SUPABASE_ANON_KEY}`,
+              ...(session?.access_token && {
+                "X-Client-Info": `supabase-js-v2`,
+                Authorization: `Bearer ${session.access_token}`,
+              }),
+            },
+            body: JSON.stringify({
+              model: model,
+              messages: [
+                { role: "system", content: SYSTEM_PROMPT },
+                ...history.map((h) => ({
+                  role: h.role === "model" ? "assistant" : h.role,
+                  content: h.parts[0].text,
+                })),
+                { role: "user", content: q },
+              ],
+            }),
+          },
+        );
 
-      const reader = response.body.getReader();
-      const decoder = new TextDecoder();
-      let fullContent = "";
+        if (!response.ok) {
+          const errData = await response.json().catch(() => ({}));
+          throw new Error(errData.error || `Failed with ${model}`);
+        }
 
-      while (true) {
-        const { done, value } = await reader.read();
-        if (done) break;
+        const reader = response.body.getReader();
+        const decoder = new TextDecoder();
+        let fullContent = "";
 
-        const chunk = decoder.decode(value, { stream: true });
-        const lines = chunk.split("\n");
+        while (true) {
+          const { done, value } = await reader.read();
+          if (done) break;
 
-        for (const line of lines) {
-          if (line.startsWith("data: ")) {
-            const dataStr = line.slice(6).trim();
-            if (dataStr === "[DONE]") break;
-            try {
-              const data = JSON.parse(dataStr);
-              const content = data.choices?.[0]?.delta?.content || "";
-              if (content) {
-                fullContent += content;
-                // Update the last message
-                setMessages((m) => {
-                  const newMsgs = [...m];
-                  const last = newMsgs[newMsgs.length - 1];
-                  last.text = fullContent
-                    .replace(/\*\*(.*?)\*\*/g, "<b>$1</b>")
-                    .replace(/\*(.*?)\*/g, "<i>$1</i>")
-                    .replace(/\n/g, "<br>");
-                  return newMsgs;
-                });
+          const chunk = decoder.decode(value, { stream: true });
+          const lines = chunk.split("\n");
+
+          for (const line of lines) {
+            if (line.startsWith("data: ")) {
+              const dataStr = line.slice(6).trim();
+              if (dataStr === "[DONE]") break;
+              try {
+                const data = JSON.parse(dataStr);
+                const content = data.choices?.[0]?.delta?.content || "";
+                if (content) {
+                  fullContent += content;
+                  // Update the last message
+                  setMessages((m) => {
+                    const newMsgs = [...m];
+                    const last = newMsgs[newMsgs.length - 1];
+                    last.text = fullContent
+                      .replace(/\*\*(.*?)\*\*/g, "<b>$1</b>")
+                      .replace(/\*(.*?)\*/g, "<i>$1</i>")
+                      .replace(/\n/g, "<br>");
+                    return newMsgs;
+                  });
+                }
+              } catch (e) {
+                // Ignore non-JSON lines
               }
-            } catch (e) {
-              // Ignore non-JSON lines
             }
           }
         }
+
+        // Final processing: Extract [SOURCE:...] tag
+        let source = "faq";
+        const match = fullContent.match(/\[SOURCE:(faq|website|fallback)\]/i);
+        if (match) source = match[1].toLowerCase();
+
+        const cleanReply = fullContent
+          .replace(/\[SOURCE:(faq|website|fallback)\]/gi, "")
+          .replace(/\*\*(.*?)\*\*/g, "<b>$1</b>")
+          .replace(/\*(.*?)\*/g, "<i>$1</i>")
+          .replace(/\n/g, "<br>")
+          .trim();
+
+        setActiveSource(source);
+        setMessages((m) => {
+          const newMsgs = [...m];
+          newMsgs[newMsgs.length - 1] = {
+            role: "bot",
+            text: cleanReply,
+            time: fmt(new Date()),
+            source,
+            isStreaming: false,
+          };
+          return newMsgs;
+        });
+
+        setHistory((h) => [
+          ...h,
+          { role: "user", parts: [{ text: q }] },
+          { role: "model", parts: [{ text: cleanReply }] },
+        ]);
+
+        success = true;
+      } catch (err) {
+        console.warn(`Model ${model} failed, trying next... Error:`, err);
+        lastError = err;
+        // Reset message potential partial text if we're retrying a new model
+        setMessages((m) => {
+          const newMsgs = [...m];
+          newMsgs[newMsgs.length - 1].text = "";
+          return newMsgs;
+        });
       }
+    }
 
-      // Final processing: Extract [SOURCE:...] tag
-      let source = "faq";
-      const match = fullContent.match(/\[SOURCE:(faq|website|fallback)\]/i);
-      if (match) source = match[1].toLowerCase();
-
-      const cleanReply = fullContent
-        .replace(/\[SOURCE:(faq|website|fallback)\]/gi, "")
-        .replace(/\*\*(.*?)\*\*/g, "<b>$1</b>")
-        .replace(/\*(.*?)\*/g, "<i>$1</i>")
-        .replace(/\n/g, "<br>")
-        .trim();
-
-      setActiveSource(source);
+    if (!success) {
+      console.error("All models failed:", lastError);
       setMessages((m) => {
         const newMsgs = [...m];
         newMsgs[newMsgs.length - 1] = {
           role: "bot",
-          text: cleanReply,
+          text: `⚠️ <b>Service Error:</b> All AI models reached their limits or failed. Please try again later.`,
           time: fmt(new Date()),
-          source,
-          isStreaming: false
+          isStreaming: false,
         };
         return newMsgs;
       });
-
-      setHistory((h) => [
-        ...h,
-        { role: "user", parts: [{ text: q }] },
-        { role: "model", parts: [{ text: cleanReply }] },
-      ]);
-
-    } catch (err) {
-      console.error("Chatbot streaming error:", err);
-      setMessages((m) => {
-        const newMsgs = [...m];
-        // If we were streaming, update the last message. Otherwise add error.
-        if (newMsgs[newMsgs.length - 1]?.isStreaming) {
-          newMsgs[newMsgs.length - 1] = {
-            role: "bot",
-            text: `⚠️ <b>Service Error:</b> ${err.message || "Something went wrong."}`,
-            time: fmt(new Date()),
-          };
-        } else {
-          newMsgs.push({
-            role: "bot",
-            text: `⚠️ <b>Service Error:</b> ${err.message || "Something went wrong."}`,
-            time: fmt(new Date()),
-          });
-        }
-        return newMsgs;
-      });
-    } finally {
-      setLoading(false);
     }
-  };
 
+    setLoading(false);
+  };
 
   const handleKey = (e) => {
     if (e.key === "Enter" && !e.shiftKey) {
@@ -465,19 +493,33 @@ export default function SahedChatbot() {
           className="absolute bottom-[72px] right-0 w-[calc(100vw-32px)] sm:w-[385px] h-[calc(100vh-120px)] sm:h-[590px] max-h-[750px] bento-card flex flex-col overflow-hidden animate-in fade-in slide-in-from-bottom-5 duration-300"
           style={{ background: "rgb(0 0 0 / 50%)" }}
         >
-
           {/* Header */}
           <div className="p-4 px-[18px] bg-[#15151f] border-b border-white/10 flex items-center gap-[11px] shrink-0">
-            <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-[#7c6dfa] to-[#c084fc] flex items-center justify-center font-bold text-[13px] text-white font-mono"><img src="/img/ask-sahed-icon-only-sahedalomsumit.svg" alt="" /></div>
+            <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-[#7c6dfa] to-[#c084fc] flex items-center justify-center font-bold text-[13px] text-white font-mono">
+              <img src="/img/ask-sahed-icon-only-sahedalomsumit.svg" alt="" />
+            </div>
             <div className="flex-1">
-              <div className="font-bold text-sm text-[#eeeef5] tracking-wide mono">Ask Sahed</div>
+              <div className="font-bold text-sm text-[#eeeef5] tracking-wide mono">
+                Ask Sahed
+              </div>
               <div className="text-[11px] text-[#6e6e88] mt-0.5 flex items-center gap-1.5 font-bold tracking-wider">
                 <span className="w-1.5 h-1.5 rounded-full bg-[#4ade80] animate-pulse" />
                 Sahed's AI Assistant · Always Online
               </div>
             </div>
-            <button className="p-1.5 rounded-lg text-[#6e6e88] hover:text-[#eeeef5] hover:bg-[#1e1e2c] transition-all" onClick={() => setOpen(false)} aria-label="Close">
-              <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" strokeWidth="2.2">
+            <button
+              className="p-1.5 rounded-lg text-[#6e6e88] hover:text-[#eeeef5] hover:bg-[#1e1e2c] transition-all"
+              onClick={() => setOpen(false)}
+              aria-label="Close"
+            >
+              <svg
+                viewBox="0 0 24 24"
+                width="18"
+                height="18"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2.2"
+              >
                 <line x1="18" y1="6" x2="6" y2="18" />
                 <line x1="6" y1="6" x2="18" y2="18" />
               </svg>
@@ -505,18 +547,36 @@ export default function SahedChatbot() {
               if (m.role === "bot" && !m.text && m.isStreaming) return null;
               return (
                 <div key={i}>
-                  <div className={`flex gap-2 items-end ${m.role === 'user' ? 'flex-row-reverse' : ''}`}>
-                    {m.role === "bot" && <div className="w-6 h-6 rounded-md bg-gradient-to-br from-[#7c6dfa] to-[#c084fc] flex items-center justify-center font-bold text-[9px] text-white shrink-0 mb-1"><img src="/img/ask-sahed-icon-only-sahedalomsumit.svg" alt="" /></div>}
-                    <div className={`max-w-[85%] p-3 px-4 rounded-[18px] text-[13.5px] leading-relaxed break-words ${m.role === 'bot' ? 'bg-[#1e1e2c] text-[#eeeef5] border border-white/10 rounded-bl-[4px]' : 'bg-gradient-to-br from-[#7c6dfa] to-[#c084fc] text-white rounded-br-[4px]'}`} dangerouslySetInnerHTML={{ __html: m.text }} />
+                  <div
+                    className={`flex gap-2 items-end ${m.role === "user" ? "flex-row-reverse" : ""}`}
+                  >
+                    {m.role === "bot" && (
+                      <div className="w-6 h-6 rounded-md bg-gradient-to-br from-[#7c6dfa] to-[#c084fc] flex items-center justify-center font-bold text-[9px] text-white shrink-0 mb-1">
+                        <img
+                          src="/img/ask-sahed-icon-only-sahedalomsumit.svg"
+                          alt=""
+                        />
+                      </div>
+                    )}
+                    <div
+                      className={`max-w-[85%] p-3 px-4 rounded-[18px] text-[13.5px] leading-relaxed break-words ${m.role === "bot" ? "bg-[#1e1e2c] text-[#eeeef5] border border-white/10 rounded-bl-[4px]" : "bg-gradient-to-br from-[#7c6dfa] to-[#c084fc] text-white rounded-br-[4px]"}`}
+                      dangerouslySetInnerHTML={{ __html: m.text }}
+                    />
                   </div>
-                  <div className={`text-[10px] text-[#6e6e88] mt-1 px-1 ${m.role === "bot" ? "pl-[31px]" : "text-right"}`}>
+                  <div
+                    className={`text-[10px] text-[#6e6e88] mt-1 px-1 ${m.role === "bot" ? "pl-[31px]" : "text-right"}`}
+                  >
                     {m.time}
                   </div>
                   {/* Suggestions pinned to the first message */}
                   {i === 0 && (
                     <div className="p-2 pl-[31px] pb-2.5 flex flex-wrap gap-2 shrink-0 animate-in fade-in slide-in-from-bottom-2 delay-300 duration-500">
                       {SUGGESTIONS.map((s) => (
-                        <button key={s} className="bg-[#1e1e2c] border border-white/10 text-[#eeeef5] text-[11.5px] px-3.5 py-1.5 rounded-full transition-all hover:bg-[#7c6dfa]/10 hover:border-[#7c6dfa] hover:-translate-y-0.5 font-medium" onClick={() => sendMessage(s)}>
+                        <button
+                          key={s}
+                          className="bg-[#1e1e2c] border border-white/10 text-[#eeeef5] text-[11.5px] px-3.5 py-1.5 rounded-full transition-all hover:bg-[#7c6dfa]/10 hover:border-[#7c6dfa] hover:-translate-y-0.5 font-medium"
+                          onClick={() => sendMessage(s)}
+                        >
                           {s}
                         </button>
                       ))}
@@ -528,7 +588,12 @@ export default function SahedChatbot() {
 
             {loading && (
               <div className="flex gap-2 items-end">
-                <div className="w-6 h-6 rounded-md bg-gradient-to-br from-[#7c6dfa] to-[#c084fc] flex items-center justify-center font-bold text-[9px] text-white shrink-0 mb-1"><img src="/img/ask-sahed-icon-only-sahedalomsumit.svg" alt="" /></div>
+                <div className="w-6 h-6 rounded-md bg-gradient-to-br from-[#7c6dfa] to-[#c084fc] flex items-center justify-center font-bold text-[9px] text-white shrink-0 mb-1">
+                  <img
+                    src="/img/ask-sahed-icon-only-sahedalomsumit.svg"
+                    alt=""
+                  />
+                </div>
                 <div className="bg-[#1e1e2c] text-[#eeeef5] border border-white/10 p-3 px-4 rounded-[18px] rounded-bl-[4px]">
                   <div className="flex gap-1.5 items-center py-0.5">
                     <span className="w-1.5 h-1.5 rounded-full bg-[#6e6e88] animate-bounce" />
@@ -547,7 +612,7 @@ export default function SahedChatbot() {
               <textarea
                 ref={textareaRef}
                 className="block w-full bg-transparent border-none text-[#eeeef5] text-[13.5px] p-2.5 px-3.5 resize-none outline-none max-h-[100px] leading-normal placeholder:text-[#6e6e88]"
-                style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
+                style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}
                 rows={1}
                 placeholder="Ask me anything…"
                 value={input}
@@ -567,12 +632,15 @@ export default function SahedChatbot() {
               </svg>
             </button>
           </div>
-
         </div>
       )}
 
       {/* Trigger button */}
-      <button className="w-[58px] h-[58px] rounded-full bg-gradient-to-br from-[#7c6dfa] to-[#c084fc] flex items-center justify-center shadow-[0_8px_30px_rgba(124,109,250,0.5)] transition-all hover:scale-105 hover:shadow-[0_12px_40px_rgba(124,109,250,0.65)] active:scale-95 relative" onClick={() => setOpen((o) => !o)} aria-label="Open chat">
+      <button
+        className="w-[58px] h-[58px] rounded-full bg-gradient-to-br from-[#7c6dfa] to-[#c084fc] flex items-center justify-center shadow-[0_8px_30px_rgba(124,109,250,0.5)] transition-all hover:scale-105 hover:shadow-[0_12px_40px_rgba(124,109,250,0.65)] active:scale-95 relative"
+        onClick={() => setOpen((o) => !o)}
+        aria-label="Open chat"
+      >
         <span className="absolute -top-0.5 -right-0.5 w-[14px] h-[14px] rounded-full bg-[#4ade80] border-2 border-[#0d0d14]" />
         {open ? (
           <img src="/img/ask-sahed-icon-only-sahedalomsumit.svg" alt="" />
