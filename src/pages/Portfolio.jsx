@@ -63,7 +63,9 @@ export default function Portfolio() {
         </div>
       </section>
 
-      <ContactSection />
+      <RevealOnScroll>
+        <ContactSection />
+      </RevealOnScroll>
     </>
   )
 }

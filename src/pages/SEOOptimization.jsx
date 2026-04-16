@@ -75,58 +75,58 @@ export default function SEOOptimization() {
 
         {/* Core Web Vitals */}
         <RevealOnScroll>
-          <div className="mb-20">
-            <div className="font-mono text-violet-400 text-[10px] uppercase tracking-widest mb-6">/ Core_Web_Vitals_Targets</div>
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-              {vitals.map((v) => (
-                <div key={v.metric} className="bento-card p-6 border-violet-500/10 bg-violet-500/5 group hover:border-violet-500/40">
-                  <div className="font-mono text-violet-400 text-2xl font-black mb-1">{v.metric}</div>
-                  <div className="text-white font-bold text-lg mb-1">{v.target}</div>
-                  <div className="font-mono text-[9px] text-gray-500 uppercase tracking-widest mb-3">{v.label}</div>
-                  <p className="text-gray-400 text-xs font-light">{v.desc}</p>
-                </div>
-              ))}
-            </div>
-          </div>
+          <div className="font-mono text-violet-400 text-[10px] uppercase tracking-widest mb-6">/ Core_Web_Vitals_Targets</div>
         </RevealOnScroll>
+        <div className="mb-20 grid grid-cols-2 md:grid-cols-4 gap-4">
+          {vitals.map((v, i) => (
+            <RevealOnScroll key={v.metric} delay={i * 0.08}>
+              <div className="bento-card p-6 border-violet-500/10 bg-violet-500/5 group hover:border-violet-500/40 h-full">
+                <div className="font-mono text-violet-400 text-2xl font-black mb-1">{v.metric}</div>
+                <div className="text-white font-bold text-lg mb-1">{v.target}</div>
+                <div className="font-mono text-[9px] text-gray-500 uppercase tracking-widest mb-3">{v.label}</div>
+                <p className="text-gray-400 text-xs font-light">{v.desc}</p>
+              </div>
+            </RevealOnScroll>
+          ))}
+        </div>
 
         {/* Deliverables */}
         <RevealOnScroll>
-          <div className="mb-20">
-            <div className="block sm:flex items-center justify-between mb-10 border-b border-white/5 pb-6">
-              <h2 className="text-3xl font-black tracking-tighter text-white uppercase">What_You_Get</h2>
-              <span className="font-mono text-xs text-violet-500">06_DELIVERABLES</span>
-            </div>
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {deliverables.map((d) => (
-                <div key={d.title} className="bento-card p-8 group border-violet-500/10 bg-violet-500/5 hover:border-violet-500/40">
-                  <div className="text-violet-400 text-3xl mb-5 font-mono">{d.icon}</div>
-                  <h3 className="text-base font-bold text-white mb-3 uppercase tracking-tight">{d.title}</h3>
-                  <p className="text-gray-400 text-sm leading-relaxed font-light">{d.desc}</p>
-                </div>
-              ))}
-            </div>
+          <div className="block sm:flex items-center justify-between mb-10 border-b border-white/5 pb-6">
+            <h2 className="text-3xl font-black tracking-tighter text-white uppercase">What_You_Get</h2>
+            <span className="font-mono text-xs text-violet-500">06_DELIVERABLES</span>
           </div>
         </RevealOnScroll>
+        <div className="mb-20 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {deliverables.map((d, i) => (
+            <RevealOnScroll key={d.title} delay={i * 0.07}>
+              <div className="bento-card p-8 group border-violet-500/10 bg-violet-500/5 hover:border-violet-500/40 h-full">
+                <div className="text-violet-400 text-3xl mb-5 font-mono">{d.icon}</div>
+                <h3 className="text-base font-bold text-white mb-3 uppercase tracking-tight">{d.title}</h3>
+                <p className="text-gray-400 text-sm leading-relaxed font-light">{d.desc}</p>
+              </div>
+            </RevealOnScroll>
+          ))}
+        </div>
 
         {/* Process */}
         <RevealOnScroll>
-          <div className="mb-20">
-            <div className="font-mono text-violet-400 text-[10px] uppercase tracking-widest mb-4">/ SEO_Process</div>
-            <h2 className="text-3xl font-black tracking-tighter text-white uppercase mb-10">How It Works_</h2>
-            <div className="space-y-4">
-              {process.map((p) => (
-                <div key={p.num} className="bento-card p-8 flex flex-col md:flex-row md:items-center gap-6 group hover:border-violet-500/40">
-                  <div className="font-mono text-violet-500/30 text-4xl font-black group-hover:text-violet-500/60 transition-colors shrink-0 w-16">{p.num}_</div>
-                  <div>
-                    <h3 className="text-lg font-bold text-white uppercase tracking-tight mb-1">{p.title}</h3>
-                    <p className="text-gray-400 text-sm leading-relaxed font-light">{p.desc}</p>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
+          <div className="font-mono text-violet-400 text-[10px] uppercase tracking-widest mb-4">/ SEO_Process</div>
+          <h2 className="text-3xl font-black tracking-tighter text-white uppercase mb-10">How It Works_</h2>
         </RevealOnScroll>
+        <div className="mb-20 space-y-4">
+          {process.map((p, i) => (
+            <RevealOnScroll key={p.num} delay={i * 0.08}>
+              <div className="bento-card p-8 flex flex-col md:flex-row md:items-center gap-6 group hover:border-violet-500/40">
+                <div className="font-mono text-violet-500/30 text-4xl font-black group-hover:text-violet-500/60 transition-colors shrink-0 w-16">{p.num}_</div>
+                <div>
+                  <h3 className="text-lg font-bold text-white uppercase tracking-tight mb-1">{p.title}</h3>
+                  <p className="text-gray-400 text-sm leading-relaxed font-light">{p.desc}</p>
+                </div>
+              </div>
+            </RevealOnScroll>
+          ))}
+        </div>
 
         {/* Tools */}
         <RevealOnScroll>
@@ -142,24 +142,26 @@ export default function SEOOptimization() {
 
         {/* Related */}
         <RevealOnScroll>
-          <div>
-            <div className="font-mono text-gray-500 text-[10px] uppercase tracking-widest mb-6">/ Related_Services</div>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-              {related.map((r) => (
-                <Link key={r.slug} to={`/services/${r.slug}`} className="bento-card p-6 flex items-center justify-between group hover:border-violet-500/40">
-                  <div>
-                    <div className="font-mono text-violet-400 text-[9px] uppercase tracking-widest mb-1">/ {r.label}</div>
-                    <div className="text-white font-bold text-sm">{r.title}</div>
-                  </div>
-                  <svg className="w-4 h-4 text-gray-500 group-hover:text-violet-400 group-hover:translate-x-1 transition-all" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M14 5l7 7m0 0l-7 7m7-7H3" strokeWidth="2" /></svg>
-                </Link>
-              ))}
-            </div>
-          </div>
+          <div className="font-mono text-gray-500 text-[10px] uppercase tracking-widest mb-6">/ Related_Services</div>
         </RevealOnScroll>
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+          {related.map((r, i) => (
+            <RevealOnScroll key={r.slug} delay={i * 0.08}>
+              <Link to={`/services/${r.slug}`} className="bento-card p-6 flex items-center justify-between group hover:border-violet-500/40">
+                <div>
+                  <div className="font-mono text-violet-400 text-[9px] uppercase tracking-widest mb-1">/ {r.label}</div>
+                  <div className="text-white font-bold text-sm">{r.title}</div>
+                </div>
+                <svg className="w-4 h-4 text-gray-500 group-hover:text-violet-400 group-hover:translate-x-1 transition-all" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M14 5l7 7m0 0l-7 7m7-7H3" strokeWidth="2" /></svg>
+              </Link>
+            </RevealOnScroll>
+          ))}
+        </div>
       </section>
 
-      <ContactSection />
+      <RevealOnScroll>
+        <ContactSection />
+      </RevealOnScroll>
     </>
   )
 }

@@ -25,7 +25,7 @@ const FAQ_SOURCE = `
 
 GENERAL & BACKGROUND
 Q: Who are you and what do you do? (Tell me about yourself)
-A: I am Sahed Alom Sumit, a Vibe Web Designer & Developer and AI Automation Expert based in Helsinki, Finland. I build high-performance, accessible, and visually stunning websites.
+A: I am Sahed Alom Sumit, a Web Designer & Developer and AI Automation Expert based in Helsinki, Finland. I build high-performance, accessible, and visually stunning websites.
 
 Q: Where are you based?
 A: Helsinki, Finland. Clients across 10+ countries — USA, UK, Europe, Canada, Switzerland.
@@ -36,18 +36,18 @@ A: B.B.A. in Business Information Technology from Haaga-Helia University of Appl
 Q: What languages do you speak?
 A: English (Full Professional), Bengali (Native/Bilingual), Hindi/Urdu (Professional Working).
 
-Q: What does "Vibe Web Designer & Developer" mean?
-A: Equal focus on aesthetic "vibe" (UI/UX) and technical perfection (clean code). Every site hits 100/100 on Performance, Accessibility, Best Practices, and SEO on Google PageSpeed Insights.
+Q: What does "Web Designer & Developer" mean?
+A: Equal focus on aesthetic (UI/UX) and technical perfection (clean code). Every site hits 100/100 on Performance, Accessibility, Best Practices, and SEO on Google PageSpeed Insights.
 
 Q: What is your personal motto?
-A: "Vibe web design. Clean development. AI automation that actually makes sense."
+A: "Modern web design. Clean development. AI automation that actually makes sense."
 
 Q: What makes you different from other web designers?
 A: (1) Design sense + real development skills from Figma to deployed product. (2) Consistent 100/100 PageSpeed scores. (3) AI automation integration.
 
 SERVICES & EXPERTISE
 Q: What services do you provide?
-A: Vibe Web Design (UI/UX), Full-Stack Development (React, Webflow, Framer, WordPress, Kajabi), AI Automation (Make.com, Zapier, n8n, Claude Code, custom APIs), Figma/PSD/XD to live website conversion, eCommerce (WooCommerce, Shopify), SEO & Speed Optimization, Custom Web Apps.
+A: Web Design (UI/UX), Full-Stack Development (React, Webflow, Framer, WordPress, Kajabi), AI Automation (Make.com, Zapier, n8n, Claude Code, custom APIs), Figma/PSD/XD to live website conversion, eCommerce (WooCommerce, Shopify), SEO & Speed Optimization, Custom Web Apps.
 
 Q: What platforms and tech stacks do you specialize in?
 A: Webflow, WordPress, Framer, Kajabi. Custom dev: React, Node.js, Tailwind CSS, HTML, CSS, JavaScript, Supabase, SQL, GSAP, Spline 3D and more. Design: Figma. AI: Claude Code, Antigravity (Google DeepMind), ChatGPT Pro.
@@ -160,7 +160,7 @@ A: Yes. Comfortable with Slack, Teams, Notion, Jira. Worked in teams at Vesko an
 
 TOOLS & TECHNOLOGY
 Q: What AI tools do you use?
-A: Claude Code, Antigravity (Google DeepMind), ChatGPT Pro, Stitch, Make.com, n8n, Zapier. Skills: AI-Assisted Design, Prompt Engineering, AI Content Workflows, Vibe Coding, AI UI Generation, Automated Testing.
+A: Claude Code, Antigravity (Google DeepMind), ChatGPT Pro, Stitch, Make.com, n8n, Zapier. Skills: AI-Assisted Design, Prompt Engineering, AI Content Workflows, Modern Coding, AI UI Generation, Automated Testing.
 
 Q: What animation tools do you use?
 A: GSAP, Framer Motion, Spline 3D, CSS animations/transitions. All accessible, respecting prefers-reduced-motion.
@@ -185,13 +185,13 @@ const WEBSITE_SOURCE = `
 Source: sahedalomsumit.com
 
 HERO / POSITIONING
-- Title: Vibe Web Designer, Developer & AI Automation Expert
+- Title: Web Designer, Developer & AI Automation Expert
 - Tagline: "Where good design meets purposeful code — I build digital experiences that just feel right."
 - Based in Helsinki, Finland
 - 5+ years | 150+ websites | 10+ countries | Top Rated Upwork | Level 2 Fiverr Seller
 
 SERVICES (from site)
-1. Vibe Web Design — UI/UX, Figma wireframes, prototyping, design systems
+1. Web Design — UI/UX, Figma wireframes, prototyping, design systems
 2. Website Development — Webflow, WordPress, Framer, Kajabi, React
 3. AI Automation — Make.com, n8n, Zapier, Claude Code, custom API workflows
 4. eCommerce — WooCommerce, Shopify, product filtering, checkout optimization
@@ -263,7 +263,7 @@ ${WEBSITE_SOURCE}
 // ════════════════════════════════════════════════════
 const SUGGESTIONS = [
   "Tell me about yourself",
-  "'Vibe Web Designer & Developer' mean?",
+  "'Web Designer & Developer' mean?",
   "What services do you offer?",
   "What is your hourly rate?",
   "How much does a website cost?",

@@ -16,13 +16,13 @@ export default function Footer() {
             className="sas-logo transition-transform group-hover:scale-105 w-32"
           />
           <p className="mt-6 text-gray-400 text-xs leading-relaxed font-mono max-w-[200px] uppercase">
-            ./ Vibe Web Designer
+            ./ Web Designer
             <br />
-            ./ Vibe Web Developer
+            ./ Web Developer
             <br />
-            ./ Vibe AI Automation
+            ./ AI Automation
             <br />
-            ./ Design. Code. Vibes.
+            ./ Design. Code. Deploy.
           </p>
         </div>
 
@@ -215,7 +215,7 @@ export default function Footer() {
             </li>
             <li>
               <a
-                href="/salah-tracker-app"
+                href="/salah-tracker"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="hover:text-white transition tracking-widest"
@@ -299,7 +299,7 @@ export default function Footer() {
       {/* Bottom Copyright */}
       <div className="max-w-7xl mx-auto mt-20 pt-8 border-t border-white/5 flex flex-col md:flex-row justify-between items-center gap-6">
         <p className="font-mono text-[9px] text-gray-400 uppercase tracking-widest text-center md:text-left">
-          © {currentYear} Sahed Alom Sumit // Built with good vibes and clean
+          © {currentYear} Sahed Alom Sumit // Built with precision and clean
           code
         </p>
         <div className="hidden md:flex gap-4 text-[9px] font-mono text-gray-400">

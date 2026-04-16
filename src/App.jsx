@@ -24,7 +24,10 @@ import NotFound from './pages/NotFound'
 import SalahTrackerPrivacyPolicy from './pages/SalahTrackerPrivacyPolicy'
 import SalahTrackerApp from './pages/SalahTrackerApp'
 import SalahTrackerDataDeletion from './pages/SalahTrackerDataDeletion'
+import SpaBurn from './LandingPages/SpaBurn'
 
+// Standalone landing page routes (no header/footer/chatbot)
+const STANDALONE_ROUTES = ['/spa-burn']
 
 function ScrollToTop() {
   const { pathname, hash } = useLocation()
@@ -50,15 +53,26 @@ function ScrollToTop() {
 }
 
 export default function App() {
+  const { pathname } = useLocation()
+  const isStandalone = STANDALONE_ROUTES.includes(pathname)
+
   return (
     <>
       <ScrollToTop />
-      <CustomCursor />
-      <AuraBackground />
-      <TopBar />
-      <Header />
+      {!isStandalone && (
+        <>
+          <CustomCursor />
+          <AuraBackground />
+          <TopBar />
+          <Header />
+        </>
+      )}
       <main>
         <Routes>
+          {/* ── Standalone Landing Pages ── */}
+          <Route path="/spa-burn" element={<SpaBurn />} />
+
+          {/* ── Main Site Routes ── */}
           <Route path="/" element={<Home />} />
           <Route path="/process" element={<Process />} />
           <Route path="/portfolio" element={<Portfolio />} />
@@ -73,15 +87,15 @@ export default function App() {
           <Route path="/services/ai-automation" element={<AIAutomation />} />
           <Route path="/services/seo-optimization" element={<SEOOptimization />} />
           <Route path="/quote" element={<Quote />} />
-          <Route path="/salah-tracker-app" element={<SalahTrackerApp />} />
-          <Route path="/salah-tracker-app/privacy-policy" element={<SalahTrackerPrivacyPolicy />} />
-          <Route path="/salah-tracker-app/data-deletion" element={<SalahTrackerDataDeletion />} />
+          <Route path="/salah-tracker" element={<SalahTrackerApp />} />
+          <Route path="/salah-tracker/privacy-policy" element={<SalahTrackerPrivacyPolicy />} />
+          <Route path="/salah-tracker/data-deletion" element={<SalahTrackerDataDeletion />} />
           <Route path="/work" element={<Navigate to="/portfolio" replace />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
-        <SahedChatbot />
+        {!isStandalone && <SahedChatbot />}
       </main>
-      <Footer />
+      {!isStandalone && <Footer />}
     </>
   )
 }

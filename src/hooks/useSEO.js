@@ -4,11 +4,11 @@ export function useSEO({ title, description, canonical }) {
   useEffect(() => {
     // 1. Update Title Tag
     const baseTitle = 'Sahed Alom Sumit'
-    const fullTitle = title ? `${title} | ${baseTitle}` : `${baseTitle} | Vibe Web Designer & Developer`
+    const fullTitle = title ? `${title} | ${baseTitle}` : `${baseTitle} | Web Designer & Developer`
     document.title = fullTitle
 
     // 2. Prepare Defaults
-    const defaultDescription = "Sahed Alom Sumit is a Vibe Web Designer & Developer based in Helsinki, Finland. I build websites that feel alive — where good design meets clean code."
+    const defaultDescription = "Sahed Alom Sumit is a Web Designer & Developer based in Helsinki, Finland. I build websites that feel alive — where good design meets clean code."
     const activeDescription = description || defaultDescription
 
     // 3. Update Meta Description

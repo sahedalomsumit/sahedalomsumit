@@ -50,7 +50,7 @@ export default function Home() {
   const [loading, setLoading] = useState(true)
 
   useSEO({
-    description: 'Sahed Alom Sumit is a Vibe Web Designer & Developer based in Helsinki, Finland. I build websites that feel alive — where good design meets clean code.',
+    description: 'Sahed Alom Sumit is a Web Designer & Developer based in Helsinki, Finland. I build websites that feel alive — where good design meets clean code.',
     canonical: '/',
   })
 
@@ -68,10 +68,10 @@ export default function Home() {
 
     // Typewriter
     const words = [
-      'Vibe Web Designer',
-      'Vibe Web Developer',
-      'Vibe AI Automation',
-      'Design. Code. Vibes.'
+      'Web Designer',
+      'Web Developer',
+      'AI Automation',
+      'Design. Code. Deploy.'
     ]
     let i = 0
     const typeWord = () => {
@@ -89,7 +89,7 @@ export default function Home() {
       <section id="hero" ref={heroRef} className="min-h-screen flex flex-col justify-center items-center text-center relative">
         <div className="space-y-6 flex flex-col items-center px-4 max-w-7xl mx-auto">
           <div className="font-mono text-violet-500 text-xs tracking-[0.2em] sm:tracking-[0.5em] font-bold uppercase hero-el">
-            Loading Good Vibes...
+            Loading Systems...
           </div>
           <div className="flex items-center gap-1.5 bg-emerald-500/10 border border-emerald-500/20 px-4 py-1.5 rounded-full hero-el transform transition-all hover:bg-emerald-500/20 mb-2">
             <span className="w-2 h-2 bg-emerald-500 rounded-full shadow-[0_0_8px_#10b981]" />
@@ -98,13 +98,13 @@ export default function Home() {
           <h1 className="text-5xl md:text-7xl lg:text-[8rem] font-extrabold tracking-tighter text-white hero-el leading-[0.85] mb-2 uppercase">
             SAHED ALOM <span className="text-violet-500">SUMIT<span className="animate-pulse">.</span></span>
           </h1>
-          <p className="sr-only">Vibe Web Designer & Developer based in Helsinki, Finland</p>
+          <p className="sr-only">Web Designer & Developer based in Helsinki, Finland</p>
           <div className="h-10 hero-el">
             <span ref={typewriterRef} className="font-mono text-sm md:text-2xl text-gray-400 uppercase tracking-[0.3em]" />
             <span className="inline-block w-2 h-6 bg-violet-500 animate-pulse align-middle" />
           </div>
           <p className="max-w-2xl mx-auto text-gray-400 text-base md:text-lg font-light hero-el pt-4 leading-relaxed italic">
-            Vibe web design. Clean development. AI automation that actually makes sense. That's what I do.
+            Modern web design. Clean development. AI automation that actually makes sense. That's what I do.
           </p>
           <div className="flex flex-wrap gap-4 justify-center pt-12 hero-el">
             <Link to="/portfolio" className="px-10 py-4 bg-white text-black font-black rounded-full text-xs tracking-[0.2em] hover:bg-violet-500 hover:text-white transition-all transform hover:-translate-y-1 shadow-2xl shadow-violet-500/10 uppercase">View My Portfolio</Link>
@@ -114,20 +114,20 @@ export default function Home() {
       </section>
 
       {/* Bio Section */}
-      <RevealOnScroll>
-        <section id="bio" className="py-24 px-4 max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-12 gap-6">
-          <div className="md:col-span-8 bento-card p-8 md:p-14 flex flex-col justify-between">
+      <section id="bio" className="py-24 px-4 max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-12 gap-6">
+        <RevealOnScroll className="md:col-span-8" direction="left">
+          <div className="bento-card p-8 md:p-14 flex flex-col justify-between h-full">
             <div>
               <div className="font-mono text-emerald-500 text-[10px] uppercase tracking-widest mb-6 flex items-center gap-2">/ About Me</div>
               <h2 className="text-2xl md:text-3xl font-bold mb-10 text-white leading-tight">
-                Vibe web design. Clean development. AI automation that actually makes sense. That's what I do.
+                Modern web design. Clean development. AI automation that actually makes sense. That's what I do.
               </h2>
               <div className="space-y-6 text-gray-400 text-lg md:text-xl leading-relaxed font-light max-w-2xl">
                 <p>
                   Good design and purposeful development should feel effortless. That's what I chase with every project — that moment when someone lands on a site and just gets it without thinking twice.
                 </p>
                 <p>
-                  I've spent the past 5+ years working with founders, brands, and agencies across the world, helping them turn rough ideas into polished digital products. My work sits right at the intersection of design thinking and full-stack development. I care about the vibe of a page as much as I care about how fast it loads.
+                  I've spent the past 5+ years working with founders, brands, and agencies across the world, helping them turn rough ideas into polished digital products. My work sits right at the intersection of design thinking and full-stack development. I care about the experience of a page as much as I care about how fast it loads.
                 </p>
                 <p>
                   Smooth animations that make people stop scrolling. Dynamic systems that just work. Prototypes that feel so real clients forget it's not live yet. Whatever the project needs — I show up with the same care, the same eye, and the same drive to get it right. With a background Bachelor's in Business IT, I also understand the business side of things. So I'm not just making things look good — I'm making sure they actually work for your goals.
@@ -145,8 +145,10 @@ export default function Home() {
               </div>
             </div>
           </div>
+        </RevealOnScroll>
 
-          <div className="md:col-span-4 bento-card p-8">
+        <RevealOnScroll className="md:col-span-4" delay={0.15} direction="right">
+          <div className="bento-card p-8 h-full">
             <div className="font-mono text-emerald-500 text-[10px] uppercase tracking-widest mb-8">/ Core_Node</div>
             <div className="space-y-10">
               {[
@@ -172,18 +174,20 @@ export default function Home() {
               </div>
             </div>
           </div>
-        </section>
-      </RevealOnScroll>
+        </RevealOnScroll>
+      </section>
 
       {/* Skills Section */}
-      <RevealOnScroll>
-        <section id="skills" className="py-24 px-4 max-w-7xl mx-auto">
+      <section id="skills" className="py-24 px-4 max-w-7xl mx-auto">
+        <RevealOnScroll>
           <div className="block sm:flex items-center justify-between mb-16 border-b border-white/5 pb-8">
             <h2 className="text-4xl font-bold tracking-tighter text-white uppercase">Skill_Inventory</h2>
             <span className="font-mono text-xs text-emerald-500">39_MODULES_LOADED</span>
           </div>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            <div className="bento-card p-8">
+        </RevealOnScroll>
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          <RevealOnScroll delay={0}>
+            <div className="bento-card p-8 h-full">
               <div className="font-mono text-emerald-500 text-[10px] uppercase tracking-widest mb-8">/ Design_Dev_Unit</div>
               <div className="flex flex-wrap gap-2">
                 {['Design Principles', 'Responsive Design', 'Accessibility'].map(s => (
@@ -194,7 +198,9 @@ export default function Home() {
                 ))}
               </div>
             </div>
-            <div className="bento-card p-8 border-violet-500/20 bg-violet-500/5">
+          </RevealOnScroll>
+          <RevealOnScroll delay={0.1}>
+            <div className="bento-card p-8 border-violet-500/20 bg-violet-500/5 h-full">
               <div className="font-mono text-violet-400 text-[10px] uppercase tracking-widest mb-8">/ Design_Dev_Stack</div>
               <div className="flex flex-wrap gap-2">
                 {['Webflow', 'WordPress', 'Figma', 'Custom Coding Website'].map(s => (
@@ -205,7 +211,9 @@ export default function Home() {
                 ))}
               </div>
             </div>
-            <div className="bento-card p-8">
+          </RevealOnScroll>
+          <RevealOnScroll delay={0.2}>
+            <div className="bento-card p-8 h-full">
               <div className="font-mono text-emerald-500 text-[10px] uppercase tracking-widest mb-8">/ Design_Dev_AI</div>
               <div className="flex flex-wrap gap-2">
                 {['Claude Code', 'Antigravity', 'Stitch', 'Make.com', 'n8n', 'Zapier'].map(s => (
@@ -216,15 +224,15 @@ export default function Home() {
                 ))}
               </div>
             </div>
-          </div>
-        </section>
-      </RevealOnScroll>
+          </RevealOnScroll>
+        </div>
+      </section>
 
       {/* Education, Experience, Certificates */}
-      <RevealOnScroll>
-        <section className="py-24 px-4 max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-12 gap-6">
-          <div className="md:col-span-6">
-            {/* Education */}
+      <section className="py-24 px-4 max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-12 gap-6">
+        <div className="md:col-span-6">
+          {/* Education */}
+          <RevealOnScroll direction="left">
             <div className="bento-card p-8 md:p-14 flex flex-col justify-between">
               <div>
                 <div className="font-mono text-emerald-500 text-[10px] uppercase tracking-widest mb-6 flex items-center gap-2">/ Edu_Entry</div>
@@ -247,7 +255,9 @@ export default function Home() {
                 </div>
               </div>
             </div>
-            {/* Certificates Carousel */}
+          </RevealOnScroll>
+          {/* Certificates Carousel */}
+          <RevealOnScroll delay={0.15} direction="left">
             <div className="max-w-5xl mx-auto py-8">
               <Carousel>
                 {certificates.map(cert => (
@@ -263,10 +273,12 @@ export default function Home() {
                 ))}
               </Carousel>
             </div>
-          </div>
+          </RevealOnScroll>
+        </div>
 
-          <div className="md:col-span-6">
-            {/* Experience Carousel */}
+        <div className="md:col-span-6">
+          {/* Experience Carousel */}
+          <RevealOnScroll direction="right">
             <div className="max-w-5xl mx-auto mb-8">
               <Carousel>
                 {experiences.map(exp => (
@@ -283,7 +295,9 @@ export default function Home() {
                 ))}
               </Carousel>
             </div>
-            {/* Intro Video */}
+          </RevealOnScroll>
+          {/* Intro Video */}
+          <RevealOnScroll delay={0.15} direction="right">
             <div className="bento-card p-8 md:p-14 flex flex-col justify-between">
               <div className="font-mono text-emerald-500 text-[10px] uppercase tracking-widest mb-6 flex items-center gap-2">/ Intro_Entry</div>
               <iframe
@@ -297,13 +311,13 @@ export default function Home() {
                 loading="lazy"
               ></iframe>
             </div>
-          </div>
-        </section>
-      </RevealOnScroll>
+          </RevealOnScroll>
+        </div>
+      </section>
 
       {/* Featured Portfolio */}
-      <RevealOnScroll>
-        <section id="work" className="py-24 px-4 max-w-7xl mx-auto">
+      <section id="work" className="py-24 px-4 max-w-7xl mx-auto">
+        <RevealOnScroll>
           <div className="flex flex-col md:flex-row justify-between items-end mb-16 gap-6">
             <div>
               <h2 className="text-5xl sm:text-6xl font-extrabold tracking-tighter text-white uppercase">Main_Builds</h2>
@@ -311,27 +325,33 @@ export default function Home() {
             </div>
             <Link to="/portfolio" className="px-8 py-3 bento-card text-[10px] font-mono font-bold hover:bg-white hover:text-black transition uppercase tracking-widest">Explore_Portfolio</Link>
           </div>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
-            {loading ? (
-              <div className="md:col-span-2 text-center font-mono text-emerald-500 uppercase tracking-widest text-xs flex items-center justify-center gap-2 py-10">
-                <span className="w-2 h-2 bg-emerald-500 rounded-full animate-ping" />
-                Fetching_Featured_Builds...
-              </div>
-            ) : (
-              featured.map(p => <ProjectCard key={p.id || p.slug} project={p} />)
-            )}
-          </div>
-        </section>
-      </RevealOnScroll>
+        </RevealOnScroll>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
+          {loading ? (
+            <div className="md:col-span-2 text-center font-mono text-emerald-500 uppercase tracking-widest text-xs flex items-center justify-center gap-2 py-10">
+              <span className="w-2 h-2 bg-emerald-500 rounded-full animate-ping" />
+              Fetching_Featured_Builds...
+            </div>
+          ) : (
+            featured.map((p, i) => (
+              <RevealOnScroll key={p.id || p.slug} delay={i * 0.1}>
+                <ProjectCard project={p} />
+              </RevealOnScroll>
+            ))
+          )}
+        </div>
+      </section>
 
       {/* Testimonials */}
-      <RevealOnScroll>
-        <section className="py-32 bg-[#030303] border-y border-white/5">
-          <div className="max-w-7xl px-4 mx-auto">
+      <section className="py-32 bg-[#030303] border-y border-white/5">
+        <div className="max-w-7xl px-4 mx-auto">
+          <RevealOnScroll>
             <h2 className="text-2xl sm:text-6xl font-bold text-center mb-20 text-white uppercase tracking-[0.2em]">Validation_Logs</h2>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-              {testimonials.map((t, i) => (
-                <div key={i} className="bento-card p-8 flex flex-col justify-between hover:bg-white/[0.03]">
+          </RevealOnScroll>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+            {testimonials.map((t, i) => (
+              <RevealOnScroll key={i} delay={i * 0.12}>
+                <div className="bento-card p-8 flex flex-col justify-between hover:bg-white/[0.03] h-full">
                   <p className="text-gray-400 italic text-lg leading-relaxed mb-10">{t.quote}</p>
                   <div className="flex items-center gap-4">
                     <div className={`w-12 h-12 ${t.color} rounded-2xl flex items-center justify-center text-sm font-black shadow-lg ${t.shadow}`}>{t.initials}</div>
@@ -341,9 +361,11 @@ export default function Home() {
                     </div>
                   </div>
                 </div>
-              ))}
-            </div>
-            {/* Review screenshots carousel */}
+              </RevealOnScroll>
+            ))}
+          </div>
+          {/* Review screenshots carousel */}
+          <RevealOnScroll delay={0.15}>
             <div className="relative bento-card p-8 mt-8">
               <Carousel>
                 {reviewSlides.map((pair, i) => (
@@ -362,11 +384,13 @@ export default function Home() {
                 ))}
               </Carousel>
             </div>
-          </div>
-        </section>
-      </RevealOnScroll>
+          </RevealOnScroll>
+        </div>
+      </section>
 
-      <ContactSection />
+      <RevealOnScroll>
+        <ContactSection />
+      </RevealOnScroll>
     </>
   )
 }

@@ -8,7 +8,7 @@ export default function SalahTrackerDataDeletion() {
   useSEO({
     title: 'Salah Tracker Data Deletion',
     description: 'Instructions and request form for deleting your Salah Tracker account and associated data.',
-    canonical: '/salah-tracker-app/data-deletion',
+    canonical: '/salah-tracker/data-deletion',
   })
   return (
     <>
@@ -18,7 +18,7 @@ export default function SalahTrackerDataDeletion() {
             <nav aria-label="breadcrumb" className="text-[10px] font-mono uppercase tracking-widest text-gray-500 mb-8 flex items-center justify-start gap-2">
               <Link to="/" className="hover:text-emerald-500 transition">Home</Link>
               <span>/</span>
-              <Link to="/salah-tracker-app" className="hover:text-emerald-500 transition">Salah Tracker App</Link>
+              <Link to="/salah-tracker" className="hover:text-emerald-500 transition">Salah Tracker App</Link>
               <span>/</span>
               <span className="text-white uppercase tracking-wider">Data Deletion</span>
             </nav>
@@ -119,8 +119,8 @@ export default function SalahTrackerDataDeletion() {
             </section>
 
             <footer className="mt-32 pt-16 border-t border-white/5 text-center">
-              <div className="text-emerald-500 font-mono text-[10px] tracking-[0.5em] uppercase mb-8">Generated_for_Salah_Tracker_App</div>
-              <Link to="/salah-tracker-app" className="group inline-flex items-center gap-3 bg-white/5 px-8 py-4 rounded-full border border-white/10 hover:bg-emerald-500/10 hover:border-emerald-500/30 transition-all">
+              <div className="text-emerald-500 font-mono text-[10px] tracking-[0.5em] uppercase mb-8">Generated_for_Salah_Tracker</div>
+              <Link to="/salah-tracker" className="group inline-flex items-center gap-3 bg-white/5 px-8 py-4 rounded-full border border-white/10 hover:bg-emerald-500/10 hover:border-emerald-500/30 transition-all">
                 <span className="text-gray-400 group-hover:text-emerald-500 transition-colors">&larr;</span>
                 <span className="text-xs font-bold uppercase tracking-widest text-white group-hover:text-emerald-500 transition-colors">Back to App Page</span>
               </Link>

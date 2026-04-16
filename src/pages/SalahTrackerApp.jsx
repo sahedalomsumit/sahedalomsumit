@@ -11,7 +11,7 @@ export default function SalahTrackerApp() {
     title: "Salah Tracker App",
     description:
       "Salah Tracker – A mindful prayer companion for the modern Muslim. Track your prayers, build consistency, and stay mindful with this 100% ad-free app.",
-    canonical: "/salah-tracker-app",
+    canonical: "/salah-tracker",
   });
 
   const darkScreenshots = [
@@ -52,7 +52,7 @@ export default function SalahTrackerApp() {
             </nav>
 
             <div className="font-mono text-emerald-500 text-xs tracking-[0.4em] font-bold uppercase mb-6">
-              APP_MODULE // SALAH_TRACKER_APP
+              APP_MODULE // SALAH_TRACKER
             </div>
 
             <div className="flex justify-center mb-8">
@@ -382,7 +382,7 @@ export default function SalahTrackerApp() {
         <RevealOnScroll>
           <div className="bg-[#0a0a0a] border border-white/5 p-8 text-center rounded-3xl shadow-[inset_0_0_50px_rgba(16,185,129,0.05)] flex flex-col md:flex-row items-center justify-center gap-6">
             <Link
-              to="/salah-tracker-app/privacy-policy"
+              to="/salah-tracker/privacy-policy"
               className="inline-flex items-center gap-3 text-gray-500 font-mono text-sm hover:text-emerald-500 transition-colors uppercase tracking-widest group"
             >
               <span>Privacy Policy</span>
@@ -392,7 +392,7 @@ export default function SalahTrackerApp() {
             </Link>
             <span className="text-white/10 hidden md:inline">|</span>
             <Link
-              to="/salah-tracker-app/data-deletion"
+              to="/salah-tracker/data-deletion"
               className="inline-flex items-center gap-3 text-gray-500 font-mono text-sm hover:text-red-500 transition-colors uppercase tracking-widest group"
             >
               <span>Data Deletion Request</span>

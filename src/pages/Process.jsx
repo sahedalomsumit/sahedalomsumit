@@ -148,7 +148,9 @@ export default function Process() {
         </div>
       </section>
 
-      <ContactSection />
+      <RevealOnScroll>
+        <ContactSection />
+      </RevealOnScroll>
     </>
   )
 }

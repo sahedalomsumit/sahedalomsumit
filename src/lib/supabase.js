@@ -125,3 +125,13 @@ export async function submitQuoteLead(leadData) {
   if (error) { console.error('Error submitting lead:', error); return { error } }
   return { data }
 }
+
+export async function submitSpaLead(leadData) {
+  if (!supabase) return { error: 'Supabase not configured' }
+  const { data, error } = await supabase
+    .from('spa_burn')
+    .insert([leadData])
+
+  if (error) { console.error('Error submitting spa lead:', error); return { error } }
+  return { data }
+}

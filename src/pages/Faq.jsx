@@ -99,33 +99,33 @@ export default function Faq() {
           </header>
         </RevealOnScroll>
 
-        <RevealOnScroll>
-          {loading ? (
-            <div className="text-center font-mono text-emerald-500 uppercase tracking-widest text-xs flex items-center justify-center gap-2 py-20">
-              <span className="w-2 h-2 bg-emerald-500 rounded-full animate-ping" />
-              Fetching_Knowledge_Base...
-            </div>
-          ) : (
-            <>
-              {/* Mobile Dropdown (Sticky) */}
-              <div className="md:hidden sticky top-[60px] z-40 bg-[#0a0a0a]/95 backdrop-blur-xl pb-4 pt-[1.8rem] -mx-4 px-4 mb-8 border-b border-white/5">
-                <div className="relative">
-                  <select
-                    value={activeTab}
-                    onChange={(e) => handleTabChange(e.target.value)}
-                    className="w-full bg-[#111] border border-white/20 text-white text-base py-4 px-4 rounded-xl focus:outline-none focus:border-violet-500 outline-none appearance-none shadow-lg block"
-                  >
-                    {topics.map((topic, i) => (
-                      <option key={i} value={topic}>{topic}</option>
-                    ))}
-                  </select>
-                  <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-5 text-violet-500">
-                    <svg className="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z" /></svg>
-                  </div>
+        {loading ? (
+          <div className="text-center font-mono text-emerald-500 uppercase tracking-widest text-xs flex items-center justify-center gap-2 py-20">
+            <span className="w-2 h-2 bg-emerald-500 rounded-full animate-ping" />
+            Fetching_Knowledge_Base...
+          </div>
+        ) : (
+          <>
+            {/* Mobile Dropdown (Sticky) */}
+            <div className="md:hidden sticky top-[60px] z-40 bg-[#0a0a0a]/95 backdrop-blur-xl pb-4 pt-[1.8rem] -mx-4 px-4 mb-8 border-b border-white/5">
+              <div className="relative">
+                <select
+                  value={activeTab}
+                  onChange={(e) => handleTabChange(e.target.value)}
+                  className="w-full bg-[#111] border border-white/20 text-white text-base py-4 px-4 rounded-xl focus:outline-none focus:border-violet-500 outline-none appearance-none shadow-lg block"
+                >
+                  {topics.map((topic, i) => (
+                    <option key={i} value={topic}>{topic}</option>
+                  ))}
+                </select>
+                <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-5 text-violet-500">
+                  <svg className="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z" /></svg>
                 </div>
               </div>
+            </div>
 
-              {/* Desktop Tabs */}
+            {/* Desktop Tabs */}
+            <RevealOnScroll>
               <div className="hidden md:flex flex-wrap items-center justify-start gap-4 mb-16">
                 {topics.map((topic, i) => (
                   <button
@@ -137,21 +137,25 @@ export default function Faq() {
                   </button>
                 ))}
               </div>
+            </RevealOnScroll>
 
-              <section id="faq-list" className="grid grid-cols-1 md:grid-cols-2 gap-6 items-start" aria-label="Frequently Asked Questions">
-                {filteredFaqs.length > 0 ? (
-                  filteredFaqs.map((faq, index) => (
-                    <FaqItem key={faq.id || index} faq={faq} />
-                  ))
-                ) : (
-                  <div className="text-gray-400 col-span-1 md:col-span-2 text-center py-10 font-mono text-sm opacity-50">No FAQs available yet.</div>
-                )}
-              </section>
-            </>
-          )}
-        </RevealOnScroll>
+            <section id="faq-list" className="grid grid-cols-1 md:grid-cols-2 gap-6 items-start" aria-label="Frequently Asked Questions">
+              {filteredFaqs.length > 0 ? (
+                filteredFaqs.map((faq, index) => (
+                  <RevealOnScroll key={faq.id || index} delay={index * 0.05}>
+                    <FaqItem faq={faq} />
+                  </RevealOnScroll>
+                ))
+              ) : (
+                <div className="text-gray-400 col-span-1 md:col-span-2 text-center py-10 font-mono text-sm opacity-50">No FAQs available yet.</div>
+              )}
+            </section>
+          </>
+        )}
       </main>
-      <ContactSection />
+      <RevealOnScroll>
+        <ContactSection />
+      </RevealOnScroll>
     </>
   )
 }

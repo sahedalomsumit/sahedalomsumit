@@ -183,10 +183,11 @@ export default function Services() {
               <span className="font-mono text-xs text-emerald-500">07_MODULES_ACTIVE</span>
             </div>
           </div>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {services.map((s) => (
+        </RevealOnScroll>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {services.map((s, i) => (
+            <RevealOnScroll key={s.slug} delay={i * 0.06}>
               <Link
-                key={s.slug}
                 to={`/services/${s.slug}`}
                 className={`bento-card p-8 flex flex-col justify-between group cursor-pointer ${s.border} ${s.bg} hover:shadow-2xl hover:${s.glow} transition-all min-h-[280px]`}
               >
@@ -206,9 +207,11 @@ export default function Services() {
                   </svg>
                 </div>
               </Link>
-            ))}
+            </RevealOnScroll>
+          ))}
 
-            {/* CTA card */}
+          {/* CTA card */}
+          <RevealOnScroll delay={0.5}>
             <div className="bento-card p-8 flex flex-col justify-between group border-white/5 min-h-[280px]">
               <div>
                 <div className="font-mono text-gray-500 text-[10px] uppercase tracking-widest mb-6">/ Need_Custom_Scope</div>
@@ -227,37 +230,41 @@ export default function Services() {
                 </svg>
               </Link>
             </div>
-          </div>
-        </RevealOnScroll>
+          </RevealOnScroll>
+        </div>
       </section>
 
       {/* Process Overview */}
-      <RevealOnScroll>
-        <section className="py-24 px-4 border-y border-white/5 bg-[#030303]">
-          <div className="max-w-7xl mx-auto">
+      <section className="py-24 px-4 border-y border-white/5 bg-[#030303]">
+        <div className="max-w-7xl mx-auto">
+          <RevealOnScroll>
             <div className="font-mono text-emerald-500 text-[10px] uppercase tracking-widest mb-6">/ How_It_Works</div>
             <h2 className="text-4xl md:text-6xl font-black tracking-tighter text-white uppercase mb-16">
               The Process_
             </h2>
-            <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
-              {[
-                { step: '01', title: 'Discovery', desc: 'We align on goals, target users, and project scope before a single pixel moves.' },
-                { step: '02', title: 'Design', desc: 'Wireframes, UI mockups, and prototypes tuned to your brand and conversion goals.' },
-                { step: '03', title: 'Build', desc: 'Clean, performant code — Webflow, WordPress, React, or whichever stack fits best.' },
-                { step: '04', title: 'Launch', desc: 'QA, speed testing, SEO checks, and a smooth handoff with full documentation.' },
-              ].map((item) => (
-                <div key={item.step} className="bento-card p-8 group">
+          </RevealOnScroll>
+          <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
+            {[
+              { step: '01', title: 'Discovery', desc: 'We align on goals, target users, and project scope before a single pixel moves.' },
+              { step: '02', title: 'Design', desc: 'Wireframes, UI mockups, and prototypes tuned to your brand and conversion goals.' },
+              { step: '03', title: 'Build', desc: 'Clean, performant code — Webflow, WordPress, React, or whichever stack fits best.' },
+              { step: '04', title: 'Launch', desc: 'QA, speed testing, SEO checks, and a smooth handoff with full documentation.' },
+            ].map((item, i) => (
+              <RevealOnScroll key={item.step} delay={i * 0.1}>
+                <div className="bento-card p-8 group h-full">
                   <div className="font-mono text-violet-500/40 text-5xl font-black mb-6 group-hover:text-violet-500/60 transition-colors">{item.step}_</div>
                   <h3 className="text-lg font-bold text-white mb-3 uppercase tracking-tight">{item.title}</h3>
                   <p className="text-gray-400 text-sm leading-relaxed font-light">{item.desc}</p>
                 </div>
-              ))}
-            </div>
+              </RevealOnScroll>
+            ))}
           </div>
-        </section>
-      </RevealOnScroll>
+        </div>
+      </section>
 
-      <ContactSection />
+      <RevealOnScroll>
+        <ContactSection />
+      </RevealOnScroll>
     </>
   )
 }
