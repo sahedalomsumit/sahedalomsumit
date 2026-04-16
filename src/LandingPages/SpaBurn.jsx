@@ -243,7 +243,7 @@ export default function SpaBurn() {
       {/* ═══ HERO ═══ */}
       <section className="spa-hero spa-section" id="spa-hero">
         <div className="spa-hero-bg-image">
-          <img src="/images/landing/spa-hero-bg.png" alt="" aria-hidden="true" loading="eager" />
+          <img src="/img/landing/spa-hero-bg.png" alt="" aria-hidden="true" loading="eager" />
         </div>
         <div className="spa-hero-float" />
         <div className="spa-container spa-hero-content">
@@ -471,7 +471,7 @@ export default function SpaBurn() {
 
           <RevealOnScroll delay={0.3} direction="right">
             <div className="spa-preview-image">
-              <img src="/images/landing/spa-treatment.png" alt="Spa wellness treatment setup" loading="lazy" />
+              <img src="/img/landing/spa-treatment.png" alt="Spa wellness treatment setup" loading="lazy" />
             </div>
           </RevealOnScroll>
         </div>
@@ -526,7 +526,7 @@ export default function SpaBurn() {
 
           <RevealOnScroll delay={0.3} direction="up">
             <div className="spa-preview-image" style={{ maxWidth: 800, margin: '0 auto' }}>
-              <img src="/images/landing/spa-website-preview.png" alt="Modern spa website redesign preview on laptop" loading="lazy" />
+              <img src="/img/landing/spa-website-preview.png" alt="Modern spa website redesign preview on laptop" loading="lazy" />
             </div>
           </RevealOnScroll>
         </div>
@@ -543,7 +543,7 @@ export default function SpaBurn() {
           <div style={{ display: 'flex', gap: 48, alignItems: 'center', flexWrap: 'wrap' }}>
             <RevealOnScroll delay={0.2} direction="left">
               <div className="spa-about-image">
-                <img src="/images/landing/sahed-portrait.png" alt="Sahed — Web Designer" loading="lazy" />
+                <img src="/img/landing/sahed-portrait.png" alt="Sahed — Web Designer" loading="lazy" />
               </div>
             </RevealOnScroll>
 

@@ -21,9 +21,6 @@ import AIAutomation from './pages/AIAutomation'
 import SEOOptimization from './pages/SEOOptimization'
 import Quote from './pages/Quote'
 import NotFound from './pages/NotFound'
-import SalahTrackerPrivacyPolicy from './pages/SalahTrackerPrivacyPolicy'
-import SalahTrackerApp from './pages/SalahTrackerApp'
-import SalahTrackerDataDeletion from './pages/SalahTrackerDataDeletion'
 import SpaBurn from './LandingPages/SpaBurn'
 
 // Standalone landing page routes (no header/footer/chatbot)
@@ -87,9 +84,6 @@ export default function App() {
           <Route path="/services/ai-automation" element={<AIAutomation />} />
           <Route path="/services/seo-optimization" element={<SEOOptimization />} />
           <Route path="/quote" element={<Quote />} />
-          <Route path="/salah-tracker" element={<SalahTrackerApp />} />
-          <Route path="/salah-tracker/privacy-policy" element={<SalahTrackerPrivacyPolicy />} />
-          <Route path="/salah-tracker/data-deletion" element={<SalahTrackerDataDeletion />} />
           <Route path="/work" element={<Navigate to="/portfolio" replace />} />
           <Route path="*" element={<NotFound />} />
         </Routes>

@@ -215,7 +215,7 @@ export default function Footer() {
             </li>
             <li>
               <a
-                href="/salah-tracker"
+                href="https://sahedalomsumit.github.io/salah-tracker-web/"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="hover:text-white transition tracking-widest"
