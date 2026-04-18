@@ -47,7 +47,7 @@ const Hero = () => (
   <section
     className="section"
     style={{
-      paddingTop: "140px",
+      paddingTop: "100px",
       minHeight: "100vh",
       display: "flex",
       flexDirection: "column",
@@ -555,7 +555,12 @@ const Outcomes = () => (
 
 /* ─────────────────── Audit Form ─────────────────── */
 const AuditForm = () => {
-  const [state, setState] = useState({ name: "", email: "", url: "", phone: "" });
+  const [state, setState] = useState({
+    name: "",
+    email: "",
+    url: "",
+    phone: "",
+  });
   const [errors, setErrors] = useState({});
   const [submitted, setSubmitted] = useState(false);
   const [loading, setLoading] = useState(false);
@@ -572,7 +577,8 @@ const AuditForm = () => {
         error = "Please enter a valid email address";
       }
     } else if (name === "url") {
-      const urlRegex = /^(https?:\/\/)?(www\.)?[a-zA-Z0-9-]+\.[a-zA-Z]{2,}(\/.*)?$/;
+      const urlRegex =
+        /^(https?:\/\/)?(www\.)?[a-zA-Z0-9-]+\.[a-zA-Z]{2,}(\/.*)?$/;
       if (!value) {
         error = "Website URL is required";
       } else if (!urlRegex.test(value)) {
@@ -606,17 +612,17 @@ const AuditForm = () => {
       const response = await fetch(SHEETDB_URL, {
         method: "POST",
         headers: {
-          "Accept": "application/json",
-          "Content-Type": "application/json"
+          Accept: "application/json",
+          "Content-Type": "application/json",
         },
         body: JSON.stringify({
           data: [
             {
               ...state,
-              date: new Date().toLocaleString("en-GB")
-            }
-          ]
-        })
+              date: new Date().toLocaleString("en-GB"),
+            },
+          ],
+        }),
       });
 
       if (response.ok) {
@@ -662,7 +668,8 @@ const AuditForm = () => {
             maxWidth: "none",
           }}
         >
-          I'll be reviewing your website and reach out within 48 hours with clear insights.
+          I'll be reviewing your website and reach out within 48 hours with
+          clear insights.
         </p>
       </div>
     );
@@ -715,7 +722,8 @@ const AuditForm = () => {
               onBlur={handleBlur}
               onChange={(e) => {
                 setState({ ...state, email: e.target.value });
-                if (errors.email) setErrors((prev) => ({ ...prev, email: null }));
+                if (errors.email)
+                  setErrors((prev) => ({ ...prev, email: null }));
               }}
             />
             {state.email && (
@@ -805,7 +813,8 @@ const FreeAudit = () => (
     <Reveal>
       <div
         style={{
-          background: "linear-gradient(135deg, var(--bg-card) 0%, #fef0f6 100%)",
+          background:
+            "linear-gradient(135deg, var(--bg-card) 0%, #fef0f6 100%)",
           border: "1px solid var(--stone)",
           borderRadius: "40px",
           padding: "80px 5vw",
@@ -826,24 +835,71 @@ const FreeAudit = () => (
           </h2>
           <div style={{ marginTop: "40px", display: "grid", gap: "24px" }}>
             {[
-              { icon: <Search size={20} />, text: "Where you're losing clients" },
-              { icon: <NavigationOff size={20} />, text: "What's blocking bookings" },
+              {
+                icon: <Search size={20} />,
+                text: "Where you're losing clients",
+              },
+              {
+                icon: <NavigationOff size={20} />,
+                text: "What's blocking bookings",
+              },
               { icon: <Zap size={20} />, text: "What can be improved quickly" },
             ].map((item, i) => (
-              <div key={i} style={{ display: "flex", gap: "16px", alignItems: "center" }}>
-                <div style={{ width: "44px", height: "44px", borderRadius: "12px", background: "var(--stone)", display: "flex", alignItems: "center", justifyContent: "center", color: "var(--primary)", flexShrink: 0 }}>
+              <div
+                key={i}
+                style={{ display: "flex", gap: "16px", alignItems: "center" }}
+              >
+                <div
+                  style={{
+                    width: "44px",
+                    height: "44px",
+                    borderRadius: "12px",
+                    background: "var(--stone)",
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    color: "var(--primary)",
+                    flexShrink: 0,
+                  }}
+                >
                   {item.icon}
                 </div>
-                <p style={{ margin: 0, fontSize: "1.1rem", fontWeight: 500, color: "var(--text)", maxWidth: "none" }}>{item.text}</p>
+                <p
+                  style={{
+                    margin: 0,
+                    fontSize: "1.1rem",
+                    fontWeight: 500,
+                    color: "var(--text)",
+                    maxWidth: "none",
+                  }}
+                >
+                  {item.text}
+                </p>
               </div>
             ))}
           </div>
         </div>
 
         <div>
-          <div className="badge" style={{ background: "var(--secondary)", color: "white" }}>Limited Slots in Bern</div>
-          <h3 style={{ fontSize: "1.8rem", marginTop: "16px", marginBottom: "8px" }}>Request Your Free Audit</h3>
-          <p style={{ marginBottom: "32px", fontSize: "1rem" }}>Send your website and I'll get back to you with clear improvement ideas.</p>
+          <div
+            className="badge"
+            style={{ background: "var(--secondary)", color: "white" }}
+          >
+            Limited Slots in Bern
+          </div>
+          <h3
+            style={{
+              fontSize: "1.8rem",
+              marginTop: "16px",
+              marginBottom: "8px",
+            }}
+          >
+            Request Your Free Audit
+          </h3>
+          <p style={{ marginBottom: "32px", fontSize: "1rem" }}>
+            Send your website and I'll get back to you with clear improvement
+            ideas.
+          </p>
           <AuditForm />
         </div>
       </div>
@@ -855,22 +911,56 @@ const Process = () => (
   <section id="process" className="section">
     <Reveal>
       <div style={{ textAlign: "center", marginBottom: "64px" }}>
-        <h2>How it <span className="text-italic" style={{ color: "var(--primary)" }}>works.</span></h2>
-        <p style={{ margin: "16px auto 0", textAlign: "center" }}>Four simple steps. Zero commitment until you're ready.</p>
+        <h2>
+          How it{" "}
+          <span className="text-italic" style={{ color: "var(--primary)" }}>
+            works.
+          </span>
+        </h2>
+        <p style={{ margin: "16px auto 0", textAlign: "center" }}>
+          Four simple steps. Zero commitment until you're ready.
+        </p>
       </div>
     </Reveal>
     <div className="grid-bento">
       {[
-        { step: "01", icon: <Send size={28} />, title: "You send your website", text: "Drop your website link — takes 30 seconds." },
-        { step: "02", icon: <Search size={28} />, title: "I review it", text: "I personally audit your homepage for conversion gaps." },
-        { step: "03", icon: <CheckCircle size={28} />, title: "You get clear ideas", text: "A concise, actionable breakdown of what to fix and why." },
-        { step: "04", icon: <Zap size={28} />, title: "We improve it together", text: "If you like — we build it (with 25% off your first project)." },
+        {
+          step: "01",
+          icon: <Send size={28} />,
+          title: "You send your website",
+          text: "Drop your website link — takes 30 seconds.",
+        },
+        {
+          step: "02",
+          icon: <Search size={28} />,
+          title: "I review it",
+          text: "I personally audit your homepage for conversion gaps.",
+        },
+        {
+          step: "03",
+          icon: <CheckCircle size={28} />,
+          title: "You get clear ideas",
+          text: "A concise, actionable breakdown of what to fix and why.",
+        },
+        {
+          step: "04",
+          icon: <Zap size={28} />,
+          title: "We improve it together",
+          text: "If you like — we build it (with 25% off your first project).",
+        },
       ].map((item, i) => (
         <Reveal key={i} delay={i * 100} style={{ gridColumn: "span 3" }}>
-          <div className="bento-card" style={{ textAlign: "center", alignItems: "center" }}>
+          <div
+            className="bento-card"
+            style={{ textAlign: "center", alignItems: "center" }}
+          >
             <div className="step-number">{item.step}</div>
-            <div style={{ color: "var(--primary)", margin: "20px 0 16px" }}>{item.icon}</div>
-            <h3 style={{ fontSize: "1.2rem", marginBottom: "10px" }}>{item.title}</h3>
+            <div style={{ color: "var(--primary)", margin: "20px 0 16px" }}>
+              {item.icon}
+            </div>
+            <h3 style={{ fontSize: "1.2rem", marginBottom: "10px" }}>
+              {item.title}
+            </h3>
             <p style={{ fontSize: "0.95rem", margin: 0 }}>{item.text}</p>
           </div>
         </Reveal>
@@ -957,9 +1047,29 @@ const VisualPreview = () => (
               "Unclear services",
               "No trust signals",
             ].map((t, i) => (
-              <div key={i} style={{ display: "flex", gap: "10px", alignItems: "center" }}>
-                <div style={{ width: "8px", height: "8px", borderRadius: "50%", background: "rgba(255,100,100,0.6)", flexShrink: 0 }} />
-                <p style={{ margin: 0, fontSize: "0.95rem", color: "rgba(255,255,255,0.65)", maxWidth: "none" }}>{t}</p>
+              <div
+                key={i}
+                style={{ display: "flex", gap: "10px", alignItems: "center" }}
+              >
+                <div
+                  style={{
+                    width: "8px",
+                    height: "8px",
+                    borderRadius: "50%",
+                    background: "rgba(255,100,100,0.6)",
+                    flexShrink: 0,
+                  }}
+                />
+                <p
+                  style={{
+                    margin: 0,
+                    fontSize: "0.95rem",
+                    color: "rgba(255,255,255,0.65)",
+                    maxWidth: "none",
+                  }}
+                >
+                  {t}
+                </p>
               </div>
             ))}
           </div>
@@ -973,9 +1083,24 @@ const VisualPreview = () => (
               "Clear unique offer",
               "Instant trust signals",
             ].map((t, i) => (
-              <div key={i} style={{ display: "flex", gap: "10px", alignItems: "center" }}>
-                <CheckCircle size={16} style={{ color: "var(--secondary)", flexShrink: 0 }} />
-                <p style={{ margin: 0, fontSize: "0.95rem", color: "rgba(255,255,255,0.9)", maxWidth: "none" }}>{t}</p>
+              <div
+                key={i}
+                style={{ display: "flex", gap: "10px", alignItems: "center" }}
+              >
+                <CheckCircle
+                  size={16}
+                  style={{ color: "var(--secondary)", flexShrink: 0 }}
+                />
+                <p
+                  style={{
+                    margin: 0,
+                    fontSize: "0.95rem",
+                    color: "rgba(255,255,255,0.9)",
+                    maxWidth: "none",
+                  }}
+                >
+                  {t}
+                </p>
               </div>
             ))}
           </div>

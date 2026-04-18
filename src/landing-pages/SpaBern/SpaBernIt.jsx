@@ -47,7 +47,7 @@ const Hero = () => (
   <section
     className="section"
     style={{
-      paddingTop: "140px",
+      paddingTop: "100px",
       minHeight: "100vh",
       display: "flex",
       flexDirection: "column",
@@ -103,7 +103,9 @@ const Hero = () => (
         </a>
         <div className="offer-pill">
           <Star size={16} style={{ color: "var(--secondary)" }} />
-          <span>Sconto del 25% sul tuo primo progetto — posti limitati a Berna</span>
+          <span>
+            Sconto del 25% sul tuo primo progetto — posti limitati a Berna
+          </span>
         </div>
       </div>
     </Reveal>
@@ -183,7 +185,9 @@ const Problem = () => (
             maxWidth: "none",
           }}
         >
-          I visitatori non vedono chiaramente cosa rende la tua spa diversa da quella tre strade più in là. Se ne vanno senza prenotare — e scelgono qualcun altro.
+          I visitatori non vedono chiaramente cosa rende la tua spa diversa da
+          quella tre strade più in là. Se ne vanno senza prenotare — e scelgono
+          qualcun altro.
         </p>
       </Reveal>
 
@@ -200,7 +204,8 @@ const Problem = () => (
           Problemi su dispositivi mobili
         </h3>
         <p>
-          L'esperienza mobile è frustrante — e la maggior parte dei clienti proviene dal proprio telefono.
+          L'esperienza mobile è frustrante — e la maggior parte dei clienti
+          proviene dal proprio telefono.
         </p>
       </Reveal>
 
@@ -217,7 +222,8 @@ const Problem = () => (
           Prenotazione nascosta
         </h3>
         <p>
-          La prenotazione è nascosta o confusa — quindi i visitatori si arrendono prima di agire.
+          La prenotazione è nascosta o confusa — quindi i visitatori si
+          arrendono prima di agire.
         </p>
       </Reveal>
 
@@ -234,7 +240,8 @@ const Problem = () => (
           Estetica non allineata
         </h3>
         <p style={{ fontSize: "1.1rem" }}>
-          Il design non riflette un'esperienza calma e premium — così le persone non percepiscono la qualità della tua spa prima di entrare.
+          Il design non riflette un'esperienza calma e premium — così le persone
+          non percepiscono la qualità della tua spa prima di entrare.
         </p>
       </Reveal>
     </div>
@@ -289,7 +296,8 @@ const Solution = () => (
               maxWidth: "none",
             }}
           >
-            Aiuto le aziende spa e wellness a Berna a riprogettare il loro sito web da una brochure passiva in un motore di prenotazione attivo.
+            Aiuto le aziende spa e wellness a Berna a riprogettare il loro sito
+            web da una brochure passiva in un motore di prenotazione attivo.
           </p>
           <a
             href="#audit"
@@ -437,7 +445,9 @@ const LimitedOffer = () => (
               size={20}
               style={{ color: "var(--primary)", flexShrink: 0 }}
             />
-            <span>Un modo semplice per migliorare il tuo sito senza pieno rischio</span>
+            <span>
+              Un modo semplice per migliorare il tuo sito senza pieno rischio
+            </span>
           </li>
         </ul>
         <a
@@ -445,7 +455,8 @@ const LimitedOffer = () => (
           className="btn btn-primary"
           style={{ marginTop: "40px" }}
         >
-          Prenota il tuo posto <ArrowRight size={18} style={{ marginLeft: "8px" }} />
+          Prenota il tuo posto{" "}
+          <ArrowRight size={18} style={{ marginLeft: "8px" }} />
         </a>
       </div>
     </Reveal>
@@ -550,7 +561,12 @@ const Outcomes = () => (
 
 /* ─────────────────── Audit Form ─────────────────── */
 const AuditForm = () => {
-  const [state, setState] = useState({ name: "", email: "", url: "", phone: "" });
+  const [state, setState] = useState({
+    name: "",
+    email: "",
+    url: "",
+    phone: "",
+  });
   const [errors, setErrors] = useState({});
   const [submitted, setSubmitted] = useState(false);
   const [loading, setLoading] = useState(false);
@@ -567,7 +583,8 @@ const AuditForm = () => {
         error = "Inserisci un indirizzo email valido";
       }
     } else if (name === "url") {
-      const urlRegex = /^(https?:\/\/)?(www\.)?[a-zA-Z0-9-]+\.[a-zA-Z]{2,}(\/.*)?$/;
+      const urlRegex =
+        /^(https?:\/\/)?(www\.)?[a-zA-Z0-9-]+\.[a-zA-Z]{2,}(\/.*)?$/;
       if (!value) {
         error = "L'URL del sito web è obbligatorio";
       } else if (!urlRegex.test(value)) {
@@ -601,17 +618,17 @@ const AuditForm = () => {
       const response = await fetch(SHEETDB_URL, {
         method: "POST",
         headers: {
-          "Accept": "application/json",
-          "Content-Type": "application/json"
+          Accept: "application/json",
+          "Content-Type": "application/json",
         },
         body: JSON.stringify({
           data: [
             {
               ...state,
-              date: new Date().toLocaleString("it-IT")
-            }
-          ]
-        })
+              date: new Date().toLocaleString("it-IT"),
+            },
+          ],
+        }),
       });
 
       if (response.ok) {
@@ -657,7 +674,8 @@ const AuditForm = () => {
             maxWidth: "none",
           }}
         >
-          Esaminerò il tuo sito web e ti ricontatterò entro 48 ore con spunti chiari.
+          Esaminerò il tuo sito web e ti ricontatterò entro 48 ore con spunti
+          chiari.
         </p>
       </div>
     );
@@ -710,7 +728,8 @@ const AuditForm = () => {
               onBlur={handleBlur}
               onChange={(e) => {
                 setState({ ...state, email: e.target.value });
-                if (errors.email) setErrors((prev) => ({ ...prev, email: null }));
+                if (errors.email)
+                  setErrors((prev) => ({ ...prev, email: null }));
               }}
             />
             {state.email && (
@@ -800,7 +819,8 @@ const FreeAudit = () => (
     <Reveal>
       <div
         style={{
-          background: "linear-gradient(135deg, var(--bg-card) 0%, #fef0f6 100%)",
+          background:
+            "linear-gradient(135deg, var(--bg-card) 0%, #fef0f6 100%)",
           border: "1px solid var(--stone)",
           borderRadius: "40px",
           padding: "80px 5vw",
@@ -822,23 +842,70 @@ const FreeAudit = () => (
           <div style={{ marginTop: "40px", display: "grid", gap: "24px" }}>
             {[
               { icon: <Search size={20} />, text: "Dove perdi clienti" },
-              { icon: <NavigationOff size={20} />, text: "Cosa blocca le prenotazioni" },
-              { icon: <Zap size={20} />, text: "Cosa può essere migliorato rapidamente" },
+              {
+                icon: <NavigationOff size={20} />,
+                text: "Cosa blocca le prenotazioni",
+              },
+              {
+                icon: <Zap size={20} />,
+                text: "Cosa può essere migliorato rapidamente",
+              },
             ].map((item, i) => (
-              <div key={i} style={{ display: "flex", gap: "16px", alignItems: "center" }}>
-                <div style={{ width: "44px", height: "44px", borderRadius: "12px", background: "var(--stone)", display: "flex", alignItems: "center", justifyContent: "center", color: "var(--primary)", flexShrink: 0 }}>
+              <div
+                key={i}
+                style={{ display: "flex", gap: "16px", alignItems: "center" }}
+              >
+                <div
+                  style={{
+                    width: "44px",
+                    height: "44px",
+                    borderRadius: "12px",
+                    background: "var(--stone)",
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    color: "var(--primary)",
+                    flexShrink: 0,
+                  }}
+                >
                   {item.icon}
                 </div>
-                <p style={{ margin: 0, fontSize: "1.1rem", fontWeight: 500, color: "var(--text)", maxWidth: "none" }}>{item.text}</p>
+                <p
+                  style={{
+                    margin: 0,
+                    fontSize: "1.1rem",
+                    fontWeight: 500,
+                    color: "var(--text)",
+                    maxWidth: "none",
+                  }}
+                >
+                  {item.text}
+                </p>
               </div>
             ))}
           </div>
         </div>
 
         <div>
-          <div className="badge" style={{ background: "var(--secondary)", color: "white" }}>Posti limitati a Berna</div>
-          <h3 style={{ fontSize: "1.8rem", marginTop: "16px", marginBottom: "8px" }}>Richiedi il tuo Audit gratuito</h3>
-          <p style={{ marginBottom: "32px", fontSize: "1rem" }}>Invia il tuo sito web e ti ricontatterò con idee di miglioramento chiare.</p>
+          <div
+            className="badge"
+            style={{ background: "var(--secondary)", color: "white" }}
+          >
+            Posti limitati a Berna
+          </div>
+          <h3
+            style={{
+              fontSize: "1.8rem",
+              marginTop: "16px",
+              marginBottom: "8px",
+            }}
+          >
+            Richiedi il tuo Audit gratuito
+          </h3>
+          <p style={{ marginBottom: "32px", fontSize: "1rem" }}>
+            Invia il tuo sito web e ti ricontatterò con idee di miglioramento
+            chiare.
+          </p>
           <AuditForm />
         </div>
       </div>
@@ -850,22 +917,56 @@ const Process = () => (
   <section id="process" className="section">
     <Reveal>
       <div style={{ textAlign: "center", marginBottom: "64px" }}>
-        <h2>Come <span className="text-italic" style={{ color: "var(--primary)" }}>funziona.</span></h2>
-        <p style={{ margin: "16px auto 0", textAlign: "center" }}>Quattro semplici passaggi. Nessun impegno finché non sei pronto.</p>
+        <h2>
+          Come{" "}
+          <span className="text-italic" style={{ color: "var(--primary)" }}>
+            funziona.
+          </span>
+        </h2>
+        <p style={{ margin: "16px auto 0", textAlign: "center" }}>
+          Quattro semplici passaggi. Nessun impegno finché non sei pronto.
+        </p>
       </div>
     </Reveal>
     <div className="grid-bento">
       {[
-        { step: "01", icon: <Send size={28} />, title: "Invia il tuo sito", text: "Inserisci il link del tuo sito — ci vogliono 30 secondi." },
-        { step: "02", icon: <Search size={28} />, title: "Lo esamino", text: "Analizzo personalmente la tua homepage per scovare i gap di conversione." },
-        { step: "03", icon: <CheckCircle size={28} />, title: "Ottieni idee chiare", text: "Un'analisi concisa e pratica su cosa sistemare e perché." },
-        { step: "04", icon: <Zap size={28} />, title: "Miglioriamo insieme", text: "Se vuoi — lo realizziamo (con il 25% di sconto sul primo progetto)." },
+        {
+          step: "01",
+          icon: <Send size={28} />,
+          title: "Invia il tuo sito",
+          text: "Inserisci il link del tuo sito — ci vogliono 30 secondi.",
+        },
+        {
+          step: "02",
+          icon: <Search size={28} />,
+          title: "Lo esamino",
+          text: "Analizzo personalmente la tua homepage per scovare i gap di conversione.",
+        },
+        {
+          step: "03",
+          icon: <CheckCircle size={28} />,
+          title: "Ottieni idee chiare",
+          text: "Un'analisi concisa e pratica su cosa sistemare e perché.",
+        },
+        {
+          step: "04",
+          icon: <Zap size={28} />,
+          title: "Miglioriamo insieme",
+          text: "Se vuoi — lo realizziamo (con il 25% di sconto sul primo progetto).",
+        },
       ].map((item, i) => (
         <Reveal key={i} delay={i * 100} style={{ gridColumn: "span 3" }}>
-          <div className="bento-card" style={{ textAlign: "center", alignItems: "center" }}>
+          <div
+            className="bento-card"
+            style={{ textAlign: "center", alignItems: "center" }}
+          >
             <div className="step-number">{item.step}</div>
-            <div style={{ color: "var(--primary)", margin: "20px 0 16px" }}>{item.icon}</div>
-            <h3 style={{ fontSize: "1.2rem", marginBottom: "10px" }}>{item.title}</h3>
+            <div style={{ color: "var(--primary)", margin: "20px 0 16px" }}>
+              {item.icon}
+            </div>
+            <h3 style={{ fontSize: "1.2rem", marginBottom: "10px" }}>
+              {item.title}
+            </h3>
             <p style={{ fontSize: "0.95rem", margin: 0 }}>{item.text}</p>
           </div>
         </Reveal>
@@ -914,7 +1015,9 @@ const VisualPreview = () => (
           margin: "24px auto 0",
         }}
       >
-        Per aziende selezionate a Berna, creo una rapida anteprima del redesign della homepage — così puoi vedere la trasformazione prima di impegnarti in qualsiasi cosa.
+        Per aziende selezionate a Berna, creo una rapida anteprima del redesign
+        della homepage — così puoi vedere la trasformazione prima di impegnarti
+        in qualsiasi cosa.
       </p>
       <a
         href="#audit"
@@ -925,7 +1028,8 @@ const VisualPreview = () => (
           color: "var(--text)",
         }}
       >
-        Richiedi la TUA Anteprima <Palette size={18} style={{ marginLeft: "8px" }} />
+        Richiedi la TUA Anteprima{" "}
+        <Palette size={18} style={{ marginLeft: "8px" }} />
       </a>
     </Reveal>
 
@@ -950,9 +1054,29 @@ const VisualPreview = () => (
               "Servizi poco chiari",
               "Nessun segnale di fiducia",
             ].map((t, i) => (
-              <div key={i} style={{ display: "flex", gap: "10px", alignItems: "center" }}>
-                <div style={{ width: "8px", height: "8px", borderRadius: "50%", background: "rgba(255,100,100,0.6)", flexShrink: 0 }} />
-                <p style={{ margin: 0, fontSize: "0.95rem", color: "rgba(255,255,255,0.65)", maxWidth: "none" }}>{t}</p>
+              <div
+                key={i}
+                style={{ display: "flex", gap: "10px", alignItems: "center" }}
+              >
+                <div
+                  style={{
+                    width: "8px",
+                    height: "8px",
+                    borderRadius: "50%",
+                    background: "rgba(255,100,100,0.6)",
+                    flexShrink: 0,
+                  }}
+                />
+                <p
+                  style={{
+                    margin: 0,
+                    fontSize: "0.95rem",
+                    color: "rgba(255,255,255,0.65)",
+                    maxWidth: "none",
+                  }}
+                >
+                  {t}
+                </p>
               </div>
             ))}
           </div>
@@ -966,9 +1090,24 @@ const VisualPreview = () => (
               "Offerta unica e chiara",
               "Segnali di fiducia istantanei",
             ].map((t, i) => (
-              <div key={i} style={{ display: "flex", gap: "10px", alignItems: "center" }}>
-                <CheckCircle size={16} style={{ color: "var(--secondary)", flexShrink: 0 }} />
-                <p style={{ margin: 0, fontSize: "0.95rem", color: "rgba(255,255,255,0.9)", maxWidth: "none" }}>{t}</p>
+              <div
+                key={i}
+                style={{ display: "flex", gap: "10px", alignItems: "center" }}
+              >
+                <CheckCircle
+                  size={16}
+                  style={{ color: "var(--secondary)", flexShrink: 0 }}
+                />
+                <p
+                  style={{
+                    margin: 0,
+                    fontSize: "0.95rem",
+                    color: "rgba(255,255,255,0.9)",
+                    maxWidth: "none",
+                  }}
+                >
+                  {t}
+                </p>
               </div>
             ))}
           </div>
@@ -1051,7 +1190,9 @@ const About = () => (
         </p>
 
         <p style={{ maxWidth: "none", fontSize: "1.1rem", lineHeight: 1.7 }}>
-          Il problema del tuo sito web diventa il mio problema nel momento in cui lo condividi. Non mi fermo finché non è risolto: è così che sono fatto. Ecco perché la chiamo la mia passione, non il mio lavoro.
+          Il problema del tuo sito web diventa il mio problema nel momento in
+          cui lo condividi. Non mi fermo finché non è risolto: è così che sono
+          fatto. Ecco perché la chiamo la mia passione, non il mio lavoro.
         </p>
 
         <p
@@ -1062,7 +1203,11 @@ const About = () => (
             marginTop: "16px",
           }}
         >
-          Da oltre 5 anni lavoro con founder, brand e agenzie in tutto il mondo, trasformando idee grezze in siti che caricano velocemente, hanno l'aspetto giusto e convertono davvero. Lavoro all'intersezione tra design e sviluppo full-stack. Mi occupo del "vibe" di una pagina tanto quanto del codice che c'è dietro.
+          Da oltre 5 anni lavoro con founder, brand e agenzie in tutto il mondo,
+          trasformando idee grezze in siti che caricano velocemente, hanno
+          l'aspetto giusto e convertono davvero. Lavoro all'intersezione tra
+          design e sviluppo full-stack. Mi occupo del "vibe" di una pagina tanto
+          quanto del codice che c'è dietro.
         </p>
 
         <p
@@ -1073,7 +1218,10 @@ const About = () => (
             marginTop: "16px",
           }}
         >
-          Capisco anche il lato business grazie alla mia laurea in Business IT. Con base a Helsinki, lavoro con clienti a Berna e in tutto il mondo per assicurarmi che nulla di ciò che costruisco sia solo carino, ma lavori per i tuoi obiettivi.
+          Capisco anche il lato business grazie alla mia laurea in Business IT.
+          Con base a Helsinki, lavoro con clienti a Berna e in tutto il mondo
+          per assicurarmi che nulla di ciò che costruisco sia solo carino, ma
+          lavori per i tuoi obiettivi.
         </p>
         <a
           href="#audit"
@@ -1112,7 +1260,8 @@ const FinalCTA = () => (
           margin: "24px auto 0",
         }}
       >
-        Risolviamolo — con un piano chiaro e il 25% di sconto sul tuo primo progetto.
+        Risolviamolo — con un piano chiaro e il 25% di sconto sul tuo primo
+        progetto.
       </p>
       <div
         style={{

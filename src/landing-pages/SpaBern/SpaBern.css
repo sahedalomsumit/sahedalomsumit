@@ -421,7 +421,8 @@
 /* ── 480px ── */
 @media (max-width: 480px) {
   .spabern-landing .offer-pill {
-    flex-direction: column;
+    flex-direction: row;
+    font-size: 10px;
     text-align: center;
     gap: 8px;
   }

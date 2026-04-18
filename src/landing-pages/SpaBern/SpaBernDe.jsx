@@ -47,7 +47,7 @@ const Hero = () => (
   <section
     className="section"
     style={{
-      paddingTop: "140px",
+      paddingTop: "100px",
       minHeight: "100vh",
       display: "flex",
       flexDirection: "column",
