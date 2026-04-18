@@ -22,9 +22,10 @@ import SEOOptimization from './pages/SEOOptimization'
 import Quote from './pages/Quote'
 import NotFound from './pages/NotFound'
 import SpaBurn from './LandingPages/SpaBurn'
+import SpaBern from './landing-pages/SpaBern'
 
 // Standalone landing page routes (no header/footer/chatbot)
-const STANDALONE_ROUTES = ['/spa-burn']
+const STANDALONE_ROUTES = ['/spa-burn', '/spa-bern']
 
 function ScrollToTop() {
   const { pathname, hash } = useLocation()
@@ -68,6 +69,7 @@ export default function App() {
         <Routes>
           {/* ── Standalone Landing Pages ── */}
           <Route path="/spa-burn" element={<SpaBurn />} />
+          <Route path="/spa-bern" element={<SpaBern />} />
 
           {/* ── Main Site Routes ── */}
           <Route path="/" element={<Home />} />

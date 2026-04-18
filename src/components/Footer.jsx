@@ -299,7 +299,7 @@ export default function Footer() {
       {/* Bottom Copyright */}
       <div className="max-w-7xl mx-auto mt-20 pt-8 border-t border-white/5 flex flex-col md:flex-row justify-between items-center gap-6">
         <p className="font-mono text-[9px] text-gray-400 uppercase tracking-widest text-center md:text-left">
-          © {currentYear} Sahed Alom Sumit // Built with precision and clean
+          © {currentYear} Sahed Alom Sumit // Built with good vibes and clean
           code
         </p>
         <div className="hidden md:flex gap-4 text-[9px] font-mono text-gray-400">
