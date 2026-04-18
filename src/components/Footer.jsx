@@ -223,6 +223,16 @@ export default function Footer() {
                 ./ SALAH TRACKER
               </a>
             </li>
+            <li>
+              <a
+                href="https://sahedalomsumit.github.io/spa-bern/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="hover:text-white transition tracking-widest"
+              >
+                ./ SPA BERN
+              </a>
+            </li>
           </ul>
         </div>
 
