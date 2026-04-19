@@ -225,7 +225,7 @@ export default function Footer() {
             </li>
             <li>
               <a
-                href="https://sahedalomsumit.github.io/spa-bern/"
+                href="/spa-bern/"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="hover:text-white transition tracking-widest"
