@@ -16,6 +16,9 @@ import {
   Star,
   Send,
   XCircle,
+  Mail,
+  Phone,
+  Plus,
 } from "lucide-react";
 import heroImg from "../../assets/landing/hero_spa_sage.png";
 import profileImg from "../../assets/landing/sahedalomsumit-profile-removebg-preview.png";
@@ -560,7 +563,9 @@ const AuditForm = () => {
     email: "",
     url: "",
     phone: "",
+    notes: "",
   });
+  const [isExpanded, setIsExpanded] = useState(false);
   const [errors, setErrors] = useState({});
   const [submitted, setSubmitted] = useState(false);
   const [loading, setLoading] = useState(false);
@@ -683,7 +688,7 @@ const AuditForm = () => {
     >
       <div className="form-field">
         <fieldset className={errors.name ? "has-error" : ""}>
-          <legend>Full Name *</legend>
+          <legend>Full Name <span className="required">*</span></legend>
           <div className="input-wrapper">
             <input
               type="text"
@@ -712,7 +717,7 @@ const AuditForm = () => {
 
       <div className="form-field">
         <fieldset className={errors.email ? "has-error" : ""}>
-          <legend>Work Email *</legend>
+          <legend>Email <span className="required">*</span></legend>
           <div className="input-wrapper">
             <input
               type="email"
@@ -742,7 +747,7 @@ const AuditForm = () => {
 
       <div className="form-field">
         <fieldset className={errors.url ? "has-error" : ""}>
-          <legend>Website URL *</legend>
+          <legend>Website URL <span className="required">*</span></legend>
           <div className="input-wrapper">
             <input
               type="text"
@@ -769,40 +774,79 @@ const AuditForm = () => {
         {errors.url && <span className="form-error">{errors.url}</span>}
       </div>
 
-      <div className="form-field">
-        <fieldset>
-          <legend>Phone Number (WhatsApp)</legend>
-          <div className="input-wrapper">
-            <input
-              type="tel"
-              name="phone"
-              placeholder="e.g. +41 79 123 45 67"
-              value={state.phone}
-              onChange={(e) => {
-                setState({ ...state, phone: e.target.value });
-              }}
-            />
-            {state.phone && (
-              <button
-                type="button"
-                className="clear-btn"
-                onClick={() => clearField("phone")}
-              >
-                <XCircle size={16} />
-              </button>
-            )}
+      {!isExpanded ? (
+        <button
+          type="button"
+          onClick={() => setIsExpanded(true)}
+          className="expand-btn"
+        >
+          <Plus size={16} /> Add whatsapp number & notes
+        </button>
+      ) : (
+        <motion.div
+          initial={{ opacity: 0, height: 0 }}
+          animate={{ opacity: 1, height: "auto" }}
+          transition={{ duration: 0.3 }}
+          style={{ overflow: "hidden" }}
+        >
+          <div className="form-field">
+            <fieldset>
+              <legend>WhatsApp Number</legend>
+              <div className="input-wrapper">
+                <input
+                  type="tel"
+                  name="phone"
+                  placeholder="e.g. +41 79 123 45 67"
+                  value={state.phone}
+                  onChange={(e) => {
+                    setState({ ...state, phone: e.target.value });
+                  }}
+                />
+                {state.phone && (
+                  <button
+                    type="button"
+                    className="clear-btn"
+                    onClick={() => clearField("phone")}
+                  >
+                    <XCircle size={16} />
+                  </button>
+                )}
+              </div>
+            </fieldset>
           </div>
-        </fieldset>
-      </div>
+
+          <div className="form-field">
+            <fieldset>
+              <legend>Any specific notes?</legend>
+              <div className="input-wrapper">
+                <textarea
+                  name="notes"
+                  placeholder="Tell me more about your goals or specific concerns..."
+                  value={state.notes}
+                  onChange={(e) => setState({ ...state, notes: e.target.value })}
+                />
+              </div>
+            </fieldset>
+          </div>
+        </motion.div>
+      )}
 
       <button
         type="submit"
         className="btn btn-primary"
         disabled={loading}
-        style={{ width: "100%", marginTop: "12px", opacity: loading ? 0.7 : 1 }}
+        style={{ width: "100%", marginTop: "16px", opacity: loading ? 0.7 : 1 }}
+        aria-label="Request your free homepage audit"
       >
-        {loading ? "Sending…" : "Request Your Free Audit"}
+        {loading ? (
+          "Sending…"
+        ) : (
+          <>
+            Request Your Free Audit <Send size={20} style={{ marginLeft: "10px" }} />
+          </>
+        )}
       </button>
+      <div className="form-subtext">No spam. No sales pressure. Just clear insights.</div>
     </form>
   );
 };
@@ -961,7 +1005,7 @@ const Process = () => (
             <h3 style={{ fontSize: "1.2rem", marginBottom: "10px" }}>
               {item.title}
             </h3>
-            <p style={{ fontSize: "0.95rem", margin: 0 }}>{item.text}</p>
+            <p style={{ fontSize: "0.95rem", margin: 0, maxWidth: "none" }}>{item.text}</p>
           </div>
         </Reveal>
       ))}
@@ -1110,49 +1154,99 @@ const VisualPreview = () => (
   </section>
 );
 
+/* ─────────────────── About ─────────────────── */
 const About = () => (
   <section id="about" className="section">
     <div className="grid-bento">
-      <Reveal
-        delay={0}
-        className="bento-card"
+      <div
         style={{
           gridColumn: "span 5",
-          overflow: "hidden",
-          padding: 0,
-          minHeight: "420px",
-          background: "var(--bg-tint)",
           display: "flex",
-          alignItems: "center",
-          justifyContent: "center",
-          position: "relative",
+          flexDirection: "column",
+          gap: "24px",
         }}
       >
-        <img
-          src={blobSvg}
+        <Reveal
+          delay={0}
+          className="bento-card"
           style={{
-            position: "absolute",
-            width: "120%",
-            height: "120%",
-            opacity: 0.15,
-            transform: "scale(1.2)",
-            filter: "blur(40px)",
-          }}
-          alt=""
-        />
-        <img
-          src={profileImg}
-          alt="Sahed"
-          style={{
-            width: "100%",
-            height: "100%",
-            objectFit: "contain",
+            overflow: "hidden",
+            padding: 0,
+            minHeight: "420px",
+            background: "var(--bg-tint)",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
             position: "relative",
-            zIndex: 2,
-            marginTop: "20px",
           }}
-        />
-      </Reveal>
+        >
+          <img
+            src={blobSvg}
+            style={{
+              position: "absolute",
+              width: "120%",
+              height: "120%",
+              opacity: 0.15,
+              transform: "scale(1.2)",
+              filter: "blur(40px)",
+            }}
+            alt=""
+          />
+          <img
+            src={blobSvg}
+            style={{
+              position: "absolute",
+              width: "130%",
+              height: "130%",
+              opacity: 0.8,
+              zIndex: 1,
+            }}
+            alt=""
+          />
+          <img
+            src={profileImg}
+            alt="Sahed Alom Sumit, web designer specializing in the Bern market"
+            style={{
+              width: "100%",
+              height: "100%",
+              objectFit: "contain",
+              position: "relative",
+              zIndex: 2,
+              marginTop: "20px",
+            }}
+          />
+        </Reveal>
+
+        <Reveal delay={100}>
+          <div
+            className="contact-card bento-card"
+            style={{ cursor: "default" }}
+          >
+            <div className="contact-header">
+              <div className="badge">DIRECT CONTACT</div>
+            </div>
+            <div className="contact-content">
+              <a href="mailto:sahedalomsumit@gmail.com" className="contact-item">
+                <div className="contact-icon">
+                  <Mail size={18} />
+                </div>
+                sahedalomsumit@gmail.com
+              </a>
+              <a
+                href="https://wa.me/358415765539"
+                className="contact-item"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <div className="contact-icon">
+                  <Phone size={18} />
+                </div>
+                +358 41 576 5539 (WhatsApp)
+              </a>
+            </div>
+          </div>
+        </Reveal>
+      </div>
 
       <Reveal
         delay={150}
@@ -1290,7 +1384,7 @@ const FinalCTA = () => (
 /* ─────────────────── Main App Component ─────────────────── */
 export default function SpaBernEn() {
   return (
-    <div>
+    <div className="spabern-landing">
       <Hero />
       <Problem />
       <Solution />

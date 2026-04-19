@@ -150,7 +150,16 @@
 .spabern-landing .btn-primary {
   background: var(--primary);
   color: #fff;
-  box-shadow: 0 4px 14px rgba(75, 99, 68, 0.3);
+  box-shadow: 0 10px 20px rgba(75, 99, 68, 0.2);
+  border-radius: 20px;
+}
+
+.spabern-landing .form-subtext {
+  font-size: 0.9rem;
+  color: var(--text-muted);
+  text-align: center;
+  margin-top: 16px;
+  opacity: 0.8;
 }
 
 .spabern-landing .btn-primary:hover {
@@ -238,8 +247,8 @@
 }
 
 .spabern-landing .form-field fieldset {
-  border: 1.5px solid var(--stone);
-  border-radius: 12px;
+  border: 1px solid var(--stone);
+  border-radius: 16px;
   padding: 0;
   margin: 0;
   transition: all 0.25s var(--ease-out);
@@ -252,24 +261,29 @@
 }
 
 .spabern-landing .form-field fieldset.has-error {
-  border-color: #e57373;
+  border-color: #ff4d4d;
 }
 
 .spabern-landing .form-field legend {
   font-family: var(--sans);
-  font-size: 0.7rem;
-  font-weight: 700;
-  color: var(--text-subtle);
+  font-size: 0.75rem;
+  font-weight: 800;
+  color: var(--text-muted);
   text-transform: uppercase;
-  letter-spacing: 0.05em;
-  padding: 0 8px;
-  margin-left: 12px;
+  letter-spacing: 0.1em;
+  padding: 0 10px;
+  margin-left: 20px;
+}
+
+.spabern-landing .form-field legend .required {
+  color: #ff4d4d;
+  margin-left: 2px;
 }
 
 .spabern-landing .input-wrapper {
   display: flex;
   align-items: center;
-  padding: 4px 16px 12px;
+  padding: 8px 20px 14px;
 }
 
 .spabern-landing .input-wrapper input {
@@ -430,4 +444,99 @@
   .spabern-landing .step-number {
     font-size: 2.2rem;
   }
+
+  .spabern-landing .floating-audit-badge {
+    bottom: 24px !important;
+    right: 24px !important;
+    scale: 0.9;
+  }
+}
+
+.spabern-landing .contact-card {
+  display: flex;
+  flex-direction: column;
+  padding: 0 !important;
+  overflow: hidden;
+  border-radius: 32px !important;
+}
+
+.spabern-landing .contact-card:hover {
+  transform: none;
+}
+
+.spabern-landing .contact-header {
+  background: var(--stone);
+  margin: 24px;
+  padding: 8px 20px;
+  border-radius: 40px;
+}
+
+.spabern-landing .contact-header .badge {
+  background: transparent;
+  color: var(--primary);
+  padding: 0;
+  font-size: 0.85rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+}
+
+.spabern-landing .contact-content {
+  padding: 0 24px 32px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.spabern-landing .contact-item {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  color: var(--text);
+  font-weight: 500;
+  font-size: 1rem;
+  transition: color 0.2s ease;
+}
+
+.spabern-landing .contact-item:hover {
+  color: var(--primary);
+}
+
+.spabern-landing .contact-icon {
+  width: 44px;
+  height: 44px;
+  border-radius: 12px;
+  background: var(--bg-tint);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--primary);
+  flex-shrink: 0;
+}
+
+.spabern-landing .expand-btn {
+  background: none;
+  border: none;
+  color: var(--primary);
+  font-size: 0.85rem;
+  font-weight: 600;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  padding: 8px 0;
+  margin-top: -8px;
+}
+
+.spabern-landing textarea {
+  width: 100%;
+  min-height: 100px;
+  border: none;
+  background: transparent;
+  color: var(--text);
+  font-family: var(--sans);
+  font-size: 1.05rem;
+  resize: vertical;
+  outline: none;
+  padding: 0;
+  line-height: 1.5;
 }

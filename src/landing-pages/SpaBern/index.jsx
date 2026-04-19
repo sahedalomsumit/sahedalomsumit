@@ -5,7 +5,15 @@ import SpaBernIt from "./SpaBernIt";
 import { motion, AnimatePresence } from "framer-motion";
 import { Search, ArrowRight, Globe } from "lucide-react";
 
-const FloatingAuditButton = () => {
+const FloatingAuditButton = ({ lang }) => {
+  const content = {
+    en: { top: "Get Your", bottom: "Free Audit" },
+    de: { top: "Kostenloses", bottom: "Audit anfordern" },
+    it: { top: "Ottieni il tuo", bottom: "Audit gratuito" },
+  };
+
+  const { top, bottom } = content[lang] || content.en;
+
   return (
     <motion.div
       initial={{ opacity: 0, y: 50 }}
@@ -20,6 +28,7 @@ const FloatingAuditButton = () => {
         bottom: "40px",
         right: "40px",
         zIndex: 1000,
+        perspective: "1000px",
       }}
     >
       <motion.a
@@ -38,18 +47,26 @@ const FloatingAuditButton = () => {
           fontWeight: 600,
           whiteSpace: "nowrap",
           cursor: "pointer",
+          willChange: "transform",
+          WebkitFontSmoothing: "antialiased",
+          MozOsxFontSmoothing: "grayscale",
+          backfaceVisibility: "hidden",
+          WebkitBackfaceVisibility: "hidden",
+          transformStyle: "preserve-3d",
         }}
         whileHover={{
-          scale: 1.05,
+          scale: 1.02,
           borderColor: "var(--primary)",
+          transition: { duration: 0.3 }
         }}
         whileTap={{ scale: 0.98 }}
         animate={{
           y: [0, -6, 0],
+          translateZ: 0
         }}
         transition={{
           y: {
-            duration: 3,
+            duration: 4,
             repeat: Infinity,
             ease: "easeInOut",
           },
@@ -66,12 +83,18 @@ const FloatingAuditButton = () => {
             justifyContent: "center",
             color: "white",
             boxShadow: "0 4px 12px rgba(75, 99, 68, 0.2)",
+            backfaceVisibility: "hidden",
           }}
         >
           <Search size={22} />
         </div>
         <div
-          style={{ display: "flex", flexDirection: "column", lineHeight: 1.2 }}
+          style={{ 
+            display: "flex", 
+            flexDirection: "column", 
+            lineHeight: 1.2,
+            backfaceVisibility: "hidden"
+          }}
         >
           <span
             style={{
@@ -83,7 +106,7 @@ const FloatingAuditButton = () => {
               letterSpacing: "0.05em"
             }}
           >
-            Get Your
+            {top}
           </span>
           <span
             style={{
@@ -92,7 +115,7 @@ const FloatingAuditButton = () => {
               fontWeight: 700,
             }}
           >
-            Free Audit
+            {bottom}
           </span>
         </div>
         <div
@@ -105,6 +128,7 @@ const FloatingAuditButton = () => {
             alignItems: "center",
             justifyContent: "center",
             marginLeft: "4px",
+            backfaceVisibility: "hidden",
           }}
         >
           <ArrowRight size={18} style={{ color: "var(--secondary)" }} />
@@ -148,7 +172,7 @@ export default function SpaBern() {
     <div className="spabern-landing" style={{ position: "relative" }}>
       <CurrentApp />
       
-      <FloatingAuditButton />
+      <FloatingAuditButton lang={lang} />
 
       {/* Language Switcher */}
       <div
@@ -238,11 +262,25 @@ export default function SpaBern() {
             boxShadow: "0 10px 25px rgba(0,0,0,0.05)",
             fontFamily: "var(--sans)",
             fontWeight: 600,
+            willChange: "transform",
+            WebkitFontSmoothing: "antialiased",
+            backfaceVisibility: "hidden",
+            transformStyle: "preserve-3d",
           }}
           aria-label="Change Language"
         >
-          <img src={flags[lang]} alt="" style={{ width: "22px", height: "15px", objectFit: "cover", borderRadius: "2px" }} />
-          <span style={{ fontSize: "0.9rem" }}>{labels[lang]}</span>
+          <img 
+            src={flags[lang]} 
+            alt="" 
+            style={{ 
+              width: "22px", 
+              height: "15px", 
+              objectFit: "cover", 
+              borderRadius: "2px",
+              backfaceVisibility: "hidden"
+            }} 
+          />
+          <span style={{ fontSize: "0.9rem", backfaceVisibility: "hidden" }}>{labels[lang]}</span>
         </motion.button>
       </div>
     </div>
