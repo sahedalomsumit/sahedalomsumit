@@ -20,9 +20,9 @@ import {
   Phone,
   Plus,
 } from "lucide-react";
-import heroImg from "../../assets/landing/hero_spa_sage.png";
-import profileImg from "../../assets/landing/sahedalomsumit-profile-removebg-preview.png";
-import blobSvg from "../../assets/landing/blob.svg";
+const heroImg = "/img/landing/hero_spa_sage.png";
+const profileImg = "/img/landing/sahedalomsumit-profile-removebg-preview.png";
+const blobSvg = "/img/landing/blob.svg";
 import "./SpaBern.css";
 
 /* ─────────────────── Scroll Reveal Hook ─────────────────── */

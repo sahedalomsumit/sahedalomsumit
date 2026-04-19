@@ -224,14 +224,14 @@ export default function Footer() {
               </a>
             </li>
             <li>
-              <a
-                href="/spa-bern/"
+              <Link
+                to="/spa-bern"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="hover:text-white transition tracking-widest"
+                className="hover:text-white transition tracking-widest uppercase"
               >
                 ./ SPA BERN
-              </a>
+              </Link>
             </li>
           </ul>
         </div>
