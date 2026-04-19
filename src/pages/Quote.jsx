@@ -346,7 +346,7 @@ export default function Quote() {
                         id: "full",
                         label: "Full Product",
                         desc: "The Complete Build",
-                        badge: "Save 50%",
+                        badge: "Save 25%",
                       },
                     ].map((s) => (
                       <button
