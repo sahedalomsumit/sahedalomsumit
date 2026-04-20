@@ -661,7 +661,12 @@ const AuditForm = () => {
       >
         <CheckCircle
           size={48}
-          style={{ color: "var(--secondary)", marginBottom: "16px" }}
+          style={{
+            color: "var(--secondary)",
+            marginBottom: "16px",
+            marginLeft: "auto",
+            marginRight: "auto",
+          }}
         />
         <h3 style={{ color: "white", fontSize: "1.5rem", marginBottom: "8px" }}>
           You're on the list!
@@ -688,7 +693,9 @@ const AuditForm = () => {
     >
       <div className="form-field">
         <fieldset className={errors.name ? "has-error" : ""}>
-          <legend>Full Name <span className="required">*</span></legend>
+          <legend>
+            Full Name <span className="required">*</span>
+          </legend>
           <div className="input-wrapper">
             <input
               type="text"
@@ -717,7 +724,9 @@ const AuditForm = () => {
 
       <div className="form-field">
         <fieldset className={errors.email ? "has-error" : ""}>
-          <legend>Email <span className="required">*</span></legend>
+          <legend>
+            Email <span className="required">*</span>
+          </legend>
           <div className="input-wrapper">
             <input
               type="email"
@@ -747,7 +756,9 @@ const AuditForm = () => {
 
       <div className="form-field">
         <fieldset className={errors.url ? "has-error" : ""}>
-          <legend>Website URL <span className="required">*</span></legend>
+          <legend>
+            Website URL <span className="required">*</span>
+          </legend>
           <div className="input-wrapper">
             <input
               type="text"
@@ -823,7 +834,9 @@ const AuditForm = () => {
                   name="notes"
                   placeholder="Tell me more about your goals or specific concerns..."
                   value={state.notes}
-                  onChange={(e) => setState({ ...state, notes: e.target.value })}
+                  onChange={(e) =>
+                    setState({ ...state, notes: e.target.value })
+                  }
                 />
               </div>
             </fieldset>
@@ -842,11 +855,14 @@ const AuditForm = () => {
           "Sending…"
         ) : (
           <>
-            Request Your Free Audit <Send size={20} style={{ marginLeft: "10px" }} />
+            Request Your Free Audit{" "}
+            <Send size={20} style={{ marginLeft: "10px" }} />
           </>
         )}
       </button>
-      <div className="form-subtext">No spam. No sales pressure. Just clear insights.</div>
+      <div className="form-subtext">
+        No spam. No sales pressure. Just clear insights.
+      </div>
     </form>
   );
 };
@@ -1005,7 +1021,9 @@ const Process = () => (
             <h3 style={{ fontSize: "1.2rem", marginBottom: "10px" }}>
               {item.title}
             </h3>
-            <p style={{ fontSize: "0.95rem", margin: 0, maxWidth: "none" }}>{item.text}</p>
+            <p style={{ fontSize: "0.95rem", margin: 0, maxWidth: "none" }}>
+              {item.text}
+            </p>
           </div>
         </Reveal>
       ))}
@@ -1226,7 +1244,10 @@ const About = () => (
               <div className="badge">DIRECT CONTACT</div>
             </div>
             <div className="contact-content">
-              <a href="mailto:sahedalomsumit@gmail.com" className="contact-item">
+              <a
+                href="mailto:sahedalomsumit@gmail.com"
+                className="contact-item"
+              >
                 <div className="contact-icon">
                   <Mail size={18} />
                 </div>

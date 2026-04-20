@@ -106,7 +106,9 @@ const Hero = () => (
         </a>
         <div className="offer-pill">
           <Star size={16} style={{ color: "var(--secondary)" }} />
-          <span>25% Rabatt auf Ihr erstes Projekt — begrenzte Plätze in Bern</span>
+          <span>
+            25% Rabatt auf Ihr erstes Projekt — begrenzte Plätze in Bern
+          </span>
         </div>
       </div>
     </Reveal>
@@ -186,7 +188,8 @@ const Problem = () => (
             maxWidth: "none",
           }}
         >
-          Besucher sehen nicht klar, was Ihr Spa von dem drei Straßen weiter unterscheidet. Sie gehen, ohne zu buchen — und wählen jemand anderen.
+          Besucher sehen nicht klar, was Ihr Spa von dem drei Straßen weiter
+          unterscheidet. Sie gehen, ohne zu buchen — und wählen jemand anderen.
         </p>
       </Reveal>
 
@@ -203,7 +206,8 @@ const Problem = () => (
           Probleme auf dem Handy
         </h3>
         <p>
-          Das mobile Erlebnis fühlt sich frustrierend an — und die meisten Kunden kommen über ihr Handy.
+          Das mobile Erlebnis fühlt sich frustrierend an — und die meisten
+          Kunden kommen über ihr Handy.
         </p>
       </Reveal>
 
@@ -220,7 +224,8 @@ const Problem = () => (
           Versteckte Buchung
         </h3>
         <p>
-          Die Buchung ist versteckt oder verwirrend — also geben Besucher auf, bevor sie handeln.
+          Die Buchung ist versteckt oder verwirrend — also geben Besucher auf,
+          bevor sie handeln.
         </p>
       </Reveal>
 
@@ -237,7 +242,9 @@ const Problem = () => (
           Unpassende Ästhetik
         </h3>
         <p style={{ fontSize: "1.1rem" }}>
-          Das Design spiegelt kein ruhiges, erstklassiges Erlebnis wider — so spüren die Menschen die Qualität Ihres Spas nicht, bevor sie durch die Tür treten.
+          Das Design spiegelt kein ruhiges, erstklassiges Erlebnis wider — so
+          spüren die Menschen die Qualität Ihres Spas nicht, bevor sie durch die
+          Tür treten.
         </p>
       </Reveal>
     </div>
@@ -292,7 +299,9 @@ const Solution = () => (
               maxWidth: "none",
             }}
           >
-            Ich helfe Spa- und Wellness-Unternehmen in Bern, ihre Website von einer passiven Broschüre in eine aktive Buchungsmaschine umzugestalten.
+            Ich helfe Spa- und Wellness-Unternehmen in Bern, ihre Website von
+            einer passiven Broschüre in eine aktive Buchungsmaschine
+            umzugestalten.
           </p>
           <a
             href="#audit"
@@ -433,14 +442,18 @@ const LimitedOffer = () => (
               size={20}
               style={{ color: "var(--primary)", flexShrink: 0 }}
             />
-            <span>Verfügbar für eine begrenzte Anzahl lokaler Spa-Unternehmen</span>
+            <span>
+              Verfügbar für eine begrenzte Anzahl lokaler Spa-Unternehmen
+            </span>
           </li>
           <li>
             <CheckCircle
               size={20}
               style={{ color: "var(--primary)", flexShrink: 0 }}
             />
-            <span>Ein einfacher Weg, Ihre Website ohne volles Risiko zu verbessern</span>
+            <span>
+              Ein einfacher Weg, Ihre Website ohne volles Risiko zu verbessern
+            </span>
           </li>
         </ul>
         <a
@@ -448,7 +461,8 @@ const LimitedOffer = () => (
           className="btn btn-primary"
           style={{ marginTop: "40px" }}
         >
-          Sichern Sie sich Ihren Platz <ArrowRight size={18} style={{ marginLeft: "8px" }} />
+          Sichern Sie sich Ihren Platz{" "}
+          <ArrowRight size={18} style={{ marginLeft: "8px" }} />
         </a>
       </div>
     </Reveal>
@@ -553,12 +567,12 @@ const Outcomes = () => (
 
 /* ─────────────────── Audit Form ─────────────────── */
 const AuditForm = () => {
-  const [state, setState] = useState({ 
-    name: "", 
-    email: "", 
-    url: "", 
-    phone: "", 
-    notes: "" 
+  const [state, setState] = useState({
+    name: "",
+    email: "",
+    url: "",
+    phone: "",
+    notes: "",
   });
   const [isExpanded, setIsExpanded] = useState(false);
   const [errors, setErrors] = useState({});
@@ -577,7 +591,8 @@ const AuditForm = () => {
         error = "Bitte geben Sie eine gültige Email-Adresse ein";
       }
     } else if (name === "url") {
-      const urlRegex = /^(https?:\/\/)?(www\.)?[a-zA-Z0-9-]+\.[a-zA-Z]{2,}(\/.*)?$/;
+      const urlRegex =
+        /^(https?:\/\/)?(www\.)?[a-zA-Z0-9-]+\.[a-zA-Z]{2,}(\/.*)?$/;
       if (!value) {
         error = "Website-URL ist erforderlich";
       } else if (!urlRegex.test(value)) {
@@ -611,17 +626,17 @@ const AuditForm = () => {
       const response = await fetch(SHEETDB_URL, {
         method: "POST",
         headers: {
-          "Accept": "application/json",
-          "Content-Type": "application/json"
+          Accept: "application/json",
+          "Content-Type": "application/json",
         },
         body: JSON.stringify({
           data: [
             {
               ...state,
-              date: new Date().toLocaleString("de-DE")
-            }
-          ]
-        })
+              date: new Date().toLocaleString("de-DE"),
+            },
+          ],
+        }),
       });
 
       if (response.ok) {
@@ -631,7 +646,9 @@ const AuditForm = () => {
       }
     } catch (error) {
       console.error("Fehler beim Übermitteln des Leads:", error);
-      alert("Etwas ist schief gelaufen. Bitte versuchen Sie es erneut oder kontaktieren Sie mich direkt.");
+      alert(
+        "Etwas ist schief gelaufen. Bitte versuchen Sie es erneut oder kontaktieren Sie mich direkt.",
+      );
     } finally {
       setLoading(false);
     }
@@ -655,7 +672,12 @@ const AuditForm = () => {
       >
         <CheckCircle
           size={48}
-          style={{ color: "var(--secondary)", marginBottom: "16px" }}
+          style={{
+            color: "var(--secondary)",
+            marginBottom: "16px",
+            marginLeft: "auto",
+            marginRight: "auto",
+          }}
         />
         <h3 style={{ color: "white", fontSize: "1.5rem", marginBottom: "8px" }}>
           Sie stehen auf der Liste!
@@ -667,7 +689,8 @@ const AuditForm = () => {
             maxWidth: "none",
           }}
         >
-          Ich werde Ihre Website überprüfen und mich innerhalb von 48 Stunden mit klaren Erkenntnissen melden.
+          Ich werde Ihre Website überprüfen und mich innerhalb von 48 Stunden
+          mit klaren Erkenntnissen melden.
         </p>
       </div>
     );
@@ -681,7 +704,9 @@ const AuditForm = () => {
     >
       <div className="form-field">
         <fieldset className={errors.name ? "has-error" : ""}>
-          <legend>Vollständiger Name <span className="required">*</span></legend>
+          <legend>
+            Vollständiger Name <span className="required">*</span>
+          </legend>
           <div className="input-wrapper">
             <input
               type="text"
@@ -710,7 +735,9 @@ const AuditForm = () => {
 
       <div className="form-field">
         <fieldset className={errors.email ? "has-error" : ""}>
-          <legend>E-Mail <span className="required">*</span></legend>
+          <legend>
+            E-Mail <span className="required">*</span>
+          </legend>
           <div className="input-wrapper">
             <input
               type="email"
@@ -720,7 +747,8 @@ const AuditForm = () => {
               onBlur={handleBlur}
               onChange={(e) => {
                 setState({ ...state, email: e.target.value });
-                if (errors.email) setErrors((prev) => ({ ...prev, email: null }));
+                if (errors.email)
+                  setErrors((prev) => ({ ...prev, email: null }));
               }}
             />
             {state.email && (
@@ -739,7 +767,9 @@ const AuditForm = () => {
 
       <div className="form-field">
         <fieldset className={errors.url ? "has-error" : ""}>
-          <legend>Website-URL <span className="required">*</span></legend>
+          <legend>
+            Website-URL <span className="required">*</span>
+          </legend>
           <div className="input-wrapper">
             <input
               type="text"
@@ -815,7 +845,9 @@ const AuditForm = () => {
                   name="notes"
                   placeholder="Erzählen Sie mir mehr über Ihre Ziele oder spezifische Anliegen..."
                   value={state.notes}
-                  onChange={(e) => setState({ ...state, notes: e.target.value })}
+                  onChange={(e) =>
+                    setState({ ...state, notes: e.target.value })
+                  }
                 />
               </div>
             </fieldset>
@@ -833,11 +865,14 @@ const AuditForm = () => {
           "Wird gesendet…"
         ) : (
           <>
-            Kostenloses Audit anfordern <Send size={20} style={{ marginLeft: "10px" }} />
+            Kostenloses Audit anfordern{" "}
+            <Send size={20} style={{ marginLeft: "10px" }} />
           </>
         )}
       </button>
-      <div className="form-subtext">Kein Spam. Kein Verkaufsdruck. Nur klare Erkenntnisse.</div>
+      <div className="form-subtext">
+        Kein Spam. Kein Verkaufsdruck. Nur klare Erkenntnisse.
+      </div>
     </form>
   );
 };
@@ -848,7 +883,8 @@ const FreeAudit = () => (
     <Reveal>
       <div
         style={{
-          background: "linear-gradient(135deg, var(--bg-card) 0%, #fef0f6 100%)",
+          background:
+            "linear-gradient(135deg, var(--bg-card) 0%, #fef0f6 100%)",
           border: "1px solid var(--stone)",
           borderRadius: "40px",
           padding: "80px 5vw",
@@ -870,23 +906,70 @@ const FreeAudit = () => (
           <div style={{ marginTop: "40px", display: "grid", gap: "24px" }}>
             {[
               { icon: <Search size={20} />, text: "Wo Sie Kunden verlieren" },
-              { icon: <NavigationOff size={20} />, text: "Was Buchungen blockiert" },
-              { icon: <Zap size={20} />, text: "Was schnell verbessert werden kann" },
+              {
+                icon: <NavigationOff size={20} />,
+                text: "Was Buchungen blockiert",
+              },
+              {
+                icon: <Zap size={20} />,
+                text: "Was schnell verbessert werden kann",
+              },
             ].map((item, i) => (
-              <div key={i} style={{ display: "flex", gap: "16px", alignItems: "center" }}>
-                <div style={{ width: "44px", height: "44px", borderRadius: "12px", background: "var(--stone)", display: "flex", alignItems: "center", justifyContent: "center", color: "var(--primary)", flexShrink: 0 }}>
+              <div
+                key={i}
+                style={{ display: "flex", gap: "16px", alignItems: "center" }}
+              >
+                <div
+                  style={{
+                    width: "44px",
+                    height: "44px",
+                    borderRadius: "12px",
+                    background: "var(--stone)",
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    color: "var(--primary)",
+                    flexShrink: 0,
+                  }}
+                >
                   {item.icon}
                 </div>
-                <p style={{ margin: 0, fontSize: "1.1rem", fontWeight: 500, color: "var(--text)", maxWidth: "none" }}>{item.text}</p>
+                <p
+                  style={{
+                    margin: 0,
+                    fontSize: "1.1rem",
+                    fontWeight: 500,
+                    color: "var(--text)",
+                    maxWidth: "none",
+                  }}
+                >
+                  {item.text}
+                </p>
               </div>
             ))}
           </div>
         </div>
 
         <div>
-          <div className="badge" style={{ background: "var(--secondary)", color: "white" }}>Begrenzte Plätze in Bern</div>
-          <h3 style={{ fontSize: "1.8rem", marginTop: "16px", marginBottom: "8px" }}>Fordern Sie Ihr kostenloses Audit an</h3>
-          <p style={{ marginBottom: "32px", fontSize: "1rem" }}>Senden Sie Ihre Website und ich melde mich mit klaren Verbesserungsvorschlägen bei Ihnen.</p>
+          <div
+            className="badge"
+            style={{ background: "var(--secondary)", color: "white" }}
+          >
+            Begrenzte Plätze in Bern
+          </div>
+          <h3
+            style={{
+              fontSize: "1.8rem",
+              marginTop: "16px",
+              marginBottom: "8px",
+            }}
+          >
+            Fordern Sie Ihr kostenloses Audit an
+          </h3>
+          <p style={{ marginBottom: "32px", fontSize: "1rem" }}>
+            Senden Sie Ihre Website und ich melde mich mit klaren
+            Verbesserungsvorschlägen bei Ihnen.
+          </p>
           <AuditForm />
         </div>
       </div>
@@ -898,23 +981,59 @@ const Process = () => (
   <section id="process" className="section">
     <Reveal>
       <div style={{ textAlign: "center", marginBottom: "64px" }}>
-        <h2>Wie es <span className="text-italic" style={{ color: "var(--primary)" }}>funktioniert.</span></h2>
-        <p style={{ margin: "16px auto 0", textAlign: "center" }}>Vier einfache Schritte. Null Verpflichtung, bis Sie bereit sind.</p>
+        <h2>
+          Wie es{" "}
+          <span className="text-italic" style={{ color: "var(--primary)" }}>
+            funktioniert.
+          </span>
+        </h2>
+        <p style={{ margin: "16px auto 0", textAlign: "center" }}>
+          Vier einfache Schritte. Null Verpflichtung, bis Sie bereit sind.
+        </p>
       </div>
     </Reveal>
     <div className="grid-bento">
       {[
-        { step: "01", icon: <Send size={28} />, title: "Website senden", text: "Geben Sie Ihren Website-Link an — dauert 30 Sekunden." },
-        { step: "02", icon: <Search size={28} />, title: "Ich prüfe sie", text: "Ich persönlich prüfe Ihre Homepage auf Conversion-Lücken." },
-        { step: "03", icon: <CheckCircle size={28} />, title: "Klare Ideen erhalten", text: "Eine prägnante, umsetzbare Analyse dessen, was zu beheben ist." },
-        { step: "04", icon: <Zap size={28} />, title: "Gemeinsam verbessern", text: "Wenn Sie möchten — bauen wir es um (mit 25% Rabatt)." },
+        {
+          step: "01",
+          icon: <Send size={28} />,
+          title: "Website senden",
+          text: "Geben Sie Ihren Website-Link an — dauert 30 Sekunden.",
+        },
+        {
+          step: "02",
+          icon: <Search size={28} />,
+          title: "Ich prüfe sie",
+          text: "Ich persönlich prüfe Ihre Homepage auf Conversion-Lücken.",
+        },
+        {
+          step: "03",
+          icon: <CheckCircle size={28} />,
+          title: "Klare Ideen erhalten",
+          text: "Eine prägnante, umsetzbare Analyse dessen, was zu beheben ist.",
+        },
+        {
+          step: "04",
+          icon: <Zap size={28} />,
+          title: "Gemeinsam verbessern",
+          text: "Wenn Sie möchten — bauen wir es um (mit 25% Rabatt).",
+        },
       ].map((item, i) => (
         <Reveal key={i} delay={i * 100} style={{ gridColumn: "span 3" }}>
-          <div className="bento-card" style={{ textAlign: "center", alignItems: "center" }}>
+          <div
+            className="bento-card"
+            style={{ textAlign: "center", alignItems: "center" }}
+          >
             <div className="step-number">{item.step}</div>
-            <div style={{ color: "var(--primary)", margin: "20px 0 16px" }}>{item.icon}</div>
-            <h3 style={{ fontSize: "1.2rem", marginBottom: "10px" }}>{item.title}</h3>
-            <p style={{ fontSize: "0.95rem", margin: 0, maxWidth: "none" }}>{item.text}</p>
+            <div style={{ color: "var(--primary)", margin: "20px 0 16px" }}>
+              {item.icon}
+            </div>
+            <h3 style={{ fontSize: "1.2rem", marginBottom: "10px" }}>
+              {item.title}
+            </h3>
+            <p style={{ fontSize: "0.95rem", margin: 0, maxWidth: "none" }}>
+              {item.text}
+            </p>
           </div>
         </Reveal>
       ))}
@@ -962,7 +1081,9 @@ const VisualPreview = () => (
           margin: "24px auto 0",
         }}
       >
-        Für ausgewählte Unternehmen in Bern erstelle ich eine kurze Vorschau der Neugestaltung der Homepage — so können Sie die Veränderung sehen, bevor Sie sich zu etwas verpflichten.
+        Für ausgewählte Unternehmen in Bern erstelle ich eine kurze Vorschau der
+        Neugestaltung der Homepage — so können Sie die Veränderung sehen, bevor
+        Sie sich zu etwas verpflichten.
       </p>
       <a
         href="#audit"
@@ -998,9 +1119,29 @@ const VisualPreview = () => (
               "Unklare Leistungen",
               "Keine Vertrauenssignale",
             ].map((t, i) => (
-              <div key={i} style={{ display: "flex", gap: "10px", alignItems: "center" }}>
-                <div style={{ width: "8px", height: "8px", borderRadius: "50%", background: "rgba(255,100,100,0.6)", flexShrink: 0 }} />
-                <p style={{ margin: 0, fontSize: "0.95rem", color: "rgba(255,255,255,0.65)", maxWidth: "none" }}>{t}</p>
+              <div
+                key={i}
+                style={{ display: "flex", gap: "10px", alignItems: "center" }}
+              >
+                <div
+                  style={{
+                    width: "8px",
+                    height: "8px",
+                    borderRadius: "50%",
+                    background: "rgba(255,100,100,0.6)",
+                    flexShrink: 0,
+                  }}
+                />
+                <p
+                  style={{
+                    margin: 0,
+                    fontSize: "0.95rem",
+                    color: "rgba(255,255,255,0.65)",
+                    maxWidth: "none",
+                  }}
+                >
+                  {t}
+                </p>
               </div>
             ))}
           </div>
@@ -1014,9 +1155,24 @@ const VisualPreview = () => (
               "Klares Alleinstellungsmerkmal",
               "Sofortige Vertrauenssignale",
             ].map((t, i) => (
-              <div key={i} style={{ display: "flex", gap: "10px", alignItems: "center" }}>
-                <CheckCircle size={16} style={{ color: "var(--secondary)", flexShrink: 0 }} />
-                <p style={{ margin: 0, fontSize: "0.95rem", color: "rgba(255,255,255,0.9)", maxWidth: "none" }}>{t}</p>
+              <div
+                key={i}
+                style={{ display: "flex", gap: "10px", alignItems: "center" }}
+              >
+                <CheckCircle
+                  size={16}
+                  style={{ color: "var(--secondary)", flexShrink: 0 }}
+                />
+                <p
+                  style={{
+                    margin: 0,
+                    fontSize: "0.95rem",
+                    color: "rgba(255,255,255,0.9)",
+                    maxWidth: "none",
+                  }}
+                >
+                  {t}
+                </p>
               </div>
             ))}
           </div>
@@ -1098,7 +1254,10 @@ const About = () => (
               <div className="badge">DIREKTER KONTAKT</div>
             </div>
             <div className="contact-content">
-              <a href="mailto:sahedalomsumit@gmail.com" className="contact-item">
+              <a
+                href="mailto:sahedalomsumit@gmail.com"
+                className="contact-item"
+              >
                 <div className="contact-icon">
                   <Mail size={18} />
                 </div>
@@ -1150,8 +1309,8 @@ const About = () => (
 
         <p style={{ maxWidth: "none", fontSize: "1.1rem", lineHeight: 1.7 }}>
           Ihr Website-Problem wird zu meinem Problem, sobald Sie es teilen. Ich
-          höre nicht auf, bis es gelöst ist — so bin ich gestrickt. Deshalb nenne
-          ich das meine Leidenschaft, nicht meinen Job.
+          höre nicht auf, bis es gelöst ist — so bin ich gestrickt. Deshalb
+          nenne ich das meine Leidenschaft, nicht meinen Job.
         </p>
 
         <p
@@ -1177,14 +1336,18 @@ const About = () => (
             marginTop: "16px",
           }}
         >
-          Durch meinen Bachelor in Wirtschaftsinformatik verstehe ich auch die geschäftliche Seite. Von Helsinki aus arbeite ich mit Kunden in Bern und weltweit zusammen, um sicherzustellen, dass nichts, was ich baue, einfach nur hübsch ist — sondern Ihren Zielen dient.
+          Durch meinen Bachelor in Wirtschaftsinformatik verstehe ich auch die
+          geschäftliche Seite. Von Helsinki aus arbeite ich mit Kunden in Bern
+          und weltweit zusammen, um sicherzustellen, dass nichts, was ich baue,
+          einfach nur hübsch ist — sondern Ihren Zielen dient.
         </p>
         <a
           href="#audit"
           className="btn btn-primary"
           style={{ marginTop: "32px", alignSelf: "flex-start" }}
         >
-          Mit mir arbeiten <ArrowRight size={18} style={{ marginLeft: "8px" }} />
+          Mit mir arbeiten{" "}
+          <ArrowRight size={18} style={{ marginLeft: "8px" }} />
         </a>
       </Reveal>
     </div>
@@ -1216,7 +1379,8 @@ const FinalCTA = () => (
           margin: "24px auto 0",
         }}
       >
-        Lassen Sie uns das beheben — mit einem klaren Plan und 25% Rabatt auf Ihr erstes Projekt.
+        Lassen Sie uns das beheben — mit einem klaren Plan und 25% Rabatt auf
+        Ihr erstes Projekt.
       </p>
       <div
         style={{
