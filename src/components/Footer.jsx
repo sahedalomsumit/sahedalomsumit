@@ -205,33 +205,33 @@ export default function Footer() {
           <ul className="space-y-4 text-xs font-mono text-gray-400">
             <li>
               <a
-                href="https://sahedalomsumit.github.io/my-cover-letter-generator/"
+                href="https://play.google.com/store/apps/details?id=com.sahed.salah_tracker"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="hover:text-white transition tracking-widest"
               >
-                ./ COVER LETTER GEN
+                ./ SALAH TRACKER APP
               </a>
             </li>
             <li>
               <a
-                href="https://sahedalomsumit.github.io/salah-tracker-web/"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="hover:text-white transition tracking-widest"
-              >
-                ./ SALAH TRACKER
-              </a>
-            </li>
-            <li>
-              <Link
-                to="/spa-bern"
+                href="https://spagrow.sahedalomsumit.com"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="hover:text-white transition tracking-widest uppercase"
               >
-                ./ SPA BERN
-              </Link>
+                ./ SPA GROW
+              </a>
+            </li>
+            <li>
+              <a
+                href="https://sahedalomsumit.github.io/outreach-os/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="hover:text-white transition tracking-widest uppercase"
+              >
+                ./ OUTREACH OS
+              </a>
             </li>
           </ul>
         </div>
@@ -308,9 +308,43 @@ export default function Footer() {
 
       {/* Bottom Copyright */}
       <div className="max-w-7xl mx-auto mt-20 pt-8 border-t border-white/5 flex flex-col md:flex-row justify-between items-center gap-6">
-        <p className="font-mono text-[9px] text-gray-400 uppercase tracking-widest text-center md:text-left">
-          © {currentYear} Sahed Alom Sumit // Built with good vibes and clean
-          code
+        <p className="font-mono text-[9px] text-gray-400 uppercase tracking-widest text-center md:text-left flex flex-wrap items-center justify-center md:justify-start gap-x-2 gap-y-1">
+          <span>© {currentYear} Sahed Alom Sumit //</span>
+          <a
+            href="https://sahedalomsumit.com"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center gap-1.5 hover:opacity-80 transition-opacity"
+            style={{ textDecoration: "none" }}
+          >
+            <span className="normal-case tracking-normal">Built with</span>
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="11"
+              height="11"
+              viewBox="0 0 24 24"
+              fill="#ef4444"
+              stroke="#ef4444"
+              strokeWidth="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              style={{
+                transformOrigin: "center",
+                flexShrink: 0,
+                animation: "pulseHeart 1.2s infinite ease-in-out",
+              }}
+              aria-hidden="true"
+            >
+              <path d="M2 9.5a5.5 5.5 0 0 1 9.591-3.676.56.56 0 0 0 .818 0A5.49 5.49 0 0 1 22 9.5c0 2.29-1.5 4-3 5.5l-5.492 5.313a2 2 0 0 1-3 .019L5 15c-1.5-1.5-3-3.2-3-5.5"></path>
+            </svg>
+            <span className="normal-case tracking-normal">by</span>
+            <span
+              style={{ color: "#ff8719", fontWeight: "700" }}
+              className="normal-case tracking-normal"
+            >
+              Sahed
+            </span>
+          </a>
         </p>
         <div className="hidden md:flex gap-4 text-[9px] font-mono text-gray-400">
           <span>V{buildVersion}_BUILD</span>
