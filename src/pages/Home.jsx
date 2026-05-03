@@ -170,11 +170,11 @@ const testimonials = [
     shadow: "shadow-violet-500/20",
   },
   {
-    initials: "LF",
-    name: "Leo Fadi",
-    role: "Founder @ Vesko",
+    initials: "FO",
+    name: "Filippo O.",
+    role: "Co-founder & President @ Metodo Ongaro",
     quote:
-      '"I had the pleasure to work with Sahed on Vesko\'s UI/UX development."',
+      '"Sahed has proven to be fast, reliable, capable and dedicated. We have found in him a very valuable partner."',
     color: "bg-emerald-600",
     shadow: "shadow-emerald-500/20",
   },
