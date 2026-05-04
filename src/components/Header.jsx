@@ -51,10 +51,9 @@ export default function Header() {
     const navLinks = [
         { to: '/', label: 'ROOT', num: '01' },
         { to: '/portfolio', label: 'PORTFOLIO', num: '02' },
-        { to: '/process', label: 'PROCESS', num: '03' },
-        { to: '/services', label: 'SERVICES', num: '04' },
-        { to: '/faq', label: 'FAQ', num: '05' },
-        { to: '/quote', label: 'QUOTE', num: '06' },
+        { to: '/services', label: 'SERVICES', num: '03' },
+        { to: '/faq', label: 'FAQ', num: '04' },
+        { to: '/quote', label: 'QUOTE', num: '05' },
     ]
 
     const closeMenu = () => setIsMenuOpen(false)

@@ -19,6 +19,8 @@ import FramerDevelopment from "./pages/FramerDevelopment";
 import CustomDevelopment from "./pages/CustomDevelopment";
 import AIAutomation from "./pages/AIAutomation";
 import SEOOptimization from "./pages/SEOOptimization";
+import ShopifyDevelopment from "./pages/ShopifyDevelopment";
+import AndroidAppDevelopment from "./pages/AndroidAppDevelopment";
 import Quote from "./pages/Quote";
 import NotFound from "./pages/NotFound";
 
@@ -83,6 +85,14 @@ export default function App() {
           <Route
             path="/services/seo-optimization"
             element={<SEOOptimization />}
+          />
+          <Route
+            path="/services/shopify-development"
+            element={<ShopifyDevelopment />}
+          />
+          <Route
+            path="/services/android-app-development"
+            element={<AndroidAppDevelopment />}
           />
           <Route path="/quote" element={<Quote />} />
           <Route path="/work" element={<Navigate to="/portfolio" replace />} />

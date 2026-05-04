@@ -126,6 +126,41 @@ const services = [
     text: 'text-violet-400',
     glow: 'shadow-violet-500/10',
   },
+  {
+    num: '08',
+    slug: 'shopify-development',
+    label: 'Shopify_Module',
+    title: 'Shopify Development',
+    tagline: 'Custom Shopify themes, migrations, and headless e-commerce builds.',
+    icon: (
+      <svg viewBox="0 0 24 24" fill="none" className="w-8 h-8" stroke="currentColor" strokeWidth="1.5">
+        <path d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z" />
+      </svg>
+    ),
+    color: 'emerald',
+    border: 'border-emerald-500/20',
+    bg: 'bg-emerald-500/5',
+    text: 'text-emerald-400',
+    glow: 'shadow-emerald-500/10',
+  },
+  {
+    num: '09',
+    slug: 'android-app-development',
+    label: 'Mobile_Module',
+    title: 'Android App Dev',
+    tagline: 'High-performance mobile apps built with Flutter and Dart for Android.',
+    icon: (
+      <svg viewBox="0 0 24 24" fill="none" className="w-8 h-8" stroke="currentColor" strokeWidth="1.5">
+        <rect x="5" y="2" width="14" height="20" rx="2" ry="2" />
+        <line x1="12" y1="18" x2="12.01" y2="18" />
+      </svg>
+    ),
+    color: 'violet',
+    border: 'border-violet-500/20',
+    bg: 'bg-violet-500/5',
+    text: 'text-violet-400',
+    glow: 'shadow-violet-500/10',
+  },
 ]
 
 const stats = [
@@ -180,7 +215,7 @@ export default function Services() {
           <div className="mb-6">
             <div className="block sm:flex items-center justify-between mb-10 border-b border-white/5 pb-6">
               <h2 className="text-2xl font-bold tracking-tighter text-white uppercase">Service_Inventory</h2>
-              <span className="font-mono text-xs text-emerald-500">07_MODULES_ACTIVE</span>
+              <span className="font-mono text-xs text-emerald-500">09_MODULES_ACTIVE</span>
             </div>
           </div>
         </RevealOnScroll>
