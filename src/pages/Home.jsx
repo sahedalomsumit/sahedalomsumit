@@ -612,15 +612,15 @@ export default function Home() {
             <div className="max-w-5xl mx-auto py-8">
               <Carousel>
                 {certificates.map((cert) => (
-                  <div key={cert.id} className="bg-zinc-900 rounded-3xl p-8">
+                  <div key={cert.id} className="rounded-3xl p-8" style={{ backgroundColor: 'var(--card-bg)', border: '1px solid var(--border)' }}>
                     <p className="text-emerald-500 text-xs uppercase tracking-widest mb-4">
                       / {cert.label}
                     </p>
-                    <h2 className="text-2xl md:text-3xl font-bold mb-2">
+                    <h2 className="text-2xl md:text-3xl font-bold mb-2" style={{ color: 'var(--text-main)' }}>
                       {cert.title}
                     </h2>
-                    <p className="text-emerald-300 text-sm mb-6">{cert.date}</p>
-                    <ul className="grid md:grid-cols-2 gap-3 text-gray-400 text-sm">
+                    <p className="text-emerald-400 text-sm mb-6">{cert.date}</p>
+                    <ul className="grid md:grid-cols-2 gap-3 text-sm" style={{ color: 'var(--text-muted)' }}>
                       {cert.skills.map((s) => (
                         <li key={s}>{s}</li>
                       ))}
@@ -646,17 +646,18 @@ export default function Home() {
                 {experiences.map((exp) => (
                   <div
                     key={exp.id}
-                    className="bg-zinc-900 rounded-3xl p-8 md:p-14 flex flex-col justify-between"
+                    className="rounded-3xl p-8 md:p-14 flex flex-col justify-between"
+                    style={{ backgroundColor: 'var(--card-bg)', border: '1px solid var(--border)' }}
                   >
                     <div>
                       <div className="text-emerald-500 text-[10px] uppercase tracking-widest mb-6">
                         / {exp.label}
                       </div>
-                      <h2 className="text-xl md:text-3xl font-bold mb-4">
+                      <h2 className="text-xl md:text-3xl font-bold mb-4" style={{ color: 'var(--text-main)' }}>
                         {exp.title}
                       </h2>
-                      <div className="space-y-4 text-gray-400 text-base md:text-lg leading-relaxed max-w-2xl">
-                        <p className="text-emerald-300 text-sm">{exp.period}</p>
+                      <div className="space-y-4 text-base md:text-lg leading-relaxed max-w-2xl" style={{ color: 'var(--text-muted)' }}>
+                        <p className="text-emerald-400 text-sm">{exp.period}</p>
                         {exp.bullets.map((b, i) => (
                           <p key={i}>{b}</p>
                         ))}
@@ -725,10 +726,10 @@ export default function Home() {
       </section>
 
       {/* Testimonials */}
-      <section className="py-32 bg-[#030303] border-y border-white/5">
+      <section className="py-32 border-y" style={{ backgroundColor: 'var(--topbar-bg)', borderColor: 'var(--border)' }}>
         <div className="max-w-7xl px-4 mx-auto">
           <RevealOnScroll>
-            <h2 className="text-2xl sm:text-6xl font-bold text-center mb-20 text-white uppercase tracking-[0.2em]">
+            <h2 className="text-2xl sm:text-6xl font-bold text-center mb-20 uppercase tracking-[0.2em]" style={{ color: 'var(--text-main)' }}>
               Validation_Logs
             </h2>
           </RevealOnScroll>

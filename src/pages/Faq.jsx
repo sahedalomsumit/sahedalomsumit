@@ -10,14 +10,15 @@ function FaqItem({ faq }) {
 
   return (
     <div
-      className="bento-card p-6 md:p-8 cursor-pointer border border-white/5 bg-[#0a0a0a] hover:bg-[#111] transition-colors h-fit"
+      className="bento-card p-6 md:p-8 cursor-pointer h-fit"
+      style={{ backgroundColor: 'var(--card-bg)', border: '1px solid var(--border)' }}
       onClick={() => setIsOpen(!isOpen)}
       role="button"
       aria-expanded={isOpen}
       tabIndex={0}
       onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); setIsOpen(!isOpen); } }}
     >
-      <div className="flex items-start justify-between text-lg md:text-xl font-medium text-white outline-none">
+      <div className="flex items-start justify-between text-lg md:text-xl font-medium outline-none" style={{ color: 'var(--text-main)' }}>
         <span>{faq.question}</span>
         <span
           className={`text-emerald-500 text-3xl transition-transform duration-500 ml-4 font-light ${isOpen ? 'rotate-45' : ''}`}
@@ -30,7 +31,7 @@ function FaqItem({ faq }) {
         style={{ gridTemplateRows: isOpen ? '1fr' : '0fr', opacity: isOpen ? 1 : 0 }}
       >
         <div className="overflow-hidden">
-          <article className="mt-6 text-gray-400 text-base md:text-lg leading-relaxed font-light border-t border-white/5 pt-6">
+          <article className="mt-6 text-base md:text-lg leading-relaxed font-light pt-6" style={{ color: 'var(--text-muted)', borderTop: '1px solid var(--border)' }}>
             <p>{faq.answer}</p>
           </article>
         </div>
@@ -87,10 +88,10 @@ export default function Faq() {
             <nav aria-label="breadcrumb" className="text-[10px] font-mono uppercase tracking-widest text-gray-500 mb-8 flex items-center justify-start gap-2">
               <Link to="/" className="hover:text-emerald-500 transition">Home</Link>
               <span>/</span>
-              <span className="text-white">FAQ</span>
+              <span style={{ color: 'var(--text-main)' }}>FAQ</span>
             </nav>
             <div className="font-mono text-emerald-500 text-xs tracking-[0.4em] font-bold uppercase mb-4">Knowledge_Base</div>
-            <h1 className="text-5xl md:text-8xl font-black tracking-tighter text-white uppercase leading-none">
+            <h1 className="text-5xl md:text-8xl font-black tracking-tighter uppercase leading-none" style={{ color: 'var(--text-main)' }}>
               Frequently Asked<br /><span className="text-violet-500">Questions</span>
             </h1>
             <p className="mt-6 text-gray-400 text-lg max-w-2xl font-light">
@@ -107,15 +108,16 @@ export default function Faq() {
         ) : (
           <>
             {/* Mobile Dropdown (Sticky) */}
-            <div className="md:hidden sticky top-[60px] z-40 bg-[#0a0a0a]/95 backdrop-blur-xl pb-4 pt-[1.8rem] -mx-4 px-4 mb-8 border-b border-white/5">
+            <div className="md:hidden sticky top-[60px] z-40 backdrop-blur-xl pb-4 pt-[1.8rem] -mx-4 px-4 mb-8" style={{ backgroundColor: 'var(--header-bg)', borderBottom: '1px solid var(--border)' }}>
               <div className="relative">
                 <select
                   value={activeTab}
                   onChange={(e) => handleTabChange(e.target.value)}
-                  className="w-full bg-[#111] border border-white/20 text-white text-base py-4 px-4 rounded-xl focus:outline-none focus:border-violet-500 outline-none appearance-none shadow-lg block"
+                  className="w-full text-base py-4 px-4 rounded-xl focus:outline-none focus:border-violet-500 outline-none appearance-none shadow-lg block"
+                  style={{ backgroundColor: 'var(--card-bg)', border: '1px solid var(--border)', color: 'var(--text-main)' }}
                 >
                   {topics.map((topic, i) => (
-                    <option key={i} value={topic}>{topic}</option>
+                    <option key={i} value={topic} style={{ backgroundColor: 'var(--bg)', color: 'var(--text-main)' }}>{topic}</option>
                   ))}
                 </select>
                 <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-5 text-violet-500">
@@ -131,7 +133,11 @@ export default function Faq() {
                   <button
                     key={i}
                     onClick={() => handleTabChange(topic)}
-                    className={`px-6 py-3 rounded-xl text-sm md:text-base font-bold transition-all border ${activeTab === topic ? 'bg-violet-500 text-white border-violet-500 shadow-[0_0_15px_rgba(139,92,246,0.3)]' : 'bg-transparent text-gray-300 border-white/20 hover:border-violet-500 hover:text-white'}`}
+                    className={`px-6 py-3 rounded-xl text-sm md:text-base font-bold transition-all border`}
+                    style={activeTab === topic
+                      ? { backgroundColor: 'var(--accent)', color: '#fff', borderColor: 'var(--accent)', boxShadow: '0 0 15px rgba(139,92,246,0.3)' }
+                      : { backgroundColor: 'transparent', color: 'var(--text-muted)', borderColor: 'var(--border)' }
+                    }
                   >
                     {topic}
                   </button>

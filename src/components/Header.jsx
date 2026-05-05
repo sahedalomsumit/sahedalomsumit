@@ -1,6 +1,7 @@
 import { Link, useLocation } from 'react-router-dom'
 import { useEffect, useState, useRef } from 'react'
 import gsap from 'gsap'
+import { useTheme } from '../context/ThemeContext'
 
 export default function Header() {
     const location = useLocation()
@@ -8,6 +9,7 @@ export default function Header() {
     const [isMenuOpen, setIsMenuOpen] = useState(false)
     const menuRef = useRef(null)
     const linkRef = useRef([])
+    const { theme, toggleTheme } = useTheme()
 
     useEffect(() => {
         const handleScroll = () => setScrolled(window.scrollY > 50)
@@ -70,7 +72,8 @@ export default function Header() {
     return (
         <>
             <header
-                className={`sticky top-0 w-full z-[70] sticky-header transition-all ${scrolled || isMenuOpen ? 'bg-[#0a0a0a]/80 backdrop-blur-md' : ''}`}
+                className={`sticky top-0 w-full z-[70] sticky-header transition-all`}
+                style={{ backgroundColor: scrolled || isMenuOpen ? 'var(--header-bg)' : 'transparent' }}
                 id="main-header"
             >
                 <div className={`px-4 max-w-7xl mx-auto flex items-center justify-between transition-all ${scrolled || isMenuOpen ? 'py-3' : 'py-4'}`}>
@@ -80,8 +83,8 @@ export default function Header() {
                             src="/img/logo-sahed-alom-sumit.png"
                             alt="Sahed Alom Sumit Official Logo"
                         />
-                        <div className="hidden md:block h-6 w-[1px] bg-white/10 mx-4" />
-                        <div className="hidden lg:block text-[9px] font-mono text-gray-500 uppercase tracking-tighter">
+                        <div className="hidden md:block h-6 w-[1px] mx-4" style={{ backgroundColor: 'var(--border)' }} />
+                        <div className="hidden lg:block text-[9px] font-mono uppercase tracking-tighter" style={{ color: 'var(--text-muted)' }}>
                             Designer & Developer<br />
                             <span className="text-emerald-500 italic">Availability: High</span>
                         </div>
@@ -97,6 +100,7 @@ export default function Header() {
                                     ? 'border-violet-500 text-violet-400'
                                     : 'border-transparent hover:border-violet-500/50'
                                     }`}
+                                style={location.pathname !== link.to ? { color: 'var(--text-main)' } : {}}
                             >
                                 ./{link.label}
                             </Link>
@@ -104,34 +108,86 @@ export default function Header() {
                         <Link
                             to="/#contact"
                             onClick={scrollToContact}
-                            className="hidden sm:flex px-6 py-2.5 bg-white text-black rounded-full text-[10px] font-black hover:bg-violet-500 hover:text-white transition-all tracking-[0.2em] items-center gap-2"
+                            className="hidden sm:flex px-6 py-2.5 rounded-full text-[10px] font-black hover:bg-violet-500 hover:text-white transition-all tracking-[0.2em] items-center gap-2"
+                            style={{ backgroundColor: 'var(--hire-btn-bg)', color: 'var(--hire-btn-text)' }}
                         >
                             HIRE_ME
                             <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path d="M14 5l7 7m0 0l-7 7m7-7H3" strokeWidth="3" />
                             </svg>
                         </Link>
+
+                        {/* Theme Toggle — Desktop */}
+                        <button
+                            id="theme-toggle-desktop"
+                            onClick={toggleTheme}
+                            className="theme-toggle"
+                            aria-label={theme === 'dark' ? 'Switch to light mode' : 'Switch to dark mode'}
+                            title={theme === 'dark' ? 'Light Mode' : 'Dark Mode'}
+                        >
+                            {/* Sun icon */}
+                            <svg className="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                                <circle cx="12" cy="12" r="5" />
+                                <line x1="12" y1="1" x2="12" y2="3" />
+                                <line x1="12" y1="21" x2="12" y2="23" />
+                                <line x1="4.22" y1="4.22" x2="5.64" y2="5.64" />
+                                <line x1="18.36" y1="18.36" x2="19.78" y2="19.78" />
+                                <line x1="1" y1="12" x2="3" y2="12" />
+                                <line x1="21" y1="12" x2="23" y2="12" />
+                                <line x1="4.22" y1="19.78" x2="5.64" y2="18.36" />
+                                <line x1="18.36" y1="5.64" x2="19.78" y2="4.22" />
+                            </svg>
+                            {/* Moon icon */}
+                            <svg className="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                                <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" />
+                            </svg>
+                        </button>
+
                     </nav>
 
-                    {/* Mobile Hamburger Button */}
-                    <button
-                        className="md:hidden z-[80] relative w-10 h-10 flex items-center justify-center focus:outline-none"
-                        onClick={() => setIsMenuOpen(!isMenuOpen)}
-                        aria-label="Toggle Menu"
-                    >
-                        <div className="w-6 flex flex-col items-end gap-1.5">
-                            <span className={`block h-0.5 bg-white transition-all duration-300 ${isMenuOpen ? 'w-6 translate-y-2 rotate-45' : 'w-6'}`}></span>
-                            <span className={`block h-0.5 bg-white transition-all duration-300 ${isMenuOpen ? 'opacity-0 translate-x-3' : 'w-4'}`}></span>
-                            <span className={`block h-0.5 bg-white transition-all duration-300 ${isMenuOpen ? 'w-6 -translate-y-2 -rotate-45' : 'w-5'}`}></span>
-                        </div>
-                    </button>
+                    {/* Mobile: Theme Toggle + Hamburger */}
+                    <div className="md:hidden z-[80] flex items-center gap-3">
+                        <button
+                            id="theme-toggle-mobile"
+                            onClick={toggleTheme}
+                            className="theme-toggle"
+                            aria-label={theme === 'dark' ? 'Switch to light mode' : 'Switch to dark mode'}
+                        >
+                            <svg className="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                                <circle cx="12" cy="12" r="5" />
+                                <line x1="12" y1="1" x2="12" y2="3" />
+                                <line x1="12" y1="21" x2="12" y2="23" />
+                                <line x1="4.22" y1="4.22" x2="5.64" y2="5.64" />
+                                <line x1="18.36" y1="18.36" x2="19.78" y2="19.78" />
+                                <line x1="1" y1="12" x2="3" y2="12" />
+                                <line x1="21" y1="12" x2="23" y2="12" />
+                                <line x1="4.22" y1="19.78" x2="5.64" y2="18.36" />
+                                <line x1="18.36" y1="5.64" x2="19.78" y2="4.22" />
+                            </svg>
+                            <svg className="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                                <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" />
+                            </svg>
+                        </button>
+                        <button
+                            className="relative w-10 h-10 flex items-center justify-center focus:outline-none"
+                            onClick={() => setIsMenuOpen(!isMenuOpen)}
+                            aria-label="Toggle Menu"
+                        >
+                            <div className="w-6 flex flex-col items-end gap-1.5">
+                                <span className={`block h-0.5 transition-all duration-300 ${isMenuOpen ? 'w-6 translate-y-2 rotate-45' : 'w-6'}`} style={{background: 'var(--text-main)'}}></span>
+                                <span className={`block h-0.5 transition-all duration-300 ${isMenuOpen ? 'opacity-0 translate-x-3' : 'w-4'}`} style={{background: 'var(--text-main)'}}></span>
+                                <span className={`block h-0.5 transition-all duration-300 ${isMenuOpen ? 'w-6 -translate-y-2 -rotate-45' : 'w-5'}`} style={{background: 'var(--text-main)'}}></span>
+                            </div>
+                        </button>
+                    </div>
                 </div>
             </header>
 
             {/* Fullscreen Mobile Overlay */}
             <div
                 ref={menuRef}
-                className="fixed inset-0 bg-[#0a0a0a] z-[55] flex-col items-center justify-center md:hidden hidden opacity-0 translate-x-full"
+                className="fixed inset-0 z-[55] flex-col items-center justify-center md:hidden hidden opacity-0 translate-x-full"
+                style={{ backgroundColor: 'var(--mobile-menu-bg)' }}
             >
                 <div className="flex flex-col items-center gap-8">
                     {navLinks.map((link, i) => (
@@ -143,7 +199,10 @@ export default function Header() {
                             className="group flex items-baseline gap-4"
                         >
                             <span className="font-mono text-violet-500 text-xs">{link.num}_</span>
-                            <span className={`text-4xl sm:text-5xl font-black tracking-tighter uppercase transition-colors ${location.pathname === link.to ? 'text-white' : 'text-white/40 group-hover:text-white'}`}>
+                            <span
+                                className={`text-4xl sm:text-5xl font-black tracking-tighter uppercase transition-colors`}
+                                style={{ color: location.pathname === link.to ? 'var(--text-main)' : 'var(--text-muted)' }}
+                            >
                                 {link.label}
                             </span>
                         </Link>

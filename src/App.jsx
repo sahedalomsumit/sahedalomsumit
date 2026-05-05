@@ -1,5 +1,6 @@
 import { Routes, Route, useLocation, Navigate } from "react-router-dom";
 import { useEffect } from "react";
+import { ThemeProvider } from "./context/ThemeContext";
 import CustomCursor from "./components/CustomCursor";
 import AuraBackground from "./components/AuraBackground";
 import TopBar from "./components/TopBar";
@@ -49,7 +50,7 @@ function ScrollToTop() {
 
 export default function App() {
   return (
-    <>
+    <ThemeProvider>
       <ScrollToTop />
       <CustomCursor />
       <AuraBackground />
@@ -101,6 +102,6 @@ export default function App() {
         <SahedChatbot />
       </main>
       <Footer />
-    </>
+    </ThemeProvider>
   );
 }

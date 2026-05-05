@@ -6,7 +6,7 @@ export default function Footer() {
   const buildVersion = "3.5.0";
 
   return (
-    <footer className="py-16 border-t border-white/5 bg-black relative overflow-hidden">
+    <footer className="py-16 relative overflow-hidden" style={{ backgroundColor: 'var(--topbar-bg)', borderTop: '1px solid var(--border)' }}>
       <div className="max-w-7xl px-4 mx-auto grid grid-cols-1 md:grid-cols-3 lg:grid-cols-6 gap-8 lg:gap-12 relative z-10  justify-between">
         {/* Brand Column */}
         <div>
@@ -15,7 +15,7 @@ export default function Footer() {
             alt="Sahed Alom Sumit Transparent Logo"
             className="sas-logo transition-transform group-hover:scale-105 w-32"
           />
-          <p className="mt-6 text-gray-400 text-xs leading-relaxed font-mono max-w-[200px] uppercase">
+          <p className="mt-6 text-xs leading-relaxed font-mono max-w-[200px] uppercase" style={{ color: 'var(--text-muted)' }}>
             ./ Web Designer
             <br />
             ./ Web Developer
@@ -31,11 +31,11 @@ export default function Footer() {
           <h4 className="text-[10px] font-mono font-bold uppercase tracking-widest mb-8 text-violet-500">
             Sitemap_Root
           </h4>
-          <ul className="space-y-4 text-xs font-mono text-gray-400">
+          <ul className="space-y-4 text-xs font-mono" style={{ color: 'var(--text-muted)' }}>
             <li>
               <Link
                 to="/"
-                className="hover:text-white transition tracking-widest"
+                className="hover:text-violet-400 transition tracking-widest"
               >
                 ./ ROOT
               </Link>
@@ -43,7 +43,7 @@ export default function Footer() {
             <li>
               <Link
                 to="/process"
-                className="hover:text-white transition tracking-widest"
+                className="hover:text-violet-400 transition tracking-widest"
               >
                 ./ PROCESS
               </Link>
@@ -51,7 +51,7 @@ export default function Footer() {
             <li>
               <Link
                 to="/services"
-                className="hover:text-white transition tracking-widest"
+                className="hover:text-violet-400 transition tracking-widest"
               >
                 ./ SERVICES
               </Link>
@@ -59,7 +59,7 @@ export default function Footer() {
             <li>
               <Link
                 to="/portfolio"
-                className="hover:text-white transition tracking-widest"
+                className="hover:text-violet-400 transition tracking-widest"
               >
                 ./ PORTFOLIO
               </Link>
@@ -67,7 +67,7 @@ export default function Footer() {
             <li>
               <Link
                 to="/faq"
-                className="hover:text-white transition tracking-widest"
+                className="hover:text-violet-400 transition tracking-widest"
               >
                 ./ FAQ
               </Link>
@@ -88,7 +88,7 @@ export default function Footer() {
           <h4 className="text-[10px] font-mono font-bold uppercase tracking-widest mb-8 text-emerald-500">
             Featured_Build
           </h4>
-          <ul className="space-y-4 text-xs font-mono text-gray-400">
+          <ul className="space-y-4 text-xs font-mono" style={{ color: 'var(--text-muted)' }}>
             <li>
               <Link
                 to="/portfolio/twintwo"
@@ -137,7 +137,7 @@ export default function Footer() {
           <h4 className="text-[10px] font-mono font-bold uppercase tracking-widest mb-8 text-violet-500">
             Services_Master
           </h4>
-          <ul className="space-y-4 text-xs font-mono text-gray-400 uppercase">
+          <ul className="space-y-4 text-xs font-mono uppercase" style={{ color: 'var(--text-muted)' }}>
             <li>
               <Link
                 to="/services/figma-design"
@@ -202,7 +202,7 @@ export default function Footer() {
           <h4 className="text-[10px] font-mono font-bold uppercase tracking-widest mb-8 text-emerald-500">
             OTHER_BUILD
           </h4>
-          <ul className="space-y-4 text-xs font-mono text-gray-400">
+          <ul className="space-y-4 text-xs font-mono" style={{ color: 'var(--text-muted)' }}>
             <li>
               <a
                 href="https://play.google.com/store/apps/details?id=com.sahed.salah_tracker"
@@ -241,7 +241,7 @@ export default function Footer() {
           <h4 className="text-[10px] font-mono font-bold uppercase tracking-widest mb-8 text-violet-500">
             Follow_Stream
           </h4>
-          <ul className="space-y-4 text-xs font-mono text-gray-400">
+          <ul className="space-y-4 text-xs font-mono" style={{ color: 'var(--text-muted)' }}>
             <li>
               <a
                 href="https://www.linkedin.com/in/sahedalomsumit"
@@ -307,8 +307,8 @@ export default function Footer() {
       </div>
 
       {/* Bottom Copyright */}
-      <div className="max-w-7xl mx-auto mt-20 pt-8 border-t border-white/5 flex flex-col md:flex-row justify-between items-center gap-6">
-        <p className="font-mono text-[9px] text-gray-400 uppercase tracking-widest text-center md:text-left flex flex-wrap items-center justify-center md:justify-start gap-x-2 gap-y-1">
+      <div className="max-w-7xl px-4 mx-auto mt-20 pt-8 flex flex-col md:flex-row justify-between items-center gap-6" style={{ borderTop: '1px solid var(--border)' }}>
+        <p className="font-mono text-[9px] uppercase tracking-widest text-center md:text-left flex flex-wrap items-center justify-center md:justify-start gap-x-2 gap-y-1" style={{ color: 'var(--text-muted)' }}>
           <span>© {currentYear} Sahed Alom Sumit //</span>
           <a
             href="https://sahedalomsumit.com"
@@ -346,7 +346,7 @@ export default function Footer() {
             </span>
           </a>
         </p>
-        <div className="hidden md:flex gap-4 text-[9px] font-mono text-gray-400">
+        <div className="hidden md:flex gap-4 text-[9px] font-mono" style={{ color: 'var(--text-muted)' }}>
           <span>V{buildVersion}_BUILD</span>
           <div className="flex items-center gap-2 text-emerald-500">
             <span className="w-1.5 h-1.5 bg-emerald-500 rounded-full animate-pulse" />
