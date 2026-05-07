@@ -44,7 +44,7 @@
   --hire-btn-text: #ffffff;
 }
 
-body {
+html, body {
   font-family: "Inter", sans-serif;
   background-color: var(--bg);
   background-image:
@@ -52,7 +52,8 @@ body {
     linear-gradient(90deg, var(--grid-line) 1px, transparent 1px);
   background-size: 50px 50px;
   color: var(--text-main);
-  overflow-x: hidden;
+  overflow-x: hidden!important;
+  max-width: 100%;
   transition: background-color 0.4s ease, color 0.4s ease;
 }
 

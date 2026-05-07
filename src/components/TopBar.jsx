@@ -1,7 +1,7 @@
 export default function TopBar() {
   return (
     <div
-      className="w-full py-2.5 px-4 flex flex-col md:flex-row justify-center items-center text-[10px] font-mono tracking-[0.2em] z-[60] relative"
+      className="w-full py-2.5 px-4 hidden md:flex flex-col md:flex-row justify-center items-center text-[10px] font-mono tracking-[0.2em] z-[60] relative"
       style={{
         backgroundColor: 'var(--topbar-bg)',
         borderBottom: '1px solid var(--topbar-border)',
