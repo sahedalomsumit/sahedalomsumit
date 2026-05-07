@@ -13,7 +13,7 @@ export default function ProjectDetail() {
 
   useSEO({
     title: project ? `${project.title}` : 'Loading Project...',
-    description: project ? project.fullDescription.slice(0, 160) + '...' : 'Explore detailed project insights, design process, and technical implementation by Sahed Alom Sumit.',
+    description: `project ? project.fullDescription.slice(0, 160) + '...' : 'Explore detailed project insights, design process, and technical implementation by Sahed Alom Sumit.'`,
     canonical: `/portfolio/${slug}`,
   })
 
@@ -60,7 +60,7 @@ export default function ProjectDetail() {
       <section className="py-16 px-4 max-w-7xl mx-auto">
         <RevealOnScroll>
           <header className="mb-12">
-            <nav aria-label="breadcrumb" className="text-[10px] font-mono uppercase tracking-widest text-gray-500 mb-8 flex items-center gap-2">
+            <nav aria-label="breadcrumb" className="text-[10px] font-mono uppercase tracking-widest text-gray-500 mb-8 flex flex-wrap items-center gap-2">
                <Link to="/" className="hover:text-emerald-500 transition">Home</Link>
                <span>/</span>
                <Link to="/portfolio" className="hover:text-emerald-500 transition">Portfolio</Link>
@@ -131,7 +131,7 @@ export default function ProjectDetail() {
                   <p className="text-[10px] text-gray-500 uppercase tracking-widest font-bold mb-2">Tech_Stack</p>
                   <div className="flex flex-wrap gap-2 mt-2">
                     {project.techStack.map(tech => (
-                      <span key={tech} className="px-3 py-1.5 bg-violet-500/10 border border-violet-500/20 rounded-lg text-[10px] font-mono text-violet-400 uppercase tracking-wider">
+                      <span key={tech} className="px-3 py-1.5 bg-violet-500/10 border border-violet-500/20 rounded-lg text-[10px] font-mono text-violet-500 uppercase tracking-wider">
                         {tech}
                       </span>
                     ))}
@@ -139,7 +139,7 @@ export default function ProjectDetail() {
                 </div>
                 <div>
                   <p className="text-[10px] text-gray-500 uppercase tracking-widest font-bold mb-2">Live_URL</p>
-                  <a href={project.liveUrl} target="_blank" rel="noopener noreferrer" className="text-violet-400 text-sm font-semibold hover:text-white transition truncate block">
+                  <a href={project.liveUrl} target="_blank" rel="noopener noreferrer" className="text-violet-500 text-sm font-semibold hover:text-white transition truncate block">
                     {project.liveUrl.replace(/^https?:\/\//, '')}
                   </a>
                 </div>
@@ -157,7 +157,7 @@ export default function ProjectDetail() {
 
             <RevealOnScroll>
               <div className="bento-card p-8 md:p-12">
-                <div className="font-mono text-violet-400 text-[10px] uppercase tracking-widest mb-6">/ The_Challenge</div>
+                <div className="font-mono text-violet-500 text-[10px] uppercase tracking-widest mb-6">/ The_Challenge</div>
                 <p className="text-gray-400 text-lg leading-relaxed font-light">{project.challenge}</p>
               </div>
             </RevealOnScroll>
@@ -171,7 +171,7 @@ export default function ProjectDetail() {
 
             <RevealOnScroll>
               <div className="bento-card p-8 md:p-12">
-                <div className="font-mono text-violet-400 text-[10px] uppercase tracking-widest mb-6">/ Results_&_Impact</div>
+                <div className="font-mono text-violet-500 text-[10px] uppercase tracking-widest mb-6">/ Results_&_Impact</div>
                 <p className="text-gray-400 text-lg leading-relaxed font-light">{project.results}</p>
               </div>
             </RevealOnScroll>
@@ -201,7 +201,7 @@ export default function ProjectDetail() {
             {adjacent.prev && (
               <Link to={`/portfolio/${adjacent.prev.slug}`} className="bento-card p-8 group hover:border-violet-500 transition-all">
                 <p className="font-mono text-[10px] text-gray-500 uppercase tracking-widest mb-3">← Previous_Build</p>
-                <h4 className="text-2xl font-bold text-white group-hover:text-violet-400 transition">{adjacent.prev.title}</h4>
+                <h4 className="text-2xl font-bold text-white group-hover:text-violet-500 transition">{adjacent.prev.title}</h4>
                 <p className="text-gray-500 text-xs font-mono mt-2">{adjacent.prev.industry}</p>
               </Link>
             )}

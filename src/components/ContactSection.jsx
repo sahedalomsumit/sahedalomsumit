@@ -13,14 +13,14 @@ export default function ContactSection() {
             <a href="mailto:sahedalomsumit@gmail.com" target="_blank" rel="noopener noreferrer">
               <div>
                 <div className="w-10 h-10 bg-white/5 rounded-xl flex items-center justify-center mb-6 border border-white/10 group-hover:border-violet-500 transition">
-                  <svg className="w-5 h-5 text-violet-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <svg className="w-5 h-5 text-violet-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path d="M3 8l7.89 5.26a2 2 0 002.22 0L22 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
                   </svg>
                 </div>
                 <p className="font-mono text-[9px] text-emerald-500 font-bold uppercase mb-2 tracking-widest">Sync_Email</p>
                 <h3 className="text-l md:text-2xl font-bold text-white truncate">sahedalomsumit@gmail.com</h3>
               </div>
-              <p className="mt-8 text-gray-400 group-hover:text-violet-400 transition text-xs font-mono">Initialize_Chat_Sequence »</p>
+              <p className="mt-8 text-gray-400 group-hover:text-violet-500 transition text-xs font-mono">Initialize_Chat_Sequence »</p>
             </a>
           </div>
           <div className="bento-card p-8 flex flex-col justify-between group cursor-pointer hover:border-emerald-500 transition-all">

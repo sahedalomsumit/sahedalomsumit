@@ -10,11 +10,13 @@ export default function Footer() {
       <div className="max-w-7xl px-4 mx-auto grid grid-cols-1 md:grid-cols-3 lg:grid-cols-6 gap-8 lg:gap-12 relative z-10  justify-between">
         {/* Brand Column */}
         <div>
-          <img
-            src="/img/logo-sahed-alom-sumit.png"
-            alt="Sahed Alom Sumit Transparent Logo"
-            className="sas-logo transition-transform group-hover:scale-105 w-32"
-          />
+          <Link to="/">
+            <img
+              src="/img/logo-sahed-alom-sumit.png"
+              alt="Sahed Alom Sumit Transparent Logo"
+              className="sas-logo transition-transform group-hover:scale-105 w-32"
+            />
+          </Link>
           <p className="mt-6 text-xs leading-relaxed font-mono max-w-[200px] uppercase" style={{ color: 'var(--text-muted)' }}>
             ./ Web Designer
             <br />
@@ -35,7 +37,7 @@ export default function Footer() {
             <li>
               <Link
                 to="/"
-                className="hover:text-violet-400 transition tracking-widest"
+                className="hover:text-violet-500 transition tracking-widest"
               >
                 ./ ROOT
               </Link>
@@ -43,7 +45,7 @@ export default function Footer() {
             <li>
               <Link
                 to="/process"
-                className="hover:text-violet-400 transition tracking-widest"
+                className="hover:text-violet-500 transition tracking-widest"
               >
                 ./ PROCESS
               </Link>
@@ -51,7 +53,7 @@ export default function Footer() {
             <li>
               <Link
                 to="/services"
-                className="hover:text-violet-400 transition tracking-widest"
+                className="hover:text-violet-500 transition tracking-widest"
               >
                 ./ SERVICES
               </Link>
@@ -59,7 +61,7 @@ export default function Footer() {
             <li>
               <Link
                 to="/portfolio"
-                className="hover:text-violet-400 transition tracking-widest"
+                className="hover:text-violet-500 transition tracking-widest"
               >
                 ./ PORTFOLIO
               </Link>
@@ -67,7 +69,7 @@ export default function Footer() {
             <li>
               <Link
                 to="/faq"
-                className="hover:text-violet-400 transition tracking-widest"
+                className="hover:text-violet-500 transition tracking-widest"
               >
                 ./ FAQ
               </Link>
@@ -140,58 +142,42 @@ export default function Footer() {
           <ul className="space-y-4 text-xs font-mono uppercase" style={{ color: 'var(--text-muted)' }}>
             <li>
               <Link
-                to="/services/figma-design"
+                to="/services/full-stack-development"
                 className="hover:text-white transition tracking-widest"
               >
-                ./ Figma Design
+                ./ Full-Stack Dev
               </Link>
             </li>
             <li>
               <Link
-                to="/services/webflow-development"
+                to="/services/low-no-code-development"
                 className="hover:text-white transition tracking-widest"
               >
-                ./ Webflow Dev
+                ./ Low/No-Code
               </Link>
             </li>
             <li>
               <Link
-                to="/services/wordpress-development"
+                to="/services/ui-ux-design"
                 className="hover:text-white transition tracking-widest"
               >
-                ./ WordPress Dev
+                ./ UI/UX Design
               </Link>
             </li>
             <li>
               <Link
-                to="/services/framer-development"
+                to="/services/app-development"
                 className="hover:text-white transition tracking-widest"
               >
-                ./ Framer Dev
+                ./ App Development
               </Link>
             </li>
             <li>
               <Link
-                to="/services/custom-development"
+                to="/services/tools"
                 className="hover:text-white transition tracking-widest"
               >
-                ./ Custom Dev
-              </Link>
-            </li>
-            <li>
-              <Link
-                to="/services/ai-automation"
-                className="hover:text-white transition tracking-widest"
-              >
-                ./ AI Automation
-              </Link>
-            </li>
-            <li>
-              <Link
-                to="/services/seo-optimization"
-                className="hover:text-white transition tracking-widest"
-              >
-                ./ SEO strategy
+                ./ Custom Tools
               </Link>
             </li>
           </ul>

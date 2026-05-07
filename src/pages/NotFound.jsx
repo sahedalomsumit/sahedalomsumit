@@ -9,7 +9,7 @@ export default function NotFound() {
 
   useSEO({
     title: '404 - Page Not Found',
-    description: 'The page you are looking for has either drifted into another dimension or never existed in this vibe.',
+    description: `The page you are looking for has either drifted into another dimension or never existed in this vibe.`,
   })
 
   useEffect(() => {

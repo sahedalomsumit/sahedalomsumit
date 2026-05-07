@@ -15,7 +15,7 @@ export default function Portfolio() {
 
   useSEO({
     title: 'Portfolio',
-    description: 'Explore the selected works of Sahed Alom Sumit, featuring high-performance websites across Webflow, WordPress, and custom development.',
+    description: `Explore the selected works of Sahed Alom Sumit, featuring high-performance websites across Webflow, WordPress, and custom development.`,
     canonical: '/portfolio',
   })
 
@@ -54,7 +54,7 @@ export default function Portfolio() {
         <RevealOnScroll>
           <header className="mb-16 text-left flex flex-col md:flex-row justify-between items-start md:items-end gap-6">
             <div className="w-full">
-              <nav aria-label="breadcrumb" className="text-[10px] font-mono uppercase tracking-widest text-gray-500 mb-8 flex items-center justify-start gap-2">
+              <nav aria-label="breadcrumb" className="text-[10px] font-mono uppercase tracking-widest text-gray-500 mb-8 flex flex-wrap items-center justify-start gap-2">
                 <Link to="/" className="hover:text-emerald-500 transition">Home</Link>
                 <span>/</span>
                 <span className="text-white">Portfolio</span>

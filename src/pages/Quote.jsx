@@ -399,7 +399,7 @@ export default function Quote() {
                       <label className="font-mono text-[9px] text-gray-400 uppercase tracking-widest font-bold">
                         ./ Additional_Pages
                       </label>
-                      <span className="font-mono text-violet-400 text-xs font-bold">
+                      <span className="font-mono text-violet-500 text-xs font-bold">
                         {additionalPages} Pages + Homepage
                       </span>
                     </div>
@@ -419,7 +419,7 @@ export default function Quote() {
 
                 <div className="bento-card p-8 bg-white/[0.02] border-white/5 relative overflow-hidden group">
                   <div className="mb-6 border-b border-white/5 pb-6">
-                    <div className="font-mono text-violet-400 text-[9px] uppercase tracking-widest mb-2 font-black">
+                    <div className="font-mono text-violet-500 text-[9px] uppercase tracking-widest mb-2 font-black">
                       Estimate_Result
                     </div>
                     <h3 className="text-white font-black text-xl md:text-2xl uppercase tracking-tighter">
@@ -449,7 +449,7 @@ export default function Quote() {
 
                   <div className="p-6 bg-white/5 rounded-2xl flex flex-col md:flex-row md:items-center justify-between gap-6 border border-white/5 group-hover:border-violet-500/30 transition-all shadow-inner">
                     <div>
-                      <div className="font-mono text-violet-400 text-[8px] uppercase tracking-widest mb-1 font-black leading-none">
+                      <div className="font-mono text-violet-500 text-[8px] uppercase tracking-widest mb-1 font-black leading-none">
                         Fixed_Project_Budget
                       </div>
                       <div className="text-2xl md:text-3xl font-black text-white tracking-tighter italic leading-none">

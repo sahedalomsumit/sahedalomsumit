@@ -35,7 +35,7 @@ function ProcessStep({ step }) {
         <span className={`text-6xl font-black text-white/5 ${isViolet ? 'group-hover:text-violet-500/20' : 'group-hover:text-emerald-500/20'} transition-colors`}>
           {step.num} /
         </span>
-        <span className={`px-4 py-1.5 ${isViolet ? 'bg-violet-500/10 text-violet-400' : 'bg-emerald-500/10 text-emerald-500'} font-mono text-[10px] rounded-full font-bold`}>
+        <span className={`px-4 py-1.5 ${isViolet ? 'bg-violet-500/10 text-violet-500' : 'bg-emerald-500/10 text-emerald-500'} font-mono text-[10px] rounded-full font-bold`}>
           {step.badge}
         </span>
       </div>
@@ -44,7 +44,7 @@ function ProcessStep({ step }) {
       <ul className="grid grid-cols-1 md:grid-cols-2 gap-3 text-[11px] font-mono text-gray-400">
         {step.items.map((item, i) => (
           <li key={i} className="flex items-center gap-2">
-            <span className={isViolet ? 'text-violet-400' : 'text-emerald-500'}>+</span> {item}
+            <span className={isViolet ? 'text-violet-500' : 'text-emerald-500'}>+</span> {item}
           </li>
         ))}
       </ul>
@@ -57,7 +57,7 @@ export default function Process() {
 
   useSEO({
     title: 'My Process',
-    description: 'Learn about the transparent, efficient, and vibe-driven process Sahed Alom Sumit uses to deliver premium web design and development projects.',
+    description: `Learn about the transparent, efficient, and vibe-driven process Sahed Alom Sumit uses to deliver premium web design and development projects.`,
     canonical: '/process',
   })
 
@@ -88,7 +88,7 @@ export default function Process() {
         <div className="flex flex-col md:flex-row justify-between items-end mb-16 gap-6">
           <RevealOnScroll>
             <header className="mb-16 text-left">
-              <nav aria-label="breadcrumb" className="text-[10px] font-mono uppercase tracking-widest text-gray-500 mb-8 flex items-center justify-start gap-2">
+              <nav aria-label="breadcrumb" className="text-[10px] font-mono uppercase tracking-widest text-gray-500 mb-8 flex flex-wrap items-center justify-start gap-2">
                 <Link to="/" className="hover:text-emerald-500 transition">Home</Link>
                 <span>/</span>
                 <span className="text-white">Process</span>
@@ -107,14 +107,14 @@ export default function Process() {
               <button
                 onClick={() => switchTab('design')}
                 title="Design System Process"
-                className={`px-6 py-3 rounded-xl text-xs font-mono font-bold transition-all ${isDesign ? 'bg-white text-black' : 'text-gray-400 hover:text-white'}`}
+                className={`px-6 py-3 rounded-xl text-xs font-mono font-bold transition-all ${isDesign ? 'bg-[var(--hire-btn-bg)] text-[var(--hire-btn-text)] shadow-lg' : 'text-gray-400 hover:text-white'}`}
               >
                 DESIGN_SYSTEM
               </button>
               <button
                 onClick={() => switchTab('dev')}
                 title="Development Engine Process"
-                className={`px-6 py-3 rounded-xl text-xs font-mono font-bold transition-all ${!isDesign ? 'bg-white text-black' : 'text-gray-400 hover:text-white'}`}
+                className={`px-6 py-3 rounded-xl text-xs font-mono font-bold transition-all ${!isDesign ? 'bg-[var(--hire-btn-bg)] text-[var(--hire-btn-text)] shadow-lg' : 'text-gray-400 hover:text-white'}`}
               >
                 DEVELOPMENT_ENGINE
               </button>
@@ -125,7 +125,7 @@ export default function Process() {
         <div id={`process-${activeTab}`}>
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-12">
             <div className="lg:col-span-4">
-              <div className={`bento-card p-8 sticky top-32 ${summary.borderColor}`}>
+              <div className={`bento-card p-8 lg:sticky lg:top-32 ${summary.borderColor}`}>
                 <div className="text-4xl font-bold text-white mb-6 italic">Summary_</div>
                 <p className="text-gray-400 text-sm leading-relaxed mb-6 font-light">{summary.text}</p>
                 <div className="space-y-4">

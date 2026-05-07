@@ -47,7 +47,7 @@ export default function Faq() {
 
   useSEO({
     title: 'FAQ',
-    description: 'Frequently asked questions about working with Sahed Alom Sumit on web design, development, and AI automation projects.',
+    description: `Frequently asked questions about working with Sahed Alom Sumit on web design, development, and AI automation projects.`,
     canonical: '/faq',
   })
 
@@ -85,7 +85,7 @@ export default function Faq() {
       <main className="py-24 px-4 max-w-7xl mx-auto min-h-screen">
         <RevealOnScroll>
           <header className="mb-16 text-left">
-            <nav aria-label="breadcrumb" className="text-[10px] font-mono uppercase tracking-widest text-gray-500 mb-8 flex items-center justify-start gap-2">
+            <nav aria-label="breadcrumb" className="text-[10px] font-mono uppercase tracking-widest text-gray-500 mb-8 flex flex-wrap items-center justify-start gap-2">
               <Link to="/" className="hover:text-emerald-500 transition">Home</Link>
               <span>/</span>
               <span style={{ color: 'var(--text-main)' }}>FAQ</span>

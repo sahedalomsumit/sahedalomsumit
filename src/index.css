@@ -144,6 +144,10 @@ html, body {
   color: var(--text-main);
 }
 
+.text-always-white {
+  color: #ffffff !important;
+}
+
 /* Carousel grab cursor */
 .carousel-track {
   cursor: grab;
@@ -260,11 +264,22 @@ html, body {
   color: rgba(10,10,10,0.75) !important;
 }
 /* Cards & sections */
+[data-theme="light"] .bg-\[rgba\(255\,255\,255\,0\.01\)\],
 [data-theme="light"] .bg-\[rgba\(255\,255\,255\,0\.02\)\],
 [data-theme="light"] .bg-\[rgba\(255\,255\,255\,0\.03\)\],
 [data-theme="light"] .bg-\[rgba\(255\,255\,255\,0\.04\)\],
 [data-theme="light"] .bg-\[rgba\(255\,255\,255\,0\.05\)\] {
-  background-color: rgba(255,255,255,0.6) !important;
+  background-color: rgba(0, 0, 0, 0.02) !important;
+}
+[data-theme="light"] .bg-white\/\[0\.01\],
+[data-theme="light"] .bg-white\/\[0\.02\],
+[data-theme="light"] .bg-white\/\[0\.03\],
+[data-theme="light"] .bg-white\/\[0\.05\] {
+  background-color: rgba(0, 0, 0, 0.02) !important;
+}
+[data-theme="light"] .hover\:bg-white\/\[0\.03\]:hover,
+[data-theme="light"] .hover\:bg-white\/\[0\.05\]:hover {
+  background-color: rgba(0, 0, 0, 0.05) !important;
 }
 /* Fixed dark bg sections */
 [data-theme="light"] .bg-\[\#030303\],
@@ -301,4 +316,34 @@ html, body {
 /* Service page bg-black sections */
 [data-theme="light"] .bg-black {
   background-color: var(--topbar-bg) !important;
+}
+
+/* Specific Service Hub fixes */
+[data-theme="light"] .bg-emerald-500\/5,
+[data-theme="light"] .bg-violet-500\/5 {
+  background-color: rgba(0, 0, 0, 0.03) !important;
+}
+[data-theme="light"] .border-emerald-500\/20,
+[data-theme="light"] .border-violet-500\/20 {
+  border-color: rgba(0, 0, 0, 0.1) !important;
+}
+[data-theme="light"] .bg-emerald-500\/10,
+[data-theme="light"] .bg-violet-500\/10 {
+  background-color: rgba(0, 0, 0, 0.05) !important;
+}
+[data-theme="light"] .bg-white\/5 {
+  background-color: rgba(0,0,0,0.04) !important;
+}
+[data-theme="light"] .text-gray-300 {
+  color: var(--text-muted) !important;
+}
+
+/* Hide scrollbar for Chrome, Safari and Opera */
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+/* Hide scrollbar for IE, Edge and Firefox */
+.no-scrollbar {
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;  /* Firefox */
 }

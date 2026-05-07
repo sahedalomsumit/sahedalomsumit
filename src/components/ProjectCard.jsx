@@ -10,10 +10,10 @@ export default function ProjectCard({ project, layout = 'grid' }) {
           {/* Hover Overlay */}
           <div className="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity z-10 flex items-center justify-center p-8">
             <div className="text-center transform translate-y-4 group-hover:translate-y-0 transition-transform">
-              <p className="text-white text-sm mb-4 font-light tracking-wide">View_Project</p>
+              <p className="text-always-white text-sm mb-4 font-light tracking-wide">View_Project</p>
               <div className="flex gap-2 justify-center flex-wrap">
                 {project.tags.slice(0, 4).map((tag) => (
-                  <span key={tag} className="px-3 py-1 bg-white/10 border border-white/20 rounded text-[9px] font-mono uppercase">
+                  <span key={tag} className="px-3 py-1 bg-white/10 border border-white/20 rounded text-[9px] font-mono uppercase text-always-white">
                     {tag}
                   </span>
                 ))}
@@ -33,7 +33,7 @@ export default function ProjectCard({ project, layout = 'grid' }) {
       </Link>
       <div className="flex justify-between items-start px-2">
         <div>
-          <h3 className="text-2xl font-bold mb-1 text-white group-hover:text-violet-400 transition">
+          <h3 className="text-2xl font-bold mb-1 text-white group-hover:text-violet-500 transition">
             {project.title}
           </h3>
           <p className="text-gray-400 text-xs font-mono">

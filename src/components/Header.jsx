@@ -12,7 +12,7 @@ export default function Header() {
     const { theme, toggleTheme } = useTheme()
 
     useEffect(() => {
-        const handleScroll = () => setScrolled(window.scrollY > 50)
+        const handleScroll = () => setScrolled(window.scrollY > 20)
         window.addEventListener('scroll', handleScroll)
         return () => window.removeEventListener('scroll', handleScroll)
     }, [])
@@ -72,11 +72,51 @@ export default function Header() {
     return (
         <>
             <header
-                className={`sticky top-0 w-full z-[70] sticky-header transition-all`}
-                style={{ backgroundColor: scrolled || isMenuOpen ? 'var(--header-bg)' : 'transparent' }}
+                className={`fixed top-0 w-full z-[70] transition-all duration-300 ${scrolled || isMenuOpen ? 'sticky-header shadow-lg' : ''}`}
+                style={{ 
+                    backgroundColor: scrolled || isMenuOpen ? 'var(--header-bg)' : 'transparent',
+                    backdropFilter: scrolled || isMenuOpen ? 'blur(20px)' : 'none',
+                    borderBottom: scrolled || isMenuOpen ? '1px solid var(--header-border)' : '1px solid transparent'
+                }}
                 id="main-header"
             >
-                <div className={`px-4 max-w-7xl mx-auto flex items-center justify-between transition-all ${scrolled || isMenuOpen ? 'py-3' : 'py-4'}`}>
+                {/* TopBar Integration */}
+                <div
+                    className={`w-full px-4 hidden md:flex flex-col md:flex-row justify-center items-center text-[9px] font-mono tracking-[0.2em] transition-all duration-500 overflow-hidden ${scrolled ? 'max-h-0 opacity-0 py-0 border-none' : 'max-h-10 opacity-100 py-2'}`}
+                    style={{
+                        backgroundColor: 'var(--topbar-bg)',
+                        borderBottom: scrolled ? 'none' : '1px solid var(--topbar-border)',
+                        color: 'var(--text-muted)',
+                    }}
+                >
+                    <div className="flex items-center gap-2 text-emerald-500">
+                        <span className="w-1.5 h-1.5 bg-emerald-500 rounded-full animate-pulse" />
+                        <span style={{ color: 'var(--text-main)' }}>SYSTEM_STATUS:</span>
+                        OPEN FOR COLLABORATIONS
+                    </div>
+                    <span className="mx-4 hidden md:block" style={{ color: 'var(--border)' }}>|</span>
+                    <div className="flex gap-4 mt-2 md:mt-0">
+                        <a
+                            href="https://wa.me/+358415765539"
+                            className="hover:text-violet-500 transition"
+                            style={{ color: 'var(--text-muted)' }}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                        >
+                            MESSAGE_WHATSAPP »
+                        </a>
+                        <span className="hidden md:block" style={{ color: 'var(--border)' }}>|</span>
+                        <a
+                            href="/img/web-designer-and-developer-sahed-alom-sumit.pdf"
+                            className="font-bold hover:text-violet-500 transition underline underline-offset-4 decoration-violet-500/50"
+                            style={{ color: 'var(--text-main)' }}
+                        >
+                            RESUME.PDF
+                        </a>
+                    </div>
+                </div>
+
+                <div className={`px-4 max-w-7xl mx-auto flex items-center justify-between transition-all duration-300 ${scrolled || isMenuOpen ? 'py-2 md:py-3' : 'py-4'}`}>
                     <Link to="/" onClick={closeMenu} className="flex items-center group cursor-pointer z-[60]">
                         <img
                             className="sas-logo transition-transform group-hover:scale-105 w-32"
@@ -96,8 +136,8 @@ export default function Header() {
                             <Link
                                 key={link.to}
                                 to={link.to}
-                                className={`text-[10px] font-mono font-bold tracking-widest hover:text-violet-400 transition-all border-b pb-1 ${location.pathname === link.to
-                                    ? 'border-violet-500 text-violet-400'
+                                className={`text-[10px] font-mono font-bold tracking-widest hover:text-violet-500 transition-all border-b pb-1 ${location.pathname === link.to
+                                    ? 'border-violet-500 text-violet-500'
                                     : 'border-transparent hover:border-violet-500/50'
                                     }`}
                                 style={location.pathname !== link.to ? { color: 'var(--text-main)' } : {}}

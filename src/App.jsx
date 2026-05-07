@@ -3,7 +3,6 @@ import { useEffect } from "react";
 import { ThemeProvider } from "./context/ThemeContext";
 import CustomCursor from "./components/CustomCursor";
 import AuraBackground from "./components/AuraBackground";
-import TopBar from "./components/TopBar";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
 import Home from "./pages/Home";
@@ -13,15 +12,12 @@ import ProjectDetail from "./pages/ProjectDetail";
 import Faq from "./pages/Faq";
 import SahedChatbot from "./components/SahedChatbot";
 import Services from "./pages/Services";
-import FigmaDesign from "./pages/FigmaDesign";
-import WebflowDevelopment from "./pages/WebflowDevelopment";
-import WordPressDevelopment from "./pages/WordPressDevelopment";
-import FramerDevelopment from "./pages/FramerDevelopment";
-import CustomDevelopment from "./pages/CustomDevelopment";
-import AIAutomation from "./pages/AIAutomation";
-import SEOOptimization from "./pages/SEOOptimization";
-import ShopifyDevelopment from "./pages/ShopifyDevelopment";
-import AndroidAppDevelopment from "./pages/AndroidAppDevelopment";
+import UIUXDesign from "./pages/UIUXDesign";
+import FullStackDevelopment from "./pages/FullStackDevelopment";
+import LowNoCodeDevelopment from "./pages/LowNoCodeDevelopment";
+import AppDevelopment from "./pages/AppDevelopment";
+
+import ToolsServices from "./pages/ToolsServices";
 import Quote from "./pages/Quote";
 import NotFound from "./pages/NotFound";
 
@@ -34,7 +30,16 @@ function ScrollToTop() {
       const id = hash.replace("#", "");
       const element = document.getElementById(id);
       if (element) {
-        element.scrollIntoView({ behavior: "smooth" });
+        const offset = 100; // Account for fixed header
+        const bodyRect = document.body.getBoundingClientRect().top;
+        const elementRect = element.getBoundingClientRect().top;
+        const elementPosition = elementRect - bodyRect;
+        const offsetPosition = elementPosition - offset;
+
+        window.scrollTo({
+          top: offsetPosition,
+          behavior: "smooth"
+        });
       }
     }
 
@@ -54,9 +59,8 @@ export default function App() {
       <ScrollToTop />
       <CustomCursor />
       <AuraBackground />
-      <TopBar />
       <Header />
-      <main>
+      <main className="pt-20 md:pt-28">
         <Routes>
           {/* ── Main Site Routes ── */}
           <Route path="/" element={<Home />} />
@@ -65,36 +69,12 @@ export default function App() {
           <Route path="/portfolio/:slug" element={<ProjectDetail />} />
           <Route path="/faq" element={<Faq />} />
           <Route path="/services" element={<Services />} />
-          <Route path="/services/figma-design" element={<FigmaDesign />} />
-          <Route
-            path="/services/webflow-development"
-            element={<WebflowDevelopment />}
-          />
-          <Route
-            path="/services/wordpress-development"
-            element={<WordPressDevelopment />}
-          />
-          <Route
-            path="/services/framer-development"
-            element={<FramerDevelopment />}
-          />
-          <Route
-            path="/services/custom-development"
-            element={<CustomDevelopment />}
-          />
-          <Route path="/services/ai-automation" element={<AIAutomation />} />
-          <Route
-            path="/services/seo-optimization"
-            element={<SEOOptimization />}
-          />
-          <Route
-            path="/services/shopify-development"
-            element={<ShopifyDevelopment />}
-          />
-          <Route
-            path="/services/android-app-development"
-            element={<AndroidAppDevelopment />}
-          />
+          <Route path="/services/ui-ux-design" element={<UIUXDesign />} />
+          <Route path="/services/full-stack-development" element={<FullStackDevelopment />} />
+          <Route path="/services/low-no-code-development" element={<LowNoCodeDevelopment />} />
+          <Route path="/services/app-development" element={<AppDevelopment />} />
+
+          <Route path="/services/tools" element={<ToolsServices />} />
           <Route path="/quote" element={<Quote />} />
           <Route path="/work" element={<Navigate to="/portfolio" replace />} />
           <Route path="*" element={<NotFound />} />

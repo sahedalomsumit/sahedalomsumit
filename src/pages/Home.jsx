@@ -1,4 +1,4 @@
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState, useCallback } from "react";
 import { Link } from "react-router-dom";
 import gsap from "gsap";
 import { TextPlugin } from "gsap/TextPlugin";
@@ -6,10 +6,103 @@ import RevealOnScroll from "../components/RevealOnScroll";
 import Carousel from "../components/Carousel";
 import ProjectCard from "../components/ProjectCard";
 import ContactSection from "../components/ContactSection";
-import { useState } from "react";
 import { useSEO } from "../hooks/useSEO";
 
 gsap.registerPlugin(TextPlugin);
+
+/* ─── Accordion Item ─────────────────────────────────────────────────── */
+function AccordionItem({ id, openId, setOpenId, label, title, subtitle, children, isFirst, isLast }) {
+  const bodyRef = useRef(null);
+  const isOpen = openId === id;
+
+  const toggle = useCallback(() => {
+    setOpenId(prev => (prev === id ? null : id));
+  }, [id, setOpenId]);
+
+  useEffect(() => {
+    const el = bodyRef.current;
+    if (!el) return;
+    if (isOpen) {
+      // Expand
+      gsap.set(el, { display: 'block' });
+      gsap.fromTo(
+        el,
+        { height: 0, opacity: 0 },
+        { height: 'auto', opacity: 1, duration: 0.45, ease: 'power3.out' }
+      );
+    } else {
+      // Collapse
+      gsap.to(el, {
+        height: 0,
+        opacity: 0,
+        duration: 0.35,
+        ease: 'power3.in',
+        onComplete: () => gsap.set(el, { display: 'none' }),
+      });
+    }
+  }, [isOpen]);
+
+  return (
+    <div
+      onClick={toggle}
+      className="accordion-item"
+      style={{
+        borderBottom: isLast ? 'none' : (isOpen ? '1px solid rgba(139,92,246,0.3)' : '1px solid var(--border)'),
+        cursor: 'pointer',
+        padding: '1.25rem 0',
+        userSelect: 'none',
+        transition: 'border-color 0.3s ease',
+      }}
+    >
+      {/* Header row */}
+      <div style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', gap: '1rem' }}>
+        <div style={{ flex: 1 }}>
+          <span style={{ fontFamily: 'monospace', fontSize: '10px', textTransform: 'uppercase', letterSpacing: '0.15em', color: 'var(--emerald, #10b981)', display: 'block', marginBottom: '4px' }}>
+            / {label}
+          </span>
+          <span style={{ fontSize: '0.95rem', fontWeight: 600, color: 'var(--text-main)', lineHeight: 1.35, display: 'block' }}>
+            {title}
+          </span>
+          {subtitle && (
+            <span style={{ fontSize: '0.72rem', color: 'var(--text-muted)', marginTop: '3px', display: 'block', opacity: 0.7 }}>
+              {subtitle}
+            </span>
+          )}
+        </div>
+        {/* Chevron */}
+        <span
+          style={{
+            width: 28,
+            height: 28,
+            borderRadius: '50%',
+            border: '1px solid var(--border)',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            flexShrink: 0,
+            marginTop: 4,
+            transition: 'all 0.3s ease',
+            background: isOpen ? 'rgba(139,92,246,0.2)' : 'transparent',
+            borderColor: isOpen ? 'rgba(139,92,246,0.4)' : 'var(--border)',
+          }}
+        >
+          <svg
+            width="12" height="12" viewBox="0 0 12 12" fill="none"
+            style={{ transform: isOpen ? 'rotate(180deg)' : 'rotate(0deg)', transition: 'transform 0.3s ease' }}
+          >
+            <path d="M2 4l4 4 4-4" stroke={isOpen ? 'var(--emerald, #10b981)' : 'currentColor'} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+          </svg>
+        </span>
+      </div>
+      {/* Body */}
+      <div ref={bodyRef} style={{ display: isFirst ? 'block' : 'none', overflow: 'hidden' }}>
+        <div style={{ paddingTop: '0.875rem' }}>
+          {children}
+        </div>
+      </div>
+    </div>
+  );
+}
 
 const certificates = [
   {
@@ -197,6 +290,9 @@ export default function Home() {
   const heroRef = useRef(null);
   const [featured, setFeatured] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [openCert, setOpenCert] = useState(null); // collapsed by default
+  const [openExp, setOpenExp] = useState(1);    // first exp open by default
+  const [activeSkillTab, setActiveSkillTab] = useState(1);
 
   useSEO({
     description:
@@ -399,7 +495,7 @@ export default function Home() {
                   <p className="text-[10px] text-gray-400 uppercase tracking-widest font-bold mb-2">
                     {item.label}
                   </p>
-                  <p className="text-white text-lg font-semibold truncate group-hover:text-violet-400 transition">
+                  <p className="text-white text-lg font-semibold truncate group-hover:text-violet-500 transition">
                     <a
                       href={item.href}
                       target="_blank"
@@ -438,117 +534,98 @@ export default function Home() {
             </span>
           </div>
         </RevealOnScroll>
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          <RevealOnScroll delay={0}>
-            <div className="bento-card p-8 h-full">
-              <div className="font-mono text-emerald-500 text-[10px] uppercase tracking-widest mb-8">
-                / Design_Dev_Unit
-              </div>
-              <div className="flex flex-wrap gap-2">
-                {[
-                  "Design Principles",
-                  "Responsive Design",
-                  "Accessibility",
-                ].map((s) => (
-                  <span
-                    key={s}
-                    className="skill-tag border-emerald-400/50 bg-white/10 text-white font-bold"
-                  >
-                    {s}
-                  </span>
-                ))}
-                {[
-                  "Prototyping",
-                  "Wireframing",
-                  "User Research",
-                  "Usability Testing",
-                  "Interaction Design",
-                  "Visual Design",
-                  "User Flows",
-                  "Design Systems",
-                ].map((s) => (
-                  <span key={s} className="skill-tag">
-                    {s}
-                  </span>
-                ))}
-              </div>
-            </div>
-          </RevealOnScroll>
-          <RevealOnScroll delay={0.1}>
-            <div className="bento-card p-8 border-violet-500/20 bg-violet-500/5 h-full">
-              <div className="font-mono text-violet-400 text-[10px] uppercase tracking-widest mb-8">
-                / Design_Dev_Stack
-              </div>
-              <div className="flex flex-wrap gap-2">
-                {[
-                  "Webflow",
-                  "WordPress",
-                  "Shopify",
-                  "Figma",
-                  "Custom Coding Website",
-                ].map((s) => (
-                  <span
-                    key={s}
-                    className="skill-tag border-violet-400/50 bg-white/10 text-white font-bold"
-                  >
-                    {s}
-                  </span>
-                ))}
-                {[
-                  "React",
-                  "node.js",
-                  "Tailwind CSS",
-                  "Supabase",
-                  "SQL",
-                  "HTML",
-                  "CSS",
-                  "JavaScript",
-                  "Framer",
-                  "Kajabi",
-                  "SEO",
-                  "Speed Optimization",
-                ].map((s) => (
-                  <span key={s} className="skill-tag">
-                    {s}
-                  </span>
-                ))}
-              </div>
-            </div>
-          </RevealOnScroll>
-          <RevealOnScroll delay={0.2}>
-            <div className="bento-card p-8 h-full">
-              <div className="font-mono text-emerald-500 text-[10px] uppercase tracking-widest mb-8">
-                / Design_Dev_AI
-              </div>
-              <div className="flex flex-wrap gap-2">
-                {[
-                  "Claude Code",
-                  "Antigravity",
-                  "Stitch",
-                  "Make.com",
-                  "n8n",
-                  "Zapier",
-                ].map((s) => (
-                  <span
-                    key={s}
-                    className="skill-tag border-emerald-400/50 bg-white/10 text-white font-bold"
-                  >
-                    {s}
-                  </span>
-                ))}
-                {[
-                  "AI-Assisted Design",
-                  "AI Content Workflows",
-                  "Prompt Engineering",
-                  "AI Website Building",
-                  "Vibe Coding",
-                  "AI UI Generation",
-                  "Automated Testing",
-                ].map((s) => (
-                  <span key={s} className="skill-tag">
-                    {s}
-                  </span>
-                ))}
+        {/* Tabbed Skills */}
+        <div className="w-full">
+          {/* Tab Buttons - scrollable on mobile */}
+          <div className="flex overflow-x-auto no-scrollbar gap-4 mb-8 pb-4 -mx-4 px-4 sm:mx-0 sm:px-0 sm:flex-wrap">
+            {[
+              { label: 'Design & UX', id: 0, count: '13' },
+              { label: 'Core Stack', id: 1, count: '16' },
+              { label: 'AI & Automation', id: 2, count: '13' }
+            ].map((tab) => (
+              <button
+                key={tab.id}
+                onClick={() => setActiveSkillTab(tab.id)}
+                className={`px-6 py-3 rounded-xl font-mono text-[10px] uppercase tracking-[0.2em] transition-all duration-300 flex items-center gap-3 border whitespace-nowrap ${
+                  activeSkillTab === tab.id
+                    ? 'bg-accent/10 border-accent text-white shadow-[0_0_20px_rgba(139,92,246,0.2)]'
+                    : 'bg-white/5 border-white/5 text-gray-500 hover:border-white/20 hover:text-white'
+                }`}
+              >
+                <span className={`${activeSkillTab === tab.id ? 'text-accent' : 'text-gray-600'}`}>{tab.step || (tab.id + 1).toString().padStart(2, '0')}_</span>
+                {tab.label}
+                <span className={`ml-2 px-1.5 py-0.5 rounded-md text-[8px] ${activeSkillTab === tab.id ? 'bg-accent/20 text-accent' : 'bg-white/5 text-gray-600'}`}>
+                  {tab.count}
+                </span>
+              </button>
+            ))}
+          </div>
+
+          {/* Tab Content */}
+          <RevealOnScroll key={activeSkillTab}>
+            <div className="bento-card p-10 md:p-14 relative overflow-hidden min-h-[300px]">
+              <div className="absolute top-0 right-0 w-64 h-64 bg-accent/5 blur-[100px] -mr-32 -mt-32" />
+              
+              <div className="relative z-10">
+                {activeSkillTab === 0 && (
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
+                    <div>
+                      <div className="font-mono text-emerald-500 text-[10px] uppercase tracking-widest mb-6">/ Design_Dev_Unit</div>
+                      <h3 className="text-3xl font-bold text-white mb-6 tracking-tight">User Experience & Interface</h3>
+                      <p className="text-gray-400 leading-relaxed max-w-md mb-8">
+                        My approach to design is rooted in psychology and accessibility, ensuring every pixel serves a purpose and every interaction feels natural.
+                      </p>
+                    </div>
+                    <div className="flex flex-wrap gap-2 content-start">
+                      {["UI/UX Design", "Responsive Design", "Design Systems"].map(s => (
+                        <span key={s} className="skill-tag border-emerald-400/50 bg-white/10 text-white font-bold">{s}</span>
+                      ))}
+                      {["User Research", "Wireframing", "Prototyping", "Accessibility (WCAG)", "Typography", "Visual Design", "Information Architecture", "Interaction Design", "Figma", "Adobe Creative Suite"].map(s => (
+                        <span key={s} className="skill-tag">{s}</span>
+                      ))}
+                    </div>
+                  </div>
+                )}
+
+                {activeSkillTab === 1 && (
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
+                    <div>
+                      <div className="font-mono text-violet-500 text-[10px] uppercase tracking-widest mb-6">/ Design_Dev_Stack</div>
+                      <h3 className="text-3xl font-bold text-white mb-6 tracking-tight">Development & Infrastructure</h3>
+                      <p className="text-gray-400 leading-relaxed max-w-md mb-8">
+                        I leverage a diverse set of technologies to build scalable, high-performance web applications that look great and run faster.
+                      </p>
+                    </div>
+                    <div className="flex flex-wrap gap-2 content-start">
+                      {["Webflow", "WordPress", "React", "Next.js"].map(s => (
+                        <span key={s} className="skill-tag border-violet-400/50 bg-white/10 text-white font-bold">{s}</span>
+                      ))}
+                      {["JavaScript (ES6+)", "HTML5/CSS3", "Tailwind CSS", "Node.js", "Supabase", "Git/GitHub", "REST APIs", "Technical SEO", "Shopify", "CMS Management", "Performance Tuning", "Vercel/AWS"].map(s => (
+                        <span key={s} className="skill-tag">{s}</span>
+                      ))}
+                    </div>
+                  </div>
+                )}
+
+                {activeSkillTab === 2 && (
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
+                    <div>
+                      <div className="font-mono text-emerald-500 text-[10px] uppercase tracking-widest mb-6">/ Design_Dev_AI</div>
+                      <h3 className="text-3xl font-bold text-white mb-6 tracking-tight">AI & Workflow Automation</h3>
+                      <p className="text-gray-400 leading-relaxed max-w-md mb-8">
+                        Integrating artificial intelligence and automation into creative workflows to increase efficiency and unlock new creative possibilities.
+                      </p>
+                    </div>
+                    <div className="flex flex-wrap gap-2 content-start">
+                      {["AI-Assisted Dev", "Workflow Automation", "Prompt Engineering"].map(s => (
+                        <span key={s} className="skill-tag border-emerald-400/50 bg-white/10 text-white font-bold">{s}</span>
+                      ))}
+                      {["Claude Code", "Antigravity", "Make.com", "n8n", "Zapier", "AI UI Generation", "Low-code Solutions", "Automated Testing", "AI Integration", "Vibe Coding"].map(s => (
+                        <span key={s} className="skill-tag">{s}</span>
+                      ))}
+                    </div>
+                  </div>
+                )}
               </div>
             </div>
           </RevealOnScroll>
@@ -556,134 +633,123 @@ export default function Home() {
       </section>
 
       {/* Education, Experience, Certificates */}
-      <section className="py-24 px-4 max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-12 gap-6">
-        <div className="md:col-span-6">
-          {/* Education */}
-          <RevealOnScroll direction="left">
-            <div className="bento-card p-8 md:p-14 flex flex-col justify-between">
+      <section className="py-24 px-4 max-w-7xl mx-auto">
+        {/* Education — full width */}
+        <RevealOnScroll direction="left">
+          <div className="bento-card p-8 md:p-14 mb-6 relative overflow-hidden group">
+            <div className="absolute top-0 right-0 w-32 h-32 bg-violet-500/5 blur-3xl -mr-16 -mt-16 group-hover:bg-violet-500/10 transition-colors" />
+            <div className="font-mono text-[10px] uppercase tracking-widest mb-6 flex items-center gap-2" style={{ color: 'var(--emerald, #10b981)' }}>
+              / Edu_Entry
+            </div>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
               <div>
-                <div className="font-mono text-emerald-500 text-[10px] uppercase tracking-widest mb-6 flex items-center gap-2">
-                  / Edu_Entry
-                </div>
-                <h2 className="text-xl md:text-3xl font-bold mb-6 text-white leading-tight">
-                  Bachelor's | 2023 - 2025
+                <h2 className="text-xl md:text-3xl font-bold mb-4 leading-tight" style={{ color: 'var(--text-main)' }}>
+                  Bachelor's <span style={{ color: 'var(--text-muted)', fontWeight: 400, fontSize: '0.8em', marginLeft: '10px', opacity: 0.7 }}>| 2023 – 2025</span>
                 </h2>
-                <div className="space-y-6 text-gray-400 text-lg md:text-xl leading-relaxed font-light max-w-2xl">
-                  <p>
-                    Haaga-Helia University of Applied Sciences
-                    <br />
-                    <b className="text-white">
-                      Business Information Technology
-                    </b>
-                    <br />
-                    <b className="text-white">Major:</b> Design Services
-                    <br />
-                    <b className="text-white">Thesis:</b> The Future of No-code
-                    Web Development: Evaluating the Potential and Limitations of
-                    Webflow
-                  </p>
-                  <div>
-                    <p className="text-white font-medium mb-2">
-                      Key Areas of Study:
-                    </p>
-                    <ul className="grid grid-cols-1 md:grid-cols-2 gap-y-2 gap-x-6 text-gray-400">
-                      {[
-                        "Digital User Experience",
-                        "Website Design & Development",
-                        "Digital Service Design",
-                        "Innovation & Prototyping",
-                        "React Fundamentals",
-                        "Cloud Technologies (AWS)",
-                        "Data Management & Databases",
-                        "Applied AI",
-                        "ICT Project Management",
-                        "Linux Basics",
-                      ].map((a) => (
-                        <li key={a}>{a}</li>
-                      ))}
-                    </ul>
-                  </div>
-                </div>
+                <p className="text-base leading-relaxed mb-1" style={{ color: 'var(--text-muted)' }}>
+                  Haaga-Helia University of Applied Sciences
+                </p>
+                <p className="font-semibold mb-1 text-accent">Business Information Technology</p>
+                <p className="text-sm mb-1" style={{ color: 'var(--text-muted)' }}><span style={{ color: 'var(--text-main)', fontWeight: 600 }}>Major:</span> Design Services</p>
+                <p className="text-sm leading-relaxed" style={{ color: 'var(--text-muted)' }}><span style={{ color: 'var(--text-main)', fontWeight: 600 }}>Thesis:</span> The Future of No-code Web Development: Evaluating the Potential and Limitations of Webflow</p>
+              </div>
+              <div>
+                <p className="text-sm font-semibold mb-4" style={{ color: 'var(--text-main)' }}>Key Areas of Study</p>
+                <ul className="grid grid-cols-1 sm:grid-cols-2 gap-y-2 gap-x-6 text-sm" style={{ color: 'var(--text-muted)' }}>
+                  {[
+                    "Digital User Experience",
+                    "Website Design & Development",
+                    "Digital Service Design",
+                    "Innovation & Prototyping",
+                    "React Fundamentals",
+                    "Cloud Technologies (AWS)",
+                    "Data Management & Databases",
+                    "Applied AI",
+                    "ICT Project Management",
+                    "Linux Basics",
+                  ].map((a) => (
+                    <li key={a} style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+                      <span style={{ width: 4, height: 4, borderRadius: '50%', background: 'var(--emerald, #10b981)', flexShrink: 0, display: 'inline-block' }} />
+                      {a}
+                    </li>
+                  ))}
+                </ul>
               </div>
             </div>
-          </RevealOnScroll>
-          {/* Certificates Carousel */}
-          <RevealOnScroll delay={0.15} direction="left">
-            <div className="max-w-5xl mx-auto py-8">
-              <Carousel>
-                {certificates.map((cert) => (
-                  <div key={cert.id} className="rounded-3xl p-8" style={{ backgroundColor: 'var(--card-bg)', border: '1px solid var(--border)' }}>
-                    <p className="text-emerald-500 text-xs uppercase tracking-widest mb-4">
-                      / {cert.label}
-                    </p>
-                    <h2 className="text-2xl md:text-3xl font-bold mb-2" style={{ color: 'var(--text-main)' }}>
-                      {cert.title}
-                    </h2>
-                    <p className="text-emerald-400 text-sm mb-6">{cert.date}</p>
-                    <ul className="grid md:grid-cols-2 gap-3 text-sm" style={{ color: 'var(--text-muted)' }}>
-                      {cert.skills.map((s) => (
-                        <li key={s}>{s}</li>
-                      ))}
-                    </ul>
-                    <img
-                      src={cert.img}
-                      className="rounded-2xl mt-6 w-full"
-                      alt={`${cert.title} Certificate for Sahed Alom Sumit`}
-                      loading="lazy"
-                    />
-                  </div>
-                ))}
-              </Carousel>
-            </div>
-          </RevealOnScroll>
-        </div>
+          </div>
+        </RevealOnScroll>
 
-        <div className="md:col-span-6">
-          {/* Experience Carousel */}
-          <RevealOnScroll direction="right">
-            <div className="max-w-5xl mx-auto mb-8">
-              <Carousel>
-                {experiences.map((exp) => (
-                  <div
-                    key={exp.id}
-                    className="rounded-3xl p-8 md:p-14 flex flex-col justify-between"
-                    style={{ backgroundColor: 'var(--card-bg)', border: '1px solid var(--border)' }}
-                  >
-                    <div>
-                      <div className="text-emerald-500 text-[10px] uppercase tracking-widest mb-6">
-                        / {exp.label}
+        {/* Certs + Exp side by side */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          {/* Experience Accordion */}
+          <RevealOnScroll delay={0.1} direction="left">
+            <div className="bento-card p-6 md:p-10">
+              <div className="font-mono text-[10px] uppercase tracking-widest mb-5 text-violet-500">
+                / Work_Experience
+              </div>
+              {experiences.map((exp, idx) => (
+                <AccordionItem
+                  key={exp.id}
+                  id={exp.id}
+                  openId={openExp}
+                  setOpenId={setOpenExp}
+                  label={exp.label}
+                  title={exp.title}
+                  subtitle={exp.period}
+                  isFirst={idx === 0}
+                  isLast={idx === experiences.length - 1}
+                >
+                  <div className="space-y-2.5">
+                    {exp.bullets.map((b, i) => (
+                      <div key={i} style={{ display: 'flex', gap: 10, alignItems: 'flex-start' }}>
+                        <span style={{ marginTop: 7, width: 4, height: 4, borderRadius: '50%', background: '#a78bfa', flexShrink: 0, display: 'inline-block' }} />
+                        <p style={{ fontSize: '0.82rem', lineHeight: 1.65, color: 'var(--text-muted)', margin: 0 }}>{b}</p>
                       </div>
-                      <h2 className="text-xl md:text-3xl font-bold mb-4" style={{ color: 'var(--text-main)' }}>
-                        {exp.title}
-                      </h2>
-                      <div className="space-y-4 text-base md:text-lg leading-relaxed max-w-2xl" style={{ color: 'var(--text-muted)' }}>
-                        <p className="text-emerald-400 text-sm">{exp.period}</p>
-                        {exp.bullets.map((b, i) => (
-                          <p key={i}>{b}</p>
-                        ))}
-                      </div>
-                    </div>
+                    ))}
                   </div>
-                ))}
-              </Carousel>
+                </AccordionItem>
+              ))}
             </div>
           </RevealOnScroll>
-          {/* Intro Video */}
-          <RevealOnScroll delay={0.15} direction="right">
-            <div className="bento-card p-8 md:p-14 flex flex-col justify-between">
-              <div className="font-mono text-emerald-500 text-[10px] uppercase tracking-widest mb-6 flex items-center gap-2">
-                / Intro_Entry
+
+          {/* Certificates Accordion */}
+          <RevealOnScroll delay={0.1} direction="right">
+            <div className="bento-card p-6 md:p-10">
+              <div className="font-mono text-[10px] uppercase tracking-widest mb-5 text-violet-500">
+                / Certifications
               </div>
-              <iframe
-                className="w-full h-auto rounded-xl sm:h-64"
-                src="https://www.youtube-nocookie.com/embed/ODVpG64Nf40?si=VCRHoR0iD-OpQFDC"
-                srcDoc="<style>*{padding:0;margin:0;overflow:hidden}html,body{height:100%}img,span{position:absolute;width:100%;top:0;bottom:0;margin:auto}span{height:1.5em;text-align:center;font:48px/1.5 sans-serif;color:white;text-shadow:0 0 0.5em black}</style><a href=https://www.youtube-nocookie.com/embed/ODVpG64Nf40?autoplay=1><img src=https://img.youtube.com/vi/ODVpG64Nf40/hqdefault.jpg alt='Video'><span>▶</span></a>"
-                title="YouTube video player"
-                frameBorder="0"
-                allow="autoplay; encrypted-media"
-                allowFullScreen
-                loading="lazy"
-              ></iframe>
+              {certificates.map((cert, idx) => (
+                <AccordionItem
+                  key={cert.id}
+                  id={cert.id}
+                  openId={openCert}
+                  setOpenId={setOpenCert}
+                  label={cert.label}
+                  title={cert.title}
+                  subtitle={cert.date}
+                  isFirst={idx === 0}
+                  isLast={idx === certificates.length - 1}
+                >
+                  <ul
+                    className="grid grid-cols-2 gap-x-4 gap-y-1.5 text-xs mb-4"
+                    style={{ color: 'var(--text-muted)' }}
+                  >
+                    {cert.skills.map((s) => (
+                      <li key={s} style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
+                        <span style={{ width: 4, height: 4, borderRadius: '50%', background: 'var(--emerald, #10b981)', flexShrink: 0, display: 'inline-block' }} />
+                        {s}
+                      </li>
+                    ))}
+                  </ul>
+                  <img
+                    src={cert.img}
+                    className="rounded-xl w-full"
+                    alt={`${cert.title} Certificate for Sahed Alom Sumit`}
+                    loading="lazy"
+                    style={{ maxHeight: 'none', objectFit: 'contain', background: 'rgba(0,0,0,0.2)', padding: '4px' }}
+                  />
+                </AccordionItem>
+              ))}
             </div>
           </RevealOnScroll>
         </div>
@@ -692,7 +758,7 @@ export default function Home() {
       {/* Featured Portfolio */}
       <section id="work" className="py-24 px-4 max-w-7xl mx-auto">
         <RevealOnScroll>
-          <div className="flex flex-col md:flex-row justify-between items-end mb-16 gap-6">
+          <div className="flex flex-col md:flex-row justify-between items-start mb-16 gap-6">
             <div>
               <h2 className="text-5xl sm:text-6xl font-extrabold tracking-tighter text-white uppercase">
                 Main_Builds
