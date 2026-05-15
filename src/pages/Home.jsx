@@ -398,6 +398,59 @@ export default function Home() {
         </div>
       </section>
 
+      {/* ── Intro Video Section ────────────────────────────────────────── */}
+      <section id="intro-video" className="py-24 px-4 max-w-7xl mx-auto overflow-hidden">
+        <RevealOnScroll direction="up">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+            <div className="lg:col-span-5 space-y-8">
+              <div>
+                <div className="font-mono text-violet-500 text-[10px] uppercase tracking-widest flex items-center gap-3 mb-4">
+                  <span className="flex h-2 w-2 relative">
+                    <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-violet-400 opacity-75"></span>
+                    <span className="relative inline-flex rounded-full h-2 w-2 bg-violet-500"></span>
+                  </span>
+                  / Stream_Intro
+                </div>
+                <h2 className="text-4xl md:text-5xl font-extrabold text-white tracking-tighter uppercase leading-[0.9]">
+                  Designing the <br />
+                  <span className="text-violet-500">Future</span>
+                </h2>
+              </div>
+              
+              <div className="space-y-6 text-gray-400 text-lg font-light leading-relaxed">
+                <p>
+                  Experience the journey behind the pixels. This video captures my transition from a curious developer to a professional web designer, highlighting the passion that fuels every project I undertake.
+                </p>
+                <div className="flex items-center gap-4 pt-4">
+                  <div className="w-12 h-[1px] bg-violet-500/50" />
+                  <span className="font-mono text-[10px] uppercase tracking-widest text-violet-500/80">Sahed Alom Sumit</span>
+                </div>
+              </div>
+            </div>
+
+            <div className="lg:col-span-7 relative">
+              <div className="bento-card p-2 md:p-4 relative group">
+                {/* Decorative Elements */}
+                <div className="absolute -top-10 -right-10 w-40 h-40 bg-violet-500/10 blur-[80px] rounded-full pointer-events-none" />
+                <div className="absolute -bottom-10 -left-10 w-40 h-40 bg-emerald-500/10 blur-[80px] rounded-full pointer-events-none" />
+                
+                <div className="relative aspect-video rounded-2xl overflow-hidden border border-white/5 shadow-2xl bg-black/40">
+                  <iframe
+                    className="absolute inset-0 w-full h-full"
+                    src="https://www.youtube.com/embed/sPwLfagEq9M?si=fe5J85hzHyWzQokb"
+                    title="My Journey as a Web Designer & Developer | Sahed Alom Sumit"
+                    frameBorder="0"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                    referrerPolicy="strict-origin-when-cross-origin"
+                    allowFullScreen
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+        </RevealOnScroll>
+      </section>
+
       {/* Bio Section */}
       <section
         id="bio"
