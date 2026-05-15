@@ -419,7 +419,7 @@ export default function Home() {
               
               <div className="space-y-6 text-gray-400 text-lg font-light leading-relaxed">
                 <p>
-                  Experience the journey behind the pixels. This video captures my transition from a curious developer to a professional web designer, highlighting the passion that fuels every project I undertake.
+                  Experience the journey behind the pixels. This video captures my transition from a curious developer to a professional web designer & developer, highlighting the passion that fuels every project I undertake.
                 </p>
                 <div className="flex items-center gap-4 pt-4">
                   <div className="w-12 h-[1px] bg-violet-500/50" />
