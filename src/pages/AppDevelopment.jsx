@@ -33,8 +33,6 @@ export default function AppDevelopment() {
     return projects.filter(p => p.tags && p.tags.some(tag => tags.includes(tag)))
   }, [projects, tags])
 
-  const [activeTab, setActiveTab] = useState('android')
-
   const tabContent = {
     android: {
       title: 'Android App',
@@ -42,15 +40,10 @@ export default function AppDevelopment() {
       desc: 'Transform your ideas into powerful mobile experiences. I specialize in building high-performance, visually stunning Android applications using Flutter and the Dart programming language, delivering native-like quality with a single codebase.',
       deliverables: 'Native-like Performance, Custom UI/UX, API & Backend Integration, Push Notifications, In-App Purchases, Play Store Deployment',
       stack: 'Flutter, Dart, Provider/Riverpod, BLoC, Firebase, Supabase, Android Studio'
-    },
-    ios: {
-      title: 'iOS App',
-      label: 'Mobile_Module',
-      desc: 'The same Flutter codebase that powers your Android app? It runs beautifully on iOS too. Pixel-perfect on iPhone, fluid on iPad, and published to the App Store with the same care and precision. One codebase, two platforms, zero compromise.',
-      deliverables: 'Native-like iOS performance, Custom UI with Cupertino widgets, App Store submission, Push notifications, In-app purchases, Shared codebase',
-      stack: 'Flutter, Dart, Xcode, TestFlight, Provider/Riverpod, Firebase, Supabase'
     }
   }
+
+  const activeTab = 'android'
 
   return (
     <>
@@ -84,12 +77,7 @@ export default function AppDevelopment() {
                 {Object.entries(tabContent).map(([id, content]) => (
                   <button
                     key={id}
-                    onClick={() => setActiveTab(id)}
-                    className={`px-6 py-3 rounded-full font-mono text-[10px] uppercase tracking-widest transition-all whitespace-nowrap ${
-                      activeTab === id 
-                      ? 'bg-emerald-500 text-black font-black' 
-                      : 'bg-white/5 text-gray-400 hover:bg-white/10 hover:text-white'
-                    }`}
+                    className="px-6 py-3 rounded-full font-mono text-[10px] uppercase tracking-widest transition-all whitespace-nowrap bg-emerald-500 text-black font-black"
                   >
                     {content.title}
                   </button>

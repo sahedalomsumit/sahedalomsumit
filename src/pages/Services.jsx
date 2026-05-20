@@ -92,8 +92,7 @@ const categories = [
     text: 'text-emerald-400',
     glow: 'shadow-emerald-500/10',
     subServices: [
-      { name: 'Android App Development', slug: 'android-app-development', tech: 'flutter' },
-      { name: 'iOS App Development', slug: 'ios-app-development', tech: 'flutter' }
+      { name: 'Android App Development', slug: 'android-app-development', tech: 'flutter' }
     ]
   },
   {
