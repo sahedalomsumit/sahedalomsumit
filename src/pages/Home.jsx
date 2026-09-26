@@ -320,9 +320,8 @@ export default function Home() {
 
     // Typewriter
     const words = [
-      "Web Designer",
-      "Web Developer",
-      "AI Automation",
+      "Product Designer",
+      "AI-Enhanced Web Developer",
       "Design. Code. Deploy.",
     ];
     let i = 0;

@@ -4,11 +4,11 @@ const SEO = ({ title, description }) => {
   useEffect(() => {
     // Update tab title
     const baseTitle = 'Sahed Alom Sumit';
-    document.title = title ? `${title} | ${baseTitle}` : `${baseTitle} | Web Designer & Developer`;
+    document.title = title ? `${title} | ${baseTitle}` : `${baseTitle} | Product Designer & AI-Enhanced Web Developer`;
 
     // Update meta description
     const metaDescription = document.querySelector('meta[name="description"]');
-    const defaultDescription = "Sahed Alom Sumit is a Web Designer & Developer based in Helsinki, Finland. I build websites that feel alive — where good design meets clean code, and every scroll tells a story.";
+    const defaultDescription = "Sahed Alom Sumit is a Product Designer & AI-Enhanced Web Developer based in Helsinki, Finland. I build websites that feel alive — where good design meets clean code, and every scroll tells a story.";
     
     if (metaDescription) {
       metaDescription.setAttribute('content', description || defaultDescription);
