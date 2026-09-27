@@ -88,7 +88,7 @@ export default function App() {
       <CustomCursor />
       <AuraBackground />
       <Header />
-      <main className="pt-20 md:pt-28">
+      <main className="pt-20 md:pt-28" style={{ overflowX: 'clip' }}>
         <Suspense fallback={<PageLoader />}>
           <Routes>
             {/* ── Main Site Routes ── */}

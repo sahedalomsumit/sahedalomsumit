@@ -9,6 +9,7 @@ build/
 *.dll
 *.so
 *.dylib
+chrome-mobile-profile/
 
 # Environment variables (Never commit these!)
 .env

@@ -11,28 +11,36 @@ export default function RevealOnScroll({ children, className = '', delay = 0, di
     const el = ref.current
     if (!el) return
 
+    // On mobile (<768px), skip horizontal translations to prevent overflow/scroll
+    const isMobile = window.innerWidth < 768
+    const usesX = (direction === 'left' || direction === 'right') && !isMobile
+
     // Set initial state based on direction
     const fromVars = { opacity: 0 }
     const toVars = { opacity: 1, duration: 1, delay, ease: 'power3.out' }
 
-    switch (direction) {
-      case 'left':
+    if (usesX) {
+      if (direction === 'left') {
         fromVars.x = -40
         toVars.x = 0
-        break
-      case 'right':
+      } else {
         fromVars.x = 40
         toVars.x = 0
-        break
-      case 'down':
-        fromVars.y = -30
-        toVars.y = 0
-        break
-      case 'up':
-      default:
-        fromVars.y = 30
-        toVars.y = 0
-        break
+      }
+    } else {
+      switch (direction) {
+        case 'down':
+          fromVars.y = -30
+          toVars.y = 0
+          break
+        case 'up':
+        case 'left':
+        case 'right':
+        default:
+          fromVars.y = 24
+          toVars.y = 0
+          break
+      }
     }
 
     gsap.set(el, fromVars)
