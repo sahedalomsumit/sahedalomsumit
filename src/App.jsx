@@ -1,25 +1,49 @@
-import { Routes, Route, useLocation, Navigate } from "react-router-dom";
-import { useEffect } from "react";
+import { Routes, Route, useLocation, Navigate, useParams } from "react-router-dom";
+import { useEffect, lazy, Suspense } from "react";
 import { ThemeProvider } from "./context/ThemeContext";
 import CustomCursor from "./components/CustomCursor";
 import AuraBackground from "./components/AuraBackground";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
-import Home from "./pages/Home";
-import Portfolio from "./pages/Portfolio";
-import Process from "./pages/Process";
-import ProjectDetail from "./pages/ProjectDetail";
-import Faq from "./pages/Faq";
-import SahedChatbot from "./components/SahedChatbot";
-import Services from "./pages/Services";
-import UIUXDesign from "./pages/UIUXDesign";
-import FullStackDevelopment from "./pages/FullStackDevelopment";
-import LowNoCodeDevelopment from "./pages/LowNoCodeDevelopment";
-import AppDevelopment from "./pages/AppDevelopment";
 
-import ToolsServices from "./pages/ToolsServices";
-import Quote from "./pages/Quote";
-import NotFound from "./pages/NotFound";
+// Lazy-loaded routes for optimal bundle chunking and performance
+const Home = lazy(() => import("./pages/Home"));
+const Work = lazy(() => import("./pages/Work"));
+const Process = lazy(() => import("./pages/Process"));
+const ProjectDetail = lazy(() => import("./pages/ProjectDetail"));
+const Faq = lazy(() => import("./pages/Faq"));
+const Services = lazy(() => import("./pages/Services"));
+const UIUXDesign = lazy(() => import("./pages/UIUXDesign"));
+const FullStackDevelopment = lazy(() => import("./pages/FullStackDevelopment"));
+const LowNoCodeDevelopment = lazy(() => import("./pages/LowNoCodeDevelopment"));
+const AppDevelopment = lazy(() => import("./pages/AppDevelopment"));
+const ToolsServices = lazy(() => import("./pages/ToolsServices"));
+const Estimate = lazy(() => import("./pages/Estimate"));
+const Blog = lazy(() => import("./pages/Blog"));
+const BlogPostDetail = lazy(() => import("./pages/BlogPostDetail"));
+const NotFound = lazy(() => import("./pages/NotFound"));
+
+// Lazy-load floating AI chatbot to keep initial bundle ultra-lean
+const SahedChatbot = lazy(() => import("./components/SahedChatbot"));
+
+function PageLoader() {
+  return (
+    <div className="min-h-[60vh] flex flex-col items-center justify-center px-4 py-20">
+      <div className="relative flex items-center justify-center">
+        <div className="w-10 h-10 rounded-full border-2 border-violet-500/20 border-t-violet-500 animate-spin" />
+        <div className="w-2 h-2 rounded-full bg-emerald-400 absolute animate-pulse" />
+      </div>
+      <p className="mt-4 font-mono text-[11px] text-violet-400 uppercase tracking-widest">
+        Loading...
+      </p>
+    </div>
+  );
+}
+
+function LegacyProjectRedirect() {
+  const { slug } = useParams();
+  return <Navigate to={slug ? `/work/${slug}` : "/work"} replace />;
+}
 
 function ScrollToTop() {
   const { pathname, hash } = useLocation();
@@ -61,25 +85,33 @@ export default function App() {
       <AuraBackground />
       <Header />
       <main className="pt-20 md:pt-28">
-        <Routes>
-          {/* ── Main Site Routes ── */}
-          <Route path="/" element={<Home />} />
-          <Route path="/process" element={<Process />} />
-          <Route path="/portfolio" element={<Portfolio />} />
-          <Route path="/portfolio/:slug" element={<ProjectDetail />} />
-          <Route path="/faq" element={<Faq />} />
-          <Route path="/services" element={<Services />} />
-          <Route path="/services/ui-ux-design" element={<UIUXDesign />} />
-          <Route path="/services/full-stack-development" element={<FullStackDevelopment />} />
-          <Route path="/services/low-no-code-development" element={<LowNoCodeDevelopment />} />
-          <Route path="/services/app-development" element={<AppDevelopment />} />
+        <Suspense fallback={<PageLoader />}>
+          <Routes>
+            {/* ── Main Site Routes ── */}
+            <Route path="/" element={<Home />} />
+            <Route path="/process" element={<Process />} />
+            <Route path="/work" element={<Work />} />
+            <Route path="/work/:slug" element={<ProjectDetail />} />
+            <Route path="/portfolio" element={<Navigate to="/work" replace />} />
+            <Route path="/portfolio/:slug" element={<LegacyProjectRedirect />} />
+            <Route path="/faq" element={<Faq />} />
+            <Route path="/services" element={<Services />} />
+            <Route path="/services/ui-ux-design" element={<UIUXDesign />} />
+            <Route path="/services/full-stack-development" element={<FullStackDevelopment />} />
+            <Route path="/services/low-no-code-development" element={<LowNoCodeDevelopment />} />
+            <Route path="/services/app-development" element={<AppDevelopment />} />
 
-          <Route path="/services/tools" element={<ToolsServices />} />
-          <Route path="/quote" element={<Quote />} />
-          <Route path="/work" element={<Navigate to="/portfolio" replace />} />
-          <Route path="*" element={<NotFound />} />
-        </Routes>
-        <SahedChatbot />
+            <Route path="/services/tools" element={<ToolsServices />} />
+            <Route path="/estimate" element={<Estimate />} />
+            <Route path="/quote" element={<Navigate to="/estimate" replace />} />
+            <Route path="/blog" element={<Blog />} />
+            <Route path="/blog/:slug" element={<BlogPostDetail />} />
+            <Route path="*" element={<NotFound />} />
+          </Routes>
+        </Suspense>
+        <Suspense fallback={null}>
+          <SahedChatbot />
+        </Suspense>
       </main>
       <Footer />
     </ThemeProvider>

@@ -122,7 +122,7 @@ export default function AppDevelopment() {
           <div className="mb-20">
             <div className="flex items-center justify-between mb-10 border-b border-white/5 pb-6">
               <h2 className="text-2xl font-bold tracking-tighter text-white uppercase">Featured_Builds</h2>
-              <Link to="/portfolio" className="font-mono text-[10px] text-emerald-500 uppercase tracking-widest hover:text-emerald-400 transition-colors">View_All_Work →</Link>
+              <Link to="/work" className="font-mono text-[10px] text-emerald-500 uppercase tracking-widest hover:text-emerald-400 transition-colors">View_All_Work →</Link>
             </div>
             
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12 mb-16">
@@ -146,7 +146,7 @@ export default function AppDevelopment() {
 
             <div className="mt-20">
               <Link 
-                to="/portfolio" 
+                to="/work" 
                 className="group relative flex flex-col items-center justify-center py-20 px-4 rounded-[40px] border border-white/5 bg-white/[0.01] hover:bg-white/[0.03] transition-all duration-700 overflow-hidden"
               >
                 {/* Background Glow */}
@@ -159,7 +159,7 @@ export default function AppDevelopment() {
                   </h3>
                   <div className="flex items-center gap-4 text-gray-400 group-hover:text-white transition-colors duration-500">
                     <span className="h-[1px] w-12 bg-white/10 group-hover:w-20 group-hover:bg-emerald-500/50 transition-all duration-700"></span>
-                    <span className="font-mono text-xs uppercase tracking-widest">Enter_Portfolio_Gallery</span>
+                    <span className="font-mono text-xs uppercase tracking-widest">Enter_Work_Gallery</span>
                     <span className="h-[1px] w-12 bg-white/10 group-hover:w-20 group-hover:bg-emerald-500/50 transition-all duration-700"></span>
                   </div>
                 </div>

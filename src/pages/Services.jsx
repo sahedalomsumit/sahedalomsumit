@@ -2,218 +2,239 @@ import { Link } from 'react-router-dom'
 import RevealOnScroll from '../components/RevealOnScroll'
 import ContactSection from '../components/ContactSection'
 import { useSEO } from '../hooks/useSEO'
-
 import TechIcon from '../components/TechIcon'
 
 const categories = [
   {
     num: '01',
     slug: 'full-stack-development',
-    label: 'Full_Stack_Hub',
+    label: 'Architecture & Engineering',
     title: 'Full-Stack Web Development',
-    tagline: 'Custom dashboards, complex data flows, and integrations written from scratch.',
+    tagline: 'Custom web applications, complex state workflows, and modern cloud integrations.',
     icon: (
-      <svg viewBox="0 0 24 24" fill="none" className="w-8 h-8" stroke="currentColor" strokeWidth="1.5">
+      <svg viewBox="0 0 24 24" fill="none" className="w-7 h-7" stroke="currentColor" strokeWidth="1.5">
         <path d="M12 2L2 7l10 5 10-5-10-5z" /><path d="M2 17l10 5 10-5" /><path d="M2 12l10 5 10-5" />
       </svg>
     ),
-    color: 'emerald',
-    border: 'border-emerald-500/20',
-    bg: 'bg-emerald-500/5',
-    text: 'text-emerald-400',
-    glow: 'shadow-emerald-500/10',
+    badge: 'High Performance',
+    badgeColor: 'text-emerald-400 border-emerald-500/20 bg-emerald-500/10',
+    accentColor: 'text-emerald-400',
     subServices: [
-      { name: 'Frontend Development', slug: 'frontend-development', tech: 'react' },
-      { name: 'Backend Development', slug: 'backend-development', tech: 'node' },
-      { name: 'AI Automation', slug: 'ai-automation', tech: 'zapier' },
-      { name: 'SEO & Optimization', slug: 'seo-optimization', tech: 'nextjs' }
+      { name: 'Frontend Architecture', tech: 'react' },
+      { name: 'Backend & APIs', tech: 'node' },
+      { name: 'AI Automations', tech: 'zapier' },
+      { name: 'Technical SEO', tech: 'nextjs' }
     ]
   },
   {
     num: '02',
     slug: 'low-no-code-development',
-    label: 'Low_No_Code_Hub',
-    title: 'Low/No-Code Web Development',
-    tagline: 'Building something powerful without reinventing the wheel.',
+    label: 'Rapid Market Velocity',
+    title: 'Webflow & CMS Development',
+    tagline: 'Building ultra-responsive, easily maintainable platforms without unnecessary friction.',
     icon: (
-      <svg viewBox="0 0 24 24" fill="none" className="w-8 h-8" stroke="currentColor" strokeWidth="1.5">
+      <svg viewBox="0 0 24 24" fill="none" className="w-7 h-7" stroke="currentColor" strokeWidth="1.5">
         <circle cx="12" cy="12" r="10" /><path d="M12 8v8M8 12h8" />
       </svg>
     ),
-    color: 'violet',
-    border: 'border-violet-500/20',
-    bg: 'bg-violet-500/5',
-    text: 'text-violet-500',
-    glow: 'shadow-violet-500/10',
+    badge: 'Certified Webflow',
+    badgeColor: 'text-violet-400 border-violet-500/20 bg-violet-500/10',
+    accentColor: 'text-violet-400',
     subServices: [
-      { name: 'WordPress', slug: 'wordpress-development', tech: 'wordpress' },
-      { name: 'Webflow', slug: 'webflow-development', tech: 'webflow' },
-      { name: 'Shopify', slug: 'shopify-development', tech: 'shopify' }
+      { name: 'Webflow Custom Builds', tech: 'webflow' },
+      { name: 'WordPress & WooCommerce', tech: 'wordpress' },
+      { name: 'Shopify E-Commerce', tech: 'shopify' }
     ]
   },
   {
     num: '03',
     slug: 'ui-ux-design',
-    label: 'Design_Hub',
-    title: 'UI/UX Design',
-    tagline: 'Every great digital product starts with a conversation, not a canvas.',
+    label: 'Human-Centered Experience',
+    title: 'UI/UX Design Systems',
+    tagline: 'Every great digital product starts with deep user insight and crystal-clear visual hierarchy.',
     icon: (
-      <svg viewBox="0 0 24 24" fill="none" className="w-8 h-8" stroke="currentColor" strokeWidth="1.5">
+      <svg viewBox="0 0 24 24" fill="none" className="w-7 h-7" stroke="currentColor" strokeWidth="1.5">
         <rect x="3" y="3" width="8" height="8" rx="2" />
         <rect x="13" y="3" width="8" height="8" rx="4" />
         <rect x="3" y="13" width="8" height="8" rx="4" />
         <circle cx="17" cy="17" r="4" />
       </svg>
     ),
-    color: 'violet',
-    border: 'border-violet-500/20',
-    bg: 'bg-violet-500/5',
-    text: 'text-violet-500',
-    glow: 'shadow-violet-500/10',
+    badge: 'Google UX Certified',
+    badgeColor: 'text-violet-400 border-violet-500/20 bg-violet-500/10',
+    accentColor: 'text-violet-400',
     subServices: [
-      { name: 'Figma Design', slug: 'figma-design', tech: 'figma' }
+      { name: 'Figma Design Systems', tech: 'figma' },
+      { name: 'Interactive Prototypes', tech: 'figma' },
+      { name: 'Conversion Optimization', tech: 'react' }
     ]
   },
   {
     num: '04',
     slug: 'app-development',
-    label: 'App_Hub',
-    title: 'App Development',
-    tagline: 'Cross-platform mobile apps with Flutter and Dart.',
+    label: 'Mobile Solutions',
+    title: 'Cross-Platform App Development',
+    tagline: 'Mobile applications built with Flutter and Dart for iOS and Android from a single codebase.',
     icon: (
-      <svg viewBox="0 0 24 24" fill="none" className="w-8 h-8" stroke="currentColor" strokeWidth="1.5">
+      <svg viewBox="0 0 24 24" fill="none" className="w-7 h-7" stroke="currentColor" strokeWidth="1.5">
         <rect x="5" y="2" width="14" height="20" rx="2" ry="2" />
         <line x1="12" y1="18" x2="12.01" y2="18" />
       </svg>
     ),
-    color: 'emerald',
-    border: 'border-emerald-500/20',
-    bg: 'bg-emerald-500/5',
-    text: 'text-emerald-400',
-    glow: 'shadow-emerald-500/10',
+    badge: 'Flutter & Dart',
+    badgeColor: 'text-emerald-400 border-emerald-500/20 bg-emerald-500/10',
+    accentColor: 'text-emerald-400',
     subServices: [
-      { name: 'Android App Development', slug: 'android-app-development', tech: 'flutter' }
+      { name: 'Android Applications', tech: 'flutter' },
+      { name: 'iOS Cross-Builds', tech: 'flutter' }
     ]
   },
   {
     num: '05',
     slug: 'tools',
-    label: 'Tools_Hub',
-    title: 'Tools',
-    tagline: 'Purpose-built browser extensions and developer tools.',
+    label: 'Developer Ecosystem',
+    title: 'Custom Internal Tools & Extensions',
+    tagline: 'Tailored browser extensions, productivity boosters, and automation scripts.',
     icon: (
-      <svg viewBox="0 0 24 24" fill="none" className="w-8 h-8" stroke="currentColor" strokeWidth="1.5">
+      <svg viewBox="0 0 24 24" fill="none" className="w-7 h-7" stroke="currentColor" strokeWidth="1.5">
         <path d="M16 18l6-6-6-6M8 6l-6 6 6 6" />
       </svg>
     ),
-    color: 'violet',
-    border: 'border-violet-500/20',
-    bg: 'bg-violet-500/5',
-    text: 'text-violet-500',
-    glow: 'shadow-violet-500/10',
+    badge: 'Manifest V3',
+    badgeColor: 'text-violet-400 border-violet-500/20 bg-violet-500/10',
+    accentColor: 'text-violet-400',
     subServices: [
-      { name: 'Google Chrome Extension', slug: 'google-extension', tech: 'chrome' }
+      { name: 'Chrome Web Extensions', tech: 'chrome' },
+      { name: 'Workflow Automations', tech: 'zapier' }
     ]
   }
 ]
 
 const stats = [
-  { value: '150+', label: 'Projects_Delivered' },
-  { value: '10+', label: 'Countries_Served' },
-  { value: '5★', label: 'Avg_Client_Rating' },
-  { value: '5yr+', label: 'Years_Experience' },
+  { value: '150+', label: 'Delivered Projects', sub: 'Worldwide' },
+  { value: '10+', label: 'Countries Served', sub: 'Global Reach' },
+  { value: '5.0★', label: 'Average Client Rating', sub: 'Fiverr & Upwork' },
+  { value: '5+ Yrs', label: 'Hands-on Experience', sub: 'Design & Code' },
 ]
 
 export default function Services() {
   useSEO({
-    title: 'Services Hub | Sahed Alom Sumit',
-    description: `Explore my specialized service hubs: UI/UX Design, Full-Stack Web Development, Low/No-Code Solutions, App Development, and Custom Tools.`,
+    title: 'Specialized Digital Services | Sahed Alom Sumit',
+    description: `Explore my specialized service offerings: UI/UX Design Systems, Full-Stack Web Development, Webflow & CMS Solutions, App Development, and Custom Tools.`,
     canonical: '/services',
   })
 
   return (
     <>
-      {/* Hero */}
-      <section className="pt-32 pb-20 px-4 max-w-7xl mx-auto">
+      {/* Header */}
+      <section className="py-20 sm:py-24 px-4 max-w-7xl mx-auto">
         <RevealOnScroll>
-          <header className="mb-20">
-            <nav aria-label="breadcrumb" className="text-[10px] font-mono uppercase tracking-widest text-gray-500 mb-8 flex flex-wrap items-center gap-2">
-              <Link to="/" className="hover:text-emerald-500 transition">Home</Link>
+          <header className="mb-14">
+            <nav aria-label="breadcrumb" className="text-xs tracking-wider mb-6 flex items-center gap-2" style={{ color: 'var(--text-dim)' }}>
+              <Link to="/" className="hover:text-violet-400 transition-colors">Home</Link>
               <span>/</span>
-              <span className="text-white">Services</span>
+              <span style={{ color: 'var(--text-main)' }} className="font-semibold">Services</span>
             </nav>
-            <div className="font-mono text-emerald-500 text-xs tracking-[0.4em] font-bold uppercase mb-6">Service_Architecture</div>
-            <h1 className="text-5xl md:text-8xl font-black tracking-tighter text-white uppercase leading-none mb-6">
-              What I<br /><span className="text-violet-500">Build</span>
+
+            <span className="pill-badge text-emerald-400 border-emerald-500/20 bg-emerald-500/10 mb-4 inline-flex">
+              Capabilities & Offerings
+            </span>
+
+            <h1 className="text-4xl sm:text-6xl md:text-7xl font-heading font-extrabold tracking-tight uppercase leading-none mb-6"
+                style={{ color: 'var(--text-main)' }}>
+              What I <br />
+              <span className="bg-gradient-to-r from-violet-400 via-purple-300 to-indigo-400 bg-clip-text text-transparent">
+                Design & Build
+              </span>
             </h1>
-            <p className="mt-6 text-gray-400 text-lg md:text-xl max-w-3xl font-light leading-relaxed">
-              From Figma concepts to fully deployed, SEO-optimized platforms — I cover the full spectrum. Design thinking meets clean code. Vibe-coded to convert.
+
+            <p className="mt-4 text-base sm:text-lg max-w-3xl font-light leading-relaxed" style={{ color: 'var(--text-muted)' }}>
+              From initial Figma wireframes to fully deployed, SEO-optimized web applications — I combine aesthetic mastery with robust technical execution to ensure your brand stands out and converts.
             </p>
           </header>
         </RevealOnScroll>
 
-        {/* Stats bar */}
+        {/* Stats Row */}
         <RevealOnScroll>
-          <div className="bento-card p-8 mb-16 grid grid-cols-2 md:grid-cols-4 gap-8">
+          <div className="bento-card p-6 sm:p-8 mb-16 grid grid-cols-2 md:grid-cols-4 gap-6">
             {stats.map((s) => (
               <div key={s.label} className="text-center group">
-                <div className="text-4xl md:text-5xl font-black text-white tracking-tighter group-hover:text-violet-500 transition-colors">{s.value}</div>
-                <div className="font-mono text-[9px] text-gray-500 uppercase tracking-widest mt-2">{s.label}</div>
+                <div className="text-3xl sm:text-4xl font-heading font-black tracking-tight group-hover:text-violet-400 transition-colors"
+                     style={{ color: 'var(--text-main)' }}>
+                  {s.value}
+                </div>
+                <div className="text-xs font-semibold mt-1" style={{ color: 'var(--text-main)' }}>
+                  {s.label}
+                </div>
+                <div className="text-[10px] mt-0.5" style={{ color: 'var(--text-dim)' }}>
+                  {s.sub}
+                </div>
               </div>
             ))}
           </div>
         </RevealOnScroll>
 
-        {/* Category Cards Grid */}
-        <RevealOnScroll>
-          <div className="mb-6">
-            <div className="block sm:flex items-center justify-between mb-10 border-b border-white/5 pb-6">
-              <h2 className="text-2xl font-bold tracking-tighter text-white uppercase">Service_Hubs</h2>
-              <span className="font-mono text-xs text-emerald-500">05_HUBS_ACTIVE</span>
-            </div>
-          </div>
-        </RevealOnScroll>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+        {/* Service Cards Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
           {categories.map((c, i) => (
-            <RevealOnScroll key={c.slug} delay={i * 0.06}>
+            <RevealOnScroll key={c.slug} delay={i * 0.08}>
               <Link 
                 to={`/services/${c.slug}`}
-                className={`bento-card p-8 flex flex-col justify-between group ${c.border} ${c.bg} hover:shadow-2xl hover:${c.glow} transition-all h-full block cursor-pointer`}
+                className="bento-card p-6 sm:p-10 flex flex-col justify-between group h-full cursor-pointer transition-all hover:-translate-y-1"
               >
                 <div>
                   <div className="flex items-center justify-between mb-6">
-                    <div className={`${c.text} opacity-80 group-hover:opacity-100 transition-opacity`}>{c.icon}</div>
-                    <span className={`font-mono text-[10px] ${c.text} opacity-50`}>{c.num}_</span>
+                    <div className="p-3 rounded-2xl border bg-white/[0.04] text-violet-400 group-hover:scale-105 transition-transform"
+                         style={{ borderColor: 'var(--border)' }}>
+                      {c.icon}
+                    </div>
+                    <span className={`pill-badge ${c.badgeColor}`}>
+                      {c.badge}
+                    </span>
                   </div>
-                  <div className={`font-mono ${c.text} text-[10px] uppercase tracking-widest mb-3`}>/ {c.label}</div>
-                  <h3 className="text-2xl md:text-3xl font-black text-white tracking-tighter mb-4 group-hover:text-white/90 transition-colors uppercase italic">{c.title}</h3>
-                  <p className="text-gray-400 text-sm leading-relaxed font-light mb-8">{c.tagline}</p>
+
+                  <div className="text-xs font-mono uppercase tracking-wider text-violet-400 mb-2">
+                    {c.num} // {c.label}
+                  </div>
+
+                  <h3 className="text-2xl sm:text-3xl font-heading font-bold mb-3 tracking-tight group-hover:text-violet-400 transition-colors"
+                      style={{ color: 'var(--text-main)' }}>
+                    {c.title}
+                  </h3>
+
+                  <p className="text-sm leading-relaxed mb-6 font-light" style={{ color: 'var(--text-muted)' }}>
+                    {c.tagline}
+                  </p>
                   
-                  {/* Sub-services list - Now just visual or linking to the same hub */}
-                  <div className="space-y-2">
-                    {c.subServices.map(sub => (
+                  {/* Sub-services */}
+                  <div className="space-y-2 mb-8">
+                    {c.subServices.map((sub, sIdx) => (
                       <div 
-                        key={sub.slug}
-                        className="flex items-center justify-between p-4 rounded-xl bg-white/[0.03] border border-white/5 group-hover:bg-white/[0.05] group-hover:border-white/10 transition-all"
+                        key={sIdx}
+                        className="flex items-center justify-between p-3.5 rounded-xl border transition-all"
+                        style={{
+                          backgroundColor: 'var(--card-bg)',
+                          borderColor: 'var(--border)',
+                        }}
                       >
                         <div className="flex items-center gap-3">
-                          <TechIcon name={sub.tech || sub.name} className={`w-4 h-4 ${c.text} opacity-50 group-hover:opacity-100 transition-all`} />
-                          <span className="text-sm font-medium text-gray-300 group-hover:text-white transition-colors">{sub.name}</span>
+                          <TechIcon name={sub.tech || 'react'} className="w-4 h-4 opacity-75 text-violet-400" />
+                          <span className="text-xs font-medium" style={{ color: 'var(--text-main)' }}>
+                            {sub.name}
+                          </span>
                         </div>
-                        <svg className={`w-4 h-4 ${c.text} opacity-50 group-hover:opacity-100 group-hover:translate-x-1 transition-all`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                          <path d="M9 5l7 7-7 7" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-                        </svg>
+                        <span className="text-xs text-gray-500 group-hover:translate-x-1 group-hover:text-violet-400 transition-all">
+                          →
+                        </span>
                       </div>
                     ))}
                   </div>
                 </div>
-                <div
-                  className={`mt-10 flex items-center gap-2 font-mono text-[10px] uppercase tracking-widest ${c.text} opacity-70 group-hover:opacity-100 transition-opacity`}
-                >
-                  Explore_Hub
-                  <svg className="w-3 h-3 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path d="M14 5l7 7m0 0l-7 7m7-7H3" strokeWidth="2.5" />
-                  </svg>
+
+                <div className="pt-4 border-t flex items-center justify-between text-xs font-semibold uppercase tracking-wider"
+                     style={{ borderColor: 'var(--border)', color: 'var(--accent-light)' }}>
+                  <span>Explore Service Hub</span>
+                  <span className="group-hover:translate-x-1 transition-transform">→</span>
                 </div>
               </Link>
             </RevealOnScroll>
@@ -221,27 +242,41 @@ export default function Services() {
         </div>
       </section>
 
-      {/* Process Overview */}
-      <section className="py-24 px-4 border-y border-white/5 bg-[#030303]">
+      {/* 4-Step Process Section */}
+      <section className="py-24 px-4 border-y" style={{ backgroundColor: 'var(--topbar-bg)', borderColor: 'var(--border)' }}>
         <div className="max-w-7xl mx-auto">
           <RevealOnScroll>
-            <div className="font-mono text-emerald-500 text-[10px] uppercase tracking-widest mb-6">/ How_It_Works</div>
-            <h2 className="text-4xl md:text-6xl font-black tracking-tighter text-white uppercase mb-16">
-              The Process_
-            </h2>
+            <div className="text-center max-w-2xl mx-auto mb-16">
+              <span className="pill-badge text-emerald-400 border-emerald-500/20 bg-emerald-500/10 mb-3">
+                Proven Methodology
+              </span>
+              <h2 className="text-3xl sm:text-5xl font-heading font-extrabold tracking-tight uppercase"
+                  style={{ color: 'var(--text-main)' }}>
+                How We Bring Ideas To Life
+              </h2>
+            </div>
           </RevealOnScroll>
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
             {[
-              { step: '01', title: 'Discovery', desc: 'We align on goals, target users, and project scope before a single pixel moves.' },
-              { step: '02', title: 'Design', desc: 'Wireframes, UI mockups, and prototypes tuned to your brand and conversion goals.' },
-              { step: '03', title: 'Build', desc: 'Clean, performant code — Webflow, WordPress, React, or whichever stack fits best.' },
-              { step: '04', title: 'Launch', desc: 'QA, speed testing, SEO checks, and a smooth handoff with full documentation.' },
+              { step: '01', title: 'Discovery & Vision', desc: 'We align on business goals, target user personas, and clear deliverables before writing a single line of code.' },
+              { step: '02', title: 'Wireframes & UI System', desc: 'Figma mockups, interactive component systems, and design tokens crafted for visual impact and usability.' },
+              { step: '03', title: 'Clean Development', desc: 'Production-ready code — whether Webflow, React, Next.js, or Supabase. Built for performance and sub-second load times.' },
+              { step: '04', title: 'Quality Assurance & Launch', desc: 'Comprehensive cross-device QA, Core Web Vitals optimization, analytics setup, and smooth deployment.' },
             ].map((item, i) => (
-              <RevealOnScroll key={item.step} delay={i * 0.1}>
-                <div className="bento-card p-8 group h-full">
-                  <div className="font-mono text-violet-500/40 text-5xl font-black mb-6 group-hover:text-violet-500/60 transition-colors">{item.step}_</div>
-                  <h3 className="text-lg font-bold text-white mb-3 uppercase tracking-tight">{item.title}</h3>
-                  <p className="text-gray-400 text-sm leading-relaxed font-light">{item.desc}</p>
+              <RevealOnScroll key={item.step} delay={i * 0.08}>
+                <div className="bento-card p-8 h-full flex flex-col justify-between">
+                  <div>
+                    <div className="font-heading text-4xl sm:text-5xl font-black mb-6 text-violet-400/40">
+                      {item.step}
+                    </div>
+                    <h3 className="text-lg font-bold mb-3 uppercase tracking-tight" style={{ color: 'var(--text-main)' }}>
+                      {item.title}
+                    </h3>
+                    <p className="text-xs sm:text-sm leading-relaxed font-light" style={{ color: 'var(--text-muted)' }}>
+                      {item.desc}
+                    </p>
+                  </div>
                 </div>
               </RevealOnScroll>
             ))}

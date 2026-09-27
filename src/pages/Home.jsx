@@ -7,11 +7,12 @@ import Carousel from "../components/Carousel";
 import ProjectCard from "../components/ProjectCard";
 import ContactSection from "../components/ContactSection";
 import { useSEO } from "../hooks/useSEO";
+import { fetchFeaturedProjects } from "../lib/supabase";
 
 gsap.registerPlugin(TextPlugin);
 
-/* ─── Accordion Item ─────────────────────────────────────────────────── */
-function AccordionItem({ id, openId, setOpenId, label, title, subtitle, children, isFirst, isLast }) {
+/* ─── Modern Accordion Item ─────────────────────────────────────────────────── */
+function AccordionItem({ id, openId, setOpenId, num, title, subtitle, badge, children, isFirst, isLast }) {
   const bodyRef = useRef(null);
   const isOpen = openId === id;
 
@@ -23,19 +24,17 @@ function AccordionItem({ id, openId, setOpenId, label, title, subtitle, children
     const el = bodyRef.current;
     if (!el) return;
     if (isOpen) {
-      // Expand
       gsap.set(el, { display: 'block' });
       gsap.fromTo(
         el,
         { height: 0, opacity: 0 },
-        { height: 'auto', opacity: 1, duration: 0.45, ease: 'power3.out' }
+        { height: 'auto', opacity: 1, duration: 0.4, ease: 'power3.out' }
       );
     } else {
-      // Collapse
       gsap.to(el, {
         height: 0,
         opacity: 0,
-        duration: 0.35,
+        duration: 0.3,
         ease: 'power3.in',
         onComplete: () => gsap.set(el, { display: 'none' }),
       });
@@ -45,58 +44,52 @@ function AccordionItem({ id, openId, setOpenId, label, title, subtitle, children
   return (
     <div
       onClick={toggle}
-      className="accordion-item"
+      className={`accordion-item transition-all duration-300 py-4 ${
+        !isLast ? 'border-b' : ''
+      }`}
       style={{
-        borderBottom: isLast ? 'none' : (isOpen ? '1px solid rgba(139,92,246,0.3)' : '1px solid var(--border)'),
+        borderColor: isOpen ? 'rgba(139, 92, 246, 0.3)' : 'var(--border)',
         cursor: 'pointer',
-        padding: '1.25rem 0',
-        userSelect: 'none',
-        transition: 'border-color 0.3s ease',
       }}
     >
-      {/* Header row */}
-      <div style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', gap: '1rem' }}>
-        <div style={{ flex: 1 }}>
-          <span style={{ fontFamily: 'monospace', fontSize: '10px', textTransform: 'uppercase', letterSpacing: '0.15em', color: 'var(--emerald, #10b981)', display: 'block', marginBottom: '4px' }}>
-            / {label}
-          </span>
-          <span style={{ fontSize: '0.95rem', fontWeight: 600, color: 'var(--text-main)', lineHeight: 1.35, display: 'block' }}>
+      <div className="flex items-start justify-between gap-4 select-none">
+        <div className="flex-1">
+          <div className="flex items-center gap-2 mb-1.5">
+            {num && (
+              <span className="font-mono text-[10px] text-violet-400 font-semibold">
+                {num}
+              </span>
+            )}
+            {badge && (
+              <span className="px-2 py-0.5 rounded-full text-[9px] font-mono uppercase bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">
+                {badge}
+              </span>
+            )}
+          </div>
+          <h4 className="text-base font-bold text-white transition-colors" style={{ color: isOpen ? 'var(--accent-light)' : 'var(--text-main)' }}>
             {title}
-          </span>
+          </h4>
           {subtitle && (
-            <span style={{ fontSize: '0.72rem', color: 'var(--text-muted)', marginTop: '3px', display: 'block', opacity: 0.7 }}>
+            <p className="text-xs mt-1" style={{ color: 'var(--text-muted)' }}>
               {subtitle}
-            </span>
+            </p>
           )}
         </div>
-        {/* Chevron */}
-        <span
-          style={{
-            width: 28,
-            height: 28,
-            borderRadius: '50%',
-            border: '1px solid var(--border)',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            flexShrink: 0,
-            marginTop: 4,
-            transition: 'all 0.3s ease',
-            background: isOpen ? 'rgba(139,92,246,0.2)' : 'transparent',
-            borderColor: isOpen ? 'rgba(139,92,246,0.4)' : 'var(--border)',
-          }}
+
+        <div
+          className={`w-7 h-7 rounded-full border flex items-center justify-center flex-shrink-0 transition-all duration-300 ${
+            isOpen ? 'border-violet-500 bg-violet-500/20 text-violet-300 rotate-180' : 'text-gray-400'
+          }`}
+          style={{ borderColor: isOpen ? 'var(--accent)' : 'var(--border)' }}
         >
-          <svg
-            width="12" height="12" viewBox="0 0 12 12" fill="none"
-            style={{ transform: isOpen ? 'rotate(180deg)' : 'rotate(0deg)', transition: 'transform 0.3s ease' }}
-          >
-            <path d="M2 4l4 4 4-4" stroke={isOpen ? 'var(--emerald, #10b981)' : 'currentColor'} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+          <svg className="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
+            <path d="M19 9l-7 7-7-7" strokeLinecap="round" strokeLinejoin="round" />
           </svg>
-        </span>
+        </div>
       </div>
-      {/* Body */}
+
       <div ref={bodyRef} style={{ display: isFirst ? 'block' : 'none', overflow: 'hidden' }}>
-        <div style={{ paddingTop: '0.875rem' }}>
+        <div className="pt-3">
           {children}
         </div>
       </div>
@@ -107,86 +100,77 @@ function AccordionItem({ id, openId, setOpenId, label, title, subtitle, children
 const certificates = [
   {
     id: 1,
-    label: "Certi_Entry_1",
     title: "Google UX Design",
     date: "Dec 2024 · Coursera",
+    badge: "Coursera / Google",
     skills: [
-      "UX Basics",
-      "UX Process",
-      "Wireframes & Prototypes",
       "UX Research",
-      "High-Fidelity Designs",
-      "Dynamic UI",
-      "Social Good UX & Jobs",
+      "Wireframing & Prototyping",
+      "Design Systems",
+      "High-Fidelity UI",
+      "Usability Testing",
+      "Accessibility (WCAG)",
     ],
     img: "/img/certificates/Google-UX-Design-Coursera-1SHUXJFXGATW.png",
   },
   {
     id: 2,
-    label: "Certi_Entry_2",
     title: "Master HTML & CSS",
     date: "Aug 2024 · Udemy",
+    badge: "Udemy Certified",
     skills: [
-      "HTML5",
-      "CSS3",
-      "Responsive Design",
-      "Flexbox & Grid",
-      "Accessibility",
-      "Animations",
+      "HTML5 Semantics",
+      "CSS3 Architecture",
+      "Responsive Layouts",
+      "Flexbox & CSS Grid",
+      "Micro-Animations",
     ],
     img: "/img/certificates/master-html-and-css-by-building-real-world-projetcs-certificate-udemy-sahedalomsumit.png",
   },
   {
     id: 3,
-    label: "Certi_Entry_3",
     title: "Design Sprint Days",
     date: "May 2024 · Alma Talent Oy",
-    skills: ["Understand", "Ideate", "Decide", "Prototype", "Test"],
+    badge: "Industry Workshop",
+    skills: ["Understand", "Ideate", "Decide", "Prototype", "User Testing"],
     img: "/img/certificates/design-sprint-days-alma-talent-oy-sahedalomsumit.png",
   },
   {
     id: 4,
-    label: "Certi_Entry_4",
     title: "Responsive Web Design",
     date: "Dec 2023 · FreeCodeCamp",
+    badge: "freeCodeCamp",
     skills: [
-      "HTML",
-      "CSS",
-      "UI/UX Design",
-      "Responsive Layout",
-      "Visual Design",
+      "Mobile-First Design",
+      "CSS Variables & Grid",
+      "Accessible Colors",
+      "Media Queries",
     ],
     img: "/img/certificates/responsive-web-design-freecodecamp-sahedalomsumit.png",
   },
   {
     id: 5,
-    label: "Certi_Entry_5",
     title: "Web Design & Development",
     date: "Mar 2021 · LEDP",
+    badge: "Full-Stack Foundation",
     skills: [
-      "HTML",
-      "CSS",
-      "JavaScript",
-      "PHP",
-      "MySQL",
-      "Figma",
-      "WordPress",
-      "Webflow",
+      "HTML/CSS/JS",
+      "PHP & MySQL",
+      "WordPress Core",
+      "Figma UI",
     ],
     img: "/img/certificates/web-design-and-development-ledp-sahedalomsumit.png",
   },
   {
     id: 6,
-    label: "Certi_Entry_6",
-    title: "Webflow Expert",
+    title: "Webflow Expert Certification",
     date: "Mar 2021 · Webflow",
+    badge: "Webflow Certified",
     skills: [
-      "Webflow Design",
-      "Webflow Development",
-      "Webflow Animation",
-      "Spline 3D",
-      "Responsive Design",
-      "SEO Principles",
+      "Webflow Architecture",
+      "Custom CMS Builds",
+      "GSAP & 3D Spline",
+      "Interaction Design",
     ],
     img: "/img/certificates/webflow-101-sahedalomsumit.png",
   },
@@ -195,59 +179,57 @@ const certificates = [
 const experiences = [
   {
     id: 1,
-    label: "Exp_Entry_1",
-    title: "No-Code Web Developer & UI/UX Designer",
-    period: "May 2020 – Present · Fiverr (Freelance)",
+    title: "Product Designer & AI-Enhanced Web Developer",
+    period: "Mar 2021 – Present · Upwork (Freelance · Remote)",
+    badge: "Top Rated Plus (99% JSS)",
     bullets: [
-      "Delivered 50+ websites for clients across 10+ countries with consistent 5-star ratings and a 40% repeat client rate.",
-      "Built scalable WordPress and Webflow projects with strong focus on UX, performance, responsiveness, and clean structure.",
-      "Managed full workflow from research and wireframes to final launch.",
+      "Top Rated Plus talent maintaining a 99% Job Success Score across 10+ global projects, crafting bespoke Figma designs and translating them into pixel-perfect Webflow, WordPress, Framer, and Kajabi websites.",
+      "Provides full-cycle services from user research to frontend implementation (HTML/CSS/JS), ensuring optimal performance, Core Web Vitals, and technical SEO.",
+      "Consistently rated 5/5 stars for technical expertise, complex CMS integrations, and smooth cinematic animations.",
     ],
   },
   {
     id: 2,
-    label: "Exp_Entry_2",
-    title: "No-Code Web Developer & UI/UX Designer",
-    period: "Mar 2021 – Present · Upwork (Freelance)",
+    title: "Product Designer & AI-Enhanced Web Developer",
+    period: "May 2020 – Present · Fiverr (Freelance · Remote)",
+    badge: "Level 2 Seller (5.0★)",
     bullets: [
-      "Maintains a 100% Job Success Score across over 10 global projects, specializing in creating custom Figma designs and translating them into pixel-perfect Webflow, WordPress, Framer, Kajabi websites.",
-      "Provides full-cycle services from user research to frontend implementation (HTML/CSS/JS), ensuring optimal performance and SEO.",
-      "Consistently rated 5/5 stars for technical expertise, successfully delivering complex CMS integrations and immersive animations.",
+      "Completed 50+ projects independently for clients across 10+ countries worldwide with consistent 5-star ratings and a 40% repeat client rate.",
+      "Designed and developed high-performing websites in WordPress and Webflow, integrating advanced features and seamless UI/UX with Figma and Framer.",
+      "Long-standing Level 2 Seller showcasing reliability and technical mastery in delivering exceptional digital solutions.",
     ],
   },
   {
     id: 3,
-    label: "Exp_Entry_3",
     title: "UI/UX Designer",
-    period: "Mar 2024 – Feb 2025 · Vesko (Part-time)",
+    period: "Mar 2024 – Feb 2025 · Vesko (Part-time · Joensuu, Finland)",
+    badge: "Multi-Platform Product",
     bullets: [
-      "As part of a small design team, I've been closely involved in Vesko's product design, working on mobile app, desktop webshop, and tablet interface designs.",
-      "We're also developing the Vesko website, which will serve as both a landing page and a multi-page site.",
-      "Our goal is to create a seamless, user-friendly experience across all platforms, ensuring the product is both functional and visually appealing.",
+      "Collaborated within a dedicated design team on Vesko’s product design across mobile app, desktop webshop, and tablet interface experiences.",
+      "Designed and developed the Vesko website platform, serving both as high-converting landing pages and a comprehensive multi-page site.",
+      "Created seamless, user-friendly experiences across all platforms ensuring both functional precision and visual appeal.",
     ],
   },
   {
     id: 4,
-    label: "Exp_Entry_4",
-    title: "No-Code Web Designer & Developer",
-    period: "Feb 2022 – Jan 2024 · Artic Maze (Full-time)",
+    title: "Low-Code Web Designer & Developer",
+    period: "Feb 2022 – Jan 2024 · Artic Maze (Full-time · Remote)",
+    badge: "Full-Cycle Delivery",
     bullets: [
-      "I designed and developed website projects from start to finish, using WordPress and Webflow to create custom sites that exceeded client expectations.",
-      "In WordPress, I built and customized websites using Elementor, WooCommerce, Crocoblock, and other essential plugins to enhance functionality and user experience.",
-      "I implemented advanced Webflow features like animations, CMS, and 3D Spline, optimizing performance for speed and functionality.",
-      "I also quickly resolved technical issues to ensure a seamless user experience.",
+      "Designed and developed website projects from start to finish using WordPress and Webflow to build custom sites that exceeded client expectations.",
+      "Built and customized WordPress websites using Elementor, WooCommerce, Crocoblock, and essential plugins to enhance functionality and user experience.",
+      "Implemented advanced Webflow features like animations, CMS, and 3D Spline, optimizing performance for speed and functionality.",
     ],
   },
   {
     id: 5,
-    label: "Exp_Entry_5",
-    title: "Webflow Developer",
-    period: "Mar 2023 – Nov 2023 · Sixforces (Freelance)",
+    title: "No-code Web Designer & Developer",
+    period: "Mar 2023 – Nov 2023 · Sixforces (Freelance · Quebec, Canada)",
+    badge: "40+ Webflow Builds",
     bullets: [
-      "I've completed over 40 projects where I turned designs or older websites into clean, modern Webflow sites.",
-      "I focused on improving content, adding smooth animations, and making each page feel more engaging.",
-      "I also worked closely with clients on features, integrations, and deployment to ensure everything ran smoothly.",
-      "Along the way, I optimized loading speed, responsiveness, and overall user experience, while joining weekly meetings to keep communication clear and steady.",
+      "Completed over 40 projects turning designs and older websites into clean, modern Webflow sites with engaging smooth animations.",
+      "Worked closely with clients on features, integrations, and deployment to ensure everything ran smoothly.",
+      "Optimized loading speed, responsiveness, and overall user experience while joining weekly meetings to keep communication clear and steady.",
     ],
   },
 ];
@@ -258,548 +240,807 @@ const testimonials = [
     name: "Rahil Khan",
     role: "Founder @ Artic Maze",
     quote:
-      '"Sahed is pretty good at Webflow and WordPress, I have done several projects with him and he always did amazing work."',
-    color: "bg-violet-600",
-    shadow: "shadow-violet-500/20",
+      "Sahed is an exceptional talent across Webflow, WordPress, and visual design. We collaborated on multiple high-stakes client projects and he consistently delivered beyond expectations with unmatched speed and precision.",
+    rating: 5,
+    color: "from-violet-600 to-indigo-600",
   },
   {
     initials: "FO",
     name: "Filippo O.",
     role: "Co-founder & President @ Metodo Ongaro",
     quote:
-      '"Sahed has proven to be fast, reliable, capable and dedicated. We have found in him a very valuable partner."',
-    color: "bg-emerald-600",
-    shadow: "shadow-emerald-500/20",
+      "Sahed has proven to be extraordinarily fast, reliable, capable, and dedicated. He solves complex technical problems with effortless design clarity. We have found in him an invaluable digital partner.",
+    rating: 5,
+    color: "from-emerald-600 to-teal-600",
   },
 ];
 
-const reviewImages = Array.from({ length: 18 }, (_, i) => {
-  const nums = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 15, 16, 17, 18, 21];
-  return nums[i]
-    ? `/img/testimonials/fiverr-review-sahedalomsumit-${nums[i]}.webp`
-    : null;
-}).filter(Boolean);
+const reviewImages = [
+  1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 15, 16, 17, 18, 21,
+].map(num => `/img/testimonials/fiverr-review-sahedalomsumit-${num}.webp`);
 
 const reviewSlides = [];
 for (let i = 0; i < reviewImages.length; i += 2) {
   reviewSlides.push(reviewImages.slice(i, i + 2));
 }
 
+// Tech Stack Ribbon Items
+const techStackRibbon = [
+  { name: "Webflow", category: "No-Code" },
+  { name: "React 18", category: "Frontend" },
+  { name: "Next.js", category: "Full-Stack" },
+  { name: "Figma", category: "UI/UX" },
+  { name: "Tailwind CSS", category: "Styling" },
+  { name: "Supabase", category: "Backend" },
+  { name: "GSAP Motion", category: "Animation" },
+  { name: "WordPress", category: "CMS" },
+  { name: "TypeScript", category: "Language" },
+  { name: "Node.js", category: "Backend" },
+  { name: "Shopify", category: "E-Commerce" },
+  { name: "Claude & AI", category: "Workflows" },
+];
+
 export default function Home() {
   const typewriterRef = useRef(null);
   const heroRef = useRef(null);
   const [featured, setFeatured] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [openCert, setOpenCert] = useState(null); // collapsed by default
-  const [openExp, setOpenExp] = useState(1);    // first exp open by default
-  const [activeSkillTab, setActiveSkillTab] = useState(1);
+  const [openCert, setOpenCert] = useState(null);
+  const [openExp, setOpenExp] = useState(1);
+  const [activeSkillTab, setActiveSkillTab] = useState(0);
+  const [activeRole, setActiveRole] = useState(1);
+  const [copiedEmail, setCopiedEmail] = useState(false);
 
   useSEO({
+    title: "Sahed Alom Sumit | Product Designer & AI-Enhanced Web Developer",
     description:
-      "Sahed Alom Sumit is a Web Designer & Developer based in Helsinki, Finland. I build websites that feel alive — where good design meets clean code.",
+      "Sahed Alom Sumit is a Product Designer & AI-Enhanced Web Developer based in Helsinki, Finland. Crafting digital products that feel effortless, load at lightspeed, and convert.",
     canonical: "/",
   });
 
+  const roles = [
+    {
+      title: "Product Designer",
+      icon: "✨",
+      summary: "Crafting human-centered UI/UX systems, wireframes, and high-fidelity interactive prototypes in Figma.",
+      highlight: "Design Systems & Conversion"
+    },
+    {
+      title: "Full-Stack Developer",
+      icon: "⚡",
+      summary: "Building fast, dynamic web applications with React, Next.js, Supabase, Webflow, and WordPress.",
+      highlight: "Clean Code & Performance"
+    },
+    {
+      title: "AI Technologist",
+      icon: "🤖",
+      summary: "Integrating generative AI, automated workflows, and modern tooling to build and scale products 10x faster.",
+      highlight: "Automations & Vibe Coding"
+    }
+  ];
+
   useEffect(() => {
+    let isMounted = true;
+    let timerId = null;
+
     async function loadFeatured() {
-      const { fetchFeaturedProjects } = await import("../lib/supabase");
-      const data = await fetchFeaturedProjects();
-      if (data) setFeatured(data);
-      setLoading(false);
+      try {
+        const data = await fetchFeaturedProjects();
+        if (isMounted && data && data.length > 0) {
+          setFeatured(data);
+        }
+      } catch (err) {
+        console.error("Error loading featured projects:", err);
+      } finally {
+        if (isMounted) {
+          setLoading(false);
+        }
+      }
     }
     loadFeatured();
-    // Hero animations — set initial state then animate in
-    gsap.set(".hero-el", { opacity: 0, y: 20 });
+
+    // Hero GSAP Reveal
+    gsap.set(".hero-el", { opacity: 0, y: 25 });
     gsap.to(".hero-el", {
       opacity: 1,
       y: 0,
-      duration: 1.2,
-      stagger: 0.15,
-      ease: "power4.out",
+      duration: 1,
+      stagger: 0.12,
+      ease: "power3.out",
     });
 
-    // Typewriter
+    // Dynamic typewriter subtitle
     const words = [
       "Product Designer",
       "AI-Enhanced Web Developer",
-      "Design. Code. Deploy.",
+      "Design. Code. Deploy"
     ];
-    let i = 0;
-    const typeWord = () => {
+    let wordIdx = 0;
+    const typeNext = () => {
+      if (!isMounted || !typewriterRef.current) return;
       gsap.to(typewriterRef.current, {
-        duration: 1.5,
-        text: words[i],
+        duration: 1.2,
+        text: words[wordIdx],
         ease: "none",
         onComplete: () => {
-          setTimeout(() => {
-            i = (i + 1) % words.length;
-            typeWord();
-          }, 2000);
+          if (!isMounted) return;
+          timerId = setTimeout(() => {
+            wordIdx = (wordIdx + 1) % words.length;
+            typeNext();
+          }, 2200);
         },
       });
     };
-    typeWord();
+    typeNext();
+
+    return () => {
+      isMounted = false;
+      if (timerId) clearTimeout(timerId);
+    };
   }, []);
+
+  const copyEmail = () => {
+    navigator.clipboard.writeText("sahedalomsumit@gmail.com");
+    setCopiedEmail(true);
+    setTimeout(() => setCopiedEmail(false), 2000);
+  };
 
   return (
     <>
-      {/* Hero Section */}
+      {/* ── 1. Hero Section ── */}
       <section
         id="hero"
         ref={heroRef}
-        className="min-h-screen flex flex-col justify-center items-center text-center relative"
+        className="min-h-[92vh] flex flex-col justify-center items-center text-center relative px-4 pt-6 pb-20 max-w-7xl mx-auto"
       >
-        <div className="space-y-6 flex flex-col items-center px-4 max-w-7xl mx-auto">
-          <div className="font-mono text-violet-500 text-xs tracking-[0.2em] sm:tracking-[0.5em] font-bold uppercase hero-el">
-            Loading Systems...
+        <div className="space-y-6 flex flex-col items-center max-w-5xl mx-auto">
+          {/* Status Badge */}
+          <div className="hero-el">
+            <div className="inline-flex items-center gap-2.5 px-4 py-1.5 rounded-full backdrop-blur-xl border transition-all duration-300 hover:scale-105"
+                 style={{
+                   backgroundColor: 'var(--card-bg)',
+                   borderColor: 'rgba(16, 185, 129, 0.3)',
+                 }}>
+              <span className="relative flex h-2 w-2">
+                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+                <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500 shadow-[0_0_8px_#10b981]"></span>
+              </span>
+              <span className="text-[11px] font-medium tracking-wide" style={{ color: 'var(--text-main)' }}>
+                Based in Helsinki, Finland
+              </span>
+            </div>
           </div>
-          <div className="flex items-center gap-1.5 bg-emerald-500/10 border border-emerald-500/20 px-4 py-1.5 rounded-full hero-el transform transition-all hover:bg-emerald-500/20 mb-2">
-            <span className="w-2 h-2 bg-emerald-500 rounded-full shadow-[0_0_8px_#10b981]" />
-            <span className="text-[9px] md:text-[11px] font-mono text-white-500 font-bold uppercase tracking-[0.2em]">
-              BASED IN HELSINKI, FINLAND
-            </span>
-          </div>
-          <h1 className="text-5xl md:text-7xl lg:text-[8rem] font-extrabold tracking-tighter text-white hero-el leading-[0.85] mb-2 uppercase">
+
+          {/* Main Headline */}
+          <h1 className="hero-el text-5xl sm:text-7xl md:text-8xl lg:text-[7rem] font-heading font-extrabold tracking-[-0.04em] leading-[0.92] uppercase text-white"
+              style={{ color: 'var(--text-main)' }}>
             SAHED ALOM{" "}
-            <span className="text-violet-500">
-              SUMIT<span className="animate-pulse">.</span>
+            <span className="bg-gradient-to-r from-violet-400 via-purple-300 to-indigo-400 bg-clip-text text-transparent">
+              SUMIT<span className="text-violet-500 animate-pulse">.</span>
             </span>
           </h1>
-          <p className="sr-only">
-            Web Designer & Developer based in Helsinki, Finland
-          </p>
-          <div className="h-10 hero-el">
+
+          {/* Typewriter Subheading */}
+          <div className="hero-el flex items-center justify-center gap-2 h-8">
             <span
               ref={typewriterRef}
-              className="font-mono text-sm md:text-2xl text-gray-400 uppercase tracking-[0.3em]"
+              className="font-mono text-sm sm:text-lg md:text-xl font-medium tracking-wider uppercase"
+              style={{ color: 'var(--accent-light)' }}
             />
-            <span className="inline-block w-2 h-6 bg-violet-500 animate-pulse align-middle" />
+            <span className="inline-block w-1.5 h-5 bg-violet-500 animate-pulse rounded-full" />
           </div>
-          <p className="max-w-2xl mx-auto text-gray-400 text-base md:text-lg font-light hero-el pt-4 leading-relaxed italic">
-            Your website problem becomes my problem the moment you share it. I
-            don't stop until it's solved—that's how I'm wired. That's why I call
-            this my passion, not my job.
-          </p>
-          <div className="flex flex-wrap gap-4 justify-center pt-12 hero-el">
-            <Link
-              to="/portfolio"
-              className="px-10 py-4 bg-white text-black font-black rounded-full text-xs tracking-[0.2em] hover:bg-violet-500 hover:text-white transition-all transform hover:-translate-y-1 shadow-2xl shadow-violet-500/10 uppercase"
-            >
-              View My Portfolio
-            </Link>
-            <Link
-              to="/#contact"
-              className="px-10 py-4 bento-card text-white font-bold rounded-full text-xs tracking-[0.2em] hover:border-violet-500 transition-all transform hover:-translate-y-1 uppercase"
-            >
-              Connect With Me
-            </Link>
-          </div>
-        </div>
-      </section>
 
-      {/* ── Intro Video Section ────────────────────────────────────────── */}
-      <section id="intro-video" className="py-24 px-4 max-w-7xl mx-auto overflow-hidden">
-        <RevealOnScroll direction="up">
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
-            <div className="lg:col-span-5 space-y-8">
-              <div>
-                <div className="font-mono text-violet-500 text-[10px] uppercase tracking-widest flex items-center gap-3 mb-4">
-                  <span className="flex h-2 w-2 relative">
-                    <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-violet-400 opacity-75"></span>
-                    <span className="relative inline-flex rounded-full h-2 w-2 bg-violet-500"></span>
-                  </span>
-                  / Stream_Intro
-                </div>
-                <h2 className="text-4xl md:text-5xl font-extrabold text-white tracking-tighter uppercase leading-[0.9]">
-                  Designing the <br />
-                  <span className="text-violet-500">Future</span>
-                </h2>
-              </div>
-              
-              <div className="space-y-6 text-gray-400 text-lg font-light leading-relaxed">
-                <p>
-                  Experience the journey behind the pixels. This video captures my transition from a curious developer to a professional web designer & developer, highlighting the passion that fuels every project I undertake.
-                </p>
-                <div className="flex items-center gap-4 pt-4">
-                  <div className="w-12 h-[1px] bg-violet-500/50" />
-                  <span className="font-mono text-[10px] uppercase tracking-widest text-violet-500/80">Sahed Alom Sumit</span>
-                </div>
-              </div>
-            </div>
-
-            <div className="lg:col-span-7 relative">
-              <div className="bento-card p-2 md:p-4 relative group">
-                {/* Decorative Elements */}
-                <div className="absolute -top-10 -right-10 w-40 h-40 bg-violet-500/10 blur-[80px] rounded-full pointer-events-none" />
-                <div className="absolute -bottom-10 -left-10 w-40 h-40 bg-emerald-500/10 blur-[80px] rounded-full pointer-events-none" />
-                
-                <div className="relative aspect-video rounded-2xl overflow-hidden border border-white/5 shadow-2xl bg-black/40">
-                  <iframe
-                    className="absolute inset-0 w-full h-full"
-                    src="https://www.youtube.com/embed/sPwLfagEq9M?si=fe5J85hzHyWzQokb"
-                    title="My Journey as a Web Designer & Developer | Sahed Alom Sumit"
-                    frameBorder="0"
-                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                    referrerPolicy="strict-origin-when-cross-origin"
-                    allowFullScreen
-                  />
-                </div>
-              </div>
-            </div>
-          </div>
-        </RevealOnScroll>
-      </section>
-
-      {/* Bio Section */}
-      <section
-        id="bio"
-        className="py-24 px-4 max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-12 gap-6"
-      >
-        <RevealOnScroll className="md:col-span-8" direction="left">
-          <div className="bento-card p-8 md:p-14 flex flex-col justify-between h-full">
-            <div>
-              <div className="font-mono text-emerald-500 text-[10px] uppercase tracking-widest mb-6 flex items-center gap-2">
-                / About Me
-              </div>
-              <h2 className="text-2xl md:text-3xl font-bold mb-10 text-white leading-tight">
-                Modern web design. Clean development. AI automation that
-                actually makes sense. That's what I do.
-              </h2>
-              <div className="space-y-6 text-gray-400 text-lg md:text-xl leading-relaxed font-light max-w-2xl">
-                <p>
-                  Your website problem becomes my problem the moment you share
-                  it. I don't stop until it's solved—that's how I'm wired.
-                  That's why I call this my passion, not my job.{" "}
-                </p>
-                <p>
-                  For 5+ years, I've worked with founders, brands, and agencies
-                  worldwide—turning rough ideas into sites that load fast, look
-                  right, and actually convert. I work at the intersection of
-                  design and full-stack development. I care about the vibe of a
-                  page as much as the code behind it.
-                </p>
-                <p>
-                  I also understand the business side because of my bachelor's
-                  in Business IT. So nothing I build is just pretty—it works
-                  toward your goals.
-                </p>
-              </div>
-            </div>
-            <div className="mt-16 grid grid-cols-2 lg:grid-cols-3 gap-10">
-              <div className="border-l-2 border-emerald-500/30 pl-6 group">
-                <div className="text-5xl font-black text-white tracking-tighter group-hover:text-emerald-500 transition-colors">
-                  150+
-                </div>
-                <div className="font-mono text-[10px] text-gray-400 uppercase mt-2 tracking-widest">
-                  Sites Built
-                </div>
-              </div>
-              <div className="border-l-2 border-violet-500/30 pl-6 group">
-                <div className="text-5xl font-black text-white tracking-tighter group-hover:text-violet-500 transition-colors">
-                  5yr+
-                </div>
-                <div className="font-mono text-[10px] text-gray-400 uppercase mt-2 tracking-widest">
-                  Experience
-                </div>
-              </div>
-            </div>
-          </div>
-        </RevealOnScroll>
-
-        <RevealOnScroll
-          className="md:col-span-4"
-          delay={0.15}
-          direction="right"
-        >
-          <div className="bento-card p-8 h-full">
-            <div className="font-mono text-emerald-500 text-[10px] uppercase tracking-widest mb-8">
-              / Core_Node
-            </div>
-            <div className="space-y-10">
-              {[
-                {
-                  label: "Location_ID",
-                  value: "Helsinki, Finland",
-                  href: "https://maps.google.com/?q=Helsinki, Finland",
-                },
-                {
-                  label: "Primary_Mail",
-                  value: "sahedalomsumit@gmail.com",
-                  href: "mailto:sahedalomsumit@gmail.com",
-                },
-                {
-                  label: "WhatsApp_Node",
-                  value: "+358415765539",
-                  href: "https://wa.me/+358415765539",
-                },
-                {
-                  label: "LinkedIn_Profile",
-                  value: "sahedalomsumit",
-                  href: "https://linkedin.com/in/sahedalomsumit",
-                },
-                {
-                  label: "GitHub_Repository",
-                  value: "sahedalomsumit",
-                  href: "https://github.com/sahedalomsumit",
-                },
-              ].map((item) => (
-                <div key={item.label} className="group">
-                  <p className="text-[10px] text-gray-400 uppercase tracking-widest font-bold mb-2">
-                    {item.label}
-                  </p>
-                  <p className="text-white text-lg font-semibold truncate group-hover:text-violet-500 transition">
-                    <a
-                      href={item.href}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                    >
-                      {item.value}
-                    </a>
-                  </p>
-                </div>
-              ))}
-              <div className="pt-10 border-t border-white/5">
-                <p className="text-[10px] text-gray-400 uppercase tracking-widest font-bold mb-4">
-                  Availability_Metrics
-                </p>
-                <div className="flex items-center gap-2">
-                  <span className="w-2 h-2 bg-emerald-500 rounded-full animate-ping" />
-                  <p className="text-white font-bold text-sm">
-                    System_Ready_to_Collab
-                  </p>
-                </div>
-              </div>
-            </div>
-          </div>
-        </RevealOnScroll>
-      </section>
-
-      {/* Skills Section */}
-      <section id="skills" className="py-24 px-4 max-w-7xl mx-auto">
-        <RevealOnScroll>
-          <div className="block sm:flex items-center justify-between mb-16 border-b border-white/5 pb-8">
-            <h2 className="text-4xl font-bold tracking-tighter text-white uppercase">
-              Skill_Inventory
-            </h2>
-            <span className="font-mono text-xs text-emerald-500">
-              40_MODULES_LOADED
-            </span>
-          </div>
-        </RevealOnScroll>
-        {/* Tabbed Skills */}
-        <div className="w-full">
-          {/* Tab Buttons - scrollable on mobile */}
-          <div className="flex overflow-x-auto no-scrollbar gap-4 mb-8 pb-4 -mx-4 px-4 sm:mx-0 sm:px-0 sm:flex-wrap">
-            {[
-              { label: 'Design & UX', id: 0, count: '13' },
-              { label: 'Core Stack', id: 1, count: '16' },
-              { label: 'AI & Automation', id: 2, count: '13' }
-            ].map((tab) => (
+          {/* Interactive Role Switcher Pills */}
+          <div className="hero-el flex flex-wrap justify-center gap-2 pt-2 pb-1">
+            {roles.map((role, idx) => (
               <button
-                key={tab.id}
-                onClick={() => setActiveSkillTab(tab.id)}
-                className={`px-6 py-3 rounded-xl font-mono text-[10px] uppercase tracking-[0.2em] transition-all duration-300 flex items-center gap-3 border whitespace-nowrap ${
-                  activeSkillTab === tab.id
-                    ? 'bg-accent/10 border-accent text-white shadow-[0_0_20px_rgba(139,92,246,0.2)]'
-                    : 'bg-white/5 border-white/5 text-gray-500 hover:border-white/20 hover:text-white'
+                key={role.title}
+                onClick={() => setActiveRole(idx)}
+                className={`px-4 py-2 rounded-full text-xs font-medium tracking-wide transition-all duration-300 flex items-center gap-2 border ${
+                  activeRole === idx
+                    ? 'bg-violet-600 text-white border-violet-500 shadow-lg shadow-violet-600/30 scale-105'
+                    : 'bg-white/[0.03] hover:bg-white/[0.08] text-gray-400 border-white/10 hover:border-white/25'
                 }`}
+                style={activeRole !== idx ? { color: 'var(--text-muted)', borderColor: 'var(--border)' } : {}}
               >
-                <span className={`${activeSkillTab === tab.id ? 'text-accent' : 'text-gray-600'}`}>{tab.step || (tab.id + 1).toString().padStart(2, '0')}_</span>
-                {tab.label}
-                <span className={`ml-2 px-1.5 py-0.5 rounded-md text-[8px] ${activeSkillTab === tab.id ? 'bg-accent/20 text-accent' : 'bg-white/5 text-gray-600'}`}>
-                  {tab.count}
-                </span>
+                <span>{role.icon}</span>
+                <span>{role.title}</span>
+                {activeRole === idx && (
+                  <span className="w-1.5 h-1.5 rounded-full bg-white animate-pulse" />
+                )}
               </button>
             ))}
           </div>
 
-          {/* Tab Content */}
-          <RevealOnScroll key={activeSkillTab}>
-            <div className="bento-card p-10 md:p-14 relative overflow-hidden min-h-[300px]">
-              <div className="absolute top-0 right-0 w-64 h-64 bg-accent/5 blur-[100px] -mr-32 -mt-32" />
-              
-              <div className="relative z-10">
-                {activeSkillTab === 0 && (
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
-                    <div>
-                      <div className="font-mono text-emerald-500 text-[10px] uppercase tracking-widest mb-6">/ Design_Dev_Unit</div>
-                      <h3 className="text-3xl font-bold text-white mb-6 tracking-tight">User Experience & Interface</h3>
-                      <p className="text-gray-400 leading-relaxed max-w-md mb-8">
-                        My approach to design is rooted in psychology and accessibility, ensuring every pixel serves a purpose and every interaction feels natural.
-                      </p>
-                    </div>
-                    <div className="flex flex-wrap gap-2 content-start">
-                      {["UI/UX Design", "Responsive Design", "Design Systems"].map(s => (
-                        <span key={s} className="skill-tag border-emerald-400/50 bg-white/10 text-white font-bold">{s}</span>
-                      ))}
-                      {["User Research", "Wireframing", "Prototyping", "Accessibility (WCAG)", "Typography", "Visual Design", "Information Architecture", "Interaction Design", "Figma", "Adobe Creative Suite"].map(s => (
-                        <span key={s} className="skill-tag">{s}</span>
-                      ))}
-                    </div>
-                  </div>
-                )}
+          {/* Role Dynamic Bio Card */}
+          <div className="hero-el max-w-2xl mx-auto p-4 rounded-2xl border backdrop-blur-md transition-all duration-500"
+               style={{
+                 backgroundColor: 'var(--card-bg)',
+                 borderColor: 'var(--border)',
+               }}>
+            <p className="text-sm md:text-base leading-relaxed font-normal" style={{ color: 'var(--text-muted)' }}>
+              {roles[activeRole].summary}
+            </p>
+          </div>
 
-                {activeSkillTab === 1 && (
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
-                    <div>
-                      <div className="font-mono text-violet-500 text-[10px] uppercase tracking-widest mb-6">/ Design_Dev_Stack</div>
-                      <h3 className="text-3xl font-bold text-white mb-6 tracking-tight">Development & Infrastructure</h3>
-                      <p className="text-gray-400 leading-relaxed max-w-md mb-8">
-                        I leverage a diverse set of technologies to build scalable, high-performance web applications that look great and run faster.
-                      </p>
-                    </div>
-                    <div className="flex flex-wrap gap-2 content-start">
-                      {["Webflow", "WordPress", "React", "Next.js"].map(s => (
-                        <span key={s} className="skill-tag border-violet-400/50 bg-white/10 text-white font-bold">{s}</span>
-                      ))}
-                      {["JavaScript (ES6+)", "HTML5/CSS3", "Tailwind CSS", "Node.js", "Supabase", "Git/GitHub", "REST APIs", "Technical SEO", "Shopify", "CMS Management", "Performance Tuning", "Vercel/AWS"].map(s => (
-                        <span key={s} className="skill-tag">{s}</span>
-                      ))}
-                    </div>
-                  </div>
-                )}
+          {/* Primary Action Buttons */}
+          <div className="hero-el flex flex-wrap gap-3.5 justify-center pt-4">
+            <Link
+              to="/work"
+              className="shimmer-button px-8 py-3.5 rounded-full text-xs font-semibold tracking-wider uppercase transition-all duration-300 transform hover:-translate-y-0.5 shadow-xl flex items-center gap-2.5"
+              style={{
+                backgroundColor: 'var(--hire-btn-bg)',
+                color: 'var(--hire-btn-text)',
+              }}
+            >
+              <span>Explore Selected Work</span>
+              <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
+                <path d="M5 12h14M12 5l7 7-7 7" strokeLinecap="round" strokeLinejoin="round" />
+              </svg>
+            </Link>
 
-                {activeSkillTab === 2 && (
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
-                    <div>
-                      <div className="font-mono text-emerald-500 text-[10px] uppercase tracking-widest mb-6">/ Design_Dev_AI</div>
-                      <h3 className="text-3xl font-bold text-white mb-6 tracking-tight">AI & Workflow Automation</h3>
-                      <p className="text-gray-400 leading-relaxed max-w-md mb-8">
-                        Integrating artificial intelligence and automation into creative workflows to increase efficiency and unlock new creative possibilities.
-                      </p>
+            <Link
+              to="/estimate"
+              className="px-7 py-3.5 rounded-full text-xs font-semibold tracking-wider uppercase transition-all duration-300 transform hover:-translate-y-0.5 border flex items-center gap-2 hover:border-violet-500"
+              style={{
+                backgroundColor: 'var(--card-bg)',
+                borderColor: 'var(--border)',
+                color: 'var(--text-main)',
+              }}
+            >
+              <svg className="w-4 h-4 text-emerald-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                <rect x="4" y="2" width="16" height="20" rx="2" />
+                <line x1="8" y1="6" x2="16" y2="6" />
+                <line x1="16" y1="14" x2="16" y2="18" />
+                <path d="M16 10h.01M12 10h.01M8 10h.01M12 14h.01M8 14h.01M12 18h.01M8 18h.01" />
+              </svg>
+              <span>Project Estimator</span>
+            </Link>
+
+            <a
+              href="https://wa.me/+358415765539"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="px-5 py-3.5 rounded-full text-xs font-semibold tracking-wider transition-all duration-300 border flex items-center gap-2 hover:border-emerald-500 text-emerald-400"
+              style={{
+                backgroundColor: 'var(--card-bg)',
+                borderColor: 'var(--border)',
+              }}
+            >
+              <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
+              <span>WhatsApp</span>
+            </a>
+          </div>
+
+          {/* Quick Metrics Bar */}
+          <div className="hero-el pt-8 w-full max-w-4xl">
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
+              {[
+                { number: "150+", label: "Websites Delivered", sub: "Global Clients" },
+                { number: "99%", label: "Job Success Score", sub: "Top Rated Plus" },
+                { number: "5+ Yrs", label: "Crafting Experience", sub: "Product Design & Dev" },
+                { number: "40%", label: "Repeat Client Rate", sub: "Long-Term Trust" },
+              ].map((stat, i) => (
+                <div
+                  key={i}
+                  className="p-4 rounded-2xl border text-center transition-all duration-300 hover:border-violet-500/40 hover:-translate-y-1"
+                  style={{
+                    backgroundColor: 'var(--card-bg)',
+                    borderColor: 'var(--border)',
+                  }}
+                >
+                  <div className="text-2xl sm:text-3xl font-heading font-black tracking-tight"
+                       style={{ color: i % 2 === 0 ? 'var(--text-main)' : 'var(--accent-light)' }}>
+                    {stat.number}
+                  </div>
+                  <div className="text-xs font-semibold mt-1" style={{ color: 'var(--text-main)' }}>
+                    {stat.label}
+                  </div>
+                  <div className="text-[10px] opacity-70 mt-0.5" style={{ color: 'var(--text-dim)' }}>
+                    {stat.sub}
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ── 2. Tech Stack Infinite Ribbon ── */}
+      <div className="w-full border-y overflow-hidden py-4 my-8"
+           style={{
+             backgroundColor: 'var(--topbar-bg)',
+             borderColor: 'var(--border)',
+           }}>
+        <div className="flex gap-8 whitespace-nowrap animate-marquee">
+          {[...techStackRibbon, ...techStackRibbon].map((item, idx) => (
+            <div key={idx} className="inline-flex items-center gap-2.5 text-xs font-mono font-medium tracking-wider uppercase opacity-75 hover:opacity-100 transition-opacity">
+              <span className="w-1.5 h-1.5 rounded-full bg-violet-400" />
+              <span style={{ color: 'var(--text-main)' }}>{item.name}</span>
+              <span className="text-[10px] px-1.5 py-0.5 rounded bg-white/5 border border-white/10" style={{ color: 'var(--text-dim)' }}>
+                {item.category}
+              </span>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      {/* ── 3. Cinema-Grade Video Showcase ── */}
+      <section id="intro-video" className="py-20 px-4 max-w-7xl mx-auto overflow-hidden">
+        <RevealOnScroll direction="up">
+          <div className="bento-card p-6 md:p-10 relative overflow-hidden">
+            {/* Ambient Background Aura */}
+            <div className="absolute top-0 right-0 w-96 h-96 bg-violet-500/10 blur-[100px] pointer-events-none rounded-full" />
+            <div className="absolute bottom-0 left-0 w-96 h-96 bg-emerald-500/10 blur-[100px] pointer-events-none rounded-full" />
+
+            <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center relative z-10">
+              <div className="lg:col-span-5 space-y-6">
+                <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-mono tracking-wider uppercase bg-violet-500/10 text-violet-400 border border-violet-500/20">
+                  <span className="w-2 h-2 rounded-full bg-violet-400 animate-ping" />
+                  Inside The Studio
+                </div>
+
+                <h2 className="text-3xl sm:text-4xl md:text-5xl font-heading font-extrabold tracking-tight uppercase leading-[0.95]"
+                    style={{ color: 'var(--text-main)' }}>
+                  Designing The <br />
+                  <span className="bg-gradient-to-r from-violet-400 to-indigo-400 bg-clip-text text-transparent">
+                    Digital Future
+                  </span>
+                </h2>
+
+                <p className="text-base sm:text-lg leading-relaxed font-light" style={{ color: 'var(--text-muted)' }}>
+                  Experience the journey behind every pixel. This story captures my evolution from a curious engineer into a world-class product designer and AI-enhanced web developer who obsesses over aesthetic perfection and business impact.
+                </p>
+
+                <div className="flex items-center gap-4 pt-2">
+                  <div className="h-10 w-10 rounded-full border flex items-center justify-center bg-violet-600/20 border-violet-500/40 text-violet-300">
+                    <svg className="w-5 h-5 ml-0.5" viewBox="0 0 24 24" fill="currentColor">
+                      <polygon points="5 3 19 12 5 21 5 3" />
+                    </svg>
+                  </div>
+                  <div>
+                    <p className="text-sm font-bold" style={{ color: 'var(--text-main)' }}>Sahed Alom Sumit</p>
+                    <p className="text-xs font-mono" style={{ color: 'var(--text-dim)' }}>Founder & Lead Designer · 2 Min Watch</p>
+                  </div>
+                </div>
+              </div>
+
+              {/* Video Player Card */}
+              <div className="lg:col-span-7">
+                <div className="relative rounded-2xl overflow-hidden border shadow-2xl group/video"
+                     style={{
+                       borderColor: 'var(--border)',
+                       backgroundColor: '#000000',
+                     }}>
+                  <div className="aspect-video w-full">
+                    <iframe
+                      className="w-full h-full"
+                      src="https://www.youtube.com/embed/sPwLfagEq9M?si=fe5J85hzHyWzQokb"
+                      title="My Journey as a Web Designer & Developer | Sahed Alom Sumit"
+                      frameBorder="0"
+                      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                      referrerPolicy="strict-origin-when-cross-origin"
+                      allowFullScreen
+                    />
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </RevealOnScroll>
+      </section>
+
+      {/* ── 4. Ecosystem & Biography Bento ── */}
+      <section id="bio" className="py-20 px-4 max-w-7xl mx-auto">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
+          {/* Main Narrative Card */}
+          <RevealOnScroll className="lg:col-span-8" direction="left">
+            <div className="bento-card p-8 md:p-12 h-full flex flex-col justify-between">
+              <div>
+                <div className="flex items-center gap-2 mb-6">
+                  <span className="pill-badge text-emerald-400 border-emerald-500/20 bg-emerald-500/10">
+                    About My Craft
+                  </span>
+                </div>
+
+                <h2 className="text-2xl sm:text-3xl md:text-4xl font-heading font-bold mb-8 leading-snug"
+                    style={{ color: 'var(--text-main)' }}>
+                  You bring the idea. I turn it into a digital product that works.
+                </h2>
+
+                <div className="space-y-5 text-base sm:text-lg leading-relaxed font-light" style={{ color: 'var(--text-muted)' }}>
+                  <p>
+                    With 5+ years of experience, I’ve worked with founders, brands, and agencies worldwide, turning rough ideas into 150+ digital projects that are fast, user-friendly, visually polished, and built to support real business goals.
+                  </p>
+                  <p>
+                    I work across design and development—from UI/UX design in Figma and low-code development with Webflow, WordPress, and Kajabi to custom development with React and Supabase. I also use AI-powered tools such as Cursor, Codex, and Antigravity to streamline development, automate repetitive work, and build more efficiently.
+                  </p>
+                  <p>
+                    My background in Business Information Technology also gives me a strong understanding of the business side of digital products. I don’t just focus on how something looks or works—I think about the problem it solves, the users it serves, and the outcome it needs to achieve.
+                  </p>
+                </div>
+              </div>
+
+              {/* Credentials Highlight */}
+              <div className="mt-10 pt-8 border-t grid grid-cols-1 sm:grid-cols-3 gap-6"
+                   style={{ borderColor: 'var(--border)' }}>
+                <div>
+                  <p className="text-xs font-mono uppercase text-violet-400 font-semibold mb-1">Education</p>
+                  <p className="text-sm font-bold" style={{ color: 'var(--text-main)' }}>B.B.A. Business IT</p>
+                  <p className="text-xs" style={{ color: 'var(--text-dim)' }}>Haaga-Helia · GPA 3.57</p>
+                </div>
+                <div>
+                  <p className="text-xs font-mono uppercase text-emerald-400 font-semibold mb-1">Specialty</p>
+                  <p className="text-sm font-bold" style={{ color: 'var(--text-main)' }}>Webflow & React</p>
+                  <p className="text-xs" style={{ color: 'var(--text-dim)' }}>Digital Services & UI</p>
+                </div>
+                <div>
+                  <p className="text-xs font-mono uppercase text-amber-400 font-semibold mb-1">Location</p>
+                  <p className="text-sm font-bold" style={{ color: 'var(--text-main)' }}>Helsinki, Finland</p>
+                  <p className="text-xs" style={{ color: 'var(--text-dim)' }}>Europe / EEST Time</p>
+                </div>
+              </div>
+            </div>
+          </RevealOnScroll>
+
+          {/* Quick Connect Command Card */}
+          <RevealOnScroll className="lg:col-span-4" delay={0.15} direction="right">
+            <div className="bento-card p-8 h-full flex flex-col justify-between">
+              <div>
+                <div className="flex items-center justify-between mb-6">
+                  <span className="pill-badge text-violet-400 border-violet-500/20 bg-violet-500/10">
+                    Live Node
+                  </span>
+                  <span className="flex items-center gap-1.5 text-xs text-emerald-400 font-mono">
+                    <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
+                    Online
+                  </span>
+                </div>
+
+                <div className="space-y-6">
+                  {/* Email with copy button */}
+                  <div className="p-3.5 rounded-xl border transition-colors group"
+                       style={{ backgroundColor: 'var(--card-bg)', borderColor: 'var(--border)' }}>
+                    <div className="flex justify-between items-center mb-1">
+                      <span className="text-[10px] font-mono uppercase tracking-wider" style={{ color: 'var(--text-dim)' }}>
+                        Direct Email
+                      </span>
+                      <button
+                        onClick={copyEmail}
+                        className="text-[10px] font-mono text-violet-400 hover:text-violet-300 transition-colors"
+                      >
+                        {copiedEmail ? 'Copied! ✓' : 'Copy'}
+                      </button>
                     </div>
-                    <div className="flex flex-wrap gap-2 content-start">
-                      {["AI-Assisted Dev", "Workflow Automation", "Prompt Engineering"].map(s => (
-                        <span key={s} className="skill-tag border-emerald-400/50 bg-white/10 text-white font-bold">{s}</span>
-                      ))}
-                      {["Claude Code", "Antigravity", "Make.com", "n8n", "Zapier", "AI UI Generation", "Low-code Solutions", "Automated Testing", "AI Integration", "Vibe Coding"].map(s => (
-                        <span key={s} className="skill-tag">{s}</span>
-                      ))}
+                    <a
+                      href="mailto:sahedalomsumit@gmail.com"
+                      className="text-sm font-semibold truncate block hover:text-violet-400 transition-colors"
+                      style={{ color: 'var(--text-main)' }}
+                    >
+                      sahedalomsumit@gmail.com
+                    </a>
+                  </div>
+
+                  {/* WhatsApp */}
+                  <div className="p-3.5 rounded-xl border transition-colors group"
+                       style={{ backgroundColor: 'var(--card-bg)', borderColor: 'var(--border)' }}>
+                    <span className="text-[10px] font-mono uppercase tracking-wider block mb-1" style={{ color: 'var(--text-dim)' }}>
+                      Instant Messaging
+                    </span>
+                    <a
+                      href="https://wa.me/+358415765539"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-sm font-semibold text-emerald-400 hover:underline flex items-center justify-between"
+                    >
+                      <span>+358 41 576 5539</span>
+                      <span className="text-xs">Chat →</span>
+                    </a>
+                  </div>
+
+                  {/* Social Network Links */}
+                  <div className="space-y-2 pt-2">
+                    <span className="text-[10px] font-mono uppercase tracking-wider block" style={{ color: 'var(--text-dim)' }}>
+                      Verified Profiles
+                    </span>
+                    <div className="grid grid-cols-2 gap-2">
+                      <a
+                        href="https://linkedin.com/in/sahedalomsumit"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="p-2.5 rounded-xl border text-xs font-semibold text-center hover:border-violet-500 transition-colors"
+                        style={{ backgroundColor: 'var(--card-bg)', borderColor: 'var(--border)', color: 'var(--text-main)' }}
+                      >
+                        LinkedIn ↗
+                      </a>
+                      <a
+                        href="https://github.com/sahedalomsumit"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="p-2.5 rounded-xl border text-xs font-semibold text-center hover:border-violet-500 transition-colors"
+                        style={{ backgroundColor: 'var(--card-bg)', borderColor: 'var(--border)', color: 'var(--text-main)' }}
+                      >
+                        GitHub ↗
+                      </a>
                     </div>
                   </div>
-                )}
+                </div>
+              </div>
+
+              {/* Instant Call Prompt */}
+              <div className="mt-8 pt-6 border-t" style={{ borderColor: 'var(--border)' }}>
+                <Link
+                  to="/estimate"
+                  className="w-full py-3 text-center rounded-xl bg-violet-600 hover:bg-violet-500 text-white font-semibold text-xs tracking-wider uppercase block shadow-lg shadow-violet-600/25 transition-all"
+                >
+                  Generate Project Blueprint
+                </Link>
               </div>
             </div>
           </RevealOnScroll>
         </div>
       </section>
 
-      {/* Education, Experience, Certificates */}
-      <section className="py-24 px-4 max-w-7xl mx-auto">
-        {/* Education — full width */}
-        <RevealOnScroll direction="left">
-          <div className="bento-card p-8 md:p-14 mb-6 relative overflow-hidden group">
-            <div className="absolute top-0 right-0 w-32 h-32 bg-violet-500/5 blur-3xl -mr-16 -mt-16 group-hover:bg-violet-500/10 transition-colors" />
-            <div className="font-mono text-[10px] uppercase tracking-widest mb-6 flex items-center gap-2" style={{ color: 'var(--emerald, #10b981)' }}>
-              / Edu_Entry
+      {/* ── 5. Interactive Skills & Capabilities Matrix ── */}
+      <section id="skills" className="py-20 px-4 max-w-7xl mx-auto">
+        <RevealOnScroll>
+          <div className="flex flex-col md:flex-row justify-between items-start md:items-end mb-12 gap-4">
+            <div>
+              <span className="pill-badge text-violet-400 border-violet-500/20 bg-violet-500/10 mb-3">
+                Core Capabilities
+              </span>
+              <h2 className="text-3xl sm:text-5xl font-heading font-extrabold tracking-tight uppercase"
+                  style={{ color: 'var(--text-main)' }}>
+                Skills & Tech Stack
+              </h2>
             </div>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
-              <div>
-                <h2 className="text-xl md:text-3xl font-bold mb-4 leading-tight" style={{ color: 'var(--text-main)' }}>
-                  Bachelor's <span style={{ color: 'var(--text-muted)', fontWeight: 400, fontSize: '0.8em', marginLeft: '10px', opacity: 0.7 }}>| 2023 – 2025</span>
-                </h2>
-                <p className="text-base leading-relaxed mb-1" style={{ color: 'var(--text-muted)' }}>
-                  Haaga-Helia University of Applied Sciences
+            <p className="text-sm font-mono text-emerald-400">
+              40+ VERIFIED MODULES & FRAMEWORKS
+            </p>
+          </div>
+        </RevealOnScroll>
+
+        {/* Tab Buttons */}
+        <div className="flex overflow-x-auto no-scrollbar gap-3 mb-6 pb-2">
+          {[
+            { label: 'UI/UX & Product Design', id: 0, count: '13', icon: '🎨' },
+            { label: 'Frontend & Architecture', id: 1, count: '16', icon: '⚡' },
+            { label: 'AI & Workflow Automation', id: 2, count: '13', icon: '🤖' }
+          ].map((tab) => (
+            <button
+              key={tab.id}
+              onClick={() => setActiveSkillTab(tab.id)}
+              className={`px-5 py-3 rounded-2xl text-xs font-semibold tracking-wider transition-all duration-300 flex items-center gap-3 border whitespace-nowrap ${
+                activeSkillTab === tab.id
+                  ? 'bg-violet-600 text-white border-violet-500 shadow-lg shadow-violet-600/30'
+                  : 'hover:border-white/20'
+              }`}
+              style={activeSkillTab !== tab.id ? {
+                backgroundColor: 'var(--card-bg)',
+                borderColor: 'var(--border)',
+                color: 'var(--text-muted)'
+              } : {}}
+            >
+              <span>{tab.icon}</span>
+              <span>{tab.label}</span>
+              <span className={`px-2 py-0.5 rounded-full text-[10px] font-mono ${
+                activeSkillTab === tab.id ? 'bg-white/20 text-white' : 'bg-white/5 text-gray-500'
+              }`}>
+                {tab.count}
+              </span>
+            </button>
+          ))}
+        </div>
+
+        {/* Active Tab Panel */}
+        <RevealOnScroll key={activeSkillTab}>
+          <div className="bento-card p-8 md:p-12 relative overflow-hidden">
+            <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+              <div className="lg:col-span-4 space-y-4">
+                <span className="font-mono text-xs uppercase tracking-wider text-violet-400">
+                  {activeSkillTab === 0 ? "01. Visual Excellence" : activeSkillTab === 1 ? "02. Technical Precision" : "03. Modern Velocity"}
+                </span>
+                <h3 className="text-2xl font-bold" style={{ color: 'var(--text-main)' }}>
+                  {activeSkillTab === 0 && "Human-Centered Design Systems"}
+                  {activeSkillTab === 1 && "High-Performance Web Engineering"}
+                  {activeSkillTab === 2 && "Automated Workflows & AI Tooling"}
+                </h3>
+                <p className="text-sm leading-relaxed" style={{ color: 'var(--text-muted)' }}>
+                  {activeSkillTab === 0 && "Rooted in user psychology, accessible contrast (WCAG), and responsive typography. Every component is designed to elevate the brand and delight the visitor."}
+                  {activeSkillTab === 1 && "Clean, maintainable, lightning-fast code built with modern frameworks and headless architectures. Zero bloat, optimal SEO, and smooth GSAP micro-interactions."}
+                  {activeSkillTab === 2 && "Leveraging cutting-edge AI integrations, Antigravity, and autonomous workflow pipelines to ship production-ready applications in record time."}
                 </p>
-                <p className="font-semibold mb-1 text-accent">Business Information Technology</p>
-                <p className="text-sm mb-1" style={{ color: 'var(--text-muted)' }}><span style={{ color: 'var(--text-main)', fontWeight: 600 }}>Major:</span> Design Services</p>
-                <p className="text-sm leading-relaxed" style={{ color: 'var(--text-muted)' }}><span style={{ color: 'var(--text-main)', fontWeight: 600 }}>Thesis:</span> The Future of No-code Web Development: Evaluating the Potential and Limitations of Webflow</p>
               </div>
-              <div>
-                <p className="text-sm font-semibold mb-4" style={{ color: 'var(--text-main)' }}>Key Areas of Study</p>
-                <ul className="grid grid-cols-1 sm:grid-cols-2 gap-y-2 gap-x-6 text-sm" style={{ color: 'var(--text-muted)' }}>
+
+              {/* Skills Tags Grid */}
+              <div className="lg:col-span-8 flex flex-wrap gap-2.5">
+                {activeSkillTab === 0 && (
+                  <>
+                    {["UI/UX Design", "Figma Design Systems", "High-Fidelity Prototyping", "User Journey Mapping"].map(s => (
+                      <span key={s} className="skill-tag border-violet-400/50 bg-violet-500/10 text-violet-300 font-semibold">
+                        ★ {s}
+                      </span>
+                    ))}
+                    {["User Research", "Wireframing", "WCAG 2.1 Accessibility", "Design Tokens", "Typography Hierarchy", "Visual Branding", "Spline 3D Integration", "Interaction Design", "Adobe Creative Cloud"].map(s => (
+                      <span key={s} className="skill-tag">{s}</span>
+                    ))}
+                  </>
+                )}
+
+                {activeSkillTab === 1 && (
+                  <>
+                    {["Webflow CMS", "React 18", "Next.js", "WordPress / WooCommerce"].map(s => (
+                      <span key={s} className="skill-tag border-violet-400/50 bg-violet-500/10 text-violet-300 font-semibold">
+                        ★ {s}
+                      </span>
+                    ))}
+                    {["JavaScript (ES6+)", "Tailwind CSS", "Supabase & PostgreSQL", "Node.js", "GSAP & ScrollTrigger", "HTML5 & Modern CSS", "RESTful APIs", "Technical SEO", "Shopify Theme Dev", "Vercel Deployment", "Git & GitHub", "Performance Tuning"].map(s => (
+                      <span key={s} className="skill-tag">{s}</span>
+                    ))}
+                  </>
+                )}
+
+                {activeSkillTab === 2 && (
+                  <>
+                    {["AI-Assisted Engineering", "Workflow Automation", "Autonomous Agents"].map(s => (
+                      <span key={s} className="skill-tag border-emerald-400/50 bg-emerald-500/10 text-emerald-300 font-semibold">
+                        ★ {s}
+                      </span>
+                    ))}
+                    {["Claude Code", "Google Antigravity SDK", "Make.com & Zapier", "n8n Pipelines", "Prompt Engineering", "Vibe Coding", "Automated QA", "AI Content Strategy", "API Integrations", "Low-Code Speed"].map(s => (
+                      <span key={s} className="skill-tag">{s}</span>
+                    ))}
+                  </>
+                )}
+              </div>
+            </div>
+          </div>
+        </RevealOnScroll>
+      </section>
+
+      {/* ── 6. Experience & Education Section ── */}
+      <section className="py-20 px-4 max-w-7xl mx-auto">
+        {/* University Degree */}
+        <RevealOnScroll direction="left">
+          <div className="bento-card p-8 md:p-12 mb-8 relative overflow-hidden">
+            <div className="flex items-center gap-2 mb-6">
+              <span className="pill-badge text-emerald-400 border-emerald-500/20 bg-emerald-500/10">
+                Academic Foundation
+              </span>
+            </div>
+
+            <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+              <div className="lg:col-span-6">
+                <h3 className="text-2xl sm:text-3xl font-heading font-bold mb-2" style={{ color: 'var(--text-main)' }}>
+                  Bachelor of Business Administration (BBA)
+                </h3>
+                <p className="text-sm font-semibold text-violet-400 mb-2">
+                  Haaga-Helia University of Applied Sciences · Helsinki, Finland (Jan 2023 – May 2025)
+                </p>
+                <div className="flex flex-wrap gap-2 mb-4">
+                  <span className="px-2.5 py-1 rounded-full text-xs font-mono bg-violet-500/10 text-violet-300 border border-violet-500/20">
+                    Major: Digital Services
+                  </span>
+                  <span className="px-2.5 py-1 rounded-full text-xs font-mono bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">
+                    Grade: 75.7%
+                  </span>
+                </div>
+                <div className="p-4 rounded-xl border bg-black/10" style={{ borderColor: 'var(--border)' }}>
+                  <p className="text-xs font-mono uppercase text-emerald-400 font-bold mb-1">Bachelor Thesis</p>
+                  <p className="text-sm font-medium leading-relaxed" style={{ color: 'var(--text-main)' }}>
+                    "The Future of No-code Web Development: Evaluating the Potential and Limitations of Webflow"
+                  </p>
+                </div>
+              </div>
+
+              <div className="lg:col-span-6">
+                <p className="text-xs font-mono uppercase tracking-wider text-gray-400 mb-4">
+                  Relevant Coursework & Competencies
+                </p>
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5 text-xs" style={{ color: 'var(--text-muted)' }}>
                   {[
-                    "Digital User Experience",
+                    "Digital User Experience & Service Design",
                     "Website Design & Development",
-                    "Digital Service Design",
-                    "Innovation & Prototyping",
-                    "React Fundamentals",
-                    "Cloud Technologies (AWS)",
-                    "Data Management & Databases",
-                    "Applied AI",
-                    "ICT Project Management",
-                    "Linux Basics",
-                  ].map((a) => (
-                    <li key={a} style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
-                      <span style={{ width: 4, height: 4, borderRadius: '50%', background: 'var(--emerald, #10b981)', flexShrink: 0, display: 'inline-block' }} />
-                      {a}
-                    </li>
+                    "React.JS Fundamentals & Software Dev",
+                    "Innovation, Prototyping & Design Sprints",
+                    "Basic & Applied AI / ChatGPT Workflows",
+                    "Cloud Service Technologies (AWS)",
+                    "Data Management & SQL Databases",
+                    "ICT Project Management & Agile",
+                    "Basic 3D Design with Blender & 3D Printing",
+                    "Data Analytics for Business",
+                  ].map((item, idx) => (
+                    <div key={idx} className="flex items-center gap-2">
+                      <span className="w-1.5 h-1.5 rounded-full bg-emerald-400" />
+                      <span>{item}</span>
+                    </div>
                   ))}
-                </ul>
+                </div>
               </div>
             </div>
           </div>
         </RevealOnScroll>
 
-        {/* Certs + Exp side by side */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          {/* Experience Accordion */}
+        {/* Experience & Certifications Side-by-Side */}
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+          {/* Work Experience Accordion */}
           <RevealOnScroll delay={0.1} direction="left">
-            <div className="bento-card p-6 md:p-10">
-              <div className="font-mono text-[10px] uppercase tracking-widest mb-5 text-violet-500">
-                / Work_Experience
+            <div className="bento-card p-6 md:p-8 h-full">
+              <div className="flex items-center justify-between mb-6">
+                <h3 className="text-xl font-heading font-bold uppercase tracking-tight" style={{ color: 'var(--text-main)' }}>
+                  Work Experience
+                </h3>
+                <span className="text-xs font-mono text-violet-400">5+ YEARS PRO</span>
               </div>
+
               {experiences.map((exp, idx) => (
                 <AccordionItem
                   key={exp.id}
                   id={exp.id}
                   openId={openExp}
                   setOpenId={setOpenExp}
-                  label={exp.label}
+                  num={`0${idx + 1}`}
                   title={exp.title}
                   subtitle={exp.period}
+                  badge={exp.badge}
                   isFirst={idx === 0}
                   isLast={idx === experiences.length - 1}
                 >
-                  <div className="space-y-2.5">
-                    {exp.bullets.map((b, i) => (
-                      <div key={i} style={{ display: 'flex', gap: 10, alignItems: 'flex-start' }}>
-                        <span style={{ marginTop: 7, width: 4, height: 4, borderRadius: '50%', background: '#a78bfa', flexShrink: 0, display: 'inline-block' }} />
-                        <p style={{ fontSize: '0.82rem', lineHeight: 1.65, color: 'var(--text-muted)', margin: 0 }}>{b}</p>
-                      </div>
+                  <ul className="space-y-2 pt-2 text-xs leading-relaxed" style={{ color: 'var(--text-muted)' }}>
+                    {exp.bullets.map((bullet, i) => (
+                      <li key={i} className="flex items-start gap-2">
+                        <span className="w-1 h-1 rounded-full bg-violet-400 mt-1.5 flex-shrink-0" />
+                        <span>{bullet}</span>
+                      </li>
                     ))}
-                  </div>
+                  </ul>
                 </AccordionItem>
               ))}
             </div>
           </RevealOnScroll>
 
-          {/* Certificates Accordion */}
-          <RevealOnScroll delay={0.1} direction="right">
-            <div className="bento-card p-6 md:p-10">
-              <div className="font-mono text-[10px] uppercase tracking-widest mb-5 text-violet-500">
-                / Certifications
+          {/* Certifications Accordion */}
+          <RevealOnScroll delay={0.15} direction="right">
+            <div className="bento-card p-6 md:p-8 h-full">
+              <div className="flex items-center justify-between mb-6">
+                <h3 className="text-xl font-heading font-bold uppercase tracking-tight" style={{ color: 'var(--text-main)' }}>
+                  Certifications
+                </h3>
+                <span className="text-xs font-mono text-emerald-400">VERIFIED CREDENTIALS</span>
               </div>
+
               {certificates.map((cert, idx) => (
                 <AccordionItem
                   key={cert.id}
                   id={cert.id}
                   openId={openCert}
                   setOpenId={setOpenCert}
-                  label={cert.label}
+                  num={`0${idx + 1}`}
                   title={cert.title}
                   subtitle={cert.date}
+                  badge={cert.badge}
                   isFirst={idx === 0}
                   isLast={idx === certificates.length - 1}
                 >
-                  <ul
-                    className="grid grid-cols-2 gap-x-4 gap-y-1.5 text-xs mb-4"
-                    style={{ color: 'var(--text-muted)' }}
-                  >
-                    {cert.skills.map((s) => (
-                      <li key={s} style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
-                        <span style={{ width: 4, height: 4, borderRadius: '50%', background: 'var(--emerald, #10b981)', flexShrink: 0, display: 'inline-block' }} />
-                        {s}
-                      </li>
-                    ))}
-                  </ul>
-                  <img
-                    src={cert.img}
-                    className="rounded-xl w-full"
-                    alt={`${cert.title} Certificate for Sahed Alom Sumit`}
-                    loading="lazy"
-                    style={{ maxHeight: 'none', objectFit: 'contain', background: 'rgba(0,0,0,0.2)', padding: '4px' }}
-                  />
+                  <div className="pt-2 space-y-3">
+                    <div className="flex flex-wrap gap-1.5">
+                      {cert.skills.map((skill) => (
+                        <span key={skill} className="px-2 py-0.5 rounded text-[10px] bg-white/5 border border-white/10" style={{ color: 'var(--text-muted)' }}>
+                          {skill}
+                        </span>
+                      ))}
+                    </div>
+                    {cert.img && (
+                      <div className="rounded-xl overflow-hidden border p-1 bg-black/20" style={{ borderColor: 'var(--border)' }}>
+                        <img
+                          src={cert.img}
+                          alt={`${cert.title} Verified Certificate`}
+                          className="w-full h-auto rounded-lg"
+                          loading="lazy"
+                        />
+                      </div>
+                    )}
+                  </div>
                 </AccordionItem>
               ))}
             </div>
@@ -807,35 +1048,49 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Featured Portfolio */}
-      <section id="work" className="py-24 px-4 max-w-7xl mx-auto">
+      {/* ── 7. Featured Work Showcase ── */}
+      <section id="work" className="py-20 px-4 max-w-7xl mx-auto">
         <RevealOnScroll>
-          <div className="flex flex-col md:flex-row justify-between items-start mb-16 gap-6">
+          <div className="flex flex-col md:flex-row justify-between items-start md:items-end mb-12 gap-6">
             <div>
-              <h2 className="text-5xl sm:text-6xl font-extrabold tracking-tighter text-white uppercase">
-                Main_Builds
+              <span className="pill-badge text-emerald-400 border-emerald-500/20 bg-emerald-500/10 mb-3">
+                Selected Works
+              </span>
+              <h2 className="text-4xl sm:text-6xl font-heading font-extrabold tracking-tight uppercase"
+                  style={{ color: 'var(--text-main)' }}>
+                Featured Projects
               </h2>
-              <p className="text-gray-400 mt-3 text-lg italic">
-                Curated high-performance web solutions.
+              <p className="mt-2 text-base max-w-xl font-light" style={{ color: 'var(--text-muted)' }}>
+                Hand-picked case studies showcasing custom Webflow builds, interactive React web applications, and high-converting design systems.
               </p>
             </div>
+
             <Link
-              to="/portfolio"
-              className="px-8 py-3 bento-card text-[10px] font-mono font-bold hover:bg-white hover:text-black transition uppercase tracking-widest"
+              to="/work"
+              className="px-6 py-3 rounded-full text-xs font-semibold tracking-wider uppercase border hover:border-violet-500 transition-all flex items-center gap-2 group"
+              style={{
+                backgroundColor: 'var(--card-bg)',
+                borderColor: 'var(--border)',
+                color: 'var(--text-main)',
+              }}
             >
-              Explore_Portfolio
+              <span>View All 23+ Projects</span>
+              <span className="transition-transform group-hover:translate-x-1">→</span>
             </Link>
           </div>
         </RevealOnScroll>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
+
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-10">
           {loading ? (
-            <div className="md:col-span-2 text-center font-mono text-emerald-500 uppercase tracking-widest text-xs flex items-center justify-center gap-2 py-10">
-              <span className="w-2 h-2 bg-emerald-500 rounded-full animate-ping" />
-              Fetching_Featured_Builds...
+            <div className="md:col-span-2 text-center py-20 flex flex-col items-center justify-center gap-3">
+              <div className="w-8 h-8 rounded-full border-2 border-violet-500 border-t-transparent animate-spin" />
+              <p className="font-mono text-xs text-violet-400 uppercase tracking-widest">
+                Loading Featured Case Studies...
+              </p>
             </div>
           ) : (
             featured.map((p, i) => (
-              <RevealOnScroll key={p.id || p.slug} delay={i * 0.1}>
+              <RevealOnScroll key={p.id || p.slug} delay={i * 0.08}>
                 <ProjectCard project={p} />
               </RevealOnScroll>
             ))
@@ -843,53 +1098,84 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Testimonials */}
-      <section className="py-32 border-y" style={{ backgroundColor: 'var(--topbar-bg)', borderColor: 'var(--border)' }}>
+      {/* ── 8. Client Testimonials & Social Proof ── */}
+      <section className="py-24 border-y" style={{ backgroundColor: 'var(--topbar-bg)', borderColor: 'var(--border)' }}>
         <div className="max-w-7xl px-4 mx-auto">
           <RevealOnScroll>
-            <h2 className="text-2xl sm:text-6xl font-bold text-center mb-20 uppercase tracking-[0.2em]" style={{ color: 'var(--text-main)' }}>
-              Validation_Logs
-            </h2>
+            <div className="text-center max-w-3xl mx-auto mb-16">
+              <span className="pill-badge text-violet-400 border-violet-500/20 bg-violet-500/10 mb-3">
+                Client Testimonials
+              </span>
+              <h2 className="text-3xl sm:text-5xl font-heading font-extrabold tracking-tight uppercase"
+                  style={{ color: 'var(--text-main)' }}>
+                Trusted By Founders & Teams
+              </h2>
+              <p className="mt-3 text-base font-light" style={{ color: 'var(--text-muted)' }}>
+                Real feedback from clients and agency partners who experienced the transformational speed and quality of our work.
+              </p>
+            </div>
           </RevealOnScroll>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+
+          {/* Founder Testimonial Cards */}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-12">
             {testimonials.map((t, i) => (
-              <RevealOnScroll key={i} delay={i * 0.12}>
-                <div className="bento-card p-8 flex flex-col justify-between hover:bg-white/[0.03] h-full">
-                  <p className="text-gray-400 italic text-lg leading-relaxed mb-10">
-                    {t.quote}
-                  </p>
-                  <div className="flex items-center gap-4">
-                    <div
-                      className={`w-12 h-12 ${t.color} rounded-2xl flex items-center justify-center text-sm font-black shadow-lg ${t.shadow}`}
-                    >
+              <RevealOnScroll key={i} delay={i * 0.1}>
+                <div className="bento-card p-8 md:p-10 flex flex-col justify-between h-full">
+                  <div>
+                    {/* Star Rating */}
+                    <div className="flex gap-1 text-amber-400 mb-6">
+                      {[...Array(5)].map((_, s) => (
+                        <svg key={s} className="w-4 h-4 fill-current" viewBox="0 0 20 20">
+                          <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                        </svg>
+                      ))}
+                    </div>
+
+                    <p className="text-base sm:text-lg italic leading-relaxed mb-8" style={{ color: 'var(--text-main)' }}>
+                      "{t.quote}"
+                    </p>
+                  </div>
+
+                  <div className="flex items-center gap-4 pt-6 border-t" style={{ borderColor: 'var(--border)' }}>
+                    <div className={`w-12 h-12 rounded-2xl bg-gradient-to-br ${t.color} flex items-center justify-center text-sm font-black text-white shadow-lg`}>
                       {t.initials}
                     </div>
                     <div>
-                      <p className="text-white font-bold">{t.name}</p>
-                      <p className="text-[10px] font-mono text-gray-400 uppercase tracking-widest">
-                        {t.role}
-                      </p>
+                      <p className="font-bold text-sm" style={{ color: 'var(--text-main)' }}>{t.name}</p>
+                      <p className="text-xs font-mono" style={{ color: 'var(--text-muted)' }}>{t.role}</p>
                     </div>
                   </div>
                 </div>
               </RevealOnScroll>
             ))}
           </div>
-          {/* Review screenshots carousel */}
+
+          {/* 5-Star Reviews Screenshot Carousel */}
           <RevealOnScroll delay={0.15}>
-            <div className="relative bento-card p-8 mt-8">
+            <div className="bento-card p-6 md:p-8">
+              <div className="flex items-center justify-between mb-6">
+                <div>
+                  <h4 className="text-base font-bold" style={{ color: 'var(--text-main)' }}>
+                    Verified Fiverr & Upwork Reviews
+                  </h4>
+                  <p className="text-xs" style={{ color: 'var(--text-dim)' }}>
+                    50+ 5-Star Deliveries across the globe
+                  </p>
+                </div>
+                <span className="pill-badge text-emerald-400 border-emerald-500/20 bg-emerald-500/10">
+                  5.0 ★ Top Rated
+                </span>
+              </div>
+
               <Carousel>
                 {reviewSlides.map((pair, i) => (
-                  <div
-                    key={i}
-                    className="grid grid-cols-1 md:grid-cols-2 gap-6"
-                  >
+                  <div key={i} className="grid grid-cols-1 md:grid-cols-2 gap-4">
                     {pair.map((imgSrc) => (
-                      <div key={imgSrc} className="rounded-xl overflow-hidden">
+                      <div key={imgSrc} className="rounded-xl overflow-hidden border bg-black/10" style={{ borderColor: 'var(--border)' }}>
                         <img
                           src={imgSrc}
-                          alt="5-star Fiverr client review for Sahed Alom Sumit"
-                          className="w-full h-auto object-cover grayscale hover:grayscale-0 hover:scale-105 transition-all duration-700 ease-out"
+                          alt="5-star client review screenshot for Sahed Alom Sumit"
+                          className="w-full h-auto object-cover transition-transform duration-500 hover:scale-[1.02]"
                           loading="lazy"
                         />
                       </div>
@@ -902,6 +1188,7 @@ export default function Home() {
         </div>
       </section>
 
+      {/* ── 9. Interactive Contact Section ── */}
       <RevealOnScroll>
         <ContactSection />
       </RevealOnScroll>

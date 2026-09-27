@@ -2,16 +2,62 @@ import { useEffect, useRef } from 'react'
 import gsap from 'gsap'
 
 export default function CustomCursor() {
-  const cursorRef = useRef(null)
+  const dotRef = useRef(null)
+  const ringRef = useRef(null)
 
   useEffect(() => {
-    const cursor = cursorRef.current
+    // Disable custom cursor on touch devices or if coarse pointer
+    if (window.matchMedia('(pointer: coarse)').matches) return
+
+    const dot = dotRef.current
+    const ring = ringRef.current
+    if (!dot || !ring) return
+
+    // High performance coordinate setters via GSAP quickTo
+    const setDotX = gsap.quickTo(dot, "x", { duration: 0.05, ease: "power2.out" })
+    const setDotY = gsap.quickTo(dot, "y", { duration: 0.05, ease: "power2.out" })
+    const setRingX = gsap.quickTo(ring, "x", { duration: 0.22, ease: "power2.out" })
+    const setRingY = gsap.quickTo(ring, "y", { duration: 0.22, ease: "power2.out" })
+
     const handleMouseMove = (e) => {
-      gsap.to(cursor, { x: e.clientX - 6, y: e.clientY - 6, duration: 0.1 })
+      setDotX(e.clientX - 4)
+      setDotY(e.clientY - 4)
+      setRingX(e.clientX - 18)
+      setRingY(e.clientY - 18)
     }
-    document.addEventListener('mousemove', handleMouseMove)
-    return () => document.removeEventListener('mousemove', handleMouseMove)
+
+    const handleMouseOver = (e) => {
+      const target = e.target
+      const isInteractive = target.closest('a, button, input, select, textarea, .bento-card, [role="button"]')
+      if (isInteractive) {
+        gsap.to(ring, { scale: 1.6, borderColor: 'rgba(139, 92, 246, 0.6)', backgroundColor: 'rgba(139, 92, 246, 0.08)', duration: 0.2 })
+        gsap.to(dot, { scale: 0.5, duration: 0.2 })
+      } else {
+        gsap.to(ring, { scale: 1, borderColor: 'rgba(255, 255, 255, 0.25)', backgroundColor: 'transparent', duration: 0.2 })
+        gsap.to(dot, { scale: 1, duration: 0.2 })
+      }
+    }
+
+    window.addEventListener('mousemove', handleMouseMove, { passive: true })
+    document.addEventListener('mouseover', handleMouseOver)
+
+    return () => {
+      window.removeEventListener('mousemove', handleMouseMove)
+      document.removeEventListener('mouseover', handleMouseOver)
+    }
   }, [])
 
-  return <div ref={cursorRef} id="cursor" className="hidden md:block" />
+  return (
+    <>
+      <div
+        ref={dotRef}
+        id="cursor"
+        className="hidden md:block fixed pointer-events-none z-[9999] w-2 h-2 bg-white rounded-full mix-blend-difference"
+      />
+      <div
+        ref={ringRef}
+        className="hidden md:block fixed pointer-events-none z-[9998] w-9 h-9 rounded-full border border-white/20 transition-colors"
+      />
+    </>
+  )
 }

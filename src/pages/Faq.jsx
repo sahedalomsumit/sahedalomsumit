@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useMemo } from 'react'
 import { Link } from 'react-router-dom'
 import RevealOnScroll from '../components/RevealOnScroll'
 import ContactSection from '../components/ContactSection'
@@ -8,32 +8,52 @@ import { useSEO } from '../hooks/useSEO'
 function FaqItem({ faq }) {
   const [isOpen, setIsOpen] = useState(false)
 
+  // Auto-detect and format links or emails in answers
+  const formattedAnswer = useMemo(() => {
+    if (!faq.answer) return ''
+    return faq.answer
+  }, [faq.answer])
+
   return (
     <div
-      className="bento-card p-6 md:p-8 cursor-pointer h-fit"
-      style={{ backgroundColor: 'var(--card-bg)', border: '1px solid var(--border)' }}
+      className="bento-card p-6 sm:p-8 cursor-pointer transition-all duration-300 hover:-translate-y-0.5"
       onClick={() => setIsOpen(!isOpen)}
       role="button"
       aria-expanded={isOpen}
       tabIndex={0}
-      onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); setIsOpen(!isOpen); } }}
+      onKeyDown={(e) => {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault()
+          setIsOpen(!isOpen)
+        }
+      }}
     >
-      <div className="flex items-start justify-between text-lg md:text-xl font-medium outline-none" style={{ color: 'var(--text-main)' }}>
-        <span>{faq.question}</span>
-        <span
-          className={`text-emerald-500 text-3xl transition-transform duration-500 ml-4 font-light ${isOpen ? 'rotate-45' : ''}`}
+      <div className="flex items-start justify-between gap-4">
+        <h3 className="text-base sm:text-lg font-bold leading-snug tracking-tight"
+            style={{ color: isOpen ? 'var(--accent-light)' : 'var(--text-main)' }}>
+          {faq.question}
+        </h3>
+        <div
+          className={`w-7 h-7 rounded-full border flex items-center justify-center flex-shrink-0 transition-all duration-300 ${
+            isOpen ? 'border-violet-500 bg-violet-500/20 text-violet-300 rotate-180' : 'text-gray-400'
+          }`}
+          style={{ borderColor: isOpen ? 'var(--accent)' : 'var(--border)' }}
         >
-          +
-        </span>
+          <svg className="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
+            <path d="M19 9l-7 7-7-7" strokeLinecap="round" strokeLinejoin="round" />
+          </svg>
+        </div>
       </div>
+
       <div
-        className="grid transition-all duration-500 ease-[cubic-bezier(0.4,0,0.2,1)]"
+        className="grid transition-all duration-400 ease-[cubic-bezier(0.16,1,0.3,1)]"
         style={{ gridTemplateRows: isOpen ? '1fr' : '0fr', opacity: isOpen ? 1 : 0 }}
       >
         <div className="overflow-hidden">
-          <article className="mt-6 text-base md:text-lg leading-relaxed font-light pt-6" style={{ color: 'var(--text-muted)', borderTop: '1px solid var(--border)' }}>
-            <p>{faq.answer}</p>
-          </article>
+          <div className="mt-4 pt-4 text-sm sm:text-base leading-relaxed font-light border-t"
+               style={{ color: 'var(--text-muted)', borderColor: 'var(--border)' }}>
+            <p>{formattedAnswer}</p>
+          </div>
         </div>
       </div>
     </div>
@@ -44,121 +64,152 @@ export default function Faq() {
   const [faqs, setFaqs] = useState([])
   const [loading, setLoading] = useState(true)
   const [activeTab, setActiveTab] = useState('All')
+  const [searchQuery, setSearchQuery] = useState('')
 
   useSEO({
-    title: 'FAQ',
-    description: `Frequently asked questions about working with Sahed Alom Sumit on web design, development, and AI automation projects.`,
+    title: 'Frequently Asked Questions & Answers | Sahed Alom Sumit',
+    description: `Answers to common questions about working with Sahed Alom Sumit on Webflow, WordPress, React web apps, UI/UX design, and project timelines.`,
     canonical: '/faq',
   })
 
   useEffect(() => {
     async function loadFaqs() {
-      const data = await fetchFaqs()
-      setFaqs(data || [])
-      setLoading(false)
+      try {
+        const data = await fetchFaqs()
+        setFaqs(data || [])
+      } catch (err) {
+        console.error('Error fetching FAQs:', err)
+      } finally {
+        setLoading(false)
+      }
     }
     loadFaqs()
   }, [])
 
-  const topics = ['All', ...new Set(faqs.map(f => f.topic || 'General'))]
+  const topics = useMemo(() => {
+    return ['All', ...new Set(faqs.map(f => f.topic || 'General').filter(Boolean))]
+  }, [faqs])
 
-  const filteredFaqs = activeTab === 'All'
-    ? faqs
-    : faqs.filter(f => (f.topic || 'General') === activeTab)
-
-  const handleTabChange = (topic) => {
-    setActiveTab(topic)
-
-    // Smooth scroll back to the start of the FAQ questions (Mobile only)
-    if (window.innerWidth < 768) {
-      const el = document.getElementById('faq-list')
-      if (el) {
-        // 180px offset accounts for the sticky Navbar (60px) + sticky mobile dropdown + some padding
-        const y = el.getBoundingClientRect().top + window.scrollY - 180
-        window.scrollTo({ top: y, behavior: 'smooth' })
-      }
-    }
-  }
+  const filteredFaqs = useMemo(() => {
+    return faqs.filter(f => {
+      const matchTopic = activeTab === 'All' || (f.topic || 'General') === activeTab
+      const matchQuery =
+        !searchQuery ||
+        f.question?.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        f.answer?.toLowerCase().includes(searchQuery.toLowerCase())
+      return matchTopic && matchQuery
+    })
+  }, [faqs, activeTab, searchQuery])
 
   return (
     <>
-      <main className="py-24 px-4 max-w-7xl mx-auto min-h-screen">
+      <main className="py-20 sm:py-24 px-4 max-w-7xl mx-auto min-h-screen">
         <RevealOnScroll>
-          <header className="mb-16 text-left">
-            <nav aria-label="breadcrumb" className="text-[10px] font-mono uppercase tracking-widest text-gray-500 mb-8 flex flex-wrap items-center justify-start gap-2">
-              <Link to="/" className="hover:text-emerald-500 transition">Home</Link>
+          <header className="mb-14 text-left">
+            <nav aria-label="breadcrumb" className="text-xs tracking-wider mb-6 flex items-center gap-2" style={{ color: 'var(--text-dim)' }}>
+              <Link to="/" className="hover:text-violet-400 transition-colors">Home</Link>
               <span>/</span>
-              <span style={{ color: 'var(--text-main)' }}>FAQ</span>
+              <span style={{ color: 'var(--text-main)' }} className="font-semibold">FAQ</span>
             </nav>
-            <div className="font-mono text-emerald-500 text-xs tracking-[0.4em] font-bold uppercase mb-4">Knowledge_Base</div>
-            <h1 className="text-5xl md:text-8xl font-black tracking-tighter uppercase leading-none" style={{ color: 'var(--text-main)' }}>
-              Frequently Asked<br /><span className="text-violet-500">Questions</span>
+
+            <span className="pill-badge text-emerald-400 border-emerald-500/20 bg-emerald-500/10 mb-4 inline-flex">
+              Knowledge Base
+            </span>
+
+            <h1 className="text-4xl sm:text-6xl md:text-7xl font-heading font-extrabold tracking-tight uppercase leading-none mb-6"
+                style={{ color: 'var(--text-main)' }}>
+              Frequently Asked <br />
+              <span className="bg-gradient-to-r from-violet-400 via-purple-300 to-indigo-400 bg-clip-text text-transparent">
+                Questions
+              </span>
             </h1>
-            <p className="mt-6 text-gray-400 text-lg max-w-2xl font-light">
-              Everything you need to know about my process, services, and how we can work together to build something that just feels right.
+
+            <p className="text-base sm:text-lg max-w-2xl font-light leading-relaxed mb-8" style={{ color: 'var(--text-muted)' }}>
+              Everything you need to know about working together, pricing models, project milestones, communication, and ongoing post-launch support.
             </p>
+
+            {/* Search Box */}
+            <div className="relative max-w-md mb-8">
+              <svg className="w-4 h-4 absolute left-3.5 top-1/2 -translate-y-1/2 text-gray-400 pointer-events-none" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                <circle cx="11" cy="11" r="8" />
+                <line x1="21" y1="21" x2="16.65" y2="16.65" />
+              </svg>
+              <input
+                type="text"
+                placeholder="Search questions (e.g. pricing, timeline, Webflow)..."
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+                className="w-full pl-10 pr-9 py-2.5 rounded-full text-xs transition-all outline-none border focus:border-violet-500"
+                style={{
+                  backgroundColor: 'var(--card-bg)',
+                  borderColor: 'var(--border)',
+                  color: 'var(--text-main)',
+                }}
+              />
+              {searchQuery && (
+                <button
+                  onClick={() => setSearchQuery('')}
+                  className="absolute right-3 top-1/2 -translate-y-1/2 text-xs text-gray-400 hover:text-white"
+                >
+                  ✕
+                </button>
+              )}
+            </div>
+
+            {/* Filter Pills */}
+            <div className="flex overflow-x-auto no-scrollbar gap-2 pb-2">
+              {topics.map((topic, i) => (
+                <button
+                  key={i}
+                  onClick={() => setActiveTab(topic)}
+                  className={`px-4 py-2 rounded-full text-xs font-semibold tracking-wide transition-all whitespace-nowrap border ${
+                    activeTab === topic
+                      ? 'bg-violet-600 text-white border-violet-500 shadow-md shadow-violet-600/30'
+                      : 'hover:border-white/20'
+                  }`}
+                  style={activeTab !== topic ? {
+                    backgroundColor: 'var(--card-bg)',
+                    borderColor: 'var(--border)',
+                    color: 'var(--text-muted)'
+                  } : {}}
+                >
+                  {topic}
+                </button>
+              ))}
+            </div>
           </header>
         </RevealOnScroll>
 
         {loading ? (
-          <div className="text-center font-mono text-emerald-500 uppercase tracking-widest text-xs flex items-center justify-center gap-2 py-20">
-            <span className="w-2 h-2 bg-emerald-500 rounded-full animate-ping" />
-            Fetching_Knowledge_Base...
+          <div className="text-center py-20 flex flex-col items-center justify-center gap-3">
+            <div className="w-8 h-8 rounded-full border-2 border-violet-500 border-t-transparent animate-spin" />
+            <p className="font-mono text-xs text-violet-400 uppercase tracking-widest">
+              Fetching Knowledge Base...
+            </p>
           </div>
         ) : (
-          <>
-            {/* Mobile Dropdown (Sticky) */}
-            <div className="md:hidden sticky top-[60px] z-40 backdrop-blur-xl pb-4 pt-[1.8rem] -mx-4 px-4 mb-8" style={{ backgroundColor: 'var(--header-bg)', borderBottom: '1px solid var(--border)' }}>
-              <div className="relative">
-                <select
-                  value={activeTab}
-                  onChange={(e) => handleTabChange(e.target.value)}
-                  className="w-full text-base py-4 px-4 rounded-xl focus:outline-none focus:border-violet-500 outline-none appearance-none shadow-lg block"
-                  style={{ backgroundColor: 'var(--card-bg)', border: '1px solid var(--border)', color: 'var(--text-main)' }}
-                >
-                  {topics.map((topic, i) => (
-                    <option key={i} value={topic} style={{ backgroundColor: 'var(--bg)', color: 'var(--text-main)' }}>{topic}</option>
-                  ))}
-                </select>
-                <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-5 text-violet-500">
-                  <svg className="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z" /></svg>
-                </div>
+          <section id="faq-list" className="grid grid-cols-1 md:grid-cols-2 gap-6 items-start">
+            {filteredFaqs.length > 0 ? (
+              filteredFaqs.map((faq, index) => (
+                <RevealOnScroll key={faq.id || index} delay={(index % 2) * 0.06}>
+                  <FaqItem faq={faq} />
+                </RevealOnScroll>
+              ))
+            ) : (
+              <div className="col-span-1 md:col-span-2 text-center py-16 border border-dashed rounded-3xl"
+                   style={{ borderColor: 'var(--border)', backgroundColor: 'var(--card-bg)' }}>
+                <p className="text-sm font-semibold mb-1" style={{ color: 'var(--text-main)' }}>
+                  No matching questions found
+                </p>
+                <p className="text-xs" style={{ color: 'var(--text-dim)' }}>
+                  Have a specific question? Reach out directly via WhatsApp or email.
+                </p>
               </div>
-            </div>
-
-            {/* Desktop Tabs */}
-            <RevealOnScroll>
-              <div className="hidden md:flex flex-wrap items-center justify-start gap-4 mb-16">
-                {topics.map((topic, i) => (
-                  <button
-                    key={i}
-                    onClick={() => handleTabChange(topic)}
-                    className={`px-6 py-3 rounded-xl text-sm md:text-base font-bold transition-all border`}
-                    style={activeTab === topic
-                      ? { backgroundColor: 'var(--accent)', color: '#fff', borderColor: 'var(--accent)', boxShadow: '0 0 15px rgba(139,92,246,0.3)' }
-                      : { backgroundColor: 'transparent', color: 'var(--text-muted)', borderColor: 'var(--border)' }
-                    }
-                  >
-                    {topic}
-                  </button>
-                ))}
-              </div>
-            </RevealOnScroll>
-
-            <section id="faq-list" className="grid grid-cols-1 md:grid-cols-2 gap-6 items-start" aria-label="Frequently Asked Questions">
-              {filteredFaqs.length > 0 ? (
-                filteredFaqs.map((faq, index) => (
-                  <RevealOnScroll key={faq.id || index} delay={index * 0.05}>
-                    <FaqItem faq={faq} />
-                  </RevealOnScroll>
-                ))
-              ) : (
-                <div className="text-gray-400 col-span-1 md:col-span-2 text-center py-10 font-mono text-sm opacity-50">No FAQs available yet.</div>
-              )}
-            </section>
-          </>
+            )}
+          </section>
         )}
       </main>
+
       <RevealOnScroll>
         <ContactSection />
       </RevealOnScroll>

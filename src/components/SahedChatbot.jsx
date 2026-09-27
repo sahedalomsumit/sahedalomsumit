@@ -25,7 +25,7 @@ const FAQ_SOURCE = `
 
 GENERAL & BACKGROUND
 Q: Who are you and what do you do? (Tell me about yourself)
-A: I am Sahed Alom Sumit, a Web Designer & Developer and AI Automation Expert based in Helsinki, Finland. I build high-performance, accessible, and visually stunning websites.
+A: I am Sahed Alom Sumit, a Product Designer & AI-Enhanced Web Developer based in Helsinki, Finland. I build high-performance, accessible, and visually stunning websites.
 
 Q: Where are you based?
 A: Helsinki, Finland. Clients across 10+ countries — USA, UK, Europe, Canada, Switzerland.
@@ -36,8 +36,8 @@ A: B.B.A. in Business Information Technology from Haaga-Helia University of Appl
 Q: What languages do you speak?
 A: English (Full Professional), Bengali (Native/Bilingual), Hindi/Urdu (Professional Working).
 
-Q: What does "Web Designer & Developer" mean?
-A: Equal focus on aesthetic (UI/UX) and technical perfection (clean code). Every site hits 100/100 on Performance, Accessibility, Best Practices, and SEO on Google PageSpeed Insights.
+Q: What does "Product Designer & AI-Enhanced Web Developer" mean?
+A: Equal focus on aesthetic (UI/UX) and technical perfection (clean code with AI augmentation). Every site hits 100/100 on Performance, Accessibility, Best Practices, and SEO on Google PageSpeed Insights.
 
 Q: What is your personal motto?
 A: "Modern web design. Clean development. AI automation that actually makes sense."
@@ -79,6 +79,9 @@ A: SEO is built into every project — meta tags, semantic HTML, Core Web Vitals
 Q: Do you build custom web applications?
 A: Yes. React, Node.js, Express.js, Tailwind CSS, Supabase, SQL — full custom apps when no-code isn't the right fit.
 
+Q: Do you write technical articles or have a blog?
+A: Yes! Visit the /blog section on my site to read my deep dives on AI-enhanced design engineering, bento-grid conversion architecture, Supabase real-time systems, and tactile micro-interactions.
+
 DESIGN & DEVELOPMENT PROCESS
 Q: What is your design process?
 A: 8 steps: (1) Discovery, (2) Research & Solution, (3) Gather Content, (4) Design System & Components, (5) Wireframing, (6) Visual Design in Figma, (7) Prototyping, (8) Developer Handoff.
@@ -110,7 +113,7 @@ Q: What is your hourly rate?
 A: €30/hour direct. ~$40/hour on Upwork (10% cut). ~$45/hour on Fiverr (20% cut).
 
 Q: How much does a website cost?
-A: Check the estimate cost with breakdown pdf based on your project details. Quote: https://sahedalomsumit.com/quote.
+A: Check the estimate cost with breakdown pdf based on your project details. Estimator: https://sahedalomsumit.com/estimate.
 
 Q: What is your payment structure?
 A: 50% upfront to secure your slot, 50% on final approval(depends on hours it can be less or more). Milestone payments for larger projects.
@@ -185,10 +188,10 @@ const WEBSITE_SOURCE = `
 Source: sahedalomsumit.com
 
 HERO / POSITIONING
-- Title: Web Designer, Developer & AI Automation Expert
+- Title: Product Designer & AI-Enhanced Web Developer
 - Tagline: "Where good design meets purposeful code — I build digital experiences that just feel right."
 - Based in Helsinki, Finland
-- 5+ years | 150+ websites | 10+ countries | Top Rated Upwork | Level 2 Fiverr Seller
+- 5+ years | 150+ websites | 10+ countries | Top Rated Plus Upwork (99% JSS) | Level 2 Fiverr Seller
 
 SERVICES (from site)
 1. Web Design — UI/UX, Figma wireframes, prototyping, design systems
@@ -263,7 +266,7 @@ ${WEBSITE_SOURCE}
 // ════════════════════════════════════════════════════
 const SUGGESTIONS = [
   "Tell me about yourself",
-  "'Web Designer & Developer' mean?",
+  "What does your role mean?",
   "What services do you offer?",
   "What is your hourly rate?",
   "How much does a website cost?",

@@ -14,18 +14,17 @@ const OUTPUT_FILE = path.join(__dirname, '../public/sitemap.xml')
 // Static routes from App.jsx
 const STATIC_ROUTES = [
   '/',
+  '/work',
   '/process',
-  '/portfolio',
   '/faq',
+  '/blog',
   '/services',
-  '/services/figma-design',
-  '/services/webflow-development',
-  '/services/wordpress-development',
-  '/services/framer-development',
-  '/services/custom-development',
-  '/services/ai-automation',
-  '/services/seo-optimization',
-  '/quote'
+  '/services/ui-ux-design',
+  '/services/full-stack-development',
+  '/services/low-no-code-development',
+  '/services/app-development',
+  '/services/tools',
+  '/estimate'
 ]
 
 async function generateSitemap() {
@@ -34,21 +33,35 @@ async function generateSitemap() {
 
   // 1. Fetch Dynamic Slugs from Supabase
   console.log('Fetching project slugs...')
-  const { data: projects, error } = await supabase
+  const { data: projects, error: projectsError } = await supabase
     .from('projects')
     .select('slug, created_at')
   
-  if (error) {
-    console.error('Error fetching projects:', error)
+  if (projectsError) {
+    console.error('Error fetching projects:', projectsError)
     process.exit(1)
   }
 
   const projectRoutes = projects.map(p => ({
-    url: `/portfolio/${p.slug}`,
+    url: `/work/${p.slug}`,
     lastmod: p.created_at ? new Date(p.created_at).toISOString().split('T')[0] : new Date().toISOString().split('T')[0]
   }))
 
   console.log(`Discovered ${projectRoutes.length} project pages.`)
+
+  // 1b. Fetch Dynamic Blog Slugs from Supabase
+  console.log('Fetching blog post slugs...')
+  const { data: blogPosts, error: blogError } = await supabase
+    .from('blog_posts')
+    .select('slug, published_at')
+    .eq('is_published', true)
+
+  const blogRoutes = (blogPosts || []).map(b => ({
+    url: `/blog/${b.slug}`,
+    lastmod: b.published_at ? new Date(b.published_at).toISOString().split('T')[0] : new Date().toISOString().split('T')[0]
+  }))
+
+  console.log(`Discovered ${blogRoutes.length} blog post pages.`)
 
   // 2. Build XML string
   const today = new Date().toISOString().split('T')[0]
@@ -74,6 +87,16 @@ async function generateSitemap() {
     <lastmod>${route.lastmod}</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
+  </url>\n`
+  })
+
+  // Add Dynamic Blog Routes
+  blogRoutes.forEach(route => {
+    xml += `  <url>
+    <loc>${SITE_URL}${route.url}</loc>
+    <lastmod>${route.lastmod}</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.75</priority>
   </url>\n`
   })
 

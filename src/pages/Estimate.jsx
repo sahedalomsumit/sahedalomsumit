@@ -3,12 +3,10 @@ import { Link } from "react-router-dom";
 import RevealOnScroll from "../components/RevealOnScroll";
 import { useSEO } from "../hooks/useSEO";
 import ContactSection from "../components/ContactSection";
-import jsPDF from "jspdf";
-import html2canvas from "html2canvas";
-import { submitQuoteLead, uploadBlueprintPdf } from "../lib/supabase";
+import { submitEstimateLead, uploadBlueprintPdf } from "../lib/supabase";
 
-export default function Quote() {
-  // Quote Calculator State
+export default function Estimate() {
+  // Estimate Calculator State
   const [scope, setScope] = useState("full"); // 'design', 'dev', 'full'
   const [projectType, setProjectType] = useState("business"); // 'landing', 'business', 'custom'
   const [additionalPages, setAdditionalPages] = useState(0);
@@ -23,14 +21,14 @@ export default function Quote() {
   const pdfRef = useRef();
 
   useSEO({
-    title: "Project Quote Calculator",
+    title: "Project Estimate Calculator | Sahed Alom Sumit",
     description:
-      "Get an instant project quote for your web build. Transparent pricing at €30/h for high-end Webflow, WordPress, and Custom development.",
-    canonical: "/quote",
+      "Get an instant project estimate for your web build. Transparent pricing at €30/h for high-end Webflow, WordPress, and Custom development.",
+    canonical: "/estimate",
   });
 
   // Calculator Logic
-  const quoteData = useMemo(() => {
+  const estimateData = useMemo(() => {
     const HOURLY_RATE = 30;
 
     // Fixed Hour Definitions (Per Service)
@@ -116,6 +114,10 @@ export default function Quote() {
 
     try {
       const element = pdfRef.current;
+      const [{ default: html2canvas }, { default: jsPDF }] = await Promise.all([
+        import("html2canvas"),
+        import("jspdf"),
+      ]);
       const canvas = await html2canvas(element, {
         scale: 2,
         useCORS: true,
@@ -132,7 +134,7 @@ export default function Quote() {
       pdf.addImage(imgData, "JPEG", 0, 0, canvas.width / 2, canvas.height / 2);
 
       const safeProjectName = projectName.toLowerCase().replace(/\s+/g, "_");
-      const fileName = `quote-${safeProjectName}-${refNumber}-sahedalomsumit.pdf`;
+      const fileName = `estimate-${safeProjectName}-${refNumber}-sahedalomsumit.pdf`;
 
       // 1. Local View/Download
       pdf.save(fileName);
@@ -146,7 +148,6 @@ export default function Quote() {
 
       if (uploadError) {
         console.error("SUPABASE STORAGE ERROR:", uploadError);
-        // We continue but log it, or you can throw an error here to stop the DB sync
       }
 
       // 3. Database Synchronization (linking binary to record)
@@ -159,14 +160,14 @@ export default function Quote() {
         selected_service: scope,
         blueprint_model: projectType,
         additional_pages: additionalPages,
-        hours_min: quoteData.totalMinH,
-        hours_max: quoteData.totalMaxH,
-        price_min: quoteData.minPrice,
-        price_max: quoteData.maxPrice,
-        fixed_price: quoteData.fixedPrice,
+        hours_min: estimateData.totalMinH,
+        hours_max: estimateData.totalMaxH,
+        price_min: estimateData.minPrice,
+        price_max: estimateData.maxPrice,
+        fixed_price: estimateData.fixedPrice,
       };
 
-      const { error: dbError } = await submitQuoteLead(leadPayload);
+      const { error: dbError } = await submitEstimateLead(leadPayload);
 
       if (dbError) {
         console.error("SUPABASE DATABASE ERROR:", dbError);
@@ -175,7 +176,7 @@ export default function Quote() {
 
       if (uploadError) {
         alert(
-          "Partial Sync: Quote saved to database, but PDF upload failed. Please check Supabase Storage Policies.",
+          "Partial Sync: Estimate saved to database, but PDF upload failed. Please check Supabase Storage Policies.",
         );
       }
 
@@ -197,30 +198,33 @@ export default function Quote() {
     <>
       <div className="pt-32 pb-20 px-4 max-w-7xl mx-auto min-h-screen">
         <RevealOnScroll>
-          <header className="mb-16">
+          <header className="mb-14">
             <nav
               aria-label="breadcrumb"
-              className="text-[10px] font-mono uppercase tracking-widest text-gray-400 mb-8 flex items-center justify-start gap-2"
+              className="text-xs tracking-wider mb-6 flex items-center gap-2"
+              style={{ color: 'var(--text-dim)' }}
             >
               <Link
                 to="/"
-                className="hover:text-violet-500 transition font-bold"
+                className="hover:text-violet-400 transition-colors"
               >
                 Home
               </Link>
               <span>/</span>
-              <span className="text-white font-bold">Get a Quote</span>
+              <span style={{ color: 'var(--text-main)' }} className="font-semibold">Project Estimator</span>
             </nav>
-            <div className="font-mono text-emerald-500 text-xs tracking-[0.4em] font-bold uppercase mb-4">
-              Quote_Calculator
-            </div>
-            <h1 className="text-5xl md:text-8xl font-black tracking-tighter text-white uppercase leading-none">
-              Get a <br />
-              <span className="text-violet-500">Quote</span>
+            <span className="pill-badge text-emerald-400 border-emerald-500/20 bg-emerald-500/10 mb-4 inline-flex">
+              Instant Pricing Engine
+            </span>
+            <h1 className="text-4xl sm:text-6xl md:text-7xl font-heading font-extrabold tracking-tight uppercase leading-none"
+                style={{ color: 'var(--text-main)' }}>
+              Project <br />
+              <span className="bg-gradient-to-r from-violet-400 via-purple-300 to-indigo-400 bg-clip-text text-transparent">
+                Estimator & Blueprint
+              </span>
             </h1>
-            <p className="mt-6 text-gray-300 text-lg max-w-2xl font-light">
-              Premium estimation engine. Select your service scope and project
-              footprint for a professional pricing blueprint.
+            <p className="mt-4 text-base sm:text-lg max-w-2xl font-light leading-relaxed" style={{ color: 'var(--text-muted)' }}>
+              Configure your scope and page footprint for an immediate timeline, estimated hours, and official investment blueprint.
             </p>
           </header>
         </RevealOnScroll>
@@ -233,32 +237,33 @@ export default function Quote() {
             direction="left"
           >
             <div className="space-y-6">
-              <div className="bento-card p-8 border-violet-500/10 bg-violet-500/5">
-                <div className="font-mono text-gray-400 text-[10px] uppercase tracking-widest mb-4 font-bold">
-                  / Availability
-                </div>
-                <div className="flex items-center gap-3 mb-4">
-                  <span className="w-2 h-2 bg-violet-500 rounded-full animate-pulse" />
-                  <span className="text-white font-black text-sm uppercase">
-                    Open for collaborations
+              <div className="bento-card p-8">
+                <span className="text-xs font-mono uppercase tracking-wider text-emerald-400 block mb-3">
+                  Current Availability
+                </span>
+                <div className="flex items-center gap-2.5 mb-3">
+                  <span className="w-2 h-2 bg-emerald-400 rounded-full animate-pulse" />
+                  <span className="font-bold text-sm" style={{ color: 'var(--text-main)' }}>
+                    Open for Selected Projects
                   </span>
                 </div>
-                <p className="text-gray-200 text-xs font-light leading-relaxed font-mono">
-                  Currently booking projects for{" "}
-                  {new Date(
-                    new Date().setMonth(new Date().getMonth() + 1),
-                  ).toLocaleString("en-US", { month: "long", year: "numeric" })}
+                <p className="text-xs leading-relaxed font-light" style={{ color: 'var(--text-muted)' }}>
+                  Currently scheduling builds for{" "}
+                  <span className="font-semibold text-violet-400">
+                    {new Date(
+                      new Date().setMonth(new Date().getMonth() + 1),
+                    ).toLocaleString("en-US", { month: "long", year: "numeric" })}
+                  </span>
                   .
                 </p>
               </div>
 
-              <div className="bento-card p-8 border-white/5 bg-white/[0.02] hidden md:block">
-                <div className="font-mono text-gray-400 text-[10px] uppercase tracking-widest mb-6 font-bold">
-                  / Documentation
-                </div>
-                <p className="text-gray-200 text-xs font-light mb-6">
-                  Receive a formalized PDF quote with detailed time and cost
-                  breakdown for your project.
+              <div className="bento-card p-8 hidden md:block">
+                <span className="text-xs font-mono uppercase tracking-wider text-violet-400 block mb-3">
+                  Formal Documentation
+                </span>
+                <p className="text-xs font-light leading-relaxed mb-6" style={{ color: 'var(--text-muted)' }}>
+                  Receive a formalized PDF blueprint with detailed milestone breakdown and deliverables.
                 </p>
                 <button
                   onClick={() => {
@@ -273,16 +278,14 @@ export default function Quote() {
                     setRefNumber(`${yy}${mm}${dd}${rrrr}`);
                     setShowPrompt(true);
                   }}
-                  className="w-full py-4 bg-violet-500 text-white font-mono text-[10px] tracking-[0.2em] font-black uppercase rounded-xl hover:bg-white hover:text-black transition-all flex items-center justify-center gap-4 group shadow-lg"
+                  className="shimmer-button w-full py-3.5 bg-violet-600 text-white font-semibold text-xs tracking-wider uppercase rounded-xl hover:bg-violet-500 transition-all flex items-center justify-center gap-2 shadow-lg shadow-violet-600/25"
                 >
-                  Generate_Quote_PDF
-                  <span className="group-hover:translate-x-1 transition-transform font-bold">
-                    →
-                  </span>
+                  <span>Generate PDF Blueprint</span>
+                  <span>→</span>
                 </button>
               </div>
 
-              {/* New Contact Card */}
+              {/* Contact Card */}
               <div className="bento-card p-8 border-white/5 bg-white/[0.02] border-l-4 border-l-violet-500 hidden md:block">
                 <div className="font-mono text-gray-400 text-[10px] uppercase tracking-widest mb-4 font-bold">
                   / Project_Launch
@@ -327,42 +330,47 @@ export default function Quote() {
             <div className="bento-card p-8 md:p-12">
               <div className="space-y-12">
                 <div className="space-y-6">
-                  <label className="font-mono text-[9px] text-gray-400 uppercase tracking-widest font-bold">
-                    ./ Service_Selection
+                  <label className="text-xs font-mono text-violet-400 uppercase tracking-wider font-semibold block">
+                    01 // Select Service Scope
                   </label>
                   <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
                     {[
                       {
                         id: "design",
                         label: "UI/UX Design",
-                        desc: "UX/UI & Prototypes",
+                        desc: "Figma UI & Prototypes",
                       },
                       {
                         id: "dev",
                         label: "Development",
-                        desc: "Codebase & Systems",
+                        desc: "Webflow, React & Code",
                       },
                       {
                         id: "full",
                         label: "Full Product",
-                        desc: "The Complete Build",
+                        desc: "Design + Development",
                         badge: "Save 25%",
                       },
                     ].map((s) => (
                       <button
                         key={s.id}
                         onClick={() => setScope(s.id)}
-                        className={`p-5 rounded-2xl border transition-all text-left relative overflow-hidden ${scope === s.id ? "bg-violet-500/10 border-violet-500/40 text-white shadow-[0_0_20px_rgba(139,92,246,0.15)]" : "bg-white/[0.02] border-white/5 text-gray-400 hover:border-white/20"}`}
+                        className={`p-5 rounded-2xl border transition-all text-left relative overflow-hidden ${
+                          scope === s.id
+                            ? "bg-violet-600/15 border-violet-500 text-white shadow-lg shadow-violet-500/15"
+                            : "border-white/10 hover:border-white/25"
+                        }`}
+                        style={scope !== s.id ? { backgroundColor: 'var(--card-bg)', color: 'var(--text-muted)', borderColor: 'var(--border)' } : {}}
                       >
                         {s.badge && (
-                          <div className="absolute top-0 right-0 bg-emerald-500 text-black font-mono text-[10px] px-2 py-0.5 font-bold uppercase tracking-tighter rounded-bl-lg">
+                          <div className="absolute top-0 right-0 bg-emerald-500 text-black font-mono text-[9px] px-2 py-0.5 font-bold uppercase tracking-wider rounded-bl-lg">
                             {s.badge}
                           </div>
                         )}
-                        <div className="text-xs font-black uppercase tracking-tight mb-1">
+                        <div className="text-xs font-bold uppercase tracking-tight mb-1" style={{ color: scope === s.id ? 'var(--accent-light)' : 'var(--text-main)' }}>
                           {s.label}
                         </div>
-                        <div className="text-[10px] opacity-70 lowercase font-mono">
+                        <div className="text-[11px] opacity-75 font-mono">
                           {s.desc}
                         </div>
                       </button>
@@ -370,22 +378,27 @@ export default function Quote() {
                   </div>
                 </div>
 
-                <div className="space-y-6 pt-6 border-t border-white/5">
-                  <label className="font-mono text-[9px] text-gray-400 uppercase tracking-widest font-bold">
-                    ./ Blueprint_Model
+                <div className="space-y-6 pt-6 border-t" style={{ borderColor: 'var(--border)' }}>
+                  <label className="text-xs font-mono text-violet-400 uppercase tracking-wider font-semibold block">
+                    02 // Select Website Scale
                   </label>
                   <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                     {[
-                      { id: "landing", label: "Landing Page" },
-                      { id: "business", label: "Business Web" },
-                      { id: "custom", label: "Custom Web" },
+                      { id: "landing", label: "Landing Page (1 Page)" },
+                      { id: "business", label: "Standard Web (5 Pages)" },
+                      { id: "custom", label: "Custom Scale Web" },
                     ].map((p) => (
                       <button
                         key={p.id}
                         onClick={() => setProjectType(p.id)}
-                        className={`p-6 rounded-2xl border transition-all text-left group ${projectType === p.id ? "bg-violet-500/10 border-violet-500/40 text-white" : "bg-white/[0.02] border-white/5 text-gray-400 hover:border-white/20"}`}
+                        className={`p-5 rounded-2xl border transition-all text-left ${
+                          projectType === p.id
+                            ? "bg-violet-600/15 border-violet-500 text-white shadow-md shadow-violet-500/15"
+                            : "hover:border-white/20"
+                        }`}
+                        style={projectType !== p.id ? { backgroundColor: 'var(--card-bg)', color: 'var(--text-muted)', borderColor: 'var(--border)' } : {}}
                       >
-                        <div className="text-xs font-bold uppercase tracking-tight">
+                        <div className="text-xs font-bold uppercase tracking-tight" style={{ color: projectType === p.id ? 'var(--accent-light)' : 'var(--text-main)' }}>
                           {p.label}
                         </div>
                       </button>
@@ -394,12 +407,12 @@ export default function Quote() {
                 </div>
 
                 {projectType === "custom" && (
-                  <div className="space-y-6 animate-in fade-in slide-in-from-top-4 duration-500 pt-6 border-t border-white/5">
+                  <div className="space-y-4 pt-6 border-t" style={{ borderColor: 'var(--border)' }}>
                     <div className="flex items-center justify-between">
-                      <label className="font-mono text-[9px] text-gray-400 uppercase tracking-widest font-bold">
-                        ./ Additional_Pages
+                      <label className="text-xs font-mono text-violet-400 uppercase tracking-wider font-semibold">
+                        Additional Subpages
                       </label>
-                      <span className="font-mono text-violet-500 text-xs font-bold">
+                      <span className="font-mono text-emerald-400 text-xs font-bold">
                         {additionalPages} Pages + Homepage
                       </span>
                     </div>
@@ -417,43 +430,43 @@ export default function Quote() {
                   </div>
                 )}
 
-                <div className="bento-card p-8 bg-white/[0.02] border-white/5 relative overflow-hidden group">
-                  <div className="mb-6 border-b border-white/5 pb-6">
-                    <div className="font-mono text-violet-500 text-[9px] uppercase tracking-widest mb-2 font-black">
-                      Estimate_Result
-                    </div>
-                    <h3 className="text-white font-black text-xl md:text-2xl uppercase tracking-tighter">
-                      {quoteData.label}
+                <div className="bento-card p-6 sm:p-8 relative overflow-hidden">
+                  <div className="mb-6 border-b pb-4" style={{ borderColor: 'var(--border)' }}>
+                    <span className="text-[10px] font-mono text-emerald-400 uppercase tracking-wider font-bold block mb-1">
+                      Estimated Scope & Investment
+                    </span>
+                    <h3 className="text-xl sm:text-2xl font-heading font-bold" style={{ color: 'var(--text-main)' }}>
+                      {estimateData.label}
                     </h3>
                   </div>
 
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-8">
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 mb-8">
                     <div>
-                      <div className="font-mono text-gray-300 text-[8px] uppercase tracking-widest mb-1 font-bold">
-                        Estimated Project Range
-                      </div>
-                      <div className="text-white font-mono text-lg font-black">
-                        {quoteData.totalMinH} – {quoteData.totalMaxH} Hours
+                      <span className="text-[10px] font-mono uppercase tracking-wider block mb-1" style={{ color: 'var(--text-dim)' }}>
+                        Estimated Timeline Range
+                      </span>
+                      <div className="text-lg font-heading font-bold" style={{ color: 'var(--text-main)' }}>
+                        {estimateData.totalMinH} – {estimateData.totalMaxH} Hours
                       </div>
                     </div>
                     <div>
-                      <div className="font-mono text-gray-300 text-[8px] uppercase tracking-widest mb-1 font-bold">
-                        Estimated Value Range
-                      </div>
-                      <div className="text-white font-mono text-lg font-black">
-                        €{quoteData.minPrice.toLocaleString()} – €
-                        {quoteData.maxPrice.toLocaleString()}
+                      <span className="text-[10px] font-mono uppercase tracking-wider block mb-1" style={{ color: 'var(--text-dim)' }}>
+                        Estimated Budget Range
+                      </span>
+                      <div className="text-lg font-heading font-bold text-emerald-400">
+                        €{estimateData.minPrice.toLocaleString()} – €{estimateData.maxPrice.toLocaleString()}
                       </div>
                     </div>
                   </div>
 
-                  <div className="p-6 bg-white/5 rounded-2xl flex flex-col md:flex-row md:items-center justify-between gap-6 border border-white/5 group-hover:border-violet-500/30 transition-all shadow-inner">
+                  <div className="p-6 rounded-2xl flex flex-col md:flex-row md:items-center justify-between gap-6 border"
+                       style={{ backgroundColor: 'var(--bg)', borderColor: 'var(--border)' }}>
                     <div>
-                      <div className="font-mono text-violet-500 text-[8px] uppercase tracking-widest mb-1 font-black leading-none">
-                        Fixed_Project_Budget
-                      </div>
-                      <div className="text-2xl md:text-3xl font-black text-white tracking-tighter italic leading-none">
-                        €{quoteData.fixedPrice.toLocaleString()}
+                      <span className="text-[10px] font-mono text-violet-400 uppercase tracking-wider block mb-1">
+                        Fixed Target Investment (€30/h)
+                      </span>
+                      <div className="text-3xl font-heading font-extrabold tracking-tight" style={{ color: 'var(--text-main)' }}>
+                        €{estimateData.fixedPrice.toLocaleString()}
                       </div>
                     </div>
                     <button
@@ -471,9 +484,9 @@ export default function Quote() {
                         setRefNumber(`${yy}${mm}${dd}${rrrr}`);
                         setShowPrompt(true);
                       }}
-                      className="w-full md:w-auto px-6 py-4 md:py-2 bg-violet-500 text-white font-black text-[10px] rounded-lg tracking-widest uppercase hover:bg-white hover:text-black transition-all shadow-violet-500/20 shadow-lg"
+                      className="shimmer-button px-6 py-3.5 bg-violet-600 hover:bg-violet-500 text-white font-semibold text-xs rounded-xl tracking-wider uppercase shadow-lg shadow-violet-600/30 transition-all"
                     >
-                      Generate_PDF
+                      Generate PDF Blueprint
                     </button>
                   </div>
                 </div>
@@ -482,7 +495,7 @@ export default function Quote() {
           </RevealOnScroll>
         </div>
 
-        {/* --- Advanced Quote PDF Generator Using Tailwind --- */}
+        {/* --- Advanced Estimate PDF Generator Using Tailwind --- */}
         <div className="fixed -left-[4000px] top-0 pointer-events-none">
           <div
             ref={pdfRef}
@@ -520,10 +533,10 @@ export default function Quote() {
                 </div>
                 <div className="flex flex-col gap-4 -mt-2">
                   <h1 className="text-3xl font-semibold leading-[1.05] tracking-tighter font-mono">
-                    Project Quote
+                    Project Estimate
                   </h1>
                   <div className="text-xs tracking-[0.22em] text-emerald-500 font-semibold font-mono">
-                    Web Designer & Developer
+                    Product Designer & AI-Enhanced Web Developer
                   </div>
                 </div>
                 <div className="text-right text-[10.5px] text-gray-400 leading-loose font-normal mt-4">
@@ -536,189 +549,153 @@ export default function Quote() {
 
               {/* Contact Strip */}
               <div className="grid grid-cols-3 border border-white/10 rounded-lg bg-black/40 mb-9">
-                <div className="p-4 border-r border-white/10 flex flex-col gap-1">
-                  <span className="text-[9px] tracking-widest text-gray-500 uppercase font-bold">
-                    Website
-                  </span>
-                  <span className="text-[11px] text-white font-medium">
-                    sahedalomsumit.com
-                  </span>
-                </div>
-                <div className="p-4 border-r border-white/10 flex flex-col gap-1">
-                  <span className="text-[9px] tracking-widest text-gray-500 uppercase font-bold">
+                <div className="p-3.5 border-r border-white/10">
+                  <span className="text-[8.5px] tracking-[0.16em] uppercase text-emerald-400 block mb-1 font-mono">
                     Email
                   </span>
-                  <span className="text-[11px] text-white font-medium">
+                  <span className="text-[12.5px] text-white">
                     sahedalomsumit@gmail.com
                   </span>
                 </div>
-                <div className="p-4 flex flex-col gap-1">
-                  <span className="text-[9px] tracking-widest text-gray-500 uppercase font-bold">
+                <div className="p-3.5 border-r border-white/10">
+                  <span className="text-[8.5px] tracking-[0.16em] uppercase text-emerald-400 block mb-1 font-mono">
                     WhatsApp
                   </span>
-                  <span className="text-[11px] text-white font-medium">
+                  <span className="text-[12.5px] text-white">
                     +358 41 576 5539
                   </span>
                 </div>
+                <div className="p-3.5">
+                  <span className="text-[8.5px] tracking-[0.16em] uppercase text-emerald-400 block mb-1 font-mono">
+                    Website
+                  </span>
+                  <span className="text-[12.5px] text-white">
+                    sahedalomsumit.com
+                  </span>
+                </div>
               </div>
 
-              {/* Meta Row */}
-              <div className="grid grid-cols-2 gap-4 mb-8">
-                {[
-                  {
-                    label: "Client Identification",
-                    value: clientName || "GUEST_USER",
-                    sub: clientEmail || "REDACTED@ANON.COM",
-                  },
-                  {
-                    label: "Project Identifier",
-                    value: projectName || "BLUEPRINT_V02",
-                    sub: `${refNumber}`,
-                  },
-                ].map((card, i) => (
-                  <div
-                    key={i}
-                    className="bg-black/40 border border-white/10 rounded-xl p-5 relative overflow-hidden"
-                  >
-                    <div className="absolute top-0 left-0 w-[3px] h-full bg-accent opacity-60"></div>
-                    <div className="text-[8.5px] tracking-[0.2em] text-gray-500 uppercase mb-2 font-bold">
-                      {card.label}
-                    </div>
-                    <div className="text-[18px] font-black text-white leading-none mb-1 capitalize tracking-tight">
-                      {card.value}
-                    </div>
-                    <div className="text-[10px] text-gray-500 font-normal leading-tight italic">
-                      {card.sub}
-                    </div>
-                  </div>
-                ))}
+              {/* Meta Grid */}
+              <div className="grid grid-cols-3 gap-3 mb-9">
+                <div className="bg-white/[0.02] border border-white/10 rounded-lg p-3.5">
+                  <span className="text-[8.5px] tracking-[0.16em] uppercase text-gray-400 block mb-1 font-mono">
+                    Client Contact
+                  </span>
+                  <strong className="text-[13px] text-white block">
+                    {clientName || "Valued Client"}
+                  </strong>
+                  <span className="text-[10px] text-gray-400">
+                    {clientEmail || "Contact Pending"}
+                  </span>
+                </div>
+                <div className="bg-white/[0.02] border border-white/10 rounded-lg p-3.5">
+                  <span className="text-[8.5px] tracking-[0.16em] uppercase text-gray-400 block mb-1 font-mono">
+                    Target Deployment
+                  </span>
+                  <strong className="text-[13px] text-white block">
+                    {projectName || "Confidential Project"}
+                  </strong>
+                  <span className="text-[10px] text-gray-400">
+                    Standard Track
+                  </span>
+                </div>
+                <div className="bg-white/[0.02] border border-white/10 rounded-lg p-3.5">
+                  <span className="text-[8.5px] tracking-[0.16em] uppercase text-gray-400 block mb-1 font-mono">
+                    Ref Sequence
+                  </span>
+                  <strong className="text-[13px] text-white font-mono block">
+                    #{refNumber || "GEN-EST"}
+                  </strong>
+                  <span className="text-[10px] text-gray-400">
+                    Locked Estimate Model
+                  </span>
+                </div>
               </div>
 
-              {/* Proposal Card */}
-              <div
-                className="bg-black border border-white/10 rounded-2xl p-10 mb-9 relative overflow-hidden"
-                style={{ width: "724px" }}
-              >
-                <div className="absolute top-0 left-0 right-0 h-[1.5px] bg-gradient-to-r from-emerald-500/50 via-violet-500 to-emerald-500/50 opacity-30"></div>
+              {/* Itemized Deliverables Table */}
+              <table className="w-full border-collapse mb-9">
+                <thead>
+                  <tr className="border-b border-white/10">
+                    <th className="text-left text-[8.5px] tracking-[0.2em] uppercase text-gray-400 py-2.5 font-mono">
+                      Phase Item
+                    </th>
+                    <th className="text-left text-[8.5px] tracking-[0.2em] uppercase text-gray-400 py-2.5 font-mono">
+                      Description
+                    </th>
+                    <th className="text-right text-[8.5px] tracking-[0.2em] uppercase text-gray-400 py-2.5 font-mono">
+                      Est. Effort
+                    </th>
+                    <th className="text-right text-[8.5px] tracking-[0.2em] uppercase text-gray-400 py-2.5 font-mono">
+                      Subtotal
+                    </th>
+                  </tr>
+                </thead>
+                <tbody className="divide-y divide-white/5">
+                  <tr>
+                    <td className="py-4 text-[13px] font-bold text-white leading-relaxed font-mono">
+                      {estimateData.label.replace(":", ":\n")}
+                    </td>
+                    <td className="py-4 text-[11px] text-gray-400 leading-relaxed font-normal">
+                      Complete technical breakdown for a {estimateData.totalMinH}–
+                      {estimateData.totalMaxH} hours build cycle with €30 / hour
+                      rate allocation.
+                    </td>
+                    <td className="py-4 text-right text-[12px] font-mono text-gray-300">
+                      {estimateData.totalMinH}–{estimateData.totalMaxH} Hours
+                    </td>
+                    <td className="py-4 text-right text-[13px] font-mono font-bold text-white">
+                      €{estimateData.minPrice.toLocaleString()} — €
+                      {estimateData.maxPrice.toLocaleString()}
+                    </td>
+                  </tr>
+                  <tr>
+                    <td className="py-3 text-[11px] text-gray-300 font-mono">Target Investment Calculation</td>
+                    <td className="py-3 text-[10px] text-gray-400">Mean effort evaluation benchmark (€30/hour fixed standard)</td>
+                    <td className="py-3 text-right text-[11px] font-mono text-gray-300">{estimateData.totalH} Hours</td>
+                    <td className="py-3 text-right text-[12px] font-mono font-bold text-emerald-400">€{estimateData.fixedPrice.toLocaleString()}</td>
+                  </tr>
+                </tbody>
+              </table>
 
-                <div className="flex justify-between items-end relative z-10">
-                  <div style={{ width: "400px" }}>
-                    <div className="text-[10px] tracking-[0.25em] text-emerald-500 uppercase mb-5 flex items-center gap-2 font-bold">
-                      <span className="w-5 h-[1px] bg-emerald-500"></span>{" "}
-                      Proposal
-                    </div>
-                    <h2 className="text-[28px] font-black leading-tight text-white mb-5 capitalize tracking-tighter">
-                      {quoteData.label.replace(":", ":\n")}
-                    </h2>
-                    <p className="text-[12px] text-gray-400 leading-relaxed">
-                      Complete technical breakdown for a {quoteData.totalMinH}–
-                      {quoteData.totalMaxH} hours build cycle with €30 / hour
-                      rate for project scope.
-                    </p>
+              {/* Scope Breakdown */}
+              <div className="border border-white/10 rounded-lg p-5 bg-white/[0.01] mb-9">
+                <div className="text-[10px] font-mono uppercase tracking-[0.2em] text-violet-400 font-bold mb-4">
+                  / Effort_Allocation_Matrix
+                </div>
+                <div className="space-y-3 font-mono text-xs">
+                  <div className="flex justify-between items-center py-2 border-b border-white/5">
+                    <span className="text-gray-300">Foundation & Primary Architecture (Homepage)</span>
+                    <span className="text-white font-bold">{estimateData.homeMinH} – {estimateData.homeMaxH} Hours</span>
                   </div>
-                  <div className="text-right" style={{ width: "280px" }}>
-                    <div className="text-[9px] tracking-widest text-gray-500 uppercase mb-2 font-bold">
-                      Estimated Value
+                  {estimateData.pageCount > 0 && (
+                    <div className="flex justify-between items-center py-2 border-b border-white/5">
+                      <span className="text-gray-300">{estimateData.pageCount} Additional Pages</span>
+                      <span className="text-white font-bold">{estimateData.pageMinH} – {estimateData.pageMaxH} Hours</span>
                     </div>
-                    <div className="text-[14px] text-gray-400 mb-2 font-bold tracking-tight opacity-60">
-                      €{quoteData.minPrice.toLocaleString()} — €
-                      {quoteData.maxPrice.toLocaleString()}
-                    </div>
-                    <div className="text-[64px] font-black text-white leading-none tracking-[-0.05em] mb-8 pr-2">
-                      <span className="text-[24px] font-bold mr-1 align-top inline-block mt-2">
-                        €
-                      </span>
-                      {quoteData.fixedPrice.toLocaleString()}
-                    </div>
-                    <div className="text-[10px] tracking-[0.22em] uppercase text-violet-500 font-bold">
-                      Fixed Project Budget
-                    </div>
+                  )}
+                  <div className="flex justify-between items-center py-2">
+                    <span className="text-emerald-400 font-bold">Total Estimated Effort</span>
+                    <span className="text-emerald-400 font-bold">{estimateData.totalMinH} – {estimateData.totalMaxH} Hours</span>
                   </div>
                 </div>
               </div>
 
-              {/* Timeline Section */}
-              <div
-                className="flex items-center gap-4 mb-6"
-                style={{ width: "724px" }}
-              >
-                <div className="text-[9px] tracking-[0.3em] text-gray-500 uppercase font-bold">
-                  Timeline Analysis
+              {/* Totals Summary */}
+              <div className="border-t-2 border-white/10 pt-4 flex justify-between items-center">
+                <div className="text-xs font-mono text-gray-400 uppercase tracking-wider">
+                  Estimate Total
                 </div>
-                <div className="h-[1px] flex-1 bg-white/[0.1]"></div>
-              </div>
-
-              <div
-                className="border border-white/10 rounded-xl bg-black/40 overflow-hidden mb-8"
-                style={{ width: "724px" }}
-              >
-                {/* Phase 01 */}
-                <div className="flex items-center justify-between p-6 border-b border-white/10">
-                  <div className="flex items-center gap-6">
-                    <div className="text-[10px] text-violet-500 uppercase flex items-center gap-3 font-bold w-[100px]">
-                      <span className="w-2 h-2 rounded-full bg-violet-500 shadow-[0_0_10px_rgba(139,92,246,0.6)]"></span>{" "}
-                      Phase 01
-                    </div>
-                    <div className="text-[16px] font-bold text-white tracking-tight">
-                      Homepage
-                    </div>
-                  </div>
-                  <div className="text-[14px] font-black text-white text-right font-mono w-[180px]">
-                    {quoteData.homeMinH} – {quoteData.homeMaxH} Hours
-                  </div>
-                </div>
-
-                {/* Phase 02 */}
-                {quoteData.pageCount > 0 && (
-                  <div className="flex items-center justify-between p-6 border-b border-white/10">
-                    <div className="flex items-center gap-6">
-                      <div className="text-[10px] text-violet-500 uppercase flex items-center gap-3 font-bold w-[100px]">
-                        <span className="w-2 h-2 rounded-full bg-violet-500 shadow-[0_0_10px_rgba(139,92,246,0.6)]"></span>{" "}
-                        Phase 02
-                      </div>
-                      <div className="text-[16px] font-bold text-white tracking-tight">
-                        {quoteData.pageCount} Additional Pages
-                      </div>
-                    </div>
-                    <div className="text-[14px] font-black text-white text-right font-mono w-[180px]">
-                      {quoteData.pageMinH} – {quoteData.pageMaxH} Hours
-                    </div>
-                  </div>
-                )}
-
-                {/* Phase 03 */}
-                <div className="flex items-center justify-between p-6 border-b border-white/10">
-                  <div className="flex items-center gap-6">
-                    <div className="text-[10px] text-violet-500 uppercase flex items-center gap-3 font-bold w-[100px]">
-                      <span className="w-2 h-2 rounded-full bg-violet-500 shadow-[0_0_10px_rgba(139,92,246,0.6)]"></span>{" "}
-                      Phase 03
-                    </div>
-                    <div className="text-[16px] font-bold text-white tracking-tight">
-                      SEO & Speed Optimization
-                    </div>
-                  </div>
-                  <div className="text-[11px] font-black text-emerald-500 uppercase tracking-[0.25em] text-right w-[180px]">
-                    Included
-                  </div>
-                </div>
-
-                {/* Total Row */}
-                <div className="flex items-center justify-between p-7 bg-white/[0.02]">
-                  <div className="text-[11px] text-violet-500 uppercase tracking-[0.35em] font-black">
-                    Estimate Total
-                  </div>
-                  <div className="text-right flex items-baseline gap-4">
-                    <span className="text-[18px] font-black text-white tracking-tight">
-                      {quoteData.totalMinH} – {quoteData.totalMaxH} Hours
-                    </span>
-                    <span className="text-gray-600 font-light text-lg opacity-40">
-                      ~
-                    </span>
-                    <span className="text-[18px] font-black text-white tracking-tight">
-                      €{quoteData.minPrice.toLocaleString()} – €
-                      {quoteData.maxPrice.toLocaleString()}
-                    </span>
-                  </div>
+                <div className="text-right flex items-baseline gap-4">
+                  <span className="text-[18px] font-black text-white tracking-tight">
+                    {estimateData.totalMinH} – {estimateData.totalMaxH} Hours
+                  </span>
+                  <span className="text-gray-600 font-light text-lg opacity-40">
+                    ~
+                  </span>
+                  <span className="text-[18px] font-black text-white tracking-tight">
+                    €{estimateData.minPrice.toLocaleString()} – €
+                    {estimateData.maxPrice.toLocaleString()}
+                  </span>
                 </div>
               </div>
 
@@ -732,7 +709,7 @@ export default function Quote() {
                   // Built with good vibes and clean code
                 </div>
                 <div className="text-[9px] text-gray-500 uppercase tracking-widest font-bold">
-                  Quote generated by SAS
+                  Estimate generated by SAS
                 </div>
               </div>
             </div>
@@ -741,21 +718,21 @@ export default function Quote() {
 
         {/* --- Project Intake Prompt Modal --- */}
         {showPrompt && (
-          <div className="fixed inset-0 z-[100] flex items-center justify-center p-6 backdrop-blur-xl bg-black/60 font-sans">
-            <div className="bento-card p-8 max-w-lg w-full border-violet-500/20 bg-black shadow-[0_0_80px_rgba(139,92,246,0.15)]">
-              <div className="font-mono text-violet-500 text-[10px] uppercase tracking-[0.3em] mb-6 font-bold italic">
+          <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 sm:p-6 backdrop-blur-xl bg-black/60 font-sans">
+            <div className="bento-card p-5 sm:p-8 max-w-lg w-full max-h-[92vh] overflow-y-auto border-violet-500/20 bg-black shadow-[0_0_80px_rgba(139,92,246,0.15)]">
+              <div className="font-mono text-violet-500 text-[10px] uppercase tracking-[0.3em] mb-4 sm:mb-6 font-bold italic">
                 ./ Initializing_Proposal
               </div>
-              <h3 className="text-3xl font-black text-white uppercase tracking-tighter mb-4 leading-none italic">
-                Formalize_Quote
+              <h3 className="text-2xl sm:text-3xl font-black text-white uppercase tracking-tighter mb-3 sm:mb-4 leading-none italic">
+                Formalize_Estimate
               </h3>
-              <p className="text-gray-400 text-xs font-light mb-8 leading-relaxed max-w-xs tracking-tighter">
+              <p className="text-gray-400 text-xs font-light mb-6 sm:mb-8 leading-relaxed max-w-xs tracking-tighter">
                 Provide your identification context to synchronize with the PDF
-                quote.
+                estimate.
               </p>
 
-              <div className="space-y-4 mb-10">
-                <div className="grid grid-cols-2 gap-4">
+              <div className="space-y-4 mb-8 sm:mb-10">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   <div className="space-y-2">
                     <label className="text-[8px] font-mono text-gray-400 uppercase tracking-widest font-bold">
                       01 First_Name

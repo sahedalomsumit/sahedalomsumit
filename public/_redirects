@@ -1,3 +1,5 @@
-/spa-burn    /spa-bern    301
-/* /index.html 200
-
+/portfolio/*  /work/:splat  301
+/portfolio    /work         301
+/quote        /estimate     301
+/spa-burn     /spa-bern     301
+/*            /index.html   200

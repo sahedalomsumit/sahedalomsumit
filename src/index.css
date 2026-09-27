@@ -2,59 +2,86 @@
 @tailwind components;
 @tailwind utilities;
 
-/* ── Dark Mode (default) ── */
+/* ── Design System Variables ── */
 :root {
   --accent: #8b5cf6;
+  --accent-glow: rgba(139, 92, 246, 0.25);
+  --accent-light: #a78bfa;
   --emerald: #10b981;
-  --bg: #050505;
-  --card-bg: rgba(255, 255, 255, 0.02);
+  --emerald-glow: rgba(16, 185, 129, 0.25);
+  --bg: #07090e;
+  --bg-secondary: #0c0f17;
+  --card-bg: rgba(15, 20, 31, 0.65);
+  --card-hover-bg: rgba(22, 29, 44, 0.85);
   --border: rgba(255, 255, 255, 0.08);
-  --text-main: #ffffff;
+  --border-hover: rgba(139, 92, 246, 0.4);
+  --border-light: rgba(255, 255, 255, 0.04);
+  --text-main: #f8fafc;
   --text-muted: #94a3b8;
-  --topbar-bg: #080808;
-  --topbar-border: rgba(255, 255, 255, 0.05);
-  --header-bg: rgba(10, 10, 10, 0.85);
-  --header-border: rgba(255, 255, 255, 0.05);
-  --scrollbar-track: #0a0a0a;
-  --scrollbar-thumb: #1a1a1a;
-  --grid-line: rgba(255, 255, 255, 0.02);
-  --mobile-menu-bg: #0a0a0a;
+  --text-dim: #64748b;
+  --topbar-bg: rgba(8, 10, 16, 0.85);
+  --topbar-border: rgba(255, 255, 255, 0.06);
+  --header-bg: rgba(7, 9, 14, 0.82);
+  --header-border: rgba(255, 255, 255, 0.07);
+  --scrollbar-track: #07090e;
+  --scrollbar-thumb: #1e2538;
+  --dot-color: rgba(255, 255, 255, 0.035);
+  --mobile-menu-bg: #07090e;
   --hire-btn-bg: #ffffff;
-  --hire-btn-text: #000000;
+  --hire-btn-text: #07090e;
+  --shadow-card: 0 4px 24px -1px rgba(0, 0, 0, 0.35);
+  --inner-bevel: inset 0 1px 0 rgba(255, 255, 255, 0.09);
 }
 
-/* ── Light Mode ── */
+/* ── Light Mode (Porcelain & Slate) ── */
 [data-theme="light"] {
   --accent: #7c3aed;
+  --accent-glow: rgba(124, 58, 237, 0.2);
+  --accent-light: #8b5cf6;
   --emerald: #059669;
-  --bg: #f5f5f7;
-  --card-bg: rgba(255, 255, 255, 0.7);
-  --border: rgba(0, 0, 0, 0.08);
-  --text-main: #0a0a0a;
+  --emerald-glow: rgba(5, 150, 105, 0.2);
+  --bg: #f8fafc;
+  --bg-secondary: #f1f5f9;
+  --card-bg: rgba(255, 255, 255, 0.85);
+  --card-hover-bg: #ffffff;
+  --border: rgba(15, 23, 42, 0.08);
+  --border-hover: rgba(124, 58, 237, 0.35);
+  --border-light: rgba(15, 23, 42, 0.04);
+  --text-main: #09090b;
   --text-muted: #475569;
-  --topbar-bg: #ede9fe;
-  --topbar-border: rgba(0, 0, 0, 0.06);
-  --header-bg: rgba(245, 245, 247, 0.9);
-  --header-border: rgba(0, 0, 0, 0.06);
-  --scrollbar-track: #f0f0f0;
-  --scrollbar-thumb: #c4b5fd;
-  --grid-line: rgba(0, 0, 0, 0.04);
-  --mobile-menu-bg: #f5f5f7;
-  --hire-btn-bg: #0a0a0a;
+  --text-dim: #94a3b8;
+  --topbar-bg: rgba(248, 250, 252, 0.9);
+  --topbar-border: rgba(15, 23, 42, 0.06);
+  --header-bg: rgba(255, 255, 255, 0.85);
+  --header-border: rgba(15, 23, 42, 0.07);
+  --scrollbar-track: #f1f5f9;
+  --scrollbar-thumb: #cbd5e1;
+  --dot-color: rgba(15, 23, 42, 0.04);
+  --mobile-menu-bg: #f8fafc;
+  --hire-btn-bg: #09090b;
   --hire-btn-text: #ffffff;
+  --shadow-card: 0 4px 20px -2px rgba(15, 23, 42, 0.06);
+  --inner-bevel: inset 0 1px 0 rgba(255, 255, 255, 0.95);
 }
 
 html, body {
-  font-family: "Inter", sans-serif;
+  font-family: "Plus Jakarta Sans", "Inter", -apple-system, BlinkMacSystemFont, sans-serif;
   background-color: var(--bg);
-  background-image:
-    linear-gradient(var(--grid-line) 1px, transparent 1px),
-    linear-gradient(90deg, var(--grid-line) 1px, transparent 1px);
-  background-size: 50px 50px;
+  background-image: radial-gradient(var(--dot-color) 1px, transparent 1px);
+  background-size: 28px 28px;
   color: var(--text-main);
-  overflow-x: hidden!important;
+  overflow-x: hidden !important;
   max-width: 100%;
   transition: background-color 0.4s ease, color 0.4s ease;
+  letter-spacing: -0.01em;
+}
+
+h1, h2, h3, h4, .font-heading {
+  font-family: "Outfit", "Plus Jakarta Sans", sans-serif;
+}
+
+.font-display {
+  font-family: "Space Grotesk", "Outfit", sans-serif;
 }
 
 .mono {
@@ -72,76 +99,142 @@ html, body {
 
 ::-webkit-scrollbar-thumb {
   background: var(--scrollbar-thumb);
-  border-radius: 10px;
+  border-radius: 9999px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
   background: var(--accent);
 }
 
-/* Bento Cards */
+/* ── World-Class Bento Cards ── */
 .bento-card {
   background: var(--card-bg);
   border: 1px solid var(--border);
-  backdrop-filter: blur(12px);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
   border-radius: 24px;
-  transition: all 0.5s cubic-bezier(0.23, 1, 0.32, 1);
+  box-shadow: var(--shadow-card), var(--inner-bevel);
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  position: relative;
 }
 
 .bento-card:hover {
-  border-color: var(--accent);
-  background: var(--card-bg);
-  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.15);
-  transform: translateY(-4px);
+  border-color: var(--border-hover);
+  background: var(--card-hover-bg);
+  box-shadow: 0 14px 40px -4px rgba(0, 0, 0, 0.2), 0 0 25px -4px var(--accent-glow), var(--inner-bevel);
+  transform: translateY(-3px);
+}
+
+/* Subtle glowing accent pill */
+.pill-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.35rem 0.85rem;
+  border-radius: 9999px;
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid var(--border);
+  backdrop-filter: blur(12px);
+  transition: all 0.3s ease;
+}
+
+[data-theme="light"] .pill-badge {
+  background: rgba(15, 23, 42, 0.04);
+  border-color: rgba(15, 23, 42, 0.08);
 }
 
 /* Aura background blobs */
 .aura {
   position: fixed;
-  width: 800px;
-  height: 800px;
-  background: radial-gradient(circle, rgba(139, 92, 246, 0.08) 0%, rgba(0, 0, 0, 0) 70%);
+  width: 750px;
+  height: 750px;
   border-radius: 50%;
-  filter: blur(100px);
+  filter: blur(130px);
   z-index: -1;
   pointer-events: none;
+  opacity: 0.55;
+  transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.5s ease;
 }
 
-[data-theme="light"] .aura {
-  background: radial-gradient(circle, rgba(124, 58, 237, 0.06) 0%, transparent 70%);
+#aura-1 {
+  background: radial-gradient(circle, rgba(139, 92, 246, 0.18) 0%, rgba(99, 102, 241, 0.08) 50%, transparent 70%);
 }
 
+#aura-2 {
+  background: radial-gradient(circle, rgba(16, 185, 129, 0.14) 0%, rgba(6, 182, 212, 0.06) 50%, transparent 70%);
+}
+
+[data-theme="light"] #aura-1 {
+  background: radial-gradient(circle, rgba(124, 58, 237, 0.12) 0%, rgba(99, 102, 241, 0.05) 50%, transparent 70%);
+  opacity: 0.7;
+}
+
+[data-theme="light"] #aura-2 {
+  background: radial-gradient(circle, rgba(16, 185, 129, 0.1) 0%, rgba(6, 182, 212, 0.04) 50%, transparent 70%);
+  opacity: 0.7;
+}
+
+/* Custom interactive cursor dot */
 #cursor {
-  width: 12px;
-  height: 12px;
-  background: white;
+  width: 10px;
+  height: 10px;
+  background: #ffffff;
   border-radius: 50%;
   position: fixed;
   pointer-events: none;
   z-index: 9999;
   mix-blend-mode: difference;
+  transition: transform 0.15s ease-out, opacity 0.2s ease;
 }
 
 /* Header */
 .sticky-header {
   background: var(--header-bg);
-  backdrop-filter: blur(20px);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
   border-bottom: 1px solid var(--header-border);
-  transition: background 0.4s ease, border-color 0.4s ease;
+  box-shadow: 0 4px 20px -2px rgba(0, 0, 0, 0.15);
+  transition: background 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
 }
 
 .glow-text {
-  text-shadow: 0 0 20px rgba(16, 185, 129, 0.3);
+  text-shadow: 0 0 24px rgba(16, 185, 129, 0.35);
 }
 
 .skill-tag {
-  @apply px-4 py-2 border rounded-full text-[10px] font-mono uppercase tracking-widest transition-all cursor-default;
-  border-color: var(--border);
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.4rem 0.9rem;
+  border-radius: 9999px;
+  font-size: 0.72rem;
+  font-weight: 500;
+  letter-spacing: 0.03em;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid var(--border);
   color: var(--text-muted);
+  transition: all 0.25s ease;
+  cursor: default;
 }
+
 .skill-tag:hover {
   border-color: var(--accent);
   color: var(--text-main);
+  background: rgba(139, 92, 246, 0.08);
+  transform: translateY(-1px);
+}
+
+[data-theme="light"] .skill-tag {
+  background: rgba(15, 23, 42, 0.03);
+  border-color: rgba(15, 23, 42, 0.08);
+}
+
+[data-theme="light"] .skill-tag:hover {
+  background: rgba(124, 58, 237, 0.08);
 }
 
 .text-always-white {
@@ -158,37 +251,12 @@ html, body {
   cursor: grabbing;
 }
 
-/* Page transitions */
-.page-enter {
-  opacity: 0;
-  transform: translateY(20px);
-}
-
-.page-enter-active {
-  opacity: 1;
-  transform: translateY(0);
-  transition: all 0.5s ease;
-}
-
-/* Heart pulse animation for footer badge */
-@keyframes pulseHeart {
-  0% {
-    transform: scale(1);
-  }
-  50% {
-    transform: scale(1.4);
-  }
-  100% {
-    transform: scale(1);
-  }
-}
-
 /* ── Theme Toggle Button ── */
 .theme-toggle {
   position: relative;
   width: 40px;
   height: 40px;
-  border-radius: 50%;
+  border-radius: 9999px;
   border: 1px solid var(--border);
   background: var(--card-bg);
   cursor: pointer;
@@ -196,13 +264,14 @@ html, body {
   align-items: center;
   justify-content: center;
   overflow: hidden;
-  transition: border-color 0.3s ease, background 0.3s ease, box-shadow 0.3s ease;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
   flex-shrink: 0;
 }
 
 .theme-toggle:hover {
   border-color: var(--accent);
-  box-shadow: 0 0 12px rgba(139, 92, 246, 0.3);
+  box-shadow: 0 0 16px var(--accent-glow);
+  transform: scale(1.05);
 }
 
 .theme-toggle .icon-sun,
@@ -215,25 +284,27 @@ html, body {
 
 /* Dark mode: moon visible, sun hidden below */
 .theme-toggle .icon-sun {
-  transform: translateY(30px) rotate(90deg);
+  transform: translateY(28px) rotate(90deg);
   opacity: 0;
 }
 .theme-toggle .icon-moon {
   transform: translateY(0) rotate(0deg);
   opacity: 1;
+  color: #a78bfa;
 }
 
 /* Light mode: sun visible, moon hidden above */
 [data-theme="light"] .theme-toggle .icon-sun {
   transform: translateY(0) rotate(0deg);
   opacity: 1;
+  color: #f59e0b;
 }
 [data-theme="light"] .theme-toggle .icon-moon {
-  transform: translateY(-30px) rotate(-90deg);
+  transform: translateY(-28px) rotate(-90deg);
   opacity: 0;
 }
 
-/* Light mode global text/border overrides for Tailwind hard-coded classes */
+/* ── Light Mode Harmonious Overrides ── */
 [data-theme="light"] .text-white {
   color: var(--text-main) !important;
 }
@@ -243,107 +314,95 @@ html, body {
 }
 [data-theme="light"] .bg-\[\#080808\],
 [data-theme="light"] .bg-\[\#0a0a0a\],
-[data-theme="light"] .bg-\[\#050505\] {
-  background-color: var(--topbar-bg) !important;
-}
-[data-theme="light"] .border-white\/5,
-[data-theme="light"] .border-white\/10 {
-  border-color: var(--border) !important;
-}
-[data-theme="light"] .bg-white\/5,
-[data-theme="light"] .bg-white\/10 {
-  background-color: rgba(0,0,0,0.04) !important;
-}
-[data-theme="light"] .text-white\/40 {
-  color: rgba(10,10,10,0.35) !important;
-}
-[data-theme="light"] .text-white\/60 {
-  color: rgba(10,10,10,0.55) !important;
-}
-[data-theme="light"] .text-white\/80 {
-  color: rgba(10,10,10,0.75) !important;
-}
-/* Cards & sections */
-[data-theme="light"] .bg-\[rgba\(255\,255\,255\,0\.01\)\],
-[data-theme="light"] .bg-\[rgba\(255\,255\,255\,0\.02\)\],
-[data-theme="light"] .bg-\[rgba\(255\,255\,255\,0\.03\)\],
-[data-theme="light"] .bg-\[rgba\(255\,255\,255\,0\.04\)\],
-[data-theme="light"] .bg-\[rgba\(255\,255\,255\,0\.05\)\] {
-  background-color: rgba(0, 0, 0, 0.02) !important;
-}
-[data-theme="light"] .bg-white\/\[0\.01\],
-[data-theme="light"] .bg-white\/\[0\.02\],
-[data-theme="light"] .bg-white\/\[0\.03\],
-[data-theme="light"] .bg-white\/\[0\.05\] {
-  background-color: rgba(0, 0, 0, 0.02) !important;
-}
-[data-theme="light"] .hover\:bg-white\/\[0\.03\]:hover,
-[data-theme="light"] .hover\:bg-white\/\[0\.05\]:hover {
-  background-color: rgba(0, 0, 0, 0.05) !important;
-}
-/* Fixed dark bg sections */
+[data-theme="light"] .bg-\[\#050505\],
 [data-theme="light"] .bg-\[\#030303\],
 [data-theme="light"] .bg-\[\#0d0d0d\],
 [data-theme="light"] .bg-\[\#111\],
 [data-theme="light"] .bg-\[\#111111\] {
-  background-color: #f0eeff !important;
+  background-color: var(--bg-secondary) !important;
 }
-/* Zinc dark cards used in service pages */
-[data-theme="light"] .bg-zinc-900 {
-  background-color: rgba(255,255,255,0.75) !important;
-}
-[data-theme="light"] .bg-zinc-800 {
-  background-color: rgba(255,255,255,0.6) !important;
-}
-/* text-gray-300 used in service pages */
-[data-theme="light"] .text-gray-300 {
-  color: var(--text-muted) !important;
-}
-/* borders */
+
+[data-theme="light"] .border-white\/5,
+[data-theme="light"] .border-white\/10,
 [data-theme="light"] .border-white\/20 {
-  border-color: rgba(0,0,0,0.12) !important;
+  border-color: var(--border) !important;
 }
-[data-theme="light"] .border-white\/5 {
-  border-color: rgba(0,0,0,0.06) !important;
+
+[data-theme="light"] .bg-white\/5,
+[data-theme="light"] .bg-white\/10 {
+  background-color: rgba(15, 23, 42, 0.04) !important;
 }
-[data-theme="light"] .border-white\/10 {
-  border-color: rgba(0,0,0,0.08) !important;
+
+[data-theme="light"] .text-white\/40 {
+  color: rgba(15, 23, 42, 0.4) !important;
 }
-/* hover:bg-white with opacity — keep them visible on light */
-[data-theme="light"] .hover\:bg-white\/\[0\.03\]:hover {
-  background-color: rgba(0,0,0,0.02) !important;
+[data-theme="light"] .text-white\/60 {
+  color: rgba(15, 23, 42, 0.6) !important;
 }
-/* Service page bg-black sections */
+[data-theme="light"] .text-white\/80 {
+  color: rgba(15, 23, 42, 0.8) !important;
+}
+
+[data-theme="light"] .bg-zinc-900,
+[data-theme="light"] .bg-zinc-800 {
+  background-color: #ffffff !important;
+  border-color: var(--border) !important;
+}
+
 [data-theme="light"] .bg-black {
-  background-color: var(--topbar-bg) !important;
+  background-color: var(--bg-secondary) !important;
 }
 
-/* Specific Service Hub fixes */
-[data-theme="light"] .bg-emerald-500\/5,
-[data-theme="light"] .bg-violet-500\/5 {
-  background-color: rgba(0, 0, 0, 0.03) !important;
-}
-[data-theme="light"] .border-emerald-500\/20,
-[data-theme="light"] .border-violet-500\/20 {
-  border-color: rgba(0, 0, 0, 0.1) !important;
-}
-[data-theme="light"] .bg-emerald-500\/10,
-[data-theme="light"] .bg-violet-500\/10 {
-  background-color: rgba(0, 0, 0, 0.05) !important;
-}
-[data-theme="light"] .bg-white\/5 {
-  background-color: rgba(0,0,0,0.04) !important;
-}
-[data-theme="light"] .text-gray-300 {
-  color: var(--text-muted) !important;
+/* Shimmer animation utility */
+@keyframes shimmerSweep {
+  0% { transform: translateX(-100%); }
+  100% { transform: translateX(100%); }
 }
 
-/* Hide scrollbar for Chrome, Safari and Opera */
+.shimmer-button {
+  position: relative;
+  overflow: hidden;
+}
+
+.shimmer-button::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.25),
+    transparent
+  );
+  transform: translateX(-100%);
+  animation: shimmerSweep 3.5s infinite;
+}
+
+/* Hide scrollbars cleanly */
 .no-scrollbar::-webkit-scrollbar {
   display: none;
 }
-/* Hide scrollbar for IE, Edge and Firefox */
 .no-scrollbar {
-  -ms-overflow-style: none;  /* IE and Edge */
-  scrollbar-width: none;  /* Firefox */
+  -ms-overflow-style: none;
+  scrollbar-width: none;
 }
+
+/* Infinite Marquee */
+@keyframes marqueeScroll {
+  0% { transform: translateX(0%); }
+  100% { transform: translateX(-50%); }
+}
+
+.animate-marquee {
+  display: flex;
+  width: max-content;
+  animation: marqueeScroll 30s linear infinite;
+}
+
+.animate-marquee:hover {
+  animation-play-state: paused;
+}
+

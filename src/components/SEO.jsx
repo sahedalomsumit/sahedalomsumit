@@ -35,7 +35,7 @@ const SEO = ({ title, description }) => {
     // Update OpenGraph title
     const ogTitle = document.querySelector('meta[property="og:title"]');
     if (ogTitle) {
-      ogTitle.setAttribute('content', title ? `${title} | ${baseTitle}` : `${baseTitle} | Web Designer & Developer`);
+      ogTitle.setAttribute('content', title ? `${title} | ${baseTitle}` : `${baseTitle} | Product Designer & AI-Enhanced Web Developer`);
     }
 
   }, [title, description]);
