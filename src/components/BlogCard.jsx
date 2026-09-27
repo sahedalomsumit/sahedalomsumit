@@ -89,7 +89,7 @@ export default function BlogCard({ post, isFeatured = false }) {
                       className="text-[11px] font-mono px-2.5 py-1 rounded-full border bg-white/[0.02]"
                       style={{ borderColor: 'var(--border)', color: 'var(--text-muted)' }}
                     >
-                      #{tag}
+                      {tag.startsWith('#') ? tag : `#${tag}`}
                     </span>
                   ))}
                 </div>
@@ -116,7 +116,7 @@ export default function BlogCard({ post, isFeatured = false }) {
               </div>
 
               <span className="inline-flex items-center gap-1.5 text-xs font-mono font-semibold text-violet-400 group-hover:text-violet-300">
-                Read Article
+                Read Blog
                 <ArrowRight className="w-4 h-4 group-hover:translate-x-1.5 transition-transform" />
               </span>
             </div>
@@ -184,7 +184,7 @@ export default function BlogCard({ post, isFeatured = false }) {
                   className="text-[10px] font-mono px-2 py-0.5 rounded-full border bg-white/[0.02]"
                   style={{ borderColor: 'var(--border)', color: 'var(--text-muted)' }}
                 >
-                  #{tag}
+                  {tag.startsWith('#') ? tag : `#${tag}`}
                 </span>
               ))}
             </div>

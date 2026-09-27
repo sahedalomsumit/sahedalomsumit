@@ -117,27 +117,22 @@ export default function Footer() {
           <ul className="space-y-3 text-xs" style={{ color: 'var(--text-muted)' }}>
             <li>
               <Link to="/services/full-stack-development" className="hover:text-white transition-colors">
-                Full-Stack Dev
+                Full-Stack Development
               </Link>
             </li>
             <li>
               <Link to="/services/low-no-code-development" className="hover:text-white transition-colors">
-                Webflow & WordPress
+                Low/No-Code & CMS
               </Link>
             </li>
             <li>
               <Link to="/services/ui-ux-design" className="hover:text-white transition-colors">
-                UI/UX Design Systems
+                UI/UX Design
               </Link>
             </li>
             <li>
               <Link to="/services/app-development" className="hover:text-white transition-colors">
-                Mobile App Dev
-              </Link>
-            </li>
-            <li>
-              <Link to="/services/tools" className="hover:text-white transition-colors">
-                Custom Internal Tools
+                App Development & Tools
               </Link>
             </li>
           </ul>

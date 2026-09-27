@@ -36,7 +36,7 @@ export default function BlogPostDetail() {
   const [readingProgress, setReadingProgress] = useState(0)
 
   useSEO({
-    title: post ? `${post.seoTitle || post.title} | Sahed Alom Sumit` : 'Article Details',
+    title: post ? (post.seoTitle || post.title) : 'Blog Details',
     description: post ? (post.seoDescription || post.excerpt) : 'Read architectural insights, AI workflows, and front-end engineering notes by Sahed Alom Sumit.',
     canonical: `/blog/${slug}`,
   })
@@ -128,18 +128,52 @@ export default function BlogPostDetail() {
     const lines = post.content.split('\n')
     const toc = []
     lines.forEach(line => {
-      if (line.startsWith('## ')) {
-        const text = line.replace('## ', '').trim()
+      const match = line.trim().match(/^(#{2,4})\s*(.*)$/)
+      if (match && match[2].trim()) {
+        const level = match[1].length
+        const text = match[2].trim()
         const id = text.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '')
-        toc.push({ level: 2, text, id })
-      } else if (line.startsWith('### ')) {
-        const text = line.replace('### ', '').trim()
-        const id = text.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '')
-        toc.push({ level: 3, text, id })
+        toc.push({ level, text, id })
       }
     })
     return toc
   }, [post?.content])
+
+  // Track active heading for live TOC highlighting on scroll
+  const [activeHeadingId, setActiveHeadingId] = useState('')
+
+  useEffect(() => {
+    if (!tableOfContents || tableOfContents.length === 0) return
+
+    const handleScroll = () => {
+      // Sections are defined by h2s. Keep nested h3/h4 links in the TOC, but
+      // never let them replace the active parent section.
+      const headingElements = tableOfContents
+        .filter(item => item.level === 2)
+        .map(item => document.getElementById(item.id))
+        .filter(Boolean)
+
+      // Activate a section as its heading reaches the middle of the reading area.
+      // This keeps the TOC aligned with the section currently being read instead
+      // of switching as soon as a heading reaches the top of the viewport.
+      const scrollPosition = window.scrollY + window.innerHeight / 2
+
+      for (let i = headingElements.length - 1; i >= 0; i--) {
+        const el = headingElements[i]
+        if (el.offsetTop <= scrollPosition) {
+          setActiveHeadingId(el.id)
+          return
+        }
+      }
+      if (headingElements.length > 0 && scrollPosition < headingElements[0].offsetTop) {
+        setActiveHeadingId('')
+      }
+    }
+
+    window.addEventListener('scroll', handleScroll, { passive: true })
+    handleScroll()
+    return () => window.removeEventListener('scroll', handleScroll)
+  }, [tableOfContents])
 
   const handleCopyLink = () => {
     navigator.clipboard.writeText(window.location.href)
@@ -191,7 +225,7 @@ export default function BlogPostDetail() {
         <div className="text-center py-20 flex flex-col items-center justify-center gap-3">
           <div className="w-8 h-8 rounded-full border-2 border-violet-500 border-t-transparent animate-spin" />
           <p className="font-mono text-xs text-violet-400 uppercase tracking-widest">
-            Loading Article...
+            Loading Blog...
           </p>
         </div>
       </section>
@@ -204,10 +238,10 @@ export default function BlogPostDetail() {
         <div className="bento-card p-12 text-center max-w-md mx-auto">
           <h1 className="text-6xl font-heading font-black mb-4 text-violet-400">404</h1>
           <h2 className="text-xl font-bold mb-2" style={{ color: 'var(--text-main)' }}>
-            Article Not Found
+            Blog Not Found
           </h2>
           <p className="text-xs mb-6" style={{ color: 'var(--text-muted)' }}>
-            The article you are looking for does not exist or may have been archived.
+            The blog you are looking for does not exist or may have been archived.
           </p>
           <Link
             to="/blog"
@@ -231,14 +265,14 @@ export default function BlogPostDetail() {
       <article className="py-12 sm:py-20 px-4 max-w-7xl mx-auto">
         {/* Navigation Breadcrumb */}
         <RevealOnScroll>
-          <nav aria-label="breadcrumb" className="text-xs tracking-wider mb-8 flex items-center gap-2" style={{ color: 'var(--text-dim)' }}>
-            <Link to="/" className="hover:text-violet-400 transition-colors">Home</Link>
+          <nav aria-label="breadcrumb" className="text-xs tracking-wider mb-8 flex flex-wrap items-center gap-x-2 gap-y-1.5 leading-relaxed font-mono" style={{ color: 'var(--text-dim)' }}>
+            <Link to="/" className="hover:text-violet-400 transition-colors whitespace-nowrap">Home</Link>
             <span>/</span>
-            <Link to="/blog" className="hover:text-violet-400 transition-colors">Blog</Link>
+            <Link to="/blog" className="hover:text-violet-400 transition-colors whitespace-nowrap">Blog</Link>
             <span>/</span>
-            <span className="text-violet-400">{post.category}</span>
+            <span className="text-violet-400 whitespace-nowrap">{post.category}</span>
             <span>/</span>
-            <span style={{ color: 'var(--text-main)' }} className="font-semibold truncate max-w-[200px] sm:max-w-xs">
+            <span style={{ color: 'var(--text-main)' }} className="font-semibold break-words">
               {post.title}
             </span>
           </nav>
@@ -246,7 +280,7 @@ export default function BlogPostDetail() {
 
         {/* Article Header */}
         <RevealOnScroll>
-          <header className="max-w-4xl mx-auto mb-10 text-left">
+          <header className="mb-10 text-left">
             <div className="flex flex-wrap items-center gap-3 text-xs font-mono mb-4">
               <span className="pill-badge text-violet-400 border-violet-500/20 bg-violet-500/10">
                 {post.category}
@@ -276,7 +310,7 @@ export default function BlogPostDetail() {
               {post.title}
             </h1>
 
-            <p className="text-lg sm:text-xl font-light leading-relaxed mb-8"
+            <p className="text-lg sm:text-xl font-light leading-relaxed mb-8 max-w-4xl"
                style={{ color: 'var(--text-muted)' }}>
               {post.excerpt}
             </p>
@@ -389,7 +423,7 @@ export default function BlogPostDetail() {
         {/* Hero Cover Image */}
         {post.coverImage && (
           <RevealOnScroll>
-            <div className="max-w-5xl mx-auto mb-14 rounded-3xl overflow-hidden border shadow-2xl relative"
+            <div className="w-full mb-14 rounded-3xl overflow-hidden border shadow-2xl relative"
                  style={{ borderColor: 'var(--border)' }}>
               <img
                 src={post.coverImage}
@@ -404,39 +438,56 @@ export default function BlogPostDetail() {
         )}
 
         {/* Main Content Layout with optional Sidebar TOC */}
-        <div className="max-w-5xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-12">
-          {/* Table of Contents Sidebar (Desktop) */}
+        <div className="w-full grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 relative">
+          {/* Table of Contents Sidebar (Desktop Sticky) */}
           {tableOfContents.length > 0 && (
-            <aside className="hidden lg:block lg:col-span-4">
-              <div className="sticky top-32 bento-card p-6 border text-left"
+            <aside className="hidden lg:block lg:col-span-4 self-start sticky top-28 z-20">
+              <div className="bento-card p-6 border text-left max-h-[calc(100vh-8.5rem)] overflow-y-auto custom-scrollbar shadow-xl transition-all"
                    style={{ borderColor: 'var(--border)' }}>
                 <div className="flex items-center gap-2 mb-4 pb-3 border-b"
                      style={{ borderColor: 'var(--border)' }}>
-                  <Bookmark className="w-4 h-4 text-violet-400" />
+                  <Bookmark className="w-4 h-4 text-violet-400 shrink-0" />
                   <span className="text-xs font-mono font-bold uppercase tracking-wider text-violet-400">
                     Table of Contents
                   </span>
                 </div>
-                <nav className="space-y-2 text-xs">
-                  {tableOfContents.map((item, idx) => (
-                    <a
-                      key={idx}
-                      href={`#${item.id}`}
-                      className={`block py-1 hover:text-violet-400 transition-colors ${
-                        item.level === 3 ? 'pl-4 text-gray-400' : 'font-medium'
-                      }`}
-                      style={{ color: item.level === 3 ? 'var(--text-dim)' : 'var(--text-muted)' }}
-                    >
-                      {item.text}
-                    </a>
-                  ))}
+                <nav className="space-y-1 text-xs">
+                  {tableOfContents.map((item, idx) => {
+                    const isActive = activeHeadingId === item.id
+                    return (
+                      <a
+                        key={idx}
+                        href={`#${item.id}`}
+                        onClick={(e) => {
+                          e.preventDefault()
+                          const target = document.getElementById(item.id)
+                          if (target) {
+                            const y = target.getBoundingClientRect().top + window.pageYOffset - 110
+                            window.scrollTo({ top: y, behavior: 'smooth' })
+                          }
+                        }}
+                        className={`block py-1.5 px-2.5 rounded-lg transition-all leading-snug ${
+                          item.level === 3 ? 'ml-3 text-[11px]' : 'font-medium'
+                        } ${
+                          isActive
+                            ? 'bg-violet-500/15 text-violet-300 font-semibold border-l-2 border-violet-400 pl-2'
+                            : 'hover:text-violet-400 hover:bg-white/[0.02]'
+                        }`}
+                        style={{
+                          color: isActive ? 'var(--accent-light, #c4b5fd)' : item.level === 3 ? 'var(--text-dim)' : 'var(--text-muted)'
+                        }}
+                      >
+                        {item.text}
+                      </a>
+                    )
+                  })}
                 </nav>
               </div>
             </aside>
           )}
 
           {/* Main Article Body */}
-          <main className={tableOfContents.length > 0 ? 'lg:col-span-8' : 'max-w-3xl mx-auto col-span-12'}>
+          <main className={tableOfContents.length > 0 ? 'lg:col-span-8' : 'w-full col-span-12'}>
             <div className="bento-card p-6 sm:p-10 md:p-12 text-left mb-12">
               <MarkdownRenderer content={post.content} />
 
@@ -444,7 +495,7 @@ export default function BlogPostDetail() {
               {post.tags && post.tags.length > 0 && (
                 <div className="mt-12 pt-8 border-t" style={{ borderColor: 'var(--border)' }}>
                   <span className="text-xs font-mono uppercase tracking-wider block mb-3 text-violet-400">
-                    Categorized In
+                    Tags
                   </span>
                   <div className="flex flex-wrap gap-2">
                     {post.tags.map((tag, i) => (
@@ -453,7 +504,7 @@ export default function BlogPostDetail() {
                         className="text-xs font-mono px-3 py-1.5 rounded-full border bg-white/[0.02]"
                         style={{ borderColor: 'var(--border)', color: 'var(--text-muted)' }}
                       >
-                        #{tag}
+                        #{tag.replace(/^#+/, '')}
                       </span>
                     ))}
                   </div>
@@ -480,7 +531,7 @@ export default function BlogPostDetail() {
                   {post.authorRole || 'Product Designer & AI-Enhanced Web Developer'} • Helsinki, Finland
                 </p>
                 <p className="text-xs font-light leading-relaxed" style={{ color: 'var(--text-muted)' }}>
-                  Specializing in craft-driven web experiences, high-converting design systems, and AI-accelerated front-end engineering. Available for select international projects and advisory.
+                  With 5+ years of experience, I’ve worked with founders, brands, and agencies worldwide, turning rough ideas into 150+ digital products that are fast, user-friendly, visually polished, and built to support real business goals.
                 </p>
               </div>
             </div>
@@ -495,7 +546,7 @@ export default function BlogPostDetail() {
                   >
                     <span className="text-[10px] font-mono uppercase tracking-wider text-violet-400 mb-2 flex items-center gap-1">
                       <ArrowLeft className="w-3 h-3 group-hover:-translate-x-1 transition-transform" />
-                      Previous Article
+                      Previous Blog
                     </span>
                     <h4 className="text-sm font-bold line-clamp-2 group-hover:text-violet-400 transition-colors"
                         style={{ color: 'var(--text-main)' }}>
@@ -510,7 +561,7 @@ export default function BlogPostDetail() {
                     className="bento-card p-5 group flex flex-col justify-between sm:text-right hover:border-violet-500/50 transition-all"
                   >
                     <span className="text-[10px] font-mono uppercase tracking-wider text-violet-400 mb-2 flex items-center justify-start sm:justify-end gap-1">
-                      Next Article
+                      Next Blog
                       <ArrowRight className="w-3 h-3 group-hover:translate-x-1 transition-transform" />
                     </span>
                     <h4 className="text-sm font-bold line-clamp-2 group-hover:text-violet-400 transition-colors"
@@ -533,14 +584,14 @@ export default function BlogPostDetail() {
                   Keep Reading
                 </span>
                 <h3 className="text-2xl sm:text-3xl font-heading font-bold" style={{ color: 'var(--text-main)' }}>
-                  Related Articles
+                  Related Blogs
                 </h3>
               </div>
               <Link
                 to="/blog"
                 className="text-xs font-mono text-violet-400 hover:text-violet-300 font-semibold flex items-center gap-1"
               >
-                All Articles <ArrowRight className="w-3.5 h-3.5" />
+                All Blogs <ArrowRight className="w-3.5 h-3.5" />
               </Link>
             </div>
 

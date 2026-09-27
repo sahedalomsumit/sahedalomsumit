@@ -1,4 +1,7 @@
 User-agent: *
+Disallow: /blog/admin
+Disallow: /blog/new
+Disallow: /admin
 Allow: /
 
 Sitemap: https://sahedalomsumit.com/sitemap.xml

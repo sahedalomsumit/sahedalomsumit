@@ -8,16 +8,31 @@ import { fetchBlogPosts, supabase } from '../lib/supabase'
 import { useSEO } from '../hooks/useSEO'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 
-const CATEGORIES = ['All', 'AI & Automation', 'Design Systems', 'Engineering', 'UI/UX Design']
-
 export default function Blog() {
   const [posts, setPosts] = useState([])
   const [loading, setLoading] = useState(true)
   const [searchQuery, setSearchQuery] = useState('')
   const [selectedCategory, setSelectedCategory] = useState('All')
 
+  // Available categories derived dynamically from published blog posts
+  const categories = useMemo(() => {
+    const set = new Set()
+    posts.forEach(post => {
+      if (post.category && post.category.trim()) {
+        set.add(post.category.trim())
+      }
+    })
+    return ['All', ...Array.from(set)]
+  }, [posts])
+
+  useEffect(() => {
+    if (selectedCategory !== 'All' && !categories.includes(selectedCategory)) {
+      setSelectedCategory('All')
+    }
+  }, [categories, selectedCategory])
+
   useSEO({
-    title: 'Blog & Engineering Insights | Sahed Alom Sumit',
+    title: 'Blog & Engineering Insights',
     description: 'Deep-dives into AI engineering, modern design systems, Supabase architectures, and tactile front-end craftsmanship by Sahed Alom Sumit in Helsinki, Finland.',
     canonical: '/blog',
   })
@@ -110,11 +125,13 @@ export default function Blog() {
         <RevealOnScroll>
           <header className="mb-14 text-left">
             {/* Breadcrumb */}
-            <nav aria-label="breadcrumb" className="text-xs tracking-wider mb-6 flex items-center gap-2" style={{ color: 'var(--text-dim)' }}>
-              <Link to="/" className="hover:text-violet-400 transition-colors">Home</Link>
-              <span>/</span>
-              <span style={{ color: 'var(--text-main)' }} className="font-semibold">Blog & Insights</span>
-            </nav>
+            <div className="mb-6">
+              <nav aria-label="breadcrumb" className="text-xs tracking-wider flex items-center gap-2" style={{ color: 'var(--text-dim)' }}>
+                <Link to="/" className="hover:text-violet-400 transition-colors">Home</Link>
+                <span>/</span>
+                <span style={{ color: 'var(--text-main)' }} className="font-semibold">Blog & Insights</span>
+              </nav>
+            </div>
 
             <span className="pill-badge text-violet-400 border-violet-500/20 bg-violet-500/10 mb-4 inline-flex items-center gap-2">
               <Sparkles className="w-3.5 h-3.5" />
@@ -139,7 +156,7 @@ export default function Blog() {
                  style={{ borderColor: 'var(--border)' }}>
               {/* Category Pills */}
               <div className="flex flex-wrap gap-2">
-                {CATEGORIES.map(category => {
+                {categories.map(category => {
                   const isActive = selectedCategory === category
                   return (
                     <button
@@ -169,7 +186,7 @@ export default function Blog() {
                   type="text"
                   value={searchQuery}
                   onChange={e => setSearchQuery(e.target.value)}
-                  placeholder="Search articles by topic, stack..."
+                  placeholder="Search blogs by topic, stack..."
                   className="w-full pl-10 pr-9 py-2 rounded-full text-xs border bg-transparent focus:outline-none focus:border-violet-500 transition-colors"
                   style={{
                     borderColor: 'var(--border)',
@@ -207,10 +224,10 @@ export default function Blog() {
               </RevealOnScroll>
             )}
 
-            {/* Articles Grid Header */}
+            {/* Blogs Grid Header */}
             <div className="flex items-center justify-between mb-8">
               <span className="text-xs font-mono uppercase tracking-wider text-violet-400">
-                {searchQuery || selectedCategory !== 'All' ? 'Search Results' : 'Latest Articles'} ({filteredPosts.length})
+                {searchQuery || selectedCategory !== 'All' ? 'Search Results' : 'Latest Blogs'} ({filteredPosts.length})
               </span>
               {(searchQuery || selectedCategory !== 'All') && (
                 <button
@@ -225,15 +242,15 @@ export default function Blog() {
               )}
             </div>
 
-            {/* Articles Grid */}
+            {/* Blogs Grid */}
             {filteredPosts.length === 0 ? (
               <div className="bento-card p-12 text-center max-w-md mx-auto my-12">
                 <BookOpen className="w-10 h-10 mx-auto mb-4 text-violet-400/60" />
                 <h3 className="text-xl font-heading font-bold mb-2" style={{ color: 'var(--text-main)' }}>
-                  No articles found
+                  No blogs found
                 </h3>
                 <p className="text-xs mb-6" style={{ color: 'var(--text-muted)' }}>
-                  No articles matched your query "{searchQuery}". Try searching for terms like "AI", "Supabase", "Bento", or "React".
+                  No blogs matched your query "{searchQuery}". Try searching for terms like "AI", "Supabase", "Bento", or "React".
                 </p>
                 <button
                   onClick={() => {

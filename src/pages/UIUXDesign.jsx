@@ -13,7 +13,7 @@ export default function UIUXDesign() {
   const [loading, setLoading] = useState(true)
 
   useSEO({
-    title: 'UI/UX Design | Sahed Alom Sumit',
+    title: 'UI/UX Design',
     description: `Every great digital product starts with a conversation, not a canvas. Before I open Figma, before I pick a single color, I sit with you and ask the hard questions: Who's using this? What are they trying to do? What's standing in their way? That's where design begins — at the intersection of empathy and intent.`,
     canonical: '/services/ui-ux-design',
   })
@@ -37,7 +37,7 @@ export default function UIUXDesign() {
 
   const tabContent = {
     figma: {
-      title: 'Figma Design',
+      title: 'Figma',
       label: 'Design_Module',
       desc: 'Great products start with great design. I create thoughtful UI/UX in Figma — from rough wireframes to polished, dev-ready prototypes that your team can build from with confidence.',
       deliverables: 'User Research, Wireframes, High-Fidelity UI Design, Interactive Prototypes, Design Systems, Dev-Ready Handoff',

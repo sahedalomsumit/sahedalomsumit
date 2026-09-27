@@ -6,8 +6,7 @@ const hubs = [
   { slug: 'full-stack-development', title: 'Full-Stack Development', color: 'emerald', label: 'Full_Stack_Hub' },
   { slug: 'low-no-code-development', title: 'Low/No-Code Solutions', color: 'violet', label: 'Low_No_Code_Hub' },
   { slug: 'ui-ux-design', title: 'UI/UX Design', color: 'violet', label: 'Design_Hub' },
-  { slug: 'app-development', title: 'App Development', color: 'emerald', label: 'App_Hub' },
-  { slug: 'tools', title: 'Custom Tools', color: 'violet', label: 'Tools_Hub' }
+  { slug: 'app-development', title: 'App Development & Tools', color: 'emerald', label: 'App_Tools_Hub' }
 ];
 
 export default function HubNavigation({ currentSlug }) {

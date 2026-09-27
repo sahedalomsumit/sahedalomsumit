@@ -14,7 +14,7 @@ export default function Work() {
   const [selectedTag, setSelectedTag] = useState('')
 
   useSEO({
-    title: 'Selected Work & Case Studies | Sahed Alom Sumit',
+    title: 'Selected Work & Case Studies',
     description: `Explore the selected portfolio of Sahed Alom Sumit, featuring high-performance websites across Webflow, WordPress, React, and custom full-stack solutions.`,
     canonical: '/work',
   })

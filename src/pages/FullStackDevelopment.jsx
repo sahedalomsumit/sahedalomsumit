@@ -13,7 +13,7 @@ export default function FullStackDevelopment() {
   const [loading, setLoading] = useState(true)
 
   useSEO({
-    title: 'Full-Stack Web Development | Sahed Alom Sumit',
+    title: 'Full-Stack Web Development',
     description: `There's a moment in every project when a platform reaches its ceiling. You need a custom dashboard, a complex data flow, an integration that doesn't exist as a plugin. That's when you need someone who writes the architecture from scratch — frontend to backend, database to deployment.`,
     canonical: '/services/full-stack-development',
   })

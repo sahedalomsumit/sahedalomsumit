@@ -13,8 +13,8 @@ export default function AppDevelopment() {
   const [loading, setLoading] = useState(true)
 
   useSEO({
-    title: 'App Development | Sahed Alom Sumit',
-    description: `Your users live in their pockets. They check their phones before they check the mirror. If your idea needs to reach people where they actually spend their time, that means a real, native-feeling app — not just a responsive website.`,
+    title: 'App Development & Tools',
+    description: `High-performance Android applications built with Flutter and custom Google Chrome extensions engineered to streamline workflows and elevate digital capabilities.`,
     canonical: '/services/app-development',
   })
 
@@ -27,23 +27,30 @@ export default function AppDevelopment() {
     loadProjects()
   }, [])
 
-  const tags = ["App Development", "Flutter", "Mobile"]
+  const tags = ["App Development", "Flutter", "Mobile", "Extension", "Chrome Extension"]
 
   const filteredProjects = useMemo(() => {
     return projects.filter(p => p.tags && p.tags.some(tag => tags.includes(tag)))
   }, [projects, tags])
 
+  const [activeTab, setActiveTab] = useState('android')
+
   const tabContent = {
     android: {
-      title: 'Android App',
+      title: 'Android App Development',
       label: 'Mobile_Module',
-      desc: 'Transform your ideas into powerful mobile experiences. I specialize in building high-performance, visually stunning Android applications using Flutter and the Dart programming language, delivering native-like quality with a single codebase.',
-      deliverables: 'Native-like Performance, Custom UI/UX, API & Backend Integration, Push Notifications, In-App Purchases, Play Store Deployment',
+      desc: 'Transform your ideas into powerful mobile experiences. I specialize in building high-performance, visually stunning Android applications using Flutter and Dart, delivering native responsiveness, smooth animations, and clean scalable architecture.',
+      deliverables: 'Native Android Performance, Custom Flutter UI/UX, API & Backend Integration, Push Notifications, In-App Purchases, Play Store Deployment',
       stack: 'Flutter, Dart, Provider/Riverpod, BLoC, Firebase, Supabase, Android Studio'
+    },
+    extensions: {
+      title: 'Chrome Web Extensions',
+      label: 'Tools_Module',
+      desc: 'Turn repetitive daily workflows into single-click automations. I engineer custom Google Chrome extensions (Manifest V3) that live inside the browser — from productivity scrapers and content formatters to full micro-SaaS tools.',
+      deliverables: 'Chrome Extension (Manifest V3), Popup & Side Panel UI, Content Scripts, Chrome Storage & Sync, OAuth & API Integration, Web Store Publishing',
+      stack: 'JavaScript, TypeScript, Chrome APIs, React, HTML/CSS, Web APIs'
     }
   }
-
-  const activeTab = 'android'
 
   return (
     <>
@@ -55,14 +62,14 @@ export default function AppDevelopment() {
               <span>/</span>
               <Link to="/services" className="hover:text-emerald-500 transition">Services</Link>
               <span>/</span>
-              <span className="text-white">App Development</span>
+              <span className="text-white">App Development & Tools</span>
             </nav>
             <div className="font-mono text-emerald-500 text-xs tracking-[0.4em] font-bold uppercase mb-6">Service_Hub</div>
             <h1 className="text-5xl md:text-8xl font-black tracking-tighter text-white uppercase leading-none mb-8 italic">
-              App <br />Development
+              App Development <br />& Tools
             </h1>
             <p className="text-gray-400 text-lg md:text-xl max-w-3xl font-light leading-relaxed border-l-2 border-emerald-500/30 pl-6">
-              Your users live in their pockets. They check their phones before they check the mirror. If your idea needs to reach people where they actually spend their time, that means a real, native-feeling app — not just a responsive website.
+              High-performance Android applications built with Flutter and custom Google Chrome browser extensions engineered to automate workflows, accelerate teams, and create seamless digital products.
             </p>
           </header>
         </RevealOnScroll>
@@ -77,7 +84,12 @@ export default function AppDevelopment() {
                 {Object.entries(tabContent).map(([id, content]) => (
                   <button
                     key={id}
-                    className="px-6 py-3 rounded-full font-mono text-[10px] uppercase tracking-widest transition-all whitespace-nowrap bg-emerald-500 text-black font-black"
+                    onClick={() => setActiveTab(id)}
+                    className={`px-6 py-3 rounded-full font-mono text-[10px] uppercase tracking-widest transition-all whitespace-nowrap ${
+                      activeTab === id
+                      ? 'bg-emerald-500 text-black font-black'
+                      : 'bg-white/5 text-gray-400 hover:bg-white/10 hover:text-white'
+                    }`}
                   >
                     {content.title}
                   </button>
@@ -117,6 +129,7 @@ export default function AppDevelopment() {
             </div>
           </div>
         </RevealOnScroll>
+
 
         <RevealOnScroll delay={0.2}>
           <div className="mb-20">

@@ -17,10 +17,14 @@ const UIUXDesign = lazy(() => import("./pages/UIUXDesign"));
 const FullStackDevelopment = lazy(() => import("./pages/FullStackDevelopment"));
 const LowNoCodeDevelopment = lazy(() => import("./pages/LowNoCodeDevelopment"));
 const AppDevelopment = lazy(() => import("./pages/AppDevelopment"));
+const FramerDevelopment = lazy(() => import("./pages/FramerDevelopment"));
+const KajabiDevelopment = lazy(() => import("./pages/KajabiDevelopment"));
 const ToolsServices = lazy(() => import("./pages/ToolsServices"));
 const Estimate = lazy(() => import("./pages/Estimate"));
 const Blog = lazy(() => import("./pages/Blog"));
 const BlogPostDetail = lazy(() => import("./pages/BlogPostDetail"));
+const BlogAdmin = lazy(() => import("./pages/BlogAdmin"));
+const BlogAdminDashboard = lazy(() => import("./pages/BlogAdminDashboard"));
 const NotFound = lazy(() => import("./pages/NotFound"));
 
 // Lazy-load floating AI chatbot to keep initial bundle ultra-lean
@@ -99,12 +103,17 @@ export default function App() {
             <Route path="/services/ui-ux-design" element={<UIUXDesign />} />
             <Route path="/services/full-stack-development" element={<FullStackDevelopment />} />
             <Route path="/services/low-no-code-development" element={<LowNoCodeDevelopment />} />
+            <Route path="/services/framer" element={<FramerDevelopment />} />
+            <Route path="/services/framer-development" element={<FramerDevelopment />} />
+            <Route path="/services/kajabi" element={<KajabiDevelopment />} />
+            <Route path="/services/kajabi-development" element={<KajabiDevelopment />} />
             <Route path="/services/app-development" element={<AppDevelopment />} />
-
-            <Route path="/services/tools" element={<ToolsServices />} />
+            <Route path="/services/tools" element={<Navigate to="/services/app-development" replace />} />
             <Route path="/estimate" element={<Estimate />} />
             <Route path="/quote" element={<Navigate to="/estimate" replace />} />
             <Route path="/blog" element={<Blog />} />
+            <Route path="/blog/admin" element={<BlogAdminDashboard />} />
+            <Route path="/blog/new" element={<BlogAdmin />} />
             <Route path="/blog/:slug" element={<BlogPostDetail />} />
             <Route path="*" element={<NotFound />} />
           </Routes>

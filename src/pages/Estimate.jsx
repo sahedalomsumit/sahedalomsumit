@@ -21,7 +21,7 @@ export default function Estimate() {
   const pdfRef = useRef();
 
   useSEO({
-    title: "Project Estimate Calculator | Sahed Alom Sumit",
+    title: "Project Estimate Calculator",
     description:
       "Get an instant project estimate for your web build. Transparent pricing at €30/h for high-end Webflow, WordPress, and Custom development.",
     canonical: "/estimate",

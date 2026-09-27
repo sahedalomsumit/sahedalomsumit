@@ -1,10 +1,11 @@
 import { useEffect } from 'react';
+import { formatDocumentTitle } from '../hooks/useSEO';
 
 const SEO = ({ title, description }) => {
   useEffect(() => {
     // Update tab title
-    const baseTitle = 'Sahed Alom Sumit';
-    document.title = title ? `${title} | ${baseTitle}` : `${baseTitle} | Product Designer & AI-Enhanced Web Developer`;
+    const fullTitle = formatDocumentTitle(title);
+    document.title = fullTitle;
 
     // Update meta description
     const metaDescription = document.querySelector('meta[name="description"]');
@@ -35,7 +36,7 @@ const SEO = ({ title, description }) => {
     // Update OpenGraph title
     const ogTitle = document.querySelector('meta[property="og:title"]');
     if (ogTitle) {
-      ogTitle.setAttribute('content', title ? `${title} | ${baseTitle}` : `${baseTitle} | Product Designer & AI-Enhanced Web Developer`);
+      ogTitle.setAttribute('content', fullTitle);
     }
 
   }, [title, description]);

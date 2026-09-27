@@ -20,10 +20,10 @@ const categories = [
     badgeColor: 'text-emerald-400 border-emerald-500/20 bg-emerald-500/10',
     accentColor: 'text-emerald-400',
     subServices: [
-      { name: 'Frontend Architecture', tech: 'react' },
-      { name: 'Backend & APIs', tech: 'node' },
-      { name: 'AI Automations', tech: 'zapier' },
-      { name: 'Technical SEO', tech: 'nextjs' }
+      { name: 'Frontend Development', tech: 'react' },
+      { name: 'Backend Development', tech: 'node' },
+      { name: 'AI Automation', tech: 'zapier' },
+      { name: 'SEO & Optimization', tech: 'nextjs' }
     ]
   },
   {
@@ -41,9 +41,11 @@ const categories = [
     badgeColor: 'text-violet-400 border-violet-500/20 bg-violet-500/10',
     accentColor: 'text-violet-400',
     subServices: [
-      { name: 'Webflow Custom Builds', tech: 'webflow' },
-      { name: 'WordPress & WooCommerce', tech: 'wordpress' },
-      { name: 'Shopify E-Commerce', tech: 'shopify' }
+      { name: 'WordPress', tech: 'wordpress' },
+      { name: 'Webflow', tech: 'webflow' },
+      { name: 'Framer', tech: 'framer' },
+      { name: 'Kajabi', tech: 'kajabi' },
+      { name: 'Shopify', tech: 'shopify' }
     ]
   },
   {
@@ -64,48 +66,27 @@ const categories = [
     badgeColor: 'text-violet-400 border-violet-500/20 bg-violet-500/10',
     accentColor: 'text-violet-400',
     subServices: [
-      { name: 'Figma Design Systems', tech: 'figma' },
-      { name: 'Interactive Prototypes', tech: 'figma' },
-      { name: 'Conversion Optimization', tech: 'react' }
+      { name: 'Figma', tech: 'figma' }
     ]
   },
   {
     num: '04',
     slug: 'app-development',
-    label: 'Mobile Solutions',
-    title: 'Cross-Platform App Development',
-    tagline: 'Mobile applications built with Flutter and Dart for iOS and Android from a single codebase.',
+    label: 'Mobile & Tools',
+    title: 'App Development & Tools',
+    tagline: 'Mobile applications built with Flutter and custom Google Chrome extensions.',
     icon: (
       <svg viewBox="0 0 24 24" fill="none" className="w-7 h-7" stroke="currentColor" strokeWidth="1.5">
         <rect x="5" y="2" width="14" height="20" rx="2" ry="2" />
         <line x1="12" y1="18" x2="12.01" y2="18" />
       </svg>
     ),
-    badge: 'Flutter & Dart',
+    badge: 'Flutter & Chrome V3',
     badgeColor: 'text-emerald-400 border-emerald-500/20 bg-emerald-500/10',
     accentColor: 'text-emerald-400',
     subServices: [
-      { name: 'Android Applications', tech: 'flutter' },
-      { name: 'iOS Cross-Builds', tech: 'flutter' }
-    ]
-  },
-  {
-    num: '05',
-    slug: 'tools',
-    label: 'Developer Ecosystem',
-    title: 'Custom Internal Tools & Extensions',
-    tagline: 'Tailored browser extensions, productivity boosters, and automation scripts.',
-    icon: (
-      <svg viewBox="0 0 24 24" fill="none" className="w-7 h-7" stroke="currentColor" strokeWidth="1.5">
-        <path d="M16 18l6-6-6-6M8 6l-6 6 6 6" />
-      </svg>
-    ),
-    badge: 'Manifest V3',
-    badgeColor: 'text-violet-400 border-violet-500/20 bg-violet-500/10',
-    accentColor: 'text-violet-400',
-    subServices: [
-      { name: 'Chrome Web Extensions', tech: 'chrome' },
-      { name: 'Workflow Automations', tech: 'zapier' }
+      { name: 'Android App Development', tech: 'flutter' },
+      { name: 'Chrome Web Extensions', tech: 'chrome' }
     ]
   }
 ]
@@ -119,7 +100,7 @@ const stats = [
 
 export default function Services() {
   useSEO({
-    title: 'Specialized Digital Services | Sahed Alom Sumit',
+    title: 'Specialized Digital Services',
     description: `Explore my specialized service offerings: UI/UX Design Systems, Full-Stack Web Development, Webflow & CMS Solutions, App Development, and Custom Tools.`,
     canonical: '/services',
   })

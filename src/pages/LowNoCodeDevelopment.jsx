@@ -13,7 +13,7 @@ export default function LowNoCodeDevelopment() {
   const [loading, setLoading] = useState(true)
 
   useSEO({
-    title: 'Low/No-Code Web Development | Sahed Alom Sumit',
+    title: 'Low/No-Code Web Development',
     description: `Here's an industry secret: most websites don't need custom code. They need the right platform, the right structure, and someone who knows how to push those tools to their limit. Whether it's a complex CMS in Webflow, a scalable store in Shopify, or a custom business site in WordPress — I use the best no-code tools to ship faster without compromising on quality or performance.`,
     canonical: '/services/low-no-code-development',
   })
@@ -27,7 +27,7 @@ export default function LowNoCodeDevelopment() {
     loadProjects()
   }, [])
 
-  const tags = ["WordPress", "Webflow", "Shopify", "Web Development"]
+  const tags = ["WordPress", "Webflow", "Framer", "Kajabi", "Shopify", "Web Development"]
 
   const filteredProjects = useMemo(() => {
     return projects.filter(p => p.tags && p.tags.some(tag => tags.includes(tag)))
@@ -49,6 +49,22 @@ export default function LowNoCodeDevelopment() {
       desc: 'Design-first development. I take your Figma designs and turn them into pixel-perfect, responsive Webflow sites with complex animations and clean CMS structures.',
       deliverables: 'Figma to Webflow, CMS Architecture, Interactions & Animations, E-commerce, Custom Code Integrations',
       stack: 'Webflow, Javascript, CSS, Webflow CMS, Logic'
+    },
+    framer: {
+      title: 'Framer',
+      label: 'Framer_Module',
+      desc: 'High-velocity visual web development with award-winning animations. Framer allows shipping interactive, high-converting marketing sites with lightning speed and built-in CMS capabilities.',
+      deliverables: 'Figma to Framer, Interactive Micro-animations, CMS Setup, Custom React Components in Framer, Responsive Breakpoints, SEO Setup',
+      stack: 'Framer, React, Framer Motion, CSS, Framer CMS',
+      link: '/services/framer'
+    },
+    kajabi: {
+      title: 'Kajabi',
+      label: 'Kajabi_Module',
+      desc: 'Turn knowledge into scalable revenue. I architect and design high-converting Kajabi portals, course websites, landing pages, and email sales funnels that scale memberships effortlessly.',
+      deliverables: 'Custom Kajabi Theme Design, Course & Membership Portal Architecture, Checkout & Funnel Optimization, Email Automations, Community Integration',
+      stack: 'Kajabi, Liquid, Custom CSS, Stripe Integration, Zapier',
+      link: '/services/kajabi'
     },
     shopify: {
       title: 'Shopify',
@@ -112,6 +128,17 @@ export default function LowNoCodeDevelopment() {
                 <p className="text-gray-400 text-lg font-light leading-relaxed mb-8">
                   {tabContent[activeTab].desc}
                 </p>
+                {tabContent[activeTab].link && (
+                  <div className="mb-8">
+                    <Link
+                      to={tabContent[activeTab].link}
+                      className="inline-flex items-center gap-2 px-6 py-3 rounded-xl font-mono text-xs uppercase tracking-wider bg-violet-500/10 text-violet-400 border border-violet-500/20 hover:bg-violet-500 hover:text-black font-semibold transition-all group"
+                    >
+                      <span>Explore Dedicated {tabContent[activeTab].title} Page</span>
+                      <span className="group-hover:translate-x-1 transition-transform">→</span>
+                    </Link>
+                  </div>
+                )}
               </div>
               
               <div className="lg:col-span-5 space-y-6">

@@ -169,7 +169,7 @@ export function mapBlogPost(post) {
     authorName: post.author_name || 'Sahed Alom Sumit',
     authorRole: post.author_role || 'Product Designer & AI-Enhanced Web Developer',
     authorAvatar: post.author_avatar || '/img/sahedalomsumit-profile-purple.png',
-    readingTime: calculateReadingTime(post.content),
+    readingTime: post.reading_time || calculateReadingTime(post.content),
     publishedAt: post.published_at,
     isPublished: post.is_published,
     isFeatured: post.is_featured,
@@ -291,3 +291,222 @@ export async function incrementBlogPostViews(slug) {
   }
 }
 
+// Fetch distinct categories, tags, authors, roles, and reading times
+export async function fetchBlogMetadata() {
+  const defaultCategories = ['App Development']
+  const defaultTags = ['#SahedAlomSumit', '#ProductDesign', '#ProductDevelopment']
+  const defaultAuthors = ['Sahed Alom Sumit']
+  const defaultRoles = ['Product Designer & AI-Enhanced Web Developer']
+  const defaultReadingTimes = ['2 mins read']
+
+  if (!supabase) {
+    return {
+      categories: defaultCategories,
+      tags: defaultTags,
+      authors: defaultAuthors,
+      roles: defaultRoles,
+      readingTimes: defaultReadingTimes
+    }
+  }
+
+  try {
+    const { data, error } = await supabase
+      .from('blog_posts')
+      .select('category, tags, author_name, author_role, reading_time')
+
+    if (error || !data || data.length === 0) {
+      return {
+        categories: defaultCategories,
+        tags: defaultTags,
+        authors: defaultAuthors,
+        roles: defaultRoles,
+        readingTimes: defaultReadingTimes
+      }
+    }
+
+    const fetchedCategories = Array.from(new Set(data.map(p => p.category).filter(Boolean)))
+    const categories = fetchedCategories.length > 0 ? fetchedCategories : defaultCategories
+
+    const existingTags = data.flatMap(p => p.tags || []).map(t => (t.startsWith('#') ? t : `#${t}`))
+    const tags = Array.from(new Set([...defaultTags, ...existingTags]))
+
+    const fetchedAuthors = Array.from(new Set(data.map(p => p.author_name).filter(Boolean)))
+    const authors = fetchedAuthors.length > 0 ? fetchedAuthors : defaultAuthors
+
+    const fetchedRoles = Array.from(new Set(data.map(p => p.author_role).filter(Boolean)))
+    const roles = fetchedRoles.length > 0 ? fetchedRoles : defaultRoles
+
+    const fetchedReadingTimes = Array.from(new Set(data.map(p => p.reading_time).filter(Boolean)))
+    const readingTimes = fetchedReadingTimes.length > 0 ? fetchedReadingTimes : defaultReadingTimes
+
+    return { categories, tags, authors, roles, readingTimes }
+  } catch (err) {
+    console.error('Error fetching blog metadata:', err)
+    return {
+      categories: defaultCategories,
+      tags: defaultTags,
+      authors: defaultAuthors,
+      roles: defaultRoles,
+      readingTimes: defaultReadingTimes
+    }
+  }
+}
+
+// Create a new blog post in Supabase
+export async function createBlogPost(postData) {
+  if (!supabase) return { error: new Error('Supabase is not configured') }
+
+  // Ensure tags have '#' prefix
+  const tags = (postData.tags || []).map(t => (t.startsWith('#') ? t : `#${t}`))
+
+  // Generate hyphenated slug if not provided
+  const slug = (postData.slug || postData.title || '')
+    .toLowerCase()
+    .trim()
+    .replace(/[^a-z0-9]+/g, '-')
+    .replace(/(^-|-$)/g, '')
+
+  const payload = {
+    title: postData.title,
+    slug: slug || `post-${Date.now()}`,
+    excerpt: postData.excerpt,
+    content: postData.content,
+    cover_image: postData.coverImage || '/img/portfolio/thumbnail-temp.webp',
+    category: postData.category || 'App Development',
+    tags: tags.length > 0 ? tags : ['#SahedAlomSumit', '#ProductDesign', '#ProductDevelopment'],
+    author_name: postData.authorName || 'Sahed Alom Sumit',
+    author_role: postData.authorRole || 'Product Designer & AI-Enhanced Web Developer',
+    author_avatar: postData.authorAvatar || '/img/sahedalomsumit-profile-purple.png',
+    reading_time: postData.readingTime || '2 mins read',
+    published_at: postData.publishedAt || new Date().toISOString(),
+    is_published: postData.isPublished !== undefined ? postData.isPublished : true,
+    is_featured: postData.isFeatured || false,
+    views: typeof postData.views === 'number' ? postData.views : 0,
+    seo_title: postData.seoTitle || postData.title,
+    seo_description: postData.seoDescription || postData.excerpt,
+  }
+
+  try {
+    const { data, error } = await supabase
+      .from('blog_posts')
+      .insert([payload])
+      .select()
+      .single()
+
+    return { data: mapBlogPost(data), error }
+  } catch (err) {
+    return { data: null, error: err }
+  }
+}
+
+// Fetch all blog posts for admin (both published and drafts)
+export async function fetchAllBlogPostsAdmin() {
+  if (!supabase) return fallbackBlogPosts
+
+  try {
+    const { data, error } = await supabase
+      .from('blog_posts')
+      .select('*')
+      .order('created_at', { ascending: false })
+
+    if (error) {
+      console.error('Error fetching admin blog posts from Supabase:', error)
+      return fallbackBlogPosts
+    }
+
+    return (data || []).map(mapBlogPost)
+  } catch (err) {
+    console.error('Exception fetching admin blog posts:', err)
+    return fallbackBlogPosts
+  }
+}
+
+// Update an existing blog post
+export async function updateBlogPost(idOrSlug, updates) {
+  if (!supabase) return { error: new Error('Supabase is not configured') }
+
+  const payload = { ...updates, updated_at: new Date().toISOString() }
+
+  // Map any camelCase fields to snake_case if present
+  if (payload.coverImage !== undefined) {
+    payload.cover_image = payload.coverImage
+    delete payload.coverImage
+  }
+  if (payload.authorName !== undefined) {
+    payload.author_name = payload.authorName
+    delete payload.authorName
+  }
+  if (payload.authorRole !== undefined) {
+    payload.author_role = payload.authorRole
+    delete payload.authorRole
+  }
+  if (payload.authorAvatar !== undefined) {
+    payload.author_avatar = payload.authorAvatar
+    delete payload.authorAvatar
+  }
+  if (payload.readingTime !== undefined) {
+    payload.reading_time = payload.readingTime
+    delete payload.readingTime
+  }
+  if (payload.publishedAt !== undefined) {
+    payload.published_at = payload.publishedAt
+    delete payload.publishedAt
+  }
+  if (payload.isPublished !== undefined) {
+    payload.is_published = payload.isPublished
+    delete payload.isPublished
+  }
+  if (payload.isFeatured !== undefined) {
+    payload.is_featured = payload.isFeatured
+    delete payload.isFeatured
+  }
+  if (payload.seoTitle !== undefined) {
+    payload.seo_title = payload.seoTitle
+    delete payload.seoTitle
+  }
+  if (payload.seoDescription !== undefined) {
+    payload.seo_description = payload.seoDescription
+    delete payload.seoDescription
+  }
+  if (payload.tags) {
+    payload.tags = payload.tags.map(t => (t.startsWith('#') ? t : `#${t}`))
+  }
+
+  // Ensure slug is clean
+  if (payload.slug) {
+    payload.slug = payload.slug.toLowerCase().trim().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '')
+  }
+
+  try {
+    let query = supabase.from('blog_posts').update(payload)
+    if (typeof idOrSlug === 'number' || (typeof idOrSlug === 'string' && /^[0-9a-f-]{36}$/i.test(idOrSlug))) {
+      query = query.eq('id', idOrSlug)
+    } else {
+      query = query.eq('slug', idOrSlug)
+    }
+
+    const { data, error } = await query.select().single()
+    return { data: mapBlogPost(data), error }
+  } catch (err) {
+    return { data: null, error: err }
+  }
+}
+
+// Delete a blog post by id or slug
+export async function deleteBlogPost(idOrSlug) {
+  if (!supabase) return { error: new Error('Supabase is not configured') }
+
+  try {
+    let query = supabase.from('blog_posts').delete()
+    if (typeof idOrSlug === 'number' || (typeof idOrSlug === 'string' && /^[0-9a-f-]{36}$/i.test(idOrSlug))) {
+      query = query.eq('id', idOrSlug)
+    } else {
+      query = query.eq('slug', idOrSlug)
+    }
+
+    const { error } = await query
+    return { error }
+  } catch (err) {
+    return { error: err }
+  }
+}

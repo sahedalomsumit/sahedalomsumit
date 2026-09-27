@@ -55,13 +55,19 @@
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://sahedalomsumit.com/services/app-development</loc>
+    <loc>https://sahedalomsumit.com/services/framer</loc>
     <lastmod>2026-09-27</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://sahedalomsumit.com/services/tools</loc>
+    <loc>https://sahedalomsumit.com/services/kajabi</loc>
+    <lastmod>2026-09-27</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://sahedalomsumit.com/services/app-development</loc>
     <lastmod>2026-09-27</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
@@ -211,26 +217,8 @@
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://sahedalomsumit.com/blog/micro-interactions-and-tactile-ui-design</loc>
-    <lastmod>2026-09-13</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.75</priority>
-  </url>
-  <url>
-    <loc>https://sahedalomsumit.com/blog/crafting-bento-grids-that-convert-saas-portfolios</loc>
-    <lastmod>2026-09-22</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.75</priority>
-  </url>
-  <url>
-    <loc>https://sahedalomsumit.com/blog/zero-to-high-performance-supabase-react-architecture</loc>
-    <lastmod>2026-09-18</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.75</priority>
-  </url>
-  <url>
-    <loc>https://sahedalomsumit.com/blog/fusion-ai-design-engineering-next-gen-web</loc>
-    <lastmod>2026-09-25</lastmod>
+    <loc>https://sahedalomsumit.com/blog/my-first-android-app-salah-tracker-app-is-now-live</loc>
+    <lastmod>2026-09-27</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.75</priority>
   </url>

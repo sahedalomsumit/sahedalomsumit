@@ -113,6 +113,13 @@ const icons = {
       <path d="M5 2h14v7l-7 7H5v-7l7-7H5z" />
       <path d="M12 9l7 7H5l7-7z" />
     </svg>
+  ),
+  kajabi: (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+      <path d="M12 2L2 7l10 5 10-5-10-5z" />
+      <path d="M2 17l10 5 10-5" />
+      <path d="M2 12l10 5 10-5" />
+    </svg>
   )
 };
 
@@ -132,6 +139,7 @@ const TechIcon = ({ name, className = "w-4 h-4" }) => {
     'wordpress': 'wordpress',
     'webflow': 'webflow',
     'shopify': 'shopify',
+    'kajabi': 'kajabi',
     'figma': 'figma',
     'flutter': 'flutter',
     'dart': 'dart',

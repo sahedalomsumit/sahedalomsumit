@@ -78,12 +78,12 @@ function parseInlineFormatting(text) {
       continue
     }
 
-    // Italic *text*
-    const italicMatch = remaining.match(/^\*([^*]+)\*/)
+    // Italic *text* or _text_
+    const italicMatch = remaining.match(/^(\*|_)([^*_]+)\1/)
     if (italicMatch) {
       elements.push(
         <em key={key++} className="italic text-gray-300">
-          {italicMatch[1]}
+          {italicMatch[2]}
         </em>
       )
       remaining = remaining.slice(italicMatch[0].length)
@@ -108,8 +108,27 @@ function parseInlineFormatting(text) {
       continue
     }
 
+    // Raw URLs: https://... or http://...
+    const urlMatch = remaining.match(/^(https?:\/\/[^\s<]+[^<.,:;"')\]\s])/)
+    if (urlMatch) {
+      const rawUrl = urlMatch[1]
+      elements.push(
+        <a
+          key={key++}
+          href={rawUrl}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="text-violet-400 hover:text-violet-300 underline underline-offset-4 decoration-violet-500/40 hover:decoration-violet-400 transition-colors break-all"
+        >
+          {rawUrl}
+        </a>
+      )
+      remaining = remaining.slice(rawUrl.length)
+      continue
+    }
+
     // Normal text chunk up to next special character
-    const nextSpecial = remaining.search(/[`*[]/)
+    const nextSpecial = remaining.search(/[`*_[]|https?:\/\//)
     if (nextSpecial === -1) {
       elements.push(remaining)
       break
@@ -162,64 +181,55 @@ export default function MarkdownRenderer({ content }) {
       continue
     }
 
+    const trimmedLine = line.trim()
+
     // Horizontal Rule
-    if (line.trim() === '---' || line.trim() === '***') {
+    if (trimmedLine === '---' || trimmedLine === '***' || trimmedLine === '___') {
       blocks.push({ type: 'hr' })
       continue
     }
 
-    // Headings
-    if (line.startsWith('### ')) {
-      const headingText = line.replace('### ', '').trim()
+    // Headings (checked from h1 to h6 with robust whitespace/indentation handling)
+    const headingMatch = trimmedLine.match(/^(#{1,6})\s*(.*)$/)
+    if (headingMatch && headingMatch[2].trim()) {
+      const level = headingMatch[1].length
+      const headingText = headingMatch[2].trim()
       const id = headingText.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '')
-      blocks.push({ type: 'h3', text: headingText, id })
-      continue
-    }
-
-    if (line.startsWith('## ')) {
-      const headingText = line.replace('## ', '').trim()
-      const id = headingText.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '')
-      blocks.push({ type: 'h2', text: headingText, id })
-      continue
-    }
-
-    if (line.startsWith('# ')) {
-      const headingText = line.replace('# ', '').trim()
-      const id = headingText.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '')
-      blocks.push({ type: 'h1', text: headingText, id })
+      blocks.push({ type: `h${level}`, text: headingText, id })
       continue
     }
 
     // Blockquote
-    if (line.startsWith('> ')) {
-      blocks.push({ type: 'quote', text: line.replace('> ', '').trim() })
+    if (trimmedLine.startsWith('>')) {
+      blocks.push({ type: 'quote', text: trimmedLine.replace(/^>\s*/, '').trim() })
       continue
     }
 
     // Checklist item
-    if (line.startsWith('- [x] ') || line.startsWith('- [ ] ')) {
-      const isChecked = line.startsWith('- [x] ')
-      const text = line.slice(6).trim()
+    if (trimmedLine.startsWith('- [x] ') || trimmedLine.startsWith('- [ ] ')) {
+      const isChecked = trimmedLine.startsWith('- [x] ')
+      const text = trimmedLine.slice(6).trim()
       blocks.push({ type: 'checklist', isChecked, text })
       continue
     }
 
-    // Unordered List
-    if (line.startsWith('* ') || line.startsWith('- ')) {
-      blocks.push({ type: 'li', text: line.slice(2).trim() })
+    // Unordered List (supports *, -, +, and emojis like 👉, •, ✦, ✔, ✅)
+    const listMatch = trimmedLine.match(/^([•\*\-\+]|👉|✦|✔|✅)\s*(.*)$/)
+    if (listMatch && listMatch[2].trim()) {
+      blocks.push({ type: 'li', text: listMatch[2].trim() })
       continue
     }
 
-    // Ordered List
-    const numMatch = line.match(/^(\d+)\.\s+(.*)/)
+    // Ordered List (1. or 1))
+    const numMatch = trimmedLine.match(/^(\d+)[\.\)]\s+(.*)$/)
     if (numMatch) {
       blocks.push({ type: 'ol-li', num: numMatch[1], text: numMatch[2].trim() })
       continue
     }
 
     // Paragraph (skip empty lines)
-    if (line.trim().length > 0) {
-      blocks.push({ type: 'p', text: line.trim() })
+    if (trimmedLine.length > 0) {
+      blocks.push({ type: 'p', text: trimmedLine })
     }
   }
 
@@ -234,7 +244,7 @@ export default function MarkdownRenderer({ content }) {
               <h1
                 key={idx}
                 id={block.id}
-                className="text-3xl sm:text-4xl md:text-5xl font-heading font-extrabold tracking-tight mt-10 mb-4 scroll-mt-32"
+                className="text-2xl sm:text-3xl font-heading font-extrabold tracking-tight mt-8 mb-3 scroll-mt-32"
                 style={{ color: 'var(--text-main)' }}
               >
                 {parseInlineFormatting(block.text)}
@@ -245,10 +255,10 @@ export default function MarkdownRenderer({ content }) {
               <h2
                 key={idx}
                 id={block.id}
-                className="text-2xl sm:text-3xl font-heading font-bold tracking-tight mt-12 mb-4 pt-4 border-t scroll-mt-32 flex items-center gap-3"
+                className="text-xl sm:text-2xl font-heading font-bold tracking-tight mt-10 mb-3 pt-3 border-t scroll-mt-32 flex items-center gap-2.5"
                 style={{ color: 'var(--text-main)', borderColor: 'var(--border)' }}
               >
-                <span className="w-2 h-2 rounded-full bg-violet-400" />
+                <span className="w-1.5 h-1.5 rounded-full bg-violet-400 shrink-0" />
                 <span>{parseInlineFormatting(block.text)}</span>
               </h2>
             )
@@ -257,11 +267,42 @@ export default function MarkdownRenderer({ content }) {
               <h3
                 key={idx}
                 id={block.id}
-                className="text-xl sm:text-2xl font-heading font-semibold tracking-tight mt-8 mb-3 scroll-mt-32"
+                className="text-lg sm:text-xl font-heading font-semibold tracking-tight mt-6 mb-2.5 scroll-mt-32"
                 style={{ color: 'var(--text-main)' }}
               >
                 {parseInlineFormatting(block.text)}
               </h3>
+            )
+          case 'h4':
+            return (
+              <h4
+                key={idx}
+                id={block.id}
+                className="text-base sm:text-lg font-heading font-semibold tracking-tight mt-5 mb-2 scroll-mt-32"
+                style={{ color: 'var(--text-main)' }}
+              >
+                {parseInlineFormatting(block.text)}
+              </h4>
+            )
+          case 'h5':
+            return (
+              <h5
+                key={idx}
+                id={block.id}
+                className="text-sm sm:text-base font-heading font-medium tracking-tight mt-4 mb-2 scroll-mt-32 text-gray-200"
+              >
+                {parseInlineFormatting(block.text)}
+              </h5>
+            )
+          case 'h6':
+            return (
+              <h6
+                key={idx}
+                id={block.id}
+                className="text-xs sm:text-sm font-mono font-medium tracking-tight mt-3 mb-2 scroll-mt-32 text-gray-400 uppercase"
+              >
+                {parseInlineFormatting(block.text)}
+              </h6>
             )
           case 'p':
             return (

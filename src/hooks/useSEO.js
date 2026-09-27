@@ -1,10 +1,36 @@
 import { useEffect } from 'react'
 
-export function useSEO({ title, description, canonical }) {
+const BASE_TITLE = 'Sahed Alom Sumit'
+
+export function formatDocumentTitle(title) {
+  if (!title || !title.trim()) {
+    return `${BASE_TITLE} | Product Designer & AI-Enhanced Web Developer`
+  }
+
+  let clean = title.trim()
+
+  // Remove any redundant trailing separator + "Sahed Alom Sumit" (e.g. " | Sahed Alom Sumit")
+  const trailingRegex = new RegExp(`\\s*[|—–-]\\s*${BASE_TITLE}$`, 'i')
+  while (trailingRegex.test(clean)) {
+    clean = clean.replace(trailingRegex, '').trim()
+  }
+
+  if (!clean) {
+    return `${BASE_TITLE} | Product Designer & AI-Enhanced Web Developer`
+  }
+
+  // If the title already starts with "Sahed Alom Sumit" (e.g. Home page title), do not append duplicate to the end
+  if (clean.toLowerCase().startsWith(BASE_TITLE.toLowerCase())) {
+    return clean
+  }
+
+  return `${clean} | ${BASE_TITLE}`
+}
+
+export function useSEO({ title, description, canonical, noindex = false }) {
   useEffect(() => {
     // 1. Update Title Tag
-    const baseTitle = 'Sahed Alom Sumit'
-    const fullTitle = title ? `${title} | ${baseTitle}` : `${baseTitle} | Product Designer & AI-Enhanced Web Developer`
+    const fullTitle = formatDocumentTitle(title)
     document.title = fullTitle
 
     // 2. Prepare Defaults
@@ -36,10 +62,24 @@ export function useSEO({ title, description, canonical }) {
       canonicalEl.setAttribute('href', fullCanonical)
     }
 
-    // Cleanup — optionally restore some defaults on unmount
-    return () => {
-      // We don't necessarily want to flicker back to home title while transitioning
-      // but we can if the next page doesn't have useSEO (though they all should now)
+    // 7. Update Robots Tag (noindex for private/admin pages)
+    let robotsEl = document.querySelector('meta[name="robots"]')
+    if (noindex) {
+      if (!robotsEl) {
+        robotsEl = document.createElement('meta')
+        robotsEl.setAttribute('name', 'robots')
+        document.head.appendChild(robotsEl)
+      }
+      robotsEl.setAttribute('content', 'noindex, nofollow')
+    } else if (robotsEl) {
+      robotsEl.setAttribute('content', 'index, follow')
     }
-  }, [title, description, canonical])
+
+    // Cleanup — optionally restore robots meta on unmount
+    return () => {
+      if (noindex && robotsEl) {
+        robotsEl.setAttribute('content', 'index, follow')
+      }
+    }
+  }, [title, description, canonical, noindex])
 }

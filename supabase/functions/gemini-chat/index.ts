@@ -14,7 +14,7 @@ Deno.serve(async (req: Request) => {
   }
 
   try {
-    const { messages, temperature, max_tokens } = await req.json()
+    const { messages, temperature, max_tokens, model } = await req.json()
     const geminiKey = Deno.env.get('GEMINI_API_KEY')
 
     if (!geminiKey) {
@@ -24,7 +24,8 @@ Deno.serve(async (req: Request) => {
       )
     }
 
-    console.log(`Calling Gemini API (${GEMINI_MODEL})...`)
+    const selectedModel = model || GEMINI_MODEL
+    console.log(`Calling Gemini API (${selectedModel})...`)
     
     const geminiMessages = messages.map((m: any) => ({
       role: m.role === 'assistant' ? 'model' : 'user',
@@ -36,7 +37,7 @@ Deno.serve(async (req: Request) => {
     const systemInstruction = systemMessage ? { parts: [{ text: systemMessage.content }] } : undefined
 
     const response = await fetch(
-      `https://generativelanguage.googleapis.com/v1beta/models/${GEMINI_MODEL}:streamGenerateContent?key=${geminiKey}`,
+      `https://generativelanguage.googleapis.com/v1beta/models/${selectedModel}:streamGenerateContent?key=${geminiKey}`,
       {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -44,8 +45,8 @@ Deno.serve(async (req: Request) => {
           contents,
           systemInstruction,
           generationConfig: {
-            temperature: temperature || 0.7,
-            maxOutputTokens: max_tokens || 500,
+            temperature: typeof temperature === 'number' ? temperature : 0.7,
+            maxOutputTokens: max_tokens || 4000,
           }
         })
       }

@@ -650,7 +650,7 @@ export default function Home() {
 
                 <div className="space-y-5 text-base sm:text-lg leading-relaxed font-light" style={{ color: 'var(--text-muted)' }}>
                   <p>
-                    With 5+ years of experience, I’ve worked with founders, brands, and agencies worldwide, turning rough ideas into 150+ digital projects that are fast, user-friendly, visually polished, and built to support real business goals.
+                    With 5+ years of experience, I’ve worked with founders, brands, and agencies worldwide, turning rough ideas into 150+ digital products that are fast, user-friendly, visually polished, and built to support real business goals.
                   </p>
                   <p>
                     I work across design and development—from UI/UX design in Figma and low-code development with Webflow, WordPress, and Kajabi to custom development with React and Supabase. I also use AI-powered tools such as Cursor, Codex, and Antigravity to streamline development, automate repetitive work, and build more efficiently.

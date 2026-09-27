@@ -13,7 +13,7 @@ export default function ToolsServices() {
   const [loading, setLoading] = useState(true)
 
   useSEO({
-    title: 'Tools | Sahed Alom Sumit',
+    title: 'Tools',
     description: `Sometimes the best tool for the job doesn't exist yet. That's when you build it. I create purpose-built browser extensions and developer tools that integrate directly into the workflows your team already uses.`,
     canonical: '/services/tools',
   })

@@ -67,7 +67,7 @@ export default function Faq() {
   const [searchQuery, setSearchQuery] = useState('')
 
   useSEO({
-    title: 'Frequently Asked Questions & Answers | Sahed Alom Sumit',
+    title: 'Frequently Asked Questions & Answers',
     description: `Answers to common questions about working with Sahed Alom Sumit on Webflow, WordPress, React web apps, UI/UX design, and project timelines.`,
     canonical: '/faq',
   })

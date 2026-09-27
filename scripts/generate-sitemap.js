@@ -22,8 +22,9 @@ const STATIC_ROUTES = [
   '/services/ui-ux-design',
   '/services/full-stack-development',
   '/services/low-no-code-development',
+  '/services/framer',
+  '/services/kajabi',
   '/services/app-development',
-  '/services/tools',
   '/estimate'
 ]
 

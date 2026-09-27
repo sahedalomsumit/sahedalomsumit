@@ -66,7 +66,7 @@ export default function Process() {
   const [activeTab, setActiveTab] = useState('design')
 
   useSEO({
-    title: 'Work Methodology & Engineering Process | Sahed Alom Sumit',
+    title: 'Work Methodology & Engineering Process',
     description: `A transparent, step-by-step breakdown of Sahed Alom Sumit's design methodology and scalable full-stack web engineering process.`,
     canonical: '/process',
   })
