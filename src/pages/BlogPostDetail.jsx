@@ -153,19 +153,26 @@ export default function BlogPostDetail() {
         .map(item => document.getElementById(item.id))
         .filter(Boolean)
 
-      // Activate a section as its heading reaches the middle of the reading area.
-      // This keeps the TOC aligned with the section currently being read instead
-      // of switching as soon as a heading reaches the top of the viewport.
-      const scrollPosition = window.scrollY + window.innerHeight / 2
+      // Use the same upper-page offset as TOC navigation. Using the viewport
+      // midpoint can skip a short section and highlight the following H2 as
+      // soon as its link is clicked.
+      const scrollPosition = window.scrollY + 130
 
       for (let i = headingElements.length - 1; i >= 0; i--) {
         const el = headingElements[i]
-        if (el.offsetTop <= scrollPosition) {
+        // offsetTop is relative to an offset parent, while scrollPosition is
+        // relative to the document. Compare coordinates in the same space so
+        // the active state remains accurate inside this nested article layout.
+        const headingPosition = el.getBoundingClientRect().top + window.scrollY
+        if (headingPosition <= scrollPosition) {
           setActiveHeadingId(el.id)
           return
         }
       }
-      if (headingElements.length > 0 && scrollPosition < headingElements[0].offsetTop) {
+      if (
+        headingElements.length > 0 &&
+        scrollPosition < headingElements[0].getBoundingClientRect().top + window.scrollY
+      ) {
         setActiveHeadingId('')
       }
     }
@@ -462,6 +469,9 @@ export default function BlogPostDetail() {
                           e.preventDefault()
                           const target = document.getElementById(item.id)
                           if (target) {
+                            // Make the selected section visible as active immediately;
+                            // the scroll spy then keeps it in sync while reading.
+                            if (item.level === 2) setActiveHeadingId(item.id)
                             const y = target.getBoundingClientRect().top + window.pageYOffset - 110
                             window.scrollTo({ top: y, behavior: 'smooth' })
                           }
