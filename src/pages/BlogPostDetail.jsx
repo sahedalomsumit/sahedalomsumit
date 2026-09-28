@@ -272,14 +272,14 @@ export default function BlogPostDetail() {
       <article className="py-12 sm:py-20 px-4 max-w-7xl mx-auto">
         {/* Navigation Breadcrumb */}
         <RevealOnScroll>
-          <nav aria-label="breadcrumb" className="text-xs tracking-wider mb-8 flex flex-wrap items-center gap-x-2 gap-y-1.5 leading-relaxed font-mono" style={{ color: 'var(--text-dim)' }}>
-            <Link to="/" className="hover:text-violet-400 transition-colors whitespace-nowrap">Home</Link>
-            <span>/</span>
-            <Link to="/blog" className="hover:text-violet-400 transition-colors whitespace-nowrap">Blog</Link>
-            <span>/</span>
-            <span className="text-violet-400 whitespace-nowrap">{post.category}</span>
-            <span>/</span>
-            <span style={{ color: 'var(--text-main)' }} className="font-semibold break-words">
+          <nav aria-label="breadcrumb" className="text-xs tracking-wider mb-8 leading-relaxed font-mono" style={{ color: 'var(--text-dim)' }}>
+            <Link to="/" className="hover:text-violet-400 transition-colors inline-block whitespace-nowrap">Home</Link>
+            <span className="mx-2 inline-block">/</span>
+            <Link to="/blog" className="hover:text-violet-400 transition-colors inline-block whitespace-nowrap">Blog</Link>
+            <span className="mx-2 inline-block">/</span>
+            <span className="text-violet-400 inline-block whitespace-nowrap">{post.category}</span>
+            <span className="mx-2 inline-block">/</span>
+            <span style={{ color: 'var(--text-main)' }} className="font-semibold inline">
               {post.title}
             </span>
           </nav>
@@ -523,7 +523,7 @@ export default function BlogPostDetail() {
             </div>
 
             {/* Author Profile Card */}
-            <div className="bento-card p-8 mb-12 text-left flex flex-col sm:flex-row items-center gap-6"
+            <div className="bento-card p-8 mb-12 text-left flex flex-col sm:flex-row items-start gap-6"
                  style={{ borderColor: 'var(--border)' }}>
               <img
                 src="/img/sahedalomsumit-profile-purple.png"
