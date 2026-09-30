@@ -9,6 +9,9 @@ import {
   ArrowLeft,
   ArrowRight,
   Bookmark,
+  Share2,
+  X,
+  ExternalLink,
 } from 'lucide-react'
 import RevealOnScroll from '../components/RevealOnScroll'
 import ContactSection from '../components/ContactSection'
@@ -35,10 +38,18 @@ export default function BlogPostDetail() {
   const [instagramToast, setInstagramToast] = useState(false)
   const [readingProgress, setReadingProgress] = useState(0)
 
+  const [showSocialCardModal, setShowSocialCardModal] = useState(false)
+  const postShareUrl = `https://sahedalomsumit.com/blog/${slug}`
+
   useSEO({
     title: post ? (post.seoTitle || post.title) : 'Blog Details',
     description: post ? (post.seoDescription || post.excerpt) : 'Read architectural insights, AI workflows, and front-end engineering notes by Sahed Alom Sumit.',
     canonical: `/blog/${slug}`,
+    image: post?.coverImage,
+    type: 'article',
+    publishedTime: post?.publishedAt,
+    author: post?.authorName,
+    tags: post?.tags,
   })
 
   // Reading Progress Bar Listener
@@ -183,32 +194,32 @@ export default function BlogPostDetail() {
   }, [tableOfContents])
 
   const handleCopyLink = () => {
-    navigator.clipboard.writeText(window.location.href)
+    navigator.clipboard.writeText(postShareUrl)
     setCopiedLink(true)
     setTimeout(() => setCopiedLink(false), 2000)
   }
 
   const shareOnTwitter = () => {
     if (!post) return
-    const url = encodeURIComponent(window.location.href)
+    const url = encodeURIComponent(postShareUrl)
     const text = encodeURIComponent(`"${post.title}" by @sahedalomsumit`)
     window.open(`https://twitter.com/intent/tweet?url=${url}&text=${text}`, '_blank', 'width=600,height=450,noopener,noreferrer')
   }
 
   const shareOnLinkedIn = () => {
     if (!post) return
-    const url = encodeURIComponent(window.location.href)
+    const url = encodeURIComponent(postShareUrl)
     window.open(`https://www.linkedin.com/sharing/share-offsite/?url=${url}`, '_blank', 'width=600,height=550,noopener,noreferrer')
   }
 
   const shareOnFacebook = () => {
     if (!post) return
-    const url = encodeURIComponent(window.location.href)
+    const url = encodeURIComponent(postShareUrl)
     window.open(`https://www.facebook.com/sharer/sharer.php?u=${url}`, '_blank', 'width=600,height=500,noopener,noreferrer')
   }
 
   const shareOnInstagram = () => {
-    navigator.clipboard.writeText(window.location.href)
+    navigator.clipboard.writeText(postShareUrl)
     setInstagramToast(true)
     setTimeout(() => setInstagramToast(false), 3500)
     window.open('https://www.instagram.com/', '_blank', 'noopener,noreferrer')
@@ -415,6 +426,18 @@ export default function BlogPostDetail() {
                   {copiedLink ? <Check className="w-3.5 h-3.5 text-emerald-400" /> : <Copy className="w-3.5 h-3.5" />}
                   <span>{copiedLink ? 'Copied!' : 'Copy'}</span>
                 </button>
+
+                {/* Social Card Preview Trigger */}
+                <button
+                  onClick={() => setShowSocialCardModal(true)}
+                  aria-label="Preview Social Card"
+                  title="Preview how this article appears when shared on social media"
+                  className="flex items-center gap-1.5 px-3 py-2 rounded-xl border border-violet-500/30 hover:border-violet-500 bg-violet-500/10 hover:bg-violet-500/20 text-violet-300 transition-all text-xs font-mono"
+                >
+                  <Share2 className="w-3.5 h-3.5" />
+                  <span className="hidden sm:inline">Social Card</span>
+                  <span className="sm:hidden">Card</span>
+                </button>
               </div>
 
               {/* Instagram Story Copy Feedback Toast */}
@@ -426,6 +449,130 @@ export default function BlogPostDetail() {
             </div>
           </header>
         </RevealOnScroll>
+
+        {/* Social Card Live Preview Modal */}
+        {showSocialCardModal && (
+          <div
+            className="fixed inset-0 z-[120] flex items-center justify-center p-4 bg-black/80 backdrop-blur-md animate-fade-in"
+            onClick={() => setShowSocialCardModal(false)}
+          >
+            <div
+              className="bento-card max-w-lg w-full p-6 sm:p-7 rounded-3xl border border-violet-500/40 shadow-2xl relative text-left"
+              style={{ background: 'var(--card-bg, #0f0b1e)' }}
+              onClick={(e) => e.stopPropagation()}
+            >
+              {/* Modal Header */}
+              <div className="flex items-start justify-between gap-4 mb-5 pb-4 border-b" style={{ borderColor: 'var(--border)' }}>
+                <div>
+                  <div className="flex items-center gap-2 mb-1">
+                    <span className="pill-badge text-[10px] text-emerald-400 bg-emerald-500/10 border-emerald-500/30">
+                      Open Graph & Twitter Card
+                    </span>
+                    <span className="text-[10px] font-mono" style={{ color: 'var(--text-dim)' }}>
+                      1200 × 630
+                    </span>
+                  </div>
+                  <h3 className="text-base sm:text-lg font-heading font-bold" style={{ color: 'var(--text-main)' }}>
+                    Social Share Preview Card
+                  </h3>
+                  <p className="text-xs" style={{ color: 'var(--text-muted)' }}>
+                    Live preview of the rich card displayed on X (Twitter), LinkedIn, Facebook, Slack, and WhatsApp.
+                  </p>
+                </div>
+                <button
+                  onClick={() => setShowSocialCardModal(false)}
+                  className="p-1.5 rounded-lg border hover:bg-white/10 transition-colors text-gray-400 hover:text-white"
+                  style={{ borderColor: 'var(--border)' }}
+                  aria-label="Close modal"
+                >
+                  <X className="w-4 h-4" />
+                </button>
+              </div>
+
+              {/* The Realistic Social Preview Card */}
+              <div className="rounded-2xl overflow-hidden border shadow-lg mb-5" style={{ borderColor: 'var(--border)', background: 'rgba(0,0,0,0.5)' }}>
+                {/* 16:9 Image using the same blog image */}
+                <div className="aspect-[16/9] w-full overflow-hidden bg-black/50 relative">
+                  <img
+                    src={post.coverImage || '/img/portfolio/thumbnail-temp.webp'}
+                    alt={post.title}
+                    className="w-full h-full object-cover"
+                    onError={(e) => {
+                      e.currentTarget.src = '/img/og-image.webp'
+                    }}
+                  />
+                  <div className="absolute top-2.5 left-2.5">
+                    <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-black/70 backdrop-blur text-violet-300 border border-white/10">
+                      {post.category || 'Article'}
+                    </span>
+                  </div>
+                </div>
+
+                {/* Card Content Footer */}
+                <div className="p-4 space-y-1.5">
+                  <div className="flex items-center gap-2 text-[11px] font-mono uppercase tracking-wider text-violet-400">
+                    <span>sahedalomsumit.com</span>
+                    <span>•</span>
+                    <span>sahedalomsumit</span>
+                  </div>
+                  <h4 className="text-sm sm:text-base font-heading font-bold line-clamp-2 leading-snug" style={{ color: 'var(--text-main)' }}>
+                    {post.title}
+                  </h4>
+                  <p className="text-xs font-light line-clamp-2 leading-relaxed" style={{ color: 'var(--text-muted)' }}>
+                    {post.excerpt}
+                  </p>
+                </div>
+              </div>
+
+              {/* Quick Share Actions */}
+              <div className="space-y-3">
+                <div className="flex items-center justify-between text-xs font-mono" style={{ color: 'var(--text-dim)' }}>
+                  <span>Share link:</span>
+                  <span className="truncate max-w-[280px] text-violet-400">{postShareUrl}</span>
+                </div>
+                <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
+                  <button
+                    onClick={() => {
+                      shareOnTwitter()
+                      setShowSocialCardModal(false)
+                    }}
+                    className="py-2 px-3 rounded-xl border hover:border-violet-500/50 hover:bg-white/5 transition-all text-xs font-mono flex items-center justify-center gap-1.5"
+                    style={{ borderColor: 'var(--border)', color: 'var(--text-main)' }}
+                  >
+                    Share X
+                  </button>
+                  <button
+                    onClick={() => {
+                      shareOnLinkedIn()
+                      setShowSocialCardModal(false)
+                    }}
+                    className="py-2 px-3 rounded-xl border hover:border-[#0a66c2]/50 hover:bg-[#0a66c2]/10 transition-all text-xs font-mono text-[#0a66c2] flex items-center justify-center gap-1.5"
+                    style={{ borderColor: 'var(--border)' }}
+                  >
+                    LinkedIn
+                  </button>
+                  <button
+                    onClick={() => {
+                      shareOnFacebook()
+                      setShowSocialCardModal(false)
+                    }}
+                    className="py-2 px-3 rounded-xl border hover:border-[#1877f2]/50 hover:bg-[#1877f2]/10 transition-all text-xs font-mono text-[#1877f2] flex items-center justify-center gap-1.5"
+                    style={{ borderColor: 'var(--border)' }}
+                  >
+                    Facebook
+                  </button>
+                  <button
+                    onClick={handleCopyLink}
+                    className="py-2 px-3 rounded-xl border bg-violet-600 hover:bg-violet-500 text-white transition-all text-xs font-mono flex items-center justify-center gap-1.5"
+                  >
+                    {copiedLink ? <Check className="w-3.5 h-3.5" /> : <Copy className="w-3.5 h-3.5" />}
+                    <span>{copiedLink ? 'Copied' : 'Copy'}</span>
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        )}
 
         {/* Hero Cover Image */}
         {post.coverImage && (

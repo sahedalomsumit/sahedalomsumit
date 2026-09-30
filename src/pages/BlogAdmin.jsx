@@ -762,57 +762,113 @@ function BlogAdminContent() {
       {activeTab === 'preview' ? (
         /* ── Live Card Preview Tab ── */
         <div className="space-y-6">
-          <div className="bento-card p-6 sm:p-8 rounded-2xl">
-            <h2 className="text-sm font-mono uppercase tracking-wider text-violet-400 mb-6">
-              Preview: How your card will render on /blog
-            </h2>
-            <div className="max-w-xl mx-auto bento-card p-6 rounded-2xl border" style={{ borderColor: 'var(--border)' }}>
-              <div className="aspect-[16/9] rounded-xl overflow-hidden mb-4 border relative" style={{ borderColor: 'var(--border)' }}>
-                <img
-                  src={coverImage}
-                  alt={title || 'Cover thumbnail'}
-                  className="w-full h-full object-cover"
-                  onError={(e) => {
-                    e.currentTarget.src = '/img/portfolio/thumbnail-temp.webp'
-                  }}
-                />
-                <div className="absolute top-3 left-3">
-                  <span className="pill-badge bg-black/70 backdrop-blur text-violet-400 border-violet-500/30 text-[10px]">
-                    {category}
-                  </span>
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+            {/* 1. Website Feed Card Preview */}
+            <div className="bento-card p-6 sm:p-8 rounded-2xl">
+              <div className="flex items-center justify-between mb-4">
+                <h2 className="text-xs font-mono uppercase tracking-wider text-violet-400">
+                  Website Card Preview (/blog)
+                </h2>
+                <span className="text-[10px] font-mono px-2 py-0.5 rounded-full border border-violet-500/20 bg-violet-500/10 text-violet-300">
+                  Grid Tile
+                </span>
+              </div>
+              <div className="bento-card p-5 rounded-2xl border" style={{ borderColor: 'var(--border)' }}>
+                <div className="aspect-[16/9] rounded-xl overflow-hidden mb-4 border relative" style={{ borderColor: 'var(--border)' }}>
+                  <img
+                    src={coverImage}
+                    alt={title || 'Cover thumbnail'}
+                    className="w-full h-full object-cover"
+                    onError={(e) => {
+                      e.currentTarget.src = '/img/portfolio/thumbnail-temp.webp'
+                    }}
+                  />
+                  <div className="absolute top-3 left-3">
+                    <span className="pill-badge bg-black/70 backdrop-blur text-violet-400 border-violet-500/30 text-[10px]">
+                      {category}
+                    </span>
+                  </div>
+                </div>
+                <div className="flex items-center gap-3 text-xs font-mono mb-2" style={{ color: 'var(--text-dim)' }}>
+                  <span>{readingTime}</span>
+                  <span>•</span>
+                  <span>Just Now</span>
+                </div>
+                <h3 className="text-lg font-heading font-bold mb-2 line-clamp-2" style={{ color: 'var(--text-main)' }}>
+                  {title || 'Blog Title Preview'}
+                </h3>
+                <p className="text-xs line-clamp-3 mb-4 font-light" style={{ color: 'var(--text-muted)' }}>
+                  {excerpt || 'Short description will appear here as the blog summary teaser.'}
+                </p>
+                <div className="flex flex-wrap gap-1.5 mb-4">
+                  {selectedTags.map((t, idx) => (
+                    <span key={idx} className="text-[10px] font-mono px-2 py-0.5 rounded-full border bg-white/[0.02]"
+                          style={{ borderColor: 'var(--border)', color: 'var(--text-muted)' }}>
+                      {t.startsWith('#') ? t : `#${t}`}
+                    </span>
+                  ))}
+                </div>
+                <div className="pt-3 border-t flex items-center justify-between text-xs" style={{ borderColor: 'var(--border)' }}>
+                  <div className="flex items-center gap-2">
+                    <div className="w-6 h-6 rounded-full bg-violet-600 flex items-center justify-center font-bold text-[10px] text-white">
+                      {authorName.charAt(0)}
+                    </div>
+                    <div>
+                      <span className="block font-medium text-[11px]" style={{ color: 'var(--text-main)' }}>{authorName}</span>
+                      <span className="block text-[9px]" style={{ color: 'var(--text-dim)' }}>{authorRole}</span>
+                    </div>
+                  </div>
+                  <span className="text-violet-400 font-mono text-xs">Read Blog →</span>
                 </div>
               </div>
-              <div className="flex items-center gap-3 text-xs font-mono mb-2" style={{ color: 'var(--text-dim)' }}>
-                <span>{readingTime}</span>
-                <span>•</span>
-                <span>Just Now</span>
+            </div>
+
+            {/* 2. Social Share Link Card Preview (Twitter/X, LinkedIn, Facebook, Slack) */}
+            <div className="bento-card p-6 sm:p-8 rounded-2xl">
+              <div className="flex items-center justify-between mb-4">
+                <h2 className="text-xs font-mono uppercase tracking-wider text-emerald-400">
+                  Social Share Preview Card
+                </h2>
+                <span className="text-[10px] font-mono px-2 py-0.5 rounded-full border border-emerald-500/30 bg-emerald-500/10 text-emerald-300">
+                  Twitter / X • LinkedIn • FB
+                </span>
               </div>
-              <h3 className="text-xl font-heading font-bold mb-2" style={{ color: 'var(--text-main)' }}>
-                {title || 'Blog Title Preview'}
-              </h3>
-              <p className="text-xs line-clamp-3 mb-4 font-light" style={{ color: 'var(--text-muted)' }}>
-                {excerpt || 'Short description will appear here as the blog summary teaser.'}
+              <div className="rounded-2xl overflow-hidden border shadow-xl bg-black/60" style={{ borderColor: 'var(--border)' }}>
+                {/* 16:9 Image Preview using same blog cover image */}
+                <div className="aspect-[16/9] w-full overflow-hidden bg-black/40 relative">
+                  <img
+                    src={coverImage}
+                    alt={title || 'Social card cover image'}
+                    className="w-full h-full object-cover"
+                    onError={(e) => {
+                      e.currentTarget.src = '/img/portfolio/thumbnail-temp.webp'
+                    }}
+                  />
+                  <div className="absolute top-2.5 right-2.5">
+                    <span className="text-[9px] font-mono px-2 py-0.5 rounded bg-black/80 backdrop-blur text-emerald-400 border border-emerald-500/30">
+                      og:image
+                    </span>
+                  </div>
+                </div>
+
+                {/* Social Card Metadata Box */}
+                <div className="p-4 space-y-1.5 border-t" style={{ borderColor: 'var(--border)' }}>
+                  <div className="text-[10px] font-mono uppercase tracking-wider text-violet-400 flex items-center gap-1.5">
+                    <span>sahedalomsumit.com</span>
+                    <span>•</span>
+                    <span>Article</span>
+                  </div>
+                  <h3 className="text-base font-heading font-bold line-clamp-2 leading-snug" style={{ color: 'var(--text-main)' }}>
+                    {title || 'Blog Title Preview'}
+                  </h3>
+                  <p className="text-xs font-light line-clamp-2 leading-relaxed" style={{ color: 'var(--text-muted)' }}>
+                    {excerpt || 'The excerpt or description that will appear on social media platforms when shared.'}
+                  </p>
+                </div>
+              </div>
+              <p className="text-[11px] font-mono text-center mt-3" style={{ color: 'var(--text-dim)' }}>
+                ✓ Uses same blog image and title for Twitter summary_large_image & OpenGraph
               </p>
-              <div className="flex flex-wrap gap-1.5 mb-4">
-                {selectedTags.map((t, idx) => (
-                  <span key={idx} className="text-[10px] font-mono px-2 py-0.5 rounded-full border bg-white/[0.02]"
-                        style={{ borderColor: 'var(--border)', color: 'var(--text-muted)' }}>
-                    {t.startsWith('#') ? t : `#${t}`}
-                  </span>
-                ))}
-              </div>
-              <div className="pt-3 border-t flex items-center justify-between text-xs" style={{ borderColor: 'var(--border)' }}>
-                <div className="flex items-center gap-2">
-                  <div className="w-6 h-6 rounded-full bg-violet-600 flex items-center justify-center font-bold text-[10px] text-white">
-                    {authorName.charAt(0)}
-                  </div>
-                  <div>
-                    <span className="block font-medium text-[11px]" style={{ color: 'var(--text-main)' }}>{authorName}</span>
-                    <span className="block text-[9px]" style={{ color: 'var(--text-dim)' }}>{authorRole}</span>
-                  </div>
-                </div>
-                <span className="text-violet-400 font-mono text-xs">Read Blog →</span>
-              </div>
             </div>
           </div>
         </div>

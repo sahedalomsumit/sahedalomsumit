@@ -1,0 +1,32 @@
+[build]
+  command = "npm run build"
+  publish = "dist"
+
+[[edge_functions]]
+  path = "/blog/*"
+  function = "social-meta"
+
+[[redirects]]
+  from = "/portfolio/*"
+  to = "/work/:splat"
+  status = 301
+
+[[redirects]]
+  from = "/portfolio"
+  to = "/work"
+  status = 301
+
+[[redirects]]
+  from = "/quote"
+  to = "/estimate"
+  status = 301
+
+[[redirects]]
+  from = "/spa-burn"
+  to = "/spa-bern"
+  status = 301
+
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200

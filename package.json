@@ -7,7 +7,8 @@
   "scripts": {
     "dev": "vite",
     "sitemap": "node scripts/generate-sitemap.js",
-    "build": "npm run sitemap && vite build",
+    "social-pages": "node scripts/generate-social-pages.js",
+    "build": "npm run sitemap && vite build && npm run social-pages",
     "preview": "vite preview"
   },
   "dependencies": {

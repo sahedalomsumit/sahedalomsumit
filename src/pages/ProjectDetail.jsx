@@ -15,6 +15,7 @@ export default function ProjectDetail() {
     title: project ? `${project.title} — Case Study` : 'Project Detail',
     description: project ? project.shortDescription : 'Explore detailed project insights, design process, and technical implementation by Sahed Alom Sumit.',
     canonical: `/work/${slug}`,
+    image: project?.thumbnailUrl || project?.thumbnail_url,
   })
 
   useEffect(() => {
