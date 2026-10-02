@@ -50,17 +50,21 @@ async function generateSitemap() {
 
   console.log(`Discovered ${projectRoutes.length} project pages.`)
 
-  // 1b. Fetch Dynamic Blog Slugs from Supabase
-  console.log('Fetching blog post slugs...')
-  const { data: blogPosts, error: blogError } = await supabase
-    .from('blog_posts')
-    .select('slug, published_at')
-    .eq('is_published', true)
-
-  const blogRoutes = (blogPosts || []).map(b => ({
-    url: `/blog/${b.slug}`,
-    lastmod: b.published_at ? new Date(b.published_at).toISOString().split('T')[0] : new Date().toISOString().split('T')[0]
-  }))
+  // 1b. Fetch Dynamic Blog Slugs from Sanity CMS
+  console.log('Fetching blog post slugs from Sanity CMS...')
+  let blogRoutes = []
+  try {
+    const sanityUrl = `https://vbkdnotg.api.sanity.io/v2024-03-01/data/query/production?query=${encodeURIComponent('*[_type == "post" && defined(slug.current)]{ "slug": slug.current, publishedAt }')}`
+    const res = await fetch(sanityUrl)
+    const json = await res.json()
+    const posts = json?.result || []
+    blogRoutes = posts.map(b => ({
+      url: `/blog/${b.slug}`,
+      lastmod: b.publishedAt ? new Date(b.publishedAt).toISOString().split('T')[0] : new Date().toISOString().split('T')[0]
+    }))
+  } catch (err) {
+    console.warn('Could not fetch blog posts from Sanity for sitemap, continuing:', err)
+  }
 
   console.log(`Discovered ${blogRoutes.length} blog post pages.`)
 

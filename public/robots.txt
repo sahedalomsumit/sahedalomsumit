@@ -1,6 +1,5 @@
 User-agent: *
-Disallow: /blog/admin
-Disallow: /blog/new
+Disallow: /sanity
 Disallow: /admin
 Allow: /
 

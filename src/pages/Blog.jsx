@@ -4,7 +4,7 @@ import { Search, X, Sparkles, BookOpen } from 'lucide-react'
 import RevealOnScroll from '../components/RevealOnScroll'
 import BlogCard from '../components/BlogCard'
 import ContactSection from '../components/ContactSection'
-import { fetchBlogPosts, supabase } from '../lib/supabase'
+import { fetchBlogPosts } from '../lib/sanity'
 import { useSEO } from '../hooks/useSEO'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 
@@ -33,7 +33,7 @@ export default function Blog() {
 
   useSEO({
     title: 'Blog & Engineering Insights',
-    description: 'Deep-dives into AI engineering, modern design systems, Supabase architectures, and tactile front-end craftsmanship by Sahed Alom Sumit in Helsinki, Finland.',
+    description: 'Deep-dives into AI engineering, modern design systems, cloud architectures, and tactile front-end craftsmanship by Sahed Alom Sumit in Helsinki, Finland.',
     canonical: '/blog',
   })
 
@@ -51,37 +51,6 @@ export default function Blog() {
     loadPosts()
   }, [])
 
-  // Live Realtime listener to sync views across all cards instantly
-  useEffect(() => {
-    if (!supabase) return
-
-    const channel = supabase
-      .channel('realtime-blog-index-views')
-      .on(
-        'postgres_changes',
-        {
-          event: 'UPDATE',
-          schema: 'public',
-          table: 'blog_posts',
-        },
-        (payload) => {
-          if (payload.new && payload.new.slug && typeof payload.new.views === 'number') {
-            setPosts((prevPosts) =>
-              prevPosts.map((p) =>
-                p.slug === payload.new.slug
-                  ? { ...p, views: payload.new.views }
-                  : p
-              )
-            )
-          }
-        }
-      )
-      .subscribe()
-
-    return () => {
-      supabase.removeChannel(channel)
-    }
-  }, [])
 
   const filteredPosts = useMemo(() => {
     return posts.filter(post => {

@@ -23,8 +23,7 @@ const ToolsServices = lazy(() => import("./pages/ToolsServices"));
 const Estimate = lazy(() => import("./pages/Estimate"));
 const Blog = lazy(() => import("./pages/Blog"));
 const BlogPostDetail = lazy(() => import("./pages/BlogPostDetail"));
-const BlogAdmin = lazy(() => import("./pages/BlogAdmin"));
-const BlogAdminDashboard = lazy(() => import("./pages/BlogAdminDashboard"));
+const SanityStudio = lazy(() => import("./pages/SanityStudio"));
 const NotFound = lazy(() => import("./pages/NotFound"));
 
 // Lazy-load floating AI chatbot to keep initial bundle ultra-lean
@@ -82,6 +81,20 @@ function ScrollToTop() {
 }
 
 export default function App() {
+  const location = useLocation();
+  const isSanityStudio = location.pathname.startsWith('/sanity');
+
+  if (isSanityStudio) {
+    return (
+      <Suspense fallback={<PageLoader />}>
+        <Routes>
+          <Route path="/sanity/*" element={<SanityStudio />} />
+          <Route path="/sanity" element={<SanityStudio />} />
+        </Routes>
+      </Suspense>
+    );
+  }
+
   return (
     <ThemeProvider>
       <ScrollToTop />
@@ -112,8 +125,6 @@ export default function App() {
             <Route path="/estimate" element={<Estimate />} />
             <Route path="/quote" element={<Navigate to="/estimate" replace />} />
             <Route path="/blog" element={<Blog />} />
-            <Route path="/blog/admin" element={<BlogAdminDashboard />} />
-            <Route path="/blog/new" element={<BlogAdmin />} />
             <Route path="/blog/:slug" element={<BlogPostDetail />} />
             <Route path="*" element={<NotFound />} />
           </Routes>

@@ -45,21 +45,17 @@ async function generateSocialPages() {
   const baseHtml = fs.readFileSync(INDEX_HTML_PATH, 'utf-8')
   const supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY)
 
-  // 1. Fetch Blog Posts
+  // 1. Fetch Blog Posts from Sanity CMS
   let posts = []
   try {
-    const { data, error } = await supabase
-      .from('blog_posts')
-      .select('*')
-      .eq('is_published', true)
+    const sanityUrl = `https://vbkdnotg.api.sanity.io/v2024-03-01/data/query/production?query=${encodeURIComponent('*[_type == "post" && defined(slug.current)]{ "slug": slug.current, title, excerpt, "cover_image": coverImage.asset->url, "published_at": publishedAt, "author_name": authorName }')}`
+    const res = await fetch(sanityUrl)
+    const json = await res.json()
+    const sanityPosts = json?.result || []
 
-    if (error || !data || data.length === 0) {
-      console.warn('Could not fetch from Supabase, using fallback posts:', error)
-      posts = fallbackBlogPosts
-    } else {
-      // Merge with fallback posts to guarantee all standard slugs are pre-rendered
-      const existingSlugs = new Set(data.map(p => p.slug))
-      posts = [...data]
+    if (sanityPosts.length > 0) {
+      posts = [...sanityPosts]
+      const existingSlugs = new Set(sanityPosts.map(p => p.slug))
       for (const fb of fallbackBlogPosts) {
         if (!existingSlugs.has(fb.slug)) {
           posts.push({
@@ -72,11 +68,14 @@ async function generateSocialPages() {
           })
         }
       }
+    } else {
+      posts = fallbackBlogPosts
     }
   } catch (err) {
-    console.warn('Exception fetching blog posts, using fallback:', err)
+    console.warn('Could not fetch from Sanity, using fallback posts:', err)
     posts = fallbackBlogPosts
   }
+
 
   console.log(`Generating social pages for ${posts.length} blog posts...`)
 
@@ -84,9 +83,9 @@ async function generateSocialPages() {
     const slug = post.slug
     if (!slug) continue
 
-    const postTitle = post.seo_title || post.title || 'Blog Details'
+    const postTitle = post.title || 'Blog Details'
     const fullTitle = `${postTitle} | Sahed Alom Sumit`
-    const postDesc = post.seo_description || post.excerpt || 'Read architectural insights, AI workflows, and front-end engineering notes by Sahed Alom Sumit.'
+    const postDesc = post.excerpt || 'Read architectural insights, AI workflows, and front-end engineering notes by Sahed Alom Sumit.'
     const postImage = toAbsoluteUrl(post.cover_image || post.coverImage)
     const pageUrl = `${SITE_URL}/blog/${slug}`
     const publishedIso = post.published_at || post.publishedAt || new Date().toISOString()

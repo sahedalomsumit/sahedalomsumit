@@ -15,16 +15,14 @@ import {
 } from 'lucide-react'
 import RevealOnScroll from '../components/RevealOnScroll'
 import ContactSection from '../components/ContactSection'
-import MarkdownRenderer from '../components/MarkdownRenderer'
+import PortableTextRenderer from '../components/PortableTextRenderer'
 import BlogCard from '../components/BlogCard'
 import {
-  supabase,
   fetchBlogPostBySlug,
   fetchAdjacentBlogPosts,
   fetchBlogPosts,
-  incrementBlogPostViews,
-  calculateReadingTime
-} from '../lib/supabase'
+  calculateReadingTime,
+} from '../lib/sanity'
 import { useSEO } from '../hooks/useSEO'
 
 export default function BlogPostDetail() {
@@ -42,8 +40,8 @@ export default function BlogPostDetail() {
   const postShareUrl = `https://sahedalomsumit.com/blog/${slug}`
 
   useSEO({
-    title: post ? (post.seoTitle || post.title) : 'Blog Details',
-    description: post ? (post.seoDescription || post.excerpt) : 'Read architectural insights, AI workflows, and front-end engineering notes by Sahed Alom Sumit.',
+    title: post?.title || 'Blog Details',
+    description: post?.excerpt || 'Read architectural insights, AI workflows, and front-end engineering notes by Sahed Alom Sumit.',
     canonical: `/blog/${slug}`,
     image: post?.coverImage,
     type: 'article',
@@ -65,7 +63,7 @@ export default function BlogPostDetail() {
     return () => window.removeEventListener('scroll', handleScroll)
   }, [])
 
-  // Load Post and Meta
+  // Load Post and Meta from Sanity
   useEffect(() => {
     async function loadData() {
       setLoading(true)
@@ -74,19 +72,6 @@ export default function BlogPostDetail() {
         if (postData) {
           setPost(postData)
           setViews(postData.views || 0)
-
-          // Genuine unique session tracking: only count 1 view per user session
-          const sessionKey = `viewed_post_${slug}`
-          const hasViewedInSession = sessionStorage.getItem(sessionKey)
-
-          if (!hasViewedInSession) {
-            sessionStorage.setItem(sessionKey, 'true')
-            incrementBlogPostViews(slug).then(newCount => {
-              if (typeof newCount === 'number' && newCount > 0) {
-                setViews(newCount)
-              }
-            })
-          }
 
           // Fetch adjacent navigation posts
           const adj = await fetchAdjacentBlogPosts(slug)
@@ -98,7 +83,7 @@ export default function BlogPostDetail() {
           setRelatedPosts(related)
         }
       } catch (err) {
-        console.error('Error loading article:', err)
+        console.error('Error loading article from Sanity:', err)
       } finally {
         setLoading(false)
       }
@@ -106,49 +91,42 @@ export default function BlogPostDetail() {
     loadData()
   }, [slug])
 
-  // Live Realtime listener for dynamic view count updates
-  useEffect(() => {
-    if (!slug || !supabase) return
-
-    const channel = supabase
-      .channel(`post-views-${slug}`)
-      .on(
-        'postgres_changes',
-        {
-          event: 'UPDATE',
-          schema: 'public',
-          table: 'blog_posts',
-          filter: `slug=eq.${slug}`,
-        },
-        (payload) => {
-          if (payload.new && typeof payload.new.views === 'number') {
-            setViews(payload.new.views)
+  // Extract Table of Contents from Portable Text blocks or Markdown headings
+  const tableOfContents = useMemo(() => {
+    // If Sanity Portable Text body is present
+    if (Array.isArray(post?.body) && post.body.length > 0) {
+      const toc = []
+      post.body.forEach(block => {
+        if (block._type === 'block' && ['h2', 'h3', 'h4'].includes(block.style)) {
+          const text = block.children?.map(c => c.text).join('') || ''
+          if (text.trim()) {
+            const level = block.style === 'h2' ? 2 : block.style === 'h3' ? 3 : 4
+            const id = text.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '')
+            toc.push({ level, text, id })
           }
         }
-      )
-      .subscribe()
-
-    return () => {
-      supabase.removeChannel(channel)
+      })
+      return toc
     }
-  }, [slug])
 
-  // Extract Table of Contents from Markdown headings
-  const tableOfContents = useMemo(() => {
-    if (!post?.content) return []
-    const lines = post.content.split('\n')
-    const toc = []
-    lines.forEach(line => {
-      const match = line.trim().match(/^(#{2,4})\s*(.*)$/)
-      if (match && match[2].trim()) {
-        const level = match[1].length
-        const text = match[2].trim()
-        const id = text.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '')
-        toc.push({ level, text, id })
-      }
-    })
-    return toc
-  }, [post?.content])
+    // Fallback if markdown content string is present
+    if (post?.content) {
+      const lines = post.content.split('\n')
+      const toc = []
+      lines.forEach(line => {
+        const match = line.trim().match(/^(#{2,4})\s*(.*)$/)
+        if (match && match[2].trim()) {
+          const level = match[1].length
+          const text = match[2].trim()
+          const id = text.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '')
+          toc.push({ level, text, id })
+        }
+      })
+      return toc
+    }
+    return []
+  }, [post?.body, post?.content])
+
 
   // Track active heading for live TOC highlighting on scroll
   const [activeHeadingId, setActiveHeadingId] = useState('')
@@ -226,8 +204,8 @@ export default function BlogPostDetail() {
   }
 
   const dynamicReadingTime = useMemo(() => {
-    return calculateReadingTime(post?.content)
-  }, [post?.content])
+    return post?.readingTime || calculateReadingTime(post?.body || post?.content)
+  }, [post?.readingTime, post?.body, post?.content])
 
   const formattedDate = post?.publishedAt
     ? new Date(post.publishedAt).toLocaleDateString('en-US', {
@@ -646,7 +624,7 @@ export default function BlogPostDetail() {
           {/* Main Article Body */}
           <main className={tableOfContents.length > 0 ? 'lg:col-span-8' : 'w-full col-span-12'}>
             <div className="bento-card p-6 sm:p-10 md:p-12 text-left mb-12">
-              <MarkdownRenderer content={post.content} />
+              <PortableTextRenderer body={post.body} content={post.content} />
 
               {/* Tags Section */}
               {post.tags && post.tags.length > 0 && (
@@ -688,7 +666,7 @@ export default function BlogPostDetail() {
                   {post.authorRole || 'Product Designer & AI-Enhanced Web Developer'} • Helsinki, Finland
                 </p>
                 <p className="text-xs font-light leading-relaxed" style={{ color: 'var(--text-muted)' }}>
-                  With 5+ years of experience, I’ve worked with founders, brands, and agencies worldwide, turning rough ideas into 150+ digital products that are fast, user-friendly, visually polished, and built to support real business goals.
+                  {post.authorDescription || 'With 5+ years of experience, I’ve worked with founders, brands, and agencies worldwide, turning rough ideas into 150+ digital products that are fast, user-friendly, visually polished, and built to support real business goals.'}
                 </p>
               </div>
             </div>
