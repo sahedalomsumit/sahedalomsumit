@@ -1,10 +1,11 @@
 import { createClient } from '@sanity/client'
 import imageUrlBuilder from '@sanity/image-url'
-import { fallbackBlogPosts } from '../data/blogPosts'
+import { fallbackBlogPosts } from '../data/blogPosts.js'
 
-export const projectId = import.meta.env.VITE_SANITY_PROJECT_ID || 'vbkdnotg'
-export const dataset = import.meta.env.VITE_SANITY_DATASET || 'production'
-export const apiVersion = import.meta.env.VITE_SANITY_API_VERSION || '2024-03-01'
+export const projectId = import.meta?.env?.VITE_SANITY_PROJECT_ID || 'vbkdnotg'
+export const dataset = import.meta?.env?.VITE_SANITY_DATASET || 'production'
+export const apiVersion = import.meta?.env?.VITE_SANITY_API_VERSION || '2024-03-01'
+export const writeToken = import.meta?.env?.VITE_SANITY_API_WRITE_TOKEN || ''
 
 export const sanityClient = createClient({
   projectId,
@@ -12,6 +13,16 @@ export const sanityClient = createClient({
   apiVersion,
   useCdn: true,
 })
+
+export const sanityWriteClient = writeToken
+  ? createClient({
+      projectId,
+      dataset,
+      apiVersion,
+      token: writeToken,
+      useCdn: false,
+    })
+  : null
 
 const builder = imageUrlBuilder(sanityClient)
 
@@ -72,9 +83,20 @@ export function mapSanityPost(post) {
     }
   }
 
+  const postSlug = typeof post.slug === 'string' ? post.slug : post.slug?.current
+  let viewsCount = typeof post.views === 'number' ? post.views : 0
+  if (typeof window !== 'undefined' && postSlug) {
+    try {
+      const local = parseInt(localStorage.getItem(`blog_views_${postSlug}`) || '0', 10)
+      if (local > viewsCount) {
+        viewsCount = local
+      }
+    } catch (_) {}
+  }
+
   return {
     id: post._id,
-    slug: typeof post.slug === 'string' ? post.slug : post.slug?.current,
+    slug: postSlug,
     title: post.title,
     excerpt: post.excerpt,
     body: post.body || null,
@@ -89,7 +111,7 @@ export function mapSanityPost(post) {
     readingTime: post.readingTime || calculateReadingTime(post.body || post.content),
     publishedAt: post.publishedAt || post._createdAt,
     isFeatured: Boolean(post.isFeatured),
-    views: typeof post.views === 'number' ? post.views : 0,
+    views: viewsCount,
     seoTitle: post.title,
     seoDescription: post.excerpt,
   }
@@ -204,5 +226,69 @@ export async function fetchAdjacentBlogPosts(slug) {
   } catch (err) {
     console.error('Error fetching adjacent blog posts from Sanity:', err)
     return { prev: null, next: null }
+  }
+}
+
+/**
+ * Increment blog post views with resilient multi-tier persistence:
+ * 1. Checks serverless Netlify function (if deployed).
+ * 2. Directly mutates Sanity document if writeToken is available.
+ * 3. Gracefully persists locally so views increment immediately on screen even before adding write token.
+ */
+export async function incrementBlogPostViews(slug, postId = null, currentViews = 0) {
+  if (!slug) return null
+
+  let updatedViews = null
+
+  // 1. Try serverless function (Netlify / API)
+  try {
+    const res = await fetch('/.netlify/functions/increment-views', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ slug, postId }),
+    })
+    if (res.ok) {
+      const data = await res.json()
+      if (typeof data.views === 'number') {
+        updatedViews = data.views
+      }
+    }
+  } catch (_) {
+    // Serverless endpoint unavailable in local Vite dev or before Netlify function deploy
+  }
+
+  // 2. Direct Sanity client mutation if client write token is set
+  if (updatedViews === null && sanityWriteClient) {
+    try {
+      let targetId = postId
+      if (!targetId) {
+        const doc = await sanityClient.fetch(`*[_type == "post" && slug.current == $slug][0]{ _id }`, { slug })
+        targetId = doc?._id
+      }
+      if (targetId) {
+        const patchRes = await sanityWriteClient
+          .patch(targetId)
+          .setIfMissing({ views: 0 })
+          .inc({ views: 1 })
+          .commit({ autoGenerateArrayKeys: true })
+        if (typeof patchRes?.views === 'number') {
+          updatedViews = patchRes.views
+        }
+      }
+    } catch (err) {
+      console.warn('Failed to increment views via Sanity client:', err)
+    }
+  }
+
+  // 3. Resilient persistent local storage fallback
+  try {
+    const localKey = `blog_views_${slug}`
+    const stored = parseInt(localStorage.getItem(localKey) || '0', 10)
+    const base = Math.max(stored, typeof currentViews === 'number' ? currentViews : 0)
+    const nextCount = updatedViews !== null ? updatedViews : (base + 1)
+    localStorage.setItem(localKey, String(nextCount))
+    return nextCount
+  } catch (_) {
+    return updatedViews !== null ? updatedViews : (currentViews + 1)
   }
 }

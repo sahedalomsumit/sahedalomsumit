@@ -22,37 +22,38 @@ export default async function handler(request, context) {
   }
 
   try {
-    const supabaseUrl = 'https://zcfvrxvttbyhmemdyxfw.supabase.co'
-    const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InpjZnZyeHZ0dGJ5aG1lbWR5eGZ3Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzQ2MzI5MDAsImV4cCI6MjA5MDIwODkwMH0.I4up28xh08dzrug3VQ28rMuEsfBq49mKji1DPlc71yU'
+    const projectId = 'vbkdnotg'
+    const dataset = 'production'
+    const query = `*[_type == "post" && slug.current == "${slug}"][0]{
+      title,
+      excerpt,
+      "coverImage": coverImage.asset->url,
+      publishedAt
+    }`
+    const sanityUrl = `https://${projectId}.api.sanity.io/v2024-03-01/data/query/${dataset}?query=${encodeURIComponent(query)}`
 
-    const res = await fetch(`${supabaseUrl}/rest/v1/blog_posts?slug=eq.${encodeURIComponent(slug)}&select=*`, {
-      headers: {
-        'apikey': supabaseKey,
-        'Authorization': `Bearer ${supabaseKey}`
-      }
-    })
-
+    const res = await fetch(sanityUrl)
     if (!res.ok) return response
-    const posts = await res.json()
-    if (!posts || posts.length === 0) return response
+    const json = await res.json()
+    const post = json?.result
+    if (!post) return response
 
-    const post = posts[0]
     let html = await response.text()
 
     const siteUrl = 'https://sahedalomsumit.com'
-    const postTitle = post.seo_title || post.title || 'Blog Post'
+    const postTitle = post.title || 'Blog Post'
     const fullTitle = `${postTitle} | Sahed Alom Sumit`
-    const desc = post.seo_description || post.excerpt || ''
+    const desc = post.excerpt || ''
     
-    let coverImage = post.cover_image || `${siteUrl}/img/og-image.webp`
+    let coverImage = post.coverImage || `${siteUrl}/img/og-image.webp`
     if (coverImage.startsWith('/')) {
       coverImage = `${siteUrl}${coverImage}`
     } else if (!coverImage.startsWith('http')) {
       coverImage = `${siteUrl}/${coverImage}`
     }
     const pageUrl = `${siteUrl}/blog/${slug}`
-    const publishedIso = post.published_at || new Date().toISOString()
-    const authorName = post.author_name || 'Sahed Alom Sumit'
+    const publishedIso = post.publishedAt || new Date().toISOString()
+    const authorName = 'Sahed Alom Sumit'
 
     // Replace Title
     html = html.replace(/<title>.*?<\/title>/i, `<title>${escapeHtml(fullTitle)}</title>`)

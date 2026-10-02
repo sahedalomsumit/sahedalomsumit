@@ -22,6 +22,7 @@ import {
   fetchAdjacentBlogPosts,
   fetchBlogPosts,
   calculateReadingTime,
+  incrementBlogPostViews,
 } from '../lib/sanity'
 import { useSEO } from '../hooks/useSEO'
 
@@ -72,6 +73,19 @@ export default function BlogPostDetail() {
         if (postData) {
           setPost(postData)
           setViews(postData.views || 0)
+
+          // Increment view count organically (once per session per article)
+          const sessionKey = `viewed_post_${slug}`
+          const hasViewedInSession = sessionStorage.getItem(sessionKey)
+
+          if (!hasViewedInSession) {
+            sessionStorage.setItem(sessionKey, 'true')
+            incrementBlogPostViews(slug, postData.id, postData.views).then(newCount => {
+              if (typeof newCount === 'number' && newCount > 0) {
+                setViews(newCount)
+              }
+            })
+          }
 
           // Fetch adjacent navigation posts
           const adj = await fetchAdjacentBlogPosts(slug)

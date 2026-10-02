@@ -92,6 +92,14 @@ export default defineType({
       description: 'Leave empty to automatically calculate from word count.',
     }),
     defineField({
+      name: 'views',
+      title: 'Views / Reader Count',
+      type: 'number',
+      description: 'Total number of readers / dynamic views.',
+      initialValue: 0,
+      readOnly: true,
+    }),
+    defineField({
       name: 'body',
       title: 'Body Content (Rich Text)',
       type: 'array',
@@ -170,12 +178,14 @@ export default defineType({
       title: 'title',
       media: 'coverImage',
       date: 'publishedAt',
+      views: 'views',
     },
-    prepare({ title, media, date }) {
+    prepare({ title, media, date, views = 0 }) {
       const formattedDate = date ? new Date(date).toLocaleDateString() : 'Draft'
+      const readsText = typeof views === 'number' ? `${views.toLocaleString()} ${views === 1 ? 'read' : 'reads'}` : '0 reads'
       return {
         title,
-        subtitle: `Sahed Alom Sumit • ${formattedDate}`,
+        subtitle: `${readsText} • ${formattedDate}`,
         media,
       }
     },
