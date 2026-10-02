@@ -34,7 +34,6 @@ export default function BlogPostDetail() {
   const [loading, setLoading] = useState(true)
   const [views, setViews] = useState(0)
   const [copiedLink, setCopiedLink] = useState(false)
-  const [instagramToast, setInstagramToast] = useState(false)
   const [readingProgress, setReadingProgress] = useState(0)
 
   const [showSocialCardModal, setShowSocialCardModal] = useState(false)
@@ -210,11 +209,10 @@ export default function BlogPostDetail() {
     window.open(`https://www.facebook.com/sharer/sharer.php?u=${url}`, '_blank', 'width=600,height=500,noopener,noreferrer')
   }
 
-  const shareOnInstagram = () => {
-    navigator.clipboard.writeText(postShareUrl)
-    setInstagramToast(true)
-    setTimeout(() => setInstagramToast(false), 3500)
-    window.open('https://www.instagram.com/', '_blank', 'noopener,noreferrer')
+  const shareOnWhatsApp = () => {
+    if (!post) return
+    const text = encodeURIComponent(`"${post.title}" - ${postShareUrl}`)
+    window.open(`https://api.whatsapp.com/send?text=${text}`, '_blank', 'noopener,noreferrer')
   }
 
   const dynamicReadingTime = useMemo(() => {
@@ -394,16 +392,16 @@ export default function BlogPostDetail() {
                   </svg>
                 </button>
 
-                {/* Instagram */}
+                {/* WhatsApp */}
                 <button
-                  onClick={shareOnInstagram}
-                  aria-label="Share on Instagram"
-                  title="Share to Instagram Story / Bio"
-                  className="p-2 rounded-xl border hover:border-[#e1306c]/50 hover:bg-[#e1306c]/10 transition-all text-gray-300 hover:text-[#e1306c]"
+                  onClick={shareOnWhatsApp}
+                  aria-label="Share on WhatsApp"
+                  title="Share on WhatsApp"
+                  className="p-2 rounded-xl border hover:border-[#25D366]/50 hover:bg-[#25D366]/10 transition-all text-gray-300 hover:text-[#25D366]"
                   style={{ borderColor: 'var(--border)' }}
                 >
                   <svg className="w-4 h-4" viewBox="0 0 24 24" fill="currentColor">
-                    <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z" />
+                    <path d="M17.472 14.382c-.301-.15-1.78-.878-2.056-.98-.276-.102-.477-.15-.678.15-.2.302-.779.98-.955 1.18-.176.202-.352.226-.653.076-.301-.15-1.272-.469-2.424-1.496-.896-.798-1.501-1.784-1.677-2.086-.176-.302-.019-.465.132-.615.136-.135.301-.352.452-.528.15-.176.2-.301.301-.502.101-.201.05-.377-.025-.528-.075-.15-.678-1.633-.929-2.235-.245-.586-.494-.506-.678-.515-.176-.009-.377-.01-.578-.01-.201 0-.528.075-.804.377-.276.301-1.055 1.03-1.055 2.512 0 1.482 1.08 2.912 1.231 3.113.15.201 2.126 3.246 5.151 4.551.72.311 1.282.497 1.72.636.723.23 1.38.197 1.9-.12.58-.354 1.78-1.09 2.03-1.758.25-.668.25-1.24.175-1.39-.075-.15-.276-.226-.577-.377zM12.04 21.674c-1.74 0-3.447-.468-4.945-1.355l-.354-.21-3.738.98.997-3.645-.23-.366A9.614 9.614 0 0 1 2.4 12.04C2.4 6.724 6.724 2.4 12.04 2.4c2.574 0 4.994 1.002 6.814 2.822A9.585 9.585 0 0 1 21.674 12.04c0 5.316-4.324 9.634-9.634 9.634zm7.994-17.628A11.93 11.93 0 0 0 12.04 0C5.398 0 .007 5.39.007 12.033c0 2.12.553 4.188 1.604 6.012L0 24l6.136-1.609a11.968 11.968 0 0 0 5.904 1.554h.005c6.638 0 12.03-5.393 12.03-12.037 0-3.216-1.252-6.24-3.526-8.514z" />
                   </svg>
                 </button>
 
@@ -431,13 +429,6 @@ export default function BlogPostDetail() {
                   <span className="sm:hidden">Card</span>
                 </button>
               </div>
-
-              {/* Instagram Story Copy Feedback Toast */}
-              {instagramToast && (
-                <div className="absolute right-0 -top-12 px-3 py-1.5 rounded-lg bg-pink-500/20 border border-pink-500/40 text-pink-300 text-xs font-mono flex items-center gap-1.5 backdrop-blur-md animate-fade-in">
-                  <span>📸 Link copied! Paste into your Instagram Story or Bio</span>
-                </div>
-              )}
             </div>
           </header>
         </RevealOnScroll>
@@ -522,7 +513,7 @@ export default function BlogPostDetail() {
                   <span>Share link:</span>
                   <span className="truncate max-w-[280px] text-violet-400">{postShareUrl}</span>
                 </div>
-                <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
+                <div className="grid grid-cols-2 sm:grid-cols-5 gap-2">
                   <button
                     onClick={() => {
                       shareOnTwitter()
@@ -554,8 +545,18 @@ export default function BlogPostDetail() {
                     Facebook
                   </button>
                   <button
+                    onClick={() => {
+                      shareOnWhatsApp()
+                      setShowSocialCardModal(false)
+                    }}
+                    className="py-2 px-3 rounded-xl border hover:border-[#25D366]/50 hover:bg-[#25D366]/10 transition-all text-xs font-mono text-[#25D366] flex items-center justify-center gap-1.5"
+                    style={{ borderColor: 'var(--border)' }}
+                  >
+                    WhatsApp
+                  </button>
+                  <button
                     onClick={handleCopyLink}
-                    className="py-2 px-3 rounded-xl border bg-violet-600 hover:bg-violet-500 text-white transition-all text-xs font-mono flex items-center justify-center gap-1.5"
+                    className="py-2 px-3 rounded-xl border bg-violet-600 hover:bg-violet-500 text-white transition-all text-xs font-mono flex items-center justify-center gap-1.5 col-span-2 sm:col-span-1"
                   >
                     {copiedLink ? <Check className="w-3.5 h-3.5" /> : <Copy className="w-3.5 h-3.5" />}
                     <span>{copiedLink ? 'Copied' : 'Copy'}</span>
