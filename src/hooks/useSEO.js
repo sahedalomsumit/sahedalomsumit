@@ -35,11 +35,17 @@ export function toAbsoluteUrl(url) {
     return DEFAULT_IMAGE
   }
   const trimmed = url.trim()
-  if (trimmed.startsWith('http://') || trimmed.startsWith('https://')) {
-    return trimmed
+  let absolute = trimmed
+  if (!trimmed.startsWith('http://') && !trimmed.startsWith('https://')) {
+    const cleanPath = trimmed.startsWith('/') ? trimmed : `/${trimmed}`
+    absolute = `${SITE_URL}${cleanPath}`
   }
-  const cleanPath = trimmed.startsWith('/') ? trimmed : `/${trimmed}`
-  return `${SITE_URL}${cleanPath}`
+  // Optimize Sanity images for social preview cards (1200x630, JPG format, <300KB for WhatsApp/X/LinkedIn)
+  if (absolute.includes('cdn.sanity.io') && !absolute.includes('w=')) {
+    const separator = absolute.includes('?') ? '&' : '?'
+    return `${absolute}${separator}w=1200&h=630&fit=crop&fm=jpg&q=80`
+  }
+  return absolute
 }
 
 function setMeta(selector, attribute, value) {
@@ -97,6 +103,7 @@ export function useSEO({
     setMeta('meta[property="og:image:alt"]', 'content', title || BASE_TITLE)
     setMeta('meta[property="og:image:width"]', 'content', '1200')
     setMeta('meta[property="og:image:height"]', 'content', '630')
+    setMeta('meta[property="og:image:type"]', 'content', 'image/jpeg')
 
     // 5. Twitter Card Tags
     setMeta('meta[name="twitter:card"]', 'content', 'summary_large_image')

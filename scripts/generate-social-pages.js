@@ -26,12 +26,33 @@ function toAbsoluteUrl(url) {
   if (!url || typeof url !== 'string' || !url.trim()) {
     return `${SITE_URL}/img/og-image.webp`
   }
-  const trimmed = url.trim()
-  if (trimmed.startsWith('http://') || trimmed.startsWith('https://')) {
-    return trimmed
+  let trimmed = url.trim()
+  if (!trimmed.startsWith('http://') && !trimmed.startsWith('https://')) {
+    const cleanPath = trimmed.startsWith('/') ? trimmed : `/${trimmed}`
+    trimmed = `${SITE_URL}${cleanPath}`
   }
-  const cleanPath = trimmed.startsWith('/') ? trimmed : `/${trimmed}`
-  return `${SITE_URL}${cleanPath}`
+  // Optimize Sanity images for social preview cards (1200x630, JPG format, <300KB for WhatsApp/X/LinkedIn)
+  if (trimmed.includes('cdn.sanity.io') && !trimmed.includes('w=')) {
+    const separator = trimmed.includes('?') ? '&' : '?'
+    return `${trimmed}${separator}w=1200&h=630&fit=crop&fm=jpg&q=80`
+  }
+  return trimmed
+}
+
+function setOrReplaceMeta(html, attr, name, content) {
+  const regex = new RegExp(`<meta\\s+${attr}="${name}"\\s+content=".*?"\\s*\\/?>`, 'gi')
+  const newTag = `<meta ${attr}="${name}" content="${content}" />`
+  if (regex.test(html)) {
+    let replaced = false
+    return html.replace(regex, () => {
+      if (!replaced) {
+        replaced = true
+        return newTag
+      }
+      return ''
+    })
+  }
+  return html.replace('</head>', `    ${newTag}\n  </head>`)
 }
 
 async function generateSocialPages() {
@@ -48,7 +69,7 @@ async function generateSocialPages() {
   // 1. Fetch Blog Posts from Sanity CMS
   let posts = []
   try {
-    const sanityUrl = `https://vbkdnotg.api.sanity.io/v2024-03-01/data/query/production?query=${encodeURIComponent('*[_type == "post" && defined(slug.current)]{ "slug": slug.current, title, excerpt, "cover_image": coverImage.asset->url, "published_at": publishedAt, "author_name": authorName }')}`
+    const sanityUrl = `https://vbkdnotg.api.sanity.io/v2024-03-01/data/query/production?query=${encodeURIComponent('*[_type == "post" && defined(slug.current)]{ "slug": slug.current, title, excerpt, "cover_image": coalesce(coverImage.asset->url, coverImage), "published_at": publishedAt, "author_name": authorName }')}`
     const res = await fetch(sanityUrl)
     const json = await res.json()
     const sanityPosts = json?.result || []
@@ -76,7 +97,6 @@ async function generateSocialPages() {
     posts = fallbackBlogPosts
   }
 
-
   console.log(`Generating social pages for ${posts.length} blog posts...`)
 
   for (const post of posts) {
@@ -93,93 +113,63 @@ async function generateSocialPages() {
 
     let pageHtml = baseHtml
 
-    // 1. Replace Title
-    pageHtml = pageHtml.replace(/<title>.*?<\/title>/i, `<title>${escapeHtml(fullTitle)}</title>`)
-
-    // 2. Replace Meta Description
-    pageHtml = pageHtml.replace(
-      /<meta\s+name="description"\s+content=".*?"\s*\/?>/i,
-      `<meta name="description" content="${escapeHtml(postDesc)}" />`
-    )
-
-    // 3. Replace Canonical Link
-    pageHtml = pageHtml.replace(
-      /<link\s+rel="canonical"\s+href=".*?"\s*\/?>/i,
-      `<link rel="canonical" href="${pageUrl}" />`
-    )
-
-    // 4. Replace OpenGraph Tags
-    pageHtml = pageHtml.replace(
-      /<meta\s+property="og:type"\s+content=".*?"\s*\/?>/i,
-      `<meta property="og:type" content="article" />`
-    )
-    pageHtml = pageHtml.replace(
-      /<meta\s+property="og:url"\s+content=".*?"\s*\/?>/i,
-      `<meta property="og:url" content="${pageUrl}" />`
-    )
-    pageHtml = pageHtml.replace(
-      /<meta\s+property="og:title"\s+content=".*?"\s*\/?>/i,
-      `<meta property="og:title" content="${escapeHtml(fullTitle)}" />`
-    )
-    pageHtml = pageHtml.replace(
-      /<meta\s+property="og:description"\s+content=".*?"\s*\/?>/i,
-      `<meta property="og:description" content="${escapeHtml(postDesc)}" />`
-    )
-    pageHtml = pageHtml.replace(
-      /<meta\s+property="og:image"\s+content=".*?"\s*\/?>/i,
-      `<meta property="og:image" content="${postImage}" />\n    <meta property="og:image:secure_url" content="${postImage}" />\n    <meta property="og:image:alt" content="${escapeHtml(postTitle)}" />\n    <meta property="og:image:width" content="1200" />\n    <meta property="og:image:height" content="630" />\n    <meta property="article:published_time" content="${publishedIso}" />\n    <meta property="article:author" content="${escapeHtml(authorName)}" />`
-    )
-
-    // 5. Replace Twitter Card Tags
-    pageHtml = pageHtml.replace(
-      /<meta\s+name="twitter:card"\s+content=".*?"\s*\/?>/i,
-      `<meta name="twitter:card" content="summary_large_image" />`
-    )
-    pageHtml = pageHtml.replace(
-      /<meta\s+name="twitter:title"\s+content=".*?"\s*\/?>/i,
-      `<meta name="twitter:title" content="${escapeHtml(fullTitle)}" />`
-    )
-    pageHtml = pageHtml.replace(
-      /<meta\s+name="twitter:image"\s+content=".*?"\s*\/?>/i,
-      `<meta name="twitter:image" content="${postImage}" />\n    <meta name="twitter:image:alt" content="${escapeHtml(postTitle)}" />\n    <meta name="twitter:description" content="${escapeHtml(postDesc)}" />\n    <meta name="twitter:creator" content="@sahedalomsumit" />\n    <meta name="twitter:site" content="@sahedalomsumit" />`
-    )
-
-    // 6. Inject Article JSON-LD Schema
-    const articleSchema = `
-    <script type="application/ld+json">
-    {
-      "@context": "https://schema.org",
-      "@type": "BlogPosting",
-      "headline": ${JSON.stringify(postTitle)},
-      "image": [${JSON.stringify(postImage)}],
-      "datePublished": ${JSON.stringify(publishedIso)},
-      "author": {
-        "@type": "Person",
-        "name": ${JSON.stringify(authorName)},
-        "url": ${JSON.stringify(SITE_URL)}
-      },
-      "publisher": {
-        "@type": "Person",
-        "name": "Sahed Alom Sumit",
-        "url": ${JSON.stringify(SITE_URL)},
-        "logo": {
-          "@type": "ImageObject",
-          "url": "${SITE_URL}/img/favicon-sahed-alom-sumit.png"
-        }
-      },
-      "description": ${JSON.stringify(postDesc)},
-      "mainEntityOfPage": {
-        "@type": "WebPage",
-        "@id": ${JSON.stringify(pageUrl)}
-      }
+    // 1. Title
+    if (/<title>.*?<\/title>/i.test(pageHtml)) {
+      pageHtml = pageHtml.replace(/<title>.*?<\/title>/i, `<title>${escapeHtml(fullTitle)}</title>`)
+    } else {
+      pageHtml = pageHtml.replace('</head>', `    <title>${escapeHtml(fullTitle)}</title>\n  </head>`)
     }
-    </script>`
-    pageHtml = pageHtml.replace('</head>', `${articleSchema}\n  </head>`)
 
-    // 7. Write to dist/blog/${slug}/index.html
+    // 2. Canonical Link
+    if (/<link\s+rel="canonical"\s+href=".*?"\s*\/?>/i.test(pageHtml)) {
+      pageHtml = pageHtml.replace(/<link\s+rel="canonical"\s+href=".*?"\s*\/?>/i, `<link rel="canonical" href="${pageUrl}" />`)
+    } else {
+      pageHtml = pageHtml.replace('</head>', `    <link rel="canonical" href="${pageUrl}" />\n  </head>`)
+    }
+
+    // 3. Description & Author
+    pageHtml = setOrReplaceMeta(pageHtml, 'name', 'description', escapeHtml(postDesc))
+    pageHtml = setOrReplaceMeta(pageHtml, 'name', 'author', escapeHtml(authorName))
+
+    // 4. OpenGraph Tags
+    pageHtml = setOrReplaceMeta(pageHtml, 'property', 'og:type', 'article')
+    pageHtml = setOrReplaceMeta(pageHtml, 'property', 'og:url', pageUrl)
+    pageHtml = setOrReplaceMeta(pageHtml, 'property', 'og:title', escapeHtml(fullTitle))
+    pageHtml = setOrReplaceMeta(pageHtml, 'property', 'og:description', escapeHtml(postDesc))
+    pageHtml = setOrReplaceMeta(pageHtml, 'property', 'og:image', postImage)
+    pageHtml = setOrReplaceMeta(pageHtml, 'property', 'og:image:secure_url', postImage)
+    pageHtml = setOrReplaceMeta(pageHtml, 'property', 'og:image:type', 'image/jpeg')
+    pageHtml = setOrReplaceMeta(pageHtml, 'property', 'og:image:alt', escapeHtml(postTitle))
+    pageHtml = setOrReplaceMeta(pageHtml, 'property', 'og:image:width', '1200')
+    pageHtml = setOrReplaceMeta(pageHtml, 'property', 'og:image:height', '630')
+    pageHtml = setOrReplaceMeta(pageHtml, 'property', 'og:site_name', 'Sahed Alom Sumit')
+    pageHtml = setOrReplaceMeta(pageHtml, 'property', 'article:published_time', publishedIso)
+    pageHtml = setOrReplaceMeta(pageHtml, 'property', 'article:author', escapeHtml(authorName))
+
+    // 5. Twitter Card Tags
+    pageHtml = setOrReplaceMeta(pageHtml, 'name', 'twitter:card', 'summary_large_image')
+    pageHtml = setOrReplaceMeta(pageHtml, 'name', 'twitter:title', escapeHtml(fullTitle))
+    pageHtml = setOrReplaceMeta(pageHtml, 'name', 'twitter:description', escapeHtml(postDesc))
+    pageHtml = setOrReplaceMeta(pageHtml, 'name', 'twitter:image', postImage)
+    pageHtml = setOrReplaceMeta(pageHtml, 'name', 'twitter:image:alt', escapeHtml(postTitle))
+    pageHtml = setOrReplaceMeta(pageHtml, 'name', 'twitter:creator', '@sahedalomsumit')
+    pageHtml = setOrReplaceMeta(pageHtml, 'name', 'twitter:site', '@sahedalomsumit')
+
+    // 6. Article JSON-LD Schema
+    const articleSchema = `\n    <script type="application/ld+json" id="article-schema">\n    {\n      "@context": "https://schema.org",\n      "@type": "BlogPosting",\n      "headline": ${JSON.stringify(postTitle)},\n      "image": [${JSON.stringify(postImage)}],\n      "datePublished": ${JSON.stringify(publishedIso)},\n      "author": {\n        "@type": "Person",\n        "name": ${JSON.stringify(authorName)},\n        "url": ${JSON.stringify(SITE_URL)}\n      },\n      "publisher": {\n        "@type": "Person",\n        "name": "Sahed Alom Sumit",\n        "url": ${JSON.stringify(SITE_URL)},\n        "logo": {\n          "@type": "ImageObject",\n          "url": "${SITE_URL}/img/favicon-sahed-alom-sumit.png"\n        }\n      },\n      "description": ${JSON.stringify(postDesc)},\n      "mainEntityOfPage": {\n        "@type": "WebPage",\n        "@id": ${JSON.stringify(pageUrl)}\n      }\n    }\n    </script>`
+
+    if (pageHtml.includes('id="article-schema"')) {
+      pageHtml = pageHtml.replace(/<script type="application\/ld\+json" id="article-schema">[\s\S]*?<\/script>/, articleSchema.trim())
+    } else {
+      pageHtml = pageHtml.replace('</head>', `${articleSchema}\n  </head>`)
+    }
+
+    // 7. Write to BOTH dist/blog/${slug}/index.html AND dist/blog/${slug}.html
+    // This allows Netlify to cleanly serve requests WITH or WITHOUT trailing slash without 301 redirects!
     const targetDir = path.join(DIST_DIR, 'blog', slug)
     fs.mkdirSync(targetDir, { recursive: true })
     fs.writeFileSync(path.join(targetDir, 'index.html'), pageHtml)
+    fs.writeFileSync(path.join(DIST_DIR, 'blog', `${slug}.html`), pageHtml)
   }
 
   // 2. Also pre-render project work case studies
@@ -195,19 +185,41 @@ async function generateSocialPages() {
         const projUrl = `${SITE_URL}/work/${proj.slug}`
 
         let projHtml = baseHtml
-        projHtml = projHtml.replace(/<title>.*?<\/title>/i, `<title>${escapeHtml(projTitle)}</title>`)
-        projHtml = projHtml.replace(/<meta\s+name="description"\s+content=".*?"\s*\/?>/i, `<meta name="description" content="${escapeHtml(projDesc)}" />`)
-        projHtml = projHtml.replace(/<link\s+rel="canonical"\s+href=".*?"\s*\/?>/i, `<link rel="canonical" href="${projUrl}" />`)
-        projHtml = projHtml.replace(/<meta\s+property="og:url"\s+content=".*?"\s*\/?>/i, `<meta property="og:url" content="${projUrl}" />`)
-        projHtml = projHtml.replace(/<meta\s+property="og:title"\s+content=".*?"\s*\/?>/i, `<meta property="og:title" content="${escapeHtml(projTitle)}" />`)
-        projHtml = projHtml.replace(/<meta\s+property="og:description"\s+content=".*?"\s*\/?>/i, `<meta property="og:description" content="${escapeHtml(projDesc)}" />`)
-        projHtml = projHtml.replace(/<meta\s+property="og:image"\s+content=".*?"\s*\/?>/i, `<meta property="og:image" content="${projImage}" />\n    <meta property="og:image:secure_url" content="${projImage}" />\n    <meta property="og:image:alt" content="${escapeHtml(proj.title)}" />`)
-        projHtml = projHtml.replace(/<meta\s+name="twitter:title"\s+content=".*?"\s*\/?>/i, `<meta name="twitter:title" content="${escapeHtml(projTitle)}" />`)
-        projHtml = projHtml.replace(/<meta\s+name="twitter:image"\s+content=".*?"\s*\/?>/i, `<meta name="twitter:image" content="${projImage}" />\n    <meta name="twitter:image:alt" content="${escapeHtml(proj.title)}" />\n    <meta name="twitter:description" content="${escapeHtml(projDesc)}" />`)
+
+        if (/<title>.*?<\/title>/i.test(projHtml)) {
+          projHtml = projHtml.replace(/<title>.*?<\/title>/i, `<title>${escapeHtml(projTitle)}</title>`)
+        } else {
+          projHtml = projHtml.replace('</head>', `    <title>${escapeHtml(projTitle)}</title>\n  </head>`)
+        }
+
+        if (/<link\s+rel="canonical"\s+href=".*?"\s*\/?>/i.test(projHtml)) {
+          projHtml = projHtml.replace(/<link\s+rel="canonical"\s+href=".*?"\s*\/?>/i, `<link rel="canonical" href="${projUrl}" />`)
+        } else {
+          projHtml = projHtml.replace('</head>', `    <link rel="canonical" href="${projUrl}" />\n  </head>`)
+        }
+
+        projHtml = setOrReplaceMeta(projHtml, 'name', 'description', escapeHtml(projDesc))
+        projHtml = setOrReplaceMeta(projHtml, 'property', 'og:type', 'website')
+        projHtml = setOrReplaceMeta(projHtml, 'property', 'og:url', projUrl)
+        projHtml = setOrReplaceMeta(projHtml, 'property', 'og:title', escapeHtml(projTitle))
+        projHtml = setOrReplaceMeta(projHtml, 'property', 'og:description', escapeHtml(projDesc))
+        projHtml = setOrReplaceMeta(projHtml, 'property', 'og:image', projImage)
+        projHtml = setOrReplaceMeta(projHtml, 'property', 'og:image:secure_url', projImage)
+        projHtml = setOrReplaceMeta(projHtml, 'property', 'og:image:type', 'image/jpeg')
+        projHtml = setOrReplaceMeta(projHtml, 'property', 'og:image:alt', escapeHtml(proj.title))
+        projHtml = setOrReplaceMeta(projHtml, 'property', 'og:image:width', '1200')
+        projHtml = setOrReplaceMeta(projHtml, 'property', 'og:image:height', '630')
+
+        projHtml = setOrReplaceMeta(projHtml, 'name', 'twitter:card', 'summary_large_image')
+        projHtml = setOrReplaceMeta(projHtml, 'name', 'twitter:title', escapeHtml(projTitle))
+        projHtml = setOrReplaceMeta(projHtml, 'name', 'twitter:description', escapeHtml(projDesc))
+        projHtml = setOrReplaceMeta(projHtml, 'name', 'twitter:image', projImage)
+        projHtml = setOrReplaceMeta(projHtml, 'name', 'twitter:image:alt', escapeHtml(proj.title))
 
         const targetDir = path.join(DIST_DIR, 'work', proj.slug)
         fs.mkdirSync(targetDir, { recursive: true })
         fs.writeFileSync(path.join(targetDir, 'index.html'), projHtml)
+        fs.writeFileSync(path.join(DIST_DIR, 'work', `${proj.slug}.html`), projHtml)
       }
     }
   } catch (err) {
