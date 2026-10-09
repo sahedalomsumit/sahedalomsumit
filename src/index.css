@@ -488,7 +488,6 @@ main > header p + * {
 
 .site-brand img {
   width: 42px !important;
-  filter: grayscale(1);
 }
 
 .site-brand > div:last-child {
