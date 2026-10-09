@@ -327,7 +327,7 @@ export default function BlogPostDetail() {
             <div className="site-full-bleed-divider site-full-bleed-divider-bottom flex flex-col sm:flex-row sm:items-center justify-between gap-4 py-4">
               <div className="flex items-center gap-3">
                 <img
-                  src="/img/sahedalomsumit-profile-purple.png"
+                  src="/img/profile.jpg"
                   alt={post.authorName || 'Sahed Alom Sumit'}
                   className="w-11 h-11 rounded-full object-cover border border-violet-500/40 bg-violet-950/40"
                 />
@@ -665,7 +665,7 @@ export default function BlogPostDetail() {
             <div className="bento-card p-8 mb-12 text-left flex flex-col sm:flex-row items-start gap-6"
                  style={{ borderColor: 'var(--border)' }}>
               <img
-                src="/img/sahedalomsumit-profile-purple.png"
+                src="/img/profile.jpg"
                 alt={post.authorName || 'Sahed Alom Sumit'}
                 className="w-20 h-20 rounded-2xl object-cover border border-violet-500/40 shrink-0 bg-violet-950/40"
               />
@@ -680,7 +680,7 @@ export default function BlogPostDetail() {
                   {post.authorRole || 'Product Designer & AI-Enhanced Web Developer'} • Helsinki, Finland
                 </p>
                 <p className="text-xs font-light leading-relaxed" style={{ color: 'var(--text-muted)' }}>
-                  {post.authorDescription || 'With 5+ years of experience, I’ve worked with founders, brands, and agencies worldwide, turning rough ideas into 150+ digital products that are fast, user-friendly, visually polished, and built to support real business goals.'}
+                  {post.authorDescription || 'With 5+ years of experience, I’ve worked with founders, brands, and agencies worldwide, turning rough ideas into 150+ digital projects that are fast, user-friendly, visually polished, and built to support real business goals.'}
                 </p>
               </div>
             </div>

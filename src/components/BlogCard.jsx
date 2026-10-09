@@ -101,7 +101,7 @@ export default function BlogCard({ post, isFeatured = false }) {
                  style={{ borderColor: 'var(--border)' }}>
               <div className="flex items-center gap-3">
                 <img
-                  src={post.authorAvatar || '/img/sahedalomsumit-profile-purple.png'}
+                  src={post.authorAvatar || '/img/profile.jpg'}
                   alt={post.authorName || 'Sahed Alom Sumit'}
                   className="w-8 h-8 rounded-full object-cover border border-violet-500/30"
                 />

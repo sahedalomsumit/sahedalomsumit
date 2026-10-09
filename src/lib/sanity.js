@@ -60,8 +60,8 @@ export function calculateReadingTime(body) {
 export const STATIC_AUTHOR = {
   name: 'Sahed Alom Sumit',
   role: 'Product Designer & AI-Enhanced Web Developer',
-  avatar: '/img/sahedalomsumit-profile-purple.png',
-  description: 'With 5+ years of experience, I’ve worked with founders, brands, and agencies worldwide, turning rough ideas into 150+ digital products that are fast, user-friendly, visually polished, and built to support real business goals.',
+  avatar: '/img/profile.jpg',
+  description: 'With 5+ years of experience, I’ve worked with founders, brands, and agencies worldwide, turning rough ideas into 150+ digital projects that are fast, user-friendly, visually polished, and built to support real business goals.',
 }
 
 /**

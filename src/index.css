@@ -300,6 +300,159 @@ main > header p + * {
 }
 
 /* ── Theme Toggle Button ── */
+/* Review screenshots travel across the full width of the showcase. */
+.review-showcase-card {
+  width: min(100%, calc(100vw - 2rem));
+  margin-inline: 50%;
+  transform: translateX(-50%);
+}
+
+.bento-card.review-showcase-card:hover {
+  transform: translateX(-50%);
+}
+
+.review-orbit {
+  position: relative;
+  isolation: isolate;
+  width: 100%;
+  height: clamp(480px, 48vw, 640px);
+  overflow: hidden;
+  border-radius: 1rem;
+  background: radial-gradient(ellipse at center, rgb(59 130 246 / 8%), transparent 60%);
+}
+
+.review-marquee {
+  position: absolute;
+  left: 0;
+  width: 100%;
+  height: 31%;
+  overflow: hidden;
+}
+
+.review-marquee-0 { top: 1%; }
+.review-marquee-1 { top: 34%; }
+.review-marquee-2 { top: 67%; }
+
+.review-marquee-track {
+  display: flex;
+  width: max-content;
+  height: 100%;
+  align-items: center;
+  animation: review-marquee-scroll 58s linear infinite;
+  will-change: transform;
+}
+
+.review-marquee-group {
+  display: flex;
+  height: 100%;
+  flex: 0 0 auto;
+  align-items: center;
+  gap: clamp(0.75rem, 2vw, 1.75rem);
+  padding-right: clamp(0.75rem, 2vw, 1.75rem);
+}
+
+.review-marquee-1 .review-marquee-track {
+  animation-direction: reverse;
+  animation-duration: 66s;
+}
+
+.review-marquee-2 .review-marquee-track { animation-duration: 72s; }
+
+.review-orbit-center {
+  position: absolute;
+  z-index: 2;
+  top: 50%;
+  left: 50%;
+  display: flex;
+  width: min(390px, 80%);
+  flex-direction: column;
+  align-items: center;
+  padding: 1.5rem 2rem;
+  border: 1px solid rgb(255 255 255 / 10%);
+  border-radius: 1.25rem;
+  background: rgb(12 15 20 / 78%);
+  backdrop-filter: blur(12px);
+  transform: translate(-50%, -50%);
+  color: white;
+  text-align: center;
+  text-shadow: 0 2px 20px rgb(0 0 0 / 65%);
+  pointer-events: none;
+}
+
+.review-orbit-center > span { color: #6ee7b7; font-size: 0.65rem; letter-spacing: 0.28em; text-transform: uppercase; }
+.review-orbit-center strong { margin-top: 0.35rem; font-size: clamp(3.5rem, 8vw, 6.5rem); font-weight: 900; line-height: 1; letter-spacing: -0.08em; }
+.review-orbit-center strong b { color: #fbbf24; }
+.review-orbit-center p { margin-top: 0.65rem; font-size: 1.1rem; font-weight: 700; }
+.review-orbit-center small { margin-top: 0.35rem; color: #a1a1aa; font-size: 0.65rem; letter-spacing: 0.1em; text-transform: uppercase; }
+
+.review-orbit-trigger { display: block; flex: 0 0 auto; width: clamp(150px, 20vw, 260px); height: auto; overflow: hidden; border: 0; border-radius: 0.65rem; padding: 0; background: transparent; cursor: zoom-in; }
+.review-orbit-trigger img { display: block; width: 100%; height: auto; }
+
+@keyframes review-marquee-scroll { from { transform: translate3d(0, 0, 0); } to { transform: translate3d(-33.333333%, 0, 0); } }
+
+@media (max-width: 640px) {
+  .review-showcase-card { padding-inline: 1rem; }
+  .review-orbit { height: 480px; }
+  .review-marquee { height: 31%; }
+  .review-marquee-0 { top: 1%; }
+  .review-marquee-1 { top: 34%; }
+  .review-marquee-2 { top: 67%; }
+  .review-orbit-center { width: 88%; padding: 1.25rem 1rem; }
+  .review-orbit-center > span, .review-orbit-center small { font-size: 0.48rem; letter-spacing: 0.08em; }
+  .review-orbit-center p { margin-top: 0.4rem; font-size: 0.8rem; }
+  .review-orbit-trigger { width: clamp(135px, 42vw, 180px); max-height: 140px; }
+}
+
+.review-lightbox {
+  position: fixed;
+  z-index: 1000;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 3rem;
+  background: rgb(0 0 0 / 88%);
+  backdrop-filter: blur(12px);
+  cursor: zoom-out;
+  animation: review-lightbox-in 180ms ease-out both;
+}
+
+.review-lightbox img {
+  max-width: min(94vw, 1500px);
+  max-height: 90vh;
+  object-fit: contain;
+  border: 1px solid rgb(255 255 255 / 18%);
+  border-radius: 0.75rem;
+  box-shadow: 0 30px 100px rgb(0 0 0 / 65%);
+  cursor: default;
+}
+
+.review-lightbox-close {
+  position: absolute;
+  top: 1.25rem;
+  right: 1.5rem;
+  display: grid;
+  width: 2.75rem;
+  height: 2.75rem;
+  place-items: center;
+  border: 1px solid rgb(255 255 255 / 25%);
+  border-radius: 9999px;
+  background: rgb(255 255 255 / 10%);
+  color: white;
+  font-size: 1.75rem;
+  cursor: pointer;
+}
+
+@keyframes review-lightbox-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .review-marquee-track { animation: none; }
+  .review-lightbox { animation: none; }
+}
+
 .theme-toggle {
   position: relative;
   width: 40px;

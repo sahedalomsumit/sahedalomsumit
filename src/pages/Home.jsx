@@ -3,7 +3,6 @@ import { Link } from "react-router-dom";
 import gsap from "gsap";
 import { TextPlugin } from "gsap/TextPlugin";
 import RevealOnScroll from "../components/RevealOnScroll";
-import Carousel from "../components/Carousel";
 import ProjectCard from "../components/ProjectCard";
 import ContactSection from "../components/ContactSection";
 import { useSEO } from "../hooks/useSEO";
@@ -12,31 +11,42 @@ import { fetchFeaturedProjects } from "../lib/supabase";
 gsap.registerPlugin(TextPlugin);
 
 /* ─── Modern Accordion Item ─────────────────────────────────────────────────── */
-function AccordionItem({ id, openId, setOpenId, num, title, subtitle, badge, children, isFirst, isLast }) {
+function AccordionItem({
+  id,
+  openId,
+  setOpenId,
+  num,
+  title,
+  subtitle,
+  badge,
+  children,
+  isFirst,
+  isLast,
+}) {
   const bodyRef = useRef(null);
   const isOpen = openId === id;
 
   const toggle = useCallback(() => {
-    setOpenId(prev => (prev === id ? null : id));
+    setOpenId((prev) => (prev === id ? null : id));
   }, [id, setOpenId]);
 
   useEffect(() => {
     const el = bodyRef.current;
     if (!el) return;
     if (isOpen) {
-      gsap.set(el, { display: 'block' });
+      gsap.set(el, { display: "block" });
       gsap.fromTo(
         el,
         { height: 0, opacity: 0 },
-        { height: 'auto', opacity: 1, duration: 0.4, ease: 'power3.out' }
+        { height: "auto", opacity: 1, duration: 0.4, ease: "power3.out" },
       );
     } else {
       gsap.to(el, {
         height: 0,
         opacity: 0,
         duration: 0.3,
-        ease: 'power3.in',
-        onComplete: () => gsap.set(el, { display: 'none' }),
+        ease: "power3.in",
+        onComplete: () => gsap.set(el, { display: "none" }),
       });
     }
   }, [isOpen]);
@@ -45,11 +55,11 @@ function AccordionItem({ id, openId, setOpenId, num, title, subtitle, badge, chi
     <div
       onClick={toggle}
       className={`accordion-item transition-all duration-300 py-4 ${
-        !isLast ? 'border-b' : ''
+        !isLast ? "border-b" : ""
       }`}
       style={{
-        borderColor: isOpen ? 'rgba(113, 201, 206, 0.3)' : 'var(--border)',
-        cursor: 'pointer',
+        borderColor: isOpen ? "rgba(113, 201, 206, 0.3)" : "var(--border)",
+        cursor: "pointer",
       }}
     >
       <div className="flex items-start justify-between gap-4 select-none">
@@ -66,11 +76,16 @@ function AccordionItem({ id, openId, setOpenId, num, title, subtitle, badge, chi
               </span>
             )}
           </div>
-          <h4 className="text-base font-bold text-white transition-colors" style={{ color: isOpen ? 'var(--accent-light)' : 'var(--text-main)' }}>
+          <h4
+            className="text-base font-bold text-white transition-colors"
+            style={{
+              color: isOpen ? "var(--accent-light)" : "var(--text-main)",
+            }}
+          >
             {title}
           </h4>
           {subtitle && (
-            <p className="text-xs mt-1" style={{ color: 'var(--text-muted)' }}>
+            <p className="text-xs mt-1" style={{ color: "var(--text-muted)" }}>
               {subtitle}
             </p>
           )}
@@ -78,20 +93,33 @@ function AccordionItem({ id, openId, setOpenId, num, title, subtitle, badge, chi
 
         <div
           className={`w-7 h-7 rounded-full border flex items-center justify-center flex-shrink-0 transition-all duration-300 ${
-            isOpen ? 'border-violet-500 bg-violet-500/20 text-violet-300 rotate-180' : 'text-gray-400'
+            isOpen
+              ? "border-violet-500 bg-violet-500/20 text-violet-300 rotate-180"
+              : "text-gray-400"
           }`}
-          style={{ borderColor: isOpen ? 'var(--accent)' : 'var(--border)' }}
+          style={{ borderColor: isOpen ? "var(--accent)" : "var(--border)" }}
         >
-          <svg className="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
-            <path d="M19 9l-7 7-7-7" strokeLinecap="round" strokeLinejoin="round" />
+          <svg
+            className="w-3.5 h-3.5"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="2.5"
+          >
+            <path
+              d="M19 9l-7 7-7-7"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            />
           </svg>
         </div>
       </div>
 
-      <div ref={bodyRef} style={{ display: isFirst ? 'block' : 'none', overflow: 'hidden' }}>
-        <div className="pt-3">
-          {children}
-        </div>
+      <div
+        ref={bodyRef}
+        style={{ display: isFirst ? "block" : "none", overflow: "hidden" }}
+      >
+        <div className="pt-3">{children}</div>
       </div>
     </div>
   );
@@ -153,12 +181,7 @@ const certificates = [
     title: "Web Design & Development",
     date: "Mar 2021 · LEDP",
     badge: "Full-Stack Foundation",
-    skills: [
-      "HTML/CSS/JS",
-      "PHP & MySQL",
-      "WordPress Core",
-      "Figma UI",
-    ],
+    skills: ["HTML/CSS/JS", "PHP & MySQL", "WordPress Core", "Figma UI"],
     img: "/img/certificates/web-design-and-development-ledp-sahedalomsumit.png",
   },
   {
@@ -257,12 +280,7 @@ const testimonials = [
 
 const reviewImages = [
   1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 15, 16, 17, 18, 21,
-].map(num => `/img/testimonials/fiverr-review-sahedalomsumit-${num}.webp`);
-
-const reviewSlides = [];
-for (let i = 0; i < reviewImages.length; i += 2) {
-  reviewSlides.push(reviewImages.slice(i, i + 2));
-}
+].map((num) => `/img/testimonials/fiverr-review-sahedalomsumit-${num}.webp`);
 
 // Tech Stack Ribbon Items
 const techStackRibbon = [
@@ -289,6 +307,16 @@ export default function Home() {
   const [openExp, setOpenExp] = useState(1);
   const [activeSkillTab, setActiveSkillTab] = useState(0);
   const [copiedEmail, setCopiedEmail] = useState(false);
+  const [activeReview, setActiveReview] = useState(null);
+
+  useEffect(() => {
+    if (!activeReview) return undefined;
+    const closeOnEscape = (event) => {
+      if (event.key === "Escape") setActiveReview(null);
+    };
+    window.addEventListener("keydown", closeOnEscape);
+    return () => window.removeEventListener("keydown", closeOnEscape);
+  }, [activeReview]);
 
   useSEO({
     title: "Sahed Alom Sumit | Product Designer & AI-Enhanced Web Developer",
@@ -331,7 +359,7 @@ export default function Home() {
     const words = [
       "Product Designer",
       "AI-Enhanced Web Developer",
-      "Design. Code. Deploy"
+      "Design. Code. Deploy",
     ];
     let wordIdx = 0;
     const typeNext = () => {
@@ -375,19 +403,28 @@ export default function Home() {
           <div className="hero-el">
             <div
               className="inline-flex items-center gap-2.5 px-4 py-1.5 border transition-all duration-300"
-              style={{ backgroundColor: 'var(--card-bg)', borderColor: 'var(--border)' }}
+              style={{
+                backgroundColor: "var(--card-bg)",
+                borderColor: "var(--border)",
+              }}
             >
               <span className="relative flex h-2 w-2">
                 <span
                   className="animate-ping absolute inline-flex h-full w-full opacity-75"
-                  style={{ backgroundColor: 'var(--accent)' }}
+                  style={{ backgroundColor: "var(--accent)" }}
                 />
                 <span
                   className="relative inline-flex h-2 w-2"
-                  style={{ backgroundColor: 'var(--accent)', boxShadow: '0 0 8px var(--accent)' }}
+                  style={{
+                    backgroundColor: "var(--accent)",
+                    boxShadow: "0 0 8px var(--accent)",
+                  }}
                 />
               </span>
-              <span className="text-[11px] font-medium tracking-wide" style={{ color: 'var(--text-main)' }}>
+              <span
+                className="text-[11px] font-medium tracking-wide"
+                style={{ color: "var(--text-main)" }}
+              >
                 Based in Helsinki, Finland
               </span>
             </div>
@@ -395,7 +432,12 @@ export default function Home() {
 
           <h1 className="home-hero-title hero-el">
             <span>Sahed Alom</span>
-            <span className="home-hero-accent">Sumit<span className="home-hero-period" aria-hidden="true"><i /></span></span>
+            <span className="home-hero-accent">
+              Sumit
+              <span className="home-hero-period" aria-hidden="true">
+                <i />
+              </span>
+            </span>
           </h1>
 
           <div className="home-hero-role hero-el">
@@ -413,16 +455,29 @@ export default function Home() {
               className="home-hero-button home-hero-button-primary"
             >
               <span>Explore Selected Work</span>
-              <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
-                <path d="M5 12h14M12 5l7 7-7 7" strokeLinecap="round" strokeLinejoin="round" />
+              <svg
+                className="w-4 h-4"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2.5"
+              >
+                <path
+                  d="M5 12h14M12 5l7 7-7 7"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                />
               </svg>
             </Link>
 
-            <Link
-              to="/estimate"
-              className="home-hero-button"
-            >
-              <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+            <Link to="/estimate" className="home-hero-button">
+              <svg
+                className="w-4 h-4"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2"
+              >
                 <rect x="4" y="2" width="16" height="20" rx="2" />
                 <line x1="8" y1="6" x2="16" y2="6" />
                 <line x1="16" y1="14" x2="16" y2="18" />
@@ -434,10 +489,26 @@ export default function Home() {
 
           <div className="home-hero-metrics hero-el">
             {[
-              { number: "150+", label: "Websites Delivered", sub: "Global Clients" },
-              { number: "99%", label: "Job Success Score", sub: "Top Rated Plus" },
-              { number: "5+ Yrs", label: "Crafting Experience", sub: "Product Design & Dev" },
-              { number: "€20k", label: "Freelance Revenue", sub: "Last 2 Years" },
+              {
+                number: "150+",
+                label: "Websites Delivered",
+                sub: "Global Clients",
+              },
+              {
+                number: "99%",
+                label: "Job Success Score",
+                sub: "Top Rated Plus",
+              },
+              {
+                number: "5+ Yrs",
+                label: "Crafting Experience",
+                sub: "Product Design & Dev",
+              },
+              {
+                number: "€20k",
+                label: "Freelance Revenue",
+                sub: "Last 2 Years",
+              },
             ].map((stat, i) => (
               <div key={i} className="home-hero-metric">
                 <div className="home-hero-metric-number">{stat.number}</div>
@@ -449,17 +520,25 @@ export default function Home() {
           <div
             className="home-hero-ribbon border-y overflow-hidden py-4"
             style={{
-              backgroundColor: 'var(--topbar-bg)',
-              borderColor: 'var(--border)',
+              backgroundColor: "var(--topbar-bg)",
+              borderColor: "var(--border)",
             }}
           >
             <div className="home-hero-ribbon-inner">
               <div className="flex gap-8 whitespace-nowrap animate-marquee">
                 {[...techStackRibbon, ...techStackRibbon].map((item, idx) => (
-                  <div key={idx} className="inline-flex items-center gap-2.5 text-xs font-mono font-medium tracking-wider uppercase opacity-75 hover:opacity-100 transition-opacity">
+                  <div
+                    key={idx}
+                    className="inline-flex items-center gap-2.5 text-xs font-mono font-medium tracking-wider uppercase opacity-75 hover:opacity-100 transition-opacity"
+                  >
                     <span className="w-1.5 h-1.5 rounded-full bg-violet-400" />
-                    <span style={{ color: 'var(--text-main)' }}>{item.name}</span>
-                    <span className="text-[10px] px-1.5 py-0.5 rounded bg-white/5 border border-white/10" style={{ color: 'var(--text-dim)' }}>
+                    <span style={{ color: "var(--text-main)" }}>
+                      {item.name}
+                    </span>
+                    <span
+                      className="text-[10px] px-1.5 py-0.5 rounded bg-white/5 border border-white/10"
+                      style={{ color: "var(--text-dim)" }}
+                    >
                       {item.category}
                     </span>
                   </div>
@@ -471,7 +550,10 @@ export default function Home() {
       </section>
 
       {/* ── 3. Cinema-Grade Video Showcase ── */}
-      <section id="intro-video" className="py-20 px-4 max-w-7xl mx-auto overflow-hidden">
+      <section
+        id="intro-video"
+        className="py-20 px-4 max-w-7xl mx-auto overflow-hidden"
+      >
         <RevealOnScroll direction="up">
           <div className="bento-card p-6 md:p-10 relative overflow-hidden">
             {/* Ambient Background Aura */}
@@ -485,38 +567,62 @@ export default function Home() {
                   Inside The Studio
                 </div>
 
-                <h2 className="text-3xl sm:text-4xl md:text-5xl font-heading font-extrabold tracking-tight uppercase leading-[0.95]"
-                    style={{ color: 'var(--text-main)' }}>
+                <h2
+                  className="text-3xl sm:text-4xl md:text-5xl font-heading font-extrabold tracking-tight uppercase leading-[0.95]"
+                  style={{ color: "var(--text-main)" }}
+                >
                   Designing The <br />
                   <span className="bg-gradient-to-r from-violet-400 to-indigo-400 bg-clip-text text-transparent">
                     Digital Future
                   </span>
                 </h2>
 
-                <p className="text-base sm:text-lg leading-relaxed font-light" style={{ color: 'var(--text-muted)' }}>
-                  Experience the journey behind every pixel. This story captures my evolution from a curious engineer into a world-class product designer and AI-enhanced web developer who obsesses over aesthetic perfection and business impact.
+                <p
+                  className="text-base sm:text-lg leading-relaxed font-light"
+                  style={{ color: "var(--text-muted)" }}
+                >
+                  Experience the journey behind every pixel. This story captures
+                  my evolution from a curious engineer into a world-class
+                  product designer and AI-enhanced web developer who obsesses
+                  over aesthetic perfection and business impact.
                 </p>
 
                 <div className="flex items-center gap-4 pt-2">
                   <div className="h-10 w-10 rounded-full border flex items-center justify-center bg-violet-600/20 border-violet-500/40 text-violet-300">
-                    <svg className="w-5 h-5 ml-0.5" viewBox="0 0 24 24" fill="currentColor">
+                    <svg
+                      className="w-5 h-5 ml-0.5"
+                      viewBox="0 0 24 24"
+                      fill="currentColor"
+                    >
                       <polygon points="5 3 19 12 5 21 5 3" />
                     </svg>
                   </div>
                   <div>
-                    <p className="text-sm font-bold" style={{ color: 'var(--text-main)' }}>Sahed Alom Sumit</p>
-                    <p className="text-xs font-mono" style={{ color: 'var(--text-dim)' }}>Founder & Lead Designer · 2 Min Watch</p>
+                    <p
+                      className="text-sm font-bold"
+                      style={{ color: "var(--text-main)" }}
+                    >
+                      Sahed Alom Sumit
+                    </p>
+                    <p
+                      className="text-xs font-mono"
+                      style={{ color: "var(--text-dim)" }}
+                    >
+                      Founder & Lead Designer · 2 Min Watch
+                    </p>
                   </div>
                 </div>
               </div>
 
               {/* Video Player Card */}
               <div className="lg:col-span-7">
-                <div className="relative rounded-2xl overflow-hidden border shadow-2xl group/video"
-                     style={{
-                       borderColor: 'var(--border)',
-                       backgroundColor: '#000000',
-                     }}>
+                <div
+                  className="relative rounded-2xl overflow-hidden border shadow-2xl group/video"
+                  style={{
+                    borderColor: "var(--border)",
+                    backgroundColor: "#000000",
+                  }}
+                >
                   <div className="aspect-video w-full">
                     <iframe
                       className="w-full h-full"
@@ -548,48 +654,95 @@ export default function Home() {
                   </span>
                 </div>
 
-                <h2 className="text-2xl sm:text-3xl md:text-4xl font-heading font-bold mb-8 leading-snug"
-                    style={{ color: 'var(--text-main)' }}>
-                  You bring the idea. I turn it into a digital product that works.
+                <h2
+                  className="text-2xl sm:text-3xl md:text-4xl font-heading font-bold mb-8 leading-snug"
+                  style={{ color: "var(--text-main)" }}
+                >
+                  You bring the idea. I turn it into a digital product that
+                  works.
                 </h2>
 
-                <div className="space-y-5 text-base sm:text-lg leading-relaxed font-light" style={{ color: 'var(--text-muted)' }}>
+                <div
+                  className="space-y-5 text-base sm:text-lg leading-relaxed font-light"
+                  style={{ color: "var(--text-muted)" }}
+                >
                   <p>
-                    With 5+ years of experience, I’ve worked with founders, brands, and agencies worldwide, turning rough ideas into 150+ digital products that are fast, user-friendly, visually polished, and built to support real business goals.
+                    With 5+ years of experience, I’ve worked with founders,
+                    brands, and agencies worldwide, turning rough ideas into
+                    150+ digital projects that are fast, user-friendly, visually
+                    polished, and built to support real business goals.{" "}
                   </p>
                   <p>
-                    I work across design and development—from UI/UX design in Figma and low-code development with Webflow, WordPress, and Kajabi to custom development with React and Supabase. I also use AI-powered tools such as Cursor, Codex, and Antigravity to streamline development, automate repetitive work, and build more efficiently.
+                    From UI/UX design in Figma to Webflow, WordPress, Kajabi,
+                    React, and Supabase, I combine design, development, and AI
+                    tools like Cursor, Codex, and Antigravity to build
+                    efficiently.
                   </p>
                   <p>
-                    My background in Business Information Technology also gives me a strong understanding of the business side of digital products. I don’t just focus on how something looks or works—I think about the problem it solves, the users it serves, and the outcome it needs to achieve.
+                    With a background in Business IT, I focus on more than
+                    design and code—I build solutions that solve real problems
+                    and support business goals.
                   </p>
                 </div>
               </div>
 
               {/* Credentials Highlight */}
-              <div className="mt-10 pt-8 border-t grid grid-cols-1 sm:grid-cols-3 gap-6"
-                   style={{ borderColor: 'var(--border)' }}>
+              <div
+                className="mt-10 pt-8 border-t grid grid-cols-1 sm:grid-cols-3 gap-6"
+                style={{ borderColor: "var(--border)" }}
+              >
                 <div>
-                  <p className="text-xs font-mono uppercase text-violet-400 font-semibold mb-1">Education</p>
-                  <p className="text-sm font-bold" style={{ color: 'var(--text-main)' }}>B.B.A. Business IT</p>
-                  <p className="text-xs" style={{ color: 'var(--text-dim)' }}>Haaga-Helia · GPA 3.57</p>
+                  <p className="text-xs font-mono uppercase text-violet-400 font-semibold mb-1">
+                    Education
+                  </p>
+                  <p
+                    className="text-sm font-bold"
+                    style={{ color: "var(--text-main)" }}
+                  >
+                    B.B.A. Business IT
+                  </p>
+                  <p className="text-xs" style={{ color: "var(--text-dim)" }}>
+                    Haaga-Helia UAS
+                  </p>
                 </div>
                 <div>
-                  <p className="text-xs font-mono uppercase text-emerald-400 font-semibold mb-1">Specialty</p>
-                  <p className="text-sm font-bold" style={{ color: 'var(--text-main)' }}>Webflow & React</p>
-                  <p className="text-xs" style={{ color: 'var(--text-dim)' }}>Digital Services & UI</p>
+                  <p className="text-xs font-mono uppercase text-emerald-400 font-semibold mb-1">
+                    Specialty
+                  </p>
+                  <p
+                    className="text-sm font-bold"
+                    style={{ color: "var(--text-main)" }}
+                  >
+                    Webflow & React
+                  </p>
+                  <p className="text-xs" style={{ color: "var(--text-dim)" }}>
+                    Digital Services & UI
+                  </p>
                 </div>
                 <div>
-                  <p className="text-xs font-mono uppercase text-amber-400 font-semibold mb-1">Location</p>
-                  <p className="text-sm font-bold" style={{ color: 'var(--text-main)' }}>Helsinki, Finland</p>
-                  <p className="text-xs" style={{ color: 'var(--text-dim)' }}>Europe / EEST Time</p>
+                  <p className="text-xs font-mono uppercase text-amber-400 font-semibold mb-1">
+                    Location
+                  </p>
+                  <p
+                    className="text-sm font-bold"
+                    style={{ color: "var(--text-main)" }}
+                  >
+                    Helsinki, Finland
+                  </p>
+                  <p className="text-xs" style={{ color: "var(--text-dim)" }}>
+                    Europe / EEST Time
+                  </p>
                 </div>
               </div>
             </div>
           </RevealOnScroll>
 
           {/* Quick Connect Command Card */}
-          <RevealOnScroll className="lg:col-span-4" delay={0.15} direction="right">
+          <RevealOnScroll
+            className="lg:col-span-4"
+            delay={0.15}
+            direction="right"
+          >
             <div className="bento-card p-8 h-full flex flex-col justify-between">
               <div>
                 <div className="flex items-center justify-between mb-6">
@@ -604,32 +757,48 @@ export default function Home() {
 
                 <div className="space-y-6">
                   {/* Email with copy button */}
-                  <div className="p-3.5 rounded-xl border transition-colors group"
-                       style={{ backgroundColor: 'var(--card-bg)', borderColor: 'var(--border)' }}>
+                  <div
+                    className="p-3.5 rounded-xl border transition-colors group"
+                    style={{
+                      backgroundColor: "var(--card-bg)",
+                      borderColor: "var(--border)",
+                    }}
+                  >
                     <div className="flex justify-between items-center mb-1">
-                      <span className="text-[10px] font-mono uppercase tracking-wider" style={{ color: 'var(--text-dim)' }}>
+                      <span
+                        className="text-[10px] font-mono uppercase tracking-wider"
+                        style={{ color: "var(--text-dim)" }}
+                      >
                         Direct Email
                       </span>
                       <button
                         onClick={copyEmail}
                         className="text-[10px] font-mono text-violet-400 hover:text-violet-300 transition-colors"
                       >
-                        {copiedEmail ? 'Copied! ✓' : 'Copy'}
+                        {copiedEmail ? "Copied! ✓" : "Copy"}
                       </button>
                     </div>
                     <a
                       href="mailto:sahedalomsumit@gmail.com"
                       className="text-sm font-semibold truncate block hover:text-violet-400 transition-colors"
-                      style={{ color: 'var(--text-main)' }}
+                      style={{ color: "var(--text-main)" }}
                     >
                       sahedalomsumit@gmail.com
                     </a>
                   </div>
 
                   {/* WhatsApp */}
-                  <div className="p-3.5 rounded-xl border transition-colors group"
-                       style={{ backgroundColor: 'var(--card-bg)', borderColor: 'var(--border)' }}>
-                    <span className="text-[10px] font-mono uppercase tracking-wider block mb-1" style={{ color: 'var(--text-dim)' }}>
+                  <div
+                    className="p-3.5 rounded-xl border transition-colors group"
+                    style={{
+                      backgroundColor: "var(--card-bg)",
+                      borderColor: "var(--border)",
+                    }}
+                  >
+                    <span
+                      className="text-[10px] font-mono uppercase tracking-wider block mb-1"
+                      style={{ color: "var(--text-dim)" }}
+                    >
                       Instant Messaging
                     </span>
                     <a
@@ -645,7 +814,10 @@ export default function Home() {
 
                   {/* Social Network Links */}
                   <div className="space-y-2 pt-2">
-                    <span className="text-[10px] font-mono uppercase tracking-wider block" style={{ color: 'var(--text-dim)' }}>
+                    <span
+                      className="text-[10px] font-mono uppercase tracking-wider block"
+                      style={{ color: "var(--text-dim)" }}
+                    >
                       Verified Profiles
                     </span>
                     <div className="grid grid-cols-2 gap-2">
@@ -654,7 +826,11 @@ export default function Home() {
                         target="_blank"
                         rel="noopener noreferrer"
                         className="p-2.5 rounded-xl border text-xs font-semibold text-center hover:border-violet-500 transition-colors"
-                        style={{ backgroundColor: 'var(--card-bg)', borderColor: 'var(--border)', color: 'var(--text-main)' }}
+                        style={{
+                          backgroundColor: "var(--card-bg)",
+                          borderColor: "var(--border)",
+                          color: "var(--text-main)",
+                        }}
                       >
                         LinkedIn ↗
                       </a>
@@ -663,17 +839,30 @@ export default function Home() {
                         target="_blank"
                         rel="noopener noreferrer"
                         className="p-2.5 rounded-xl border text-xs font-semibold text-center hover:border-violet-500 transition-colors"
-                        style={{ backgroundColor: 'var(--card-bg)', borderColor: 'var(--border)', color: 'var(--text-main)' }}
+                        style={{
+                          backgroundColor: "var(--card-bg)",
+                          borderColor: "var(--border)",
+                          color: "var(--text-main)",
+                        }}
                       >
                         GitHub ↗
                       </a>
                     </div>
+                    <img
+                      src="/img/profile.jpg"
+                      alt="Sahed Alom Sumit"
+                      className="mt-3 w-full h-auto rounded-xl object-contain object-center border"
+                      style={{ borderColor: "var(--border)" }}
+                    />
                   </div>
                 </div>
               </div>
 
               {/* Instant Call Prompt */}
-              <div className="mt-8 pt-6 border-t" style={{ borderColor: 'var(--border)' }}>
+              <div
+                className="mt-8 pt-6 border-t"
+                style={{ borderColor: "var(--border)" }}
+              >
                 <Link
                   to="/estimate"
                   className="project-blueprint-button w-full py-3 text-center font-semibold text-xs tracking-wider uppercase block transition-all"
@@ -694,8 +883,10 @@ export default function Home() {
               <span className="pill-badge text-violet-400 border-violet-500/20 bg-violet-500/10 mb-3">
                 Core Capabilities
               </span>
-              <h2 className="text-3xl sm:text-5xl font-heading font-extrabold tracking-tight uppercase"
-                  style={{ color: 'var(--text-main)' }}>
+              <h2
+                className="text-3xl sm:text-5xl font-heading font-extrabold tracking-tight uppercase"
+                style={{ color: "var(--text-main)" }}
+              >
                 Skills & Tech Stack
               </h2>
             </div>
@@ -708,9 +899,19 @@ export default function Home() {
         {/* Tab Buttons */}
         <div className="flex overflow-x-auto no-scrollbar gap-3 mb-6 pb-2">
           {[
-            { label: 'UI/UX & Product Design', id: 0, count: '13', icon: '🎨' },
-            { label: 'Frontend & Architecture', id: 1, count: '16', icon: '⚡' },
-            { label: 'AI & Workflow Automation', id: 2, count: '13', icon: '🤖' }
+            { label: "UI/UX & Product Design", id: 0, count: "13", icon: "🎨" },
+            {
+              label: "Frontend & Architecture",
+              id: 1,
+              count: "16",
+              icon: "⚡",
+            },
+            {
+              label: "AI & Workflow Automation",
+              id: 2,
+              count: "13",
+              icon: "🤖",
+            },
           ].map((tab) => (
             <button
               key={tab.id}
@@ -718,9 +919,16 @@ export default function Home() {
               aria-pressed={activeSkillTab === tab.id}
               className="site-tab-control skill-category-tab px-5 py-3 text-xs font-semibold tracking-wider transition-all duration-300 flex items-center gap-3 border whitespace-nowrap"
               style={{
-                backgroundColor: activeSkillTab === tab.id ? 'var(--accent)' : 'var(--card-bg)',
-                borderColor: activeSkillTab === tab.id ? 'var(--accent)' : 'var(--border)',
-                color: activeSkillTab === tab.id ? 'var(--hire-btn-text)' : 'var(--text-muted)',
+                backgroundColor:
+                  activeSkillTab === tab.id
+                    ? "var(--accent)"
+                    : "var(--card-bg)",
+                borderColor:
+                  activeSkillTab === tab.id ? "var(--accent)" : "var(--border)",
+                color:
+                  activeSkillTab === tab.id
+                    ? "var(--hire-btn-text)"
+                    : "var(--text-muted)",
               }}
             >
               <span>{tab.icon}</span>
@@ -728,8 +936,14 @@ export default function Home() {
               <span
                 className="px-2 py-0.5 text-[10px] font-mono"
                 style={{
-                  backgroundColor: activeSkillTab === tab.id ? 'rgba(7, 23, 25, 0.12)' : 'var(--bg-secondary)',
-                  color: activeSkillTab === tab.id ? 'var(--hire-btn-text)' : 'var(--text-dim)',
+                  backgroundColor:
+                    activeSkillTab === tab.id
+                      ? "rgba(7, 23, 25, 0.12)"
+                      : "var(--bg-secondary)",
+                  color:
+                    activeSkillTab === tab.id
+                      ? "var(--hire-btn-text)"
+                      : "var(--text-dim)",
                 }}
               >
                 {tab.count}
@@ -744,17 +958,30 @@ export default function Home() {
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
               <div className="lg:col-span-4 space-y-4">
                 <span className="font-mono text-xs uppercase tracking-wider text-violet-400">
-                  {activeSkillTab === 0 ? "01. Visual Excellence" : activeSkillTab === 1 ? "02. Technical Precision" : "03. Modern Velocity"}
+                  {activeSkillTab === 0
+                    ? "01. Visual Excellence"
+                    : activeSkillTab === 1
+                      ? "02. Technical Precision"
+                      : "03. Modern Velocity"}
                 </span>
-                <h3 className="text-2xl font-bold" style={{ color: 'var(--text-main)' }}>
+                <h3
+                  className="text-2xl font-bold"
+                  style={{ color: "var(--text-main)" }}
+                >
                   {activeSkillTab === 0 && "Human-Centered Design Systems"}
                   {activeSkillTab === 1 && "High-Performance Web Engineering"}
                   {activeSkillTab === 2 && "Automated Workflows & AI Tooling"}
                 </h3>
-                <p className="text-sm leading-relaxed" style={{ color: 'var(--text-muted)' }}>
-                  {activeSkillTab === 0 && "Rooted in user psychology, accessible contrast (WCAG), and responsive typography. Every component is designed to elevate the brand and delight the visitor."}
-                  {activeSkillTab === 1 && "Clean, maintainable, lightning-fast code built with modern frameworks and headless architectures. Zero bloat, optimal SEO, and smooth GSAP micro-interactions."}
-                  {activeSkillTab === 2 && "Leveraging cutting-edge AI integrations, Antigravity, and autonomous workflow pipelines to ship production-ready applications in record time."}
+                <p
+                  className="text-sm leading-relaxed"
+                  style={{ color: "var(--text-muted)" }}
+                >
+                  {activeSkillTab === 0 &&
+                    "Rooted in user psychology, accessible contrast (WCAG), and responsive typography. Every component is designed to elevate the brand and delight the visitor."}
+                  {activeSkillTab === 1 &&
+                    "Clean, maintainable, lightning-fast code built with modern frameworks and headless architectures. Zero bloat, optimal SEO, and smooth GSAP micro-interactions."}
+                  {activeSkillTab === 2 &&
+                    "Leveraging cutting-edge AI integrations, Antigravity, and autonomous workflow pipelines to ship production-ready applications in record time."}
                 </p>
               </div>
 
@@ -762,39 +989,102 @@ export default function Home() {
               <div className="lg:col-span-8 flex flex-wrap gap-2.5">
                 {activeSkillTab === 0 && (
                   <>
-                    {["UI/UX Design", "Figma Design Systems", "High-Fidelity Prototyping", "User Journey Mapping"].map(s => (
-                      <span key={s} className="skill-tag border-violet-400/50 bg-violet-500/10 text-violet-300 font-semibold">
+                    {[
+                      "UI/UX Design",
+                      "Figma Design Systems",
+                      "High-Fidelity Prototyping",
+                      "User Journey Mapping",
+                    ].map((s) => (
+                      <span
+                        key={s}
+                        className="skill-tag border-violet-400/50 bg-violet-500/10 text-violet-300 font-semibold"
+                      >
                         ★ {s}
                       </span>
                     ))}
-                    {["User Research", "Wireframing", "WCAG 2.1 Accessibility", "Design Tokens", "Typography Hierarchy", "Visual Branding", "Spline 3D Integration", "Interaction Design", "Adobe Creative Cloud"].map(s => (
-                      <span key={s} className="skill-tag">{s}</span>
+                    {[
+                      "User Research",
+                      "Wireframing",
+                      "WCAG 2.1 Accessibility",
+                      "Design Tokens",
+                      "Typography Hierarchy",
+                      "Visual Branding",
+                      "Spline 3D Integration",
+                      "Interaction Design",
+                      "Adobe Creative Cloud",
+                    ].map((s) => (
+                      <span key={s} className="skill-tag">
+                        {s}
+                      </span>
                     ))}
                   </>
                 )}
 
                 {activeSkillTab === 1 && (
                   <>
-                    {["Webflow CMS", "React 18", "Next.js", "WordPress / WooCommerce"].map(s => (
-                      <span key={s} className="skill-tag border-violet-400/50 bg-violet-500/10 text-violet-300 font-semibold">
+                    {[
+                      "Webflow CMS",
+                      "React 18",
+                      "Next.js",
+                      "WordPress / WooCommerce",
+                    ].map((s) => (
+                      <span
+                        key={s}
+                        className="skill-tag border-violet-400/50 bg-violet-500/10 text-violet-300 font-semibold"
+                      >
                         ★ {s}
                       </span>
                     ))}
-                    {["JavaScript (ES6+)", "Tailwind CSS", "Supabase & PostgreSQL", "Node.js", "GSAP & ScrollTrigger", "HTML5 & Modern CSS", "RESTful APIs", "Technical SEO", "Shopify Theme Dev", "Vercel Deployment", "Git & GitHub", "Performance Tuning"].map(s => (
-                      <span key={s} className="skill-tag">{s}</span>
+                    {[
+                      "JavaScript (ES6+)",
+                      "Tailwind CSS",
+                      "Supabase & PostgreSQL",
+                      "Node.js",
+                      "GSAP & ScrollTrigger",
+                      "HTML5 & Modern CSS",
+                      "RESTful APIs",
+                      "Technical SEO",
+                      "Shopify Theme Dev",
+                      "Vercel Deployment",
+                      "Git & GitHub",
+                      "Performance Tuning",
+                    ].map((s) => (
+                      <span key={s} className="skill-tag">
+                        {s}
+                      </span>
                     ))}
                   </>
                 )}
 
                 {activeSkillTab === 2 && (
                   <>
-                    {["AI-Assisted Engineering", "Workflow Automation", "Autonomous Agents"].map(s => (
-                      <span key={s} className="skill-tag border-emerald-400/50 bg-emerald-500/10 text-emerald-300 font-semibold">
+                    {[
+                      "AI-Assisted Engineering",
+                      "Workflow Automation",
+                      "Autonomous Agents",
+                    ].map((s) => (
+                      <span
+                        key={s}
+                        className="skill-tag border-emerald-400/50 bg-emerald-500/10 text-emerald-300 font-semibold"
+                      >
                         ★ {s}
                       </span>
                     ))}
-                    {["Claude Code", "Google Antigravity SDK", "Make.com & Zapier", "n8n Pipelines", "Prompt Engineering", "Vibe Coding", "Automated QA", "AI Content Strategy", "API Integrations", "Low-Code Speed"].map(s => (
-                      <span key={s} className="skill-tag">{s}</span>
+                    {[
+                      "Claude Code",
+                      "Google Antigravity SDK",
+                      "Make.com & Zapier",
+                      "n8n Pipelines",
+                      "Prompt Engineering",
+                      "Vibe Coding",
+                      "Automated QA",
+                      "AI Content Strategy",
+                      "API Integrations",
+                      "Low-Code Speed",
+                    ].map((s) => (
+                      <span key={s} className="skill-tag">
+                        {s}
+                      </span>
                     ))}
                   </>
                 )}
@@ -817,11 +1107,15 @@ export default function Home() {
 
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
               <div className="lg:col-span-6">
-                <h3 className="text-2xl sm:text-3xl font-heading font-bold mb-2" style={{ color: 'var(--text-main)' }}>
+                <h3
+                  className="text-2xl sm:text-3xl font-heading font-bold mb-2"
+                  style={{ color: "var(--text-main)" }}
+                >
                   Bachelor of Business Administration (BBA)
                 </h3>
                 <p className="text-sm font-semibold text-violet-400 mb-2">
-                  Haaga-Helia University of Applied Sciences · Helsinki, Finland (Jan 2023 – May 2025)
+                  Haaga-Helia University of Applied Sciences · Helsinki, Finland
+                  (Jan 2023 – May 2025)
                 </p>
                 <div className="flex flex-wrap gap-2 mb-4">
                   <span className="px-2.5 py-1 rounded-full text-xs font-mono bg-violet-500/10 text-violet-300 border border-violet-500/20">
@@ -831,10 +1125,19 @@ export default function Home() {
                     Grade: 75.7%
                   </span>
                 </div>
-                <div className="p-4 rounded-xl border bg-black/10" style={{ borderColor: 'var(--border)' }}>
-                  <p className="text-xs font-mono uppercase text-emerald-400 font-bold mb-1">Bachelor Thesis</p>
-                  <p className="text-sm font-medium leading-relaxed" style={{ color: 'var(--text-main)' }}>
-                    "The Future of No-code Web Development: Evaluating the Potential and Limitations of Webflow"
+                <div
+                  className="p-4 rounded-xl border bg-black/10"
+                  style={{ borderColor: "var(--border)" }}
+                >
+                  <p className="text-xs font-mono uppercase text-emerald-400 font-bold mb-1">
+                    Bachelor Thesis
+                  </p>
+                  <p
+                    className="text-sm font-medium leading-relaxed"
+                    style={{ color: "var(--text-main)" }}
+                  >
+                    "The Future of No-code Web Development: Evaluating the
+                    Potential and Limitations of Webflow"
                   </p>
                 </div>
               </div>
@@ -843,7 +1146,10 @@ export default function Home() {
                 <p className="text-xs font-mono uppercase tracking-wider text-gray-400 mb-4">
                   Relevant Coursework & Competencies
                 </p>
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5 text-xs" style={{ color: 'var(--text-muted)' }}>
+                <div
+                  className="grid grid-cols-1 sm:grid-cols-2 gap-2.5 text-xs"
+                  style={{ color: "var(--text-muted)" }}
+                >
                   {[
                     "Digital User Experience & Service Design",
                     "Website Design & Development",
@@ -873,10 +1179,15 @@ export default function Home() {
           <RevealOnScroll delay={0.1} direction="left">
             <div className="bento-card p-6 md:p-8 h-full">
               <div className="flex items-center justify-between mb-6">
-                <h3 className="text-xl font-heading font-bold uppercase tracking-tight" style={{ color: 'var(--text-main)' }}>
+                <h3
+                  className="text-xl font-heading font-bold uppercase tracking-tight"
+                  style={{ color: "var(--text-main)" }}
+                >
                   Work Experience
                 </h3>
-                <span className="text-xs font-mono text-violet-400">5+ YEARS PRO</span>
+                <span className="text-xs font-mono text-violet-400">
+                  5+ YEARS PRO
+                </span>
               </div>
 
               {experiences.map((exp, idx) => (
@@ -892,7 +1203,10 @@ export default function Home() {
                   isFirst={idx === 0}
                   isLast={idx === experiences.length - 1}
                 >
-                  <ul className="space-y-2 pt-2 text-xs leading-relaxed" style={{ color: 'var(--text-muted)' }}>
+                  <ul
+                    className="space-y-2 pt-2 text-xs leading-relaxed"
+                    style={{ color: "var(--text-muted)" }}
+                  >
                     {exp.bullets.map((bullet, i) => (
                       <li key={i} className="flex items-start gap-2">
                         <span className="w-1 h-1 rounded-full bg-violet-400 mt-1.5 flex-shrink-0" />
@@ -909,10 +1223,15 @@ export default function Home() {
           <RevealOnScroll delay={0.15} direction="right">
             <div className="bento-card p-6 md:p-8 h-full">
               <div className="flex items-center justify-between mb-6">
-                <h3 className="text-xl font-heading font-bold uppercase tracking-tight" style={{ color: 'var(--text-main)' }}>
+                <h3
+                  className="text-xl font-heading font-bold uppercase tracking-tight"
+                  style={{ color: "var(--text-main)" }}
+                >
                   Certifications
                 </h3>
-                <span className="text-xs font-mono text-emerald-400">VERIFIED CREDENTIALS</span>
+                <span className="text-xs font-mono text-emerald-400">
+                  VERIFIED CREDENTIALS
+                </span>
               </div>
 
               {certificates.map((cert, idx) => (
@@ -931,13 +1250,20 @@ export default function Home() {
                   <div className="pt-2 space-y-3">
                     <div className="flex flex-wrap gap-1.5">
                       {cert.skills.map((skill) => (
-                        <span key={skill} className="px-2 py-0.5 rounded text-[10px] bg-white/5 border border-white/10" style={{ color: 'var(--text-muted)' }}>
+                        <span
+                          key={skill}
+                          className="px-2 py-0.5 rounded text-[10px] bg-white/5 border border-white/10"
+                          style={{ color: "var(--text-muted)" }}
+                        >
                           {skill}
                         </span>
                       ))}
                     </div>
                     {cert.img && (
-                      <div className="rounded-xl overflow-hidden border p-1 bg-black/20" style={{ borderColor: 'var(--border)' }}>
+                      <div
+                        className="rounded-xl overflow-hidden border p-1 bg-black/20"
+                        style={{ borderColor: "var(--border)" }}
+                      >
                         <img
                           src={cert.img}
                           alt={`${cert.title} Verified Certificate`}
@@ -962,12 +1288,19 @@ export default function Home() {
               <span className="pill-badge text-emerald-400 border-emerald-500/20 bg-emerald-500/10 mb-3">
                 Selected Works
               </span>
-              <h2 className="text-4xl sm:text-6xl font-heading font-extrabold tracking-tight uppercase"
-                  style={{ color: 'var(--text-main)' }}>
+              <h2
+                className="text-4xl sm:text-6xl font-heading font-extrabold tracking-tight uppercase"
+                style={{ color: "var(--text-main)" }}
+              >
                 Featured Projects
               </h2>
-              <p className="mt-2 text-base max-w-xl font-light" style={{ color: 'var(--text-muted)' }}>
-                Hand-picked case studies showcasing custom Webflow builds, interactive React web applications, and high-converting design systems.
+              <p
+                className="mt-2 text-base max-w-xl font-light"
+                style={{ color: "var(--text-muted)" }}
+              >
+                Hand-picked case studies showcasing custom Webflow builds,
+                interactive React web applications, and high-converting design
+                systems.
               </p>
             </div>
 
@@ -975,13 +1308,15 @@ export default function Home() {
               to="/work"
               className="px-6 py-3 rounded-full text-xs font-semibold tracking-wider uppercase border hover:border-violet-500 transition-all flex items-center gap-2 group"
               style={{
-                backgroundColor: 'var(--card-bg)',
-                borderColor: 'var(--border)',
-                color: 'var(--text-main)',
+                backgroundColor: "var(--card-bg)",
+                borderColor: "var(--border)",
+                color: "var(--text-main)",
               }}
             >
               <span>View All 23+ Projects</span>
-              <span className="transition-transform group-hover:translate-x-1">→</span>
+              <span className="transition-transform group-hover:translate-x-1">
+                →
+              </span>
             </Link>
           </div>
         </RevealOnScroll>
@@ -1005,19 +1340,31 @@ export default function Home() {
       </section>
 
       {/* ── 8. Client Testimonials & Social Proof ── */}
-      <section className="py-24 border-y" style={{ backgroundColor: 'var(--topbar-bg)', borderColor: 'var(--border)' }}>
+      <section
+        className="py-32 border-y"
+        style={{
+          backgroundColor: "var(--topbar-bg)",
+          borderColor: "var(--border)",
+        }}
+      >
         <div className="max-w-7xl px-4 mx-auto">
           <RevealOnScroll>
             <div className="text-center max-w-3xl mx-auto mb-16">
               <span className="pill-badge text-violet-400 border-violet-500/20 bg-violet-500/10 mb-3">
                 Client Testimonials
               </span>
-              <h2 className="text-3xl sm:text-5xl font-heading font-extrabold tracking-tight uppercase"
-                  style={{ color: 'var(--text-main)' }}>
+              <h2
+                className="text-3xl sm:text-5xl font-heading font-extrabold tracking-tight uppercase"
+                style={{ color: "var(--text-main)" }}
+              >
                 Trusted By Founders & Teams
               </h2>
-              <p className="mt-3 text-base font-light" style={{ color: 'var(--text-muted)' }}>
-                Real feedback from clients and agency partners who experienced the transformational speed and quality of our work.
+              <p
+                className="mt-3 text-base font-light"
+                style={{ color: "var(--text-muted)" }}
+              >
+                Real feedback from clients and agency partners who experienced
+                the transformational speed and quality of our work.
               </p>
             </div>
           </RevealOnScroll>
@@ -1031,24 +1378,46 @@ export default function Home() {
                     {/* Star Rating */}
                     <div className="flex gap-1 text-amber-400 mb-6">
                       {[...Array(5)].map((_, s) => (
-                        <svg key={s} className="w-4 h-4 fill-current" viewBox="0 0 20 20">
+                        <svg
+                          key={s}
+                          className="w-4 h-4 fill-current"
+                          viewBox="0 0 20 20"
+                        >
                           <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
                         </svg>
                       ))}
                     </div>
 
-                    <p className="text-base sm:text-lg italic leading-relaxed mb-8" style={{ color: 'var(--text-main)' }}>
+                    <p
+                      className="text-base sm:text-lg italic leading-relaxed mb-8"
+                      style={{ color: "var(--text-main)" }}
+                    >
                       "{t.quote}"
                     </p>
                   </div>
 
-                  <div className="flex items-center gap-4 pt-6 border-t" style={{ borderColor: 'var(--border)' }}>
-                    <div className={`w-12 h-12 rounded-2xl bg-gradient-to-br ${t.color} flex items-center justify-center text-sm font-black text-white shadow-lg`}>
+                  <div
+                    className="flex items-center gap-4 pt-6 border-t"
+                    style={{ borderColor: "var(--border)" }}
+                  >
+                    <div
+                      className={`w-12 h-12 rounded-2xl bg-gradient-to-br ${t.color} flex items-center justify-center text-sm font-black text-white shadow-lg`}
+                    >
                       {t.initials}
                     </div>
                     <div>
-                      <p className="font-bold text-sm" style={{ color: 'var(--text-main)' }}>{t.name}</p>
-                      <p className="text-xs font-mono" style={{ color: 'var(--text-muted)' }}>{t.role}</p>
+                      <p
+                        className="font-bold text-sm"
+                        style={{ color: "var(--text-main)" }}
+                      >
+                        {t.name}
+                      </p>
+                      <p
+                        className="text-xs font-mono"
+                        style={{ color: "var(--text-muted)" }}
+                      >
+                        {t.role}
+                      </p>
                     </div>
                   </div>
                 </div>
@@ -1058,37 +1427,40 @@ export default function Home() {
 
           {/* 5-Star Reviews Screenshot Carousel */}
           <RevealOnScroll delay={0.15}>
-            <div className="bento-card p-6 md:p-8">
-              <div className="flex items-center justify-between mb-6">
-                <div>
-                  <h4 className="text-base font-bold" style={{ color: 'var(--text-main)' }}>
-                    Verified Fiverr & Upwork Reviews
-                  </h4>
-                  <p className="text-xs" style={{ color: 'var(--text-dim)' }}>
-                    50+ 5-Star Deliveries across the globe
-                  </p>
-                </div>
-                <span className="pill-badge text-emerald-400 border-emerald-500/20 bg-emerald-500/10">
-                  5.0 ★ Top Rated
-                </span>
-              </div>
-
-              <Carousel>
-                {reviewSlides.map((pair, i) => (
-                  <div key={i} className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    {pair.map((imgSrc) => (
-                      <div key={imgSrc} className="rounded-xl overflow-hidden border bg-black/10" style={{ borderColor: 'var(--border)' }}>
-                        <img
-                          src={imgSrc}
-                          alt="5-star client review screenshot for Sahed Alom Sumit"
-                          className="w-full h-auto object-cover scale-[1.04] transition-[filter,transform] duration-500 hover:scale-[1.06] hover:brightness-110"
-                          loading="lazy"
-                        />
-                      </div>
-                    ))}
+            <div className="bento-card review-showcase-card p-6 md:p-10">
+              <div className="review-orbit" aria-label="Moving verified client review screenshots">
+                {[0, 1, 2].map((rowIndex) => {
+                  const rowImages = reviewImages.filter((_, index) => index % 3 === rowIndex);
+                  return (
+                  <div className={`review-marquee review-marquee-${rowIndex}`} key={rowIndex}>
+                    <div className="review-marquee-track">
+                      {[0, 1, 2].map((copyIndex) => (
+                        <div className="review-marquee-group" key={copyIndex} aria-hidden={copyIndex > 0}>
+                          {rowImages.map((imgSrc) => (
+                            <button
+                              type="button"
+                              className="review-orbit-trigger"
+                              key={imgSrc}
+                              onClick={() => setActiveReview(imgSrc)}
+                              aria-label={`Open client review screenshot ${reviewImages.indexOf(imgSrc) + 1} full size`}
+                              tabIndex={copyIndex > 0 ? -1 : undefined}
+                            >
+                              <img src={imgSrc} alt={`5-star client review screenshot ${reviewImages.indexOf(imgSrc) + 1} for Sahed Alom Sumit`} loading="lazy" />
+                            </button>
+                          ))}
+                        </div>
+                      ))}
+                    </div>
                   </div>
-                ))}
-              </Carousel>
+                  );
+                })}
+                <div className="review-orbit-center" aria-hidden="true">
+                  <span>Trusted worldwide</span>
+                  <strong>5.0 <b>★</b></strong>
+                  <p>Verified client reviews</p>
+                  <small>Fiverr · Upwork · 50+ projects</small>
+                </div>
+              </div>
             </div>
           </RevealOnScroll>
         </div>
@@ -1098,6 +1470,29 @@ export default function Home() {
       <RevealOnScroll>
         <ContactSection />
       </RevealOnScroll>
+      {activeReview && (
+        <div
+          className="review-lightbox"
+          role="dialog"
+          aria-modal="true"
+          aria-label="Full-size client review"
+          onClick={() => setActiveReview(null)}
+        >
+          <button
+            type="button"
+            className="review-lightbox-close"
+            onClick={() => setActiveReview(null)}
+            aria-label="Close full-size review"
+          >
+            ×
+          </button>
+          <img
+            src={activeReview}
+            alt="Full-size 5-star client review for Sahed Alom Sumit"
+            onClick={(event) => event.stopPropagation()}
+          />
+        </div>
+      )}
     </>
   );
 }
