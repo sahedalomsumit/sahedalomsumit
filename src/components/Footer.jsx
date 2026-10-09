@@ -1,13 +1,14 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import packageMetadata from "../../package.json";
 
 export default function Footer() {
   const currentYear = new Date().getFullYear();
-  const buildVersion = "3.5.0";
+  const buildVersion = packageMetadata.version;
 
   return (
-    <footer className="py-20 relative overflow-hidden" style={{ backgroundColor: 'var(--topbar-bg)', borderTop: '1px solid var(--border)' }}>
-      <div className="max-w-7xl px-4 sm:px-6 mx-auto grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-8 lg:gap-12 relative z-10 justify-between">
+    <footer className="site-footer py-20 relative overflow-hidden" style={{ backgroundColor: 'var(--topbar-bg)' }}>
+      <div className="site-footer-inner grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-8 lg:gap-12 relative z-10 justify-between">
         {/* Brand Column */}
         <div className="col-span-2 md:col-span-1 lg:col-span-1">
           <Link to="/" className="inline-block group">
@@ -246,7 +247,7 @@ export default function Footer() {
       </div>
 
       {/* Bottom Copyright */}
-      <div className="max-w-7xl px-4 sm:px-6 mx-auto mt-16 pt-8 flex flex-col md:flex-row justify-between items-center gap-4" style={{ borderTop: '1px solid var(--border)' }}>
+      <div className="site-footer-bottom pt-8 flex flex-col md:flex-row justify-between items-center gap-4">
         <p className="font-mono text-[9px] uppercase tracking-widest text-center md:text-left flex flex-wrap items-center justify-center md:justify-start gap-x-2 gap-y-1" style={{ color: 'var(--text-muted)' }}>
           <span>© {currentYear} Sahed Alom Sumit //</span>
           <a
@@ -278,7 +279,7 @@ export default function Footer() {
             </svg>
             <span className="normal-case tracking-normal">by</span>
             <span
-              style={{ color: "#ff8719", fontWeight: "700" }}
+              style={{ color: "var(--primary)", fontWeight: "700" }}
               className="normal-case tracking-normal"
             >
               Sahed

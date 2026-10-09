@@ -1,13 +1,6 @@
 import { createClient } from '@supabase/supabase-js'
 
-// These will be set when you create a Supabase project
-// For now, the app uses local data from src/data/projects.js
-// To switch to Supabase:
-// 1. Create a free account at https://supabase.com
-// 2. Create a new project
-// 3. Create the "projects" table using the schema in the README
-// 4. Add your URL and anon key below
-// 5. Update the data fetching in hooks/useProjects.js
+// Supabase is optional in local development. Live pages fall back when it isn't configured.
 
 const supabaseUrl = import.meta.env.VITE_SUPABASE_URL
 const supabaseAnonKey = import.meta.env.VITE_SUPABASE_ANON_KEY

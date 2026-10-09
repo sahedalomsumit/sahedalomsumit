@@ -14,6 +14,7 @@ const CHAT_MODELS = [
   "gemini-2-flash",
   "gemini-2-flash-lite",
 ]; // Managed in Supabase Secrets (Primary: Gemini, Backup: OpenRouter)
+const CHATBOT_ICON_SRC = "/img/ask-sahed-icon-only-sahedalomsumit.svg?v=2";
 
 // ════════════════════════════════════════════════════
 //  📄  SOURCE 1 — FAQ DOCUMENT (primary source)
@@ -266,17 +267,13 @@ ${WEBSITE_SOURCE}
 // ════════════════════════════════════════════════════
 const SUGGESTIONS = [
   "Tell me about yourself",
-  "What does your role mean?",
   "What services do you offer?",
   "What is your hourly rate?",
   "How much does a website cost?",
   "What's your tech stack?",
   "What's your payment structure?",
-  "Are you available for hiring?",
   "How can I get in touch?",
-  "What is your response time?",
 ];
-
 const fmt = (d) =>
   d.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" });
 
@@ -490,28 +487,27 @@ export default function SahedChatbot() {
 
   // ── RENDER ──────────────────────────────────────
   return (
-    <div className="fixed bottom-4 right-4 md:bottom-[26px] md:right-[26px] z-[99999]">
+    <div className="chatbot-position fixed bottom-4 right-4 md:bottom-[26px] md:right-[26px] z-[99999] w-[58px] h-[58px]">
       {open && (
         <div
-          className="absolute bottom-[72px] right-0 w-[calc(100vw-32px)] sm:w-[385px] h-[calc(100vh-120px)] sm:h-[590px] max-h-[750px] bento-card flex flex-col overflow-hidden animate-in fade-in slide-in-from-bottom-5 duration-300"
-          style={{ background: "rgb(0 0 0 / 50%)" }}
+          className="!absolute bottom-[72px] right-0 w-[calc(100vw-32px)] sm:w-[385px] h-[calc(100dvh-120px)] sm:h-[590px] max-h-[calc(100dvh-120px)] bento-card flex flex-col overflow-hidden animate-in fade-in slide-in-from-bottom-5 duration-300"
         >
           {/* Header */}
-          <div className="p-4 px-[18px] bg-[#15151f] border-b border-white/10 flex items-center gap-[11px] shrink-0">
-            <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-[#7c6dfa] to-[#c084fc] flex items-center justify-center font-bold text-[13px] text-white font-mono">
-              <img src="/img/ask-sahed-icon-only-sahedalomsumit.svg" alt="" />
+          <div className="p-4 px-[18px] bg-[var(--bg-secondary)] border-b border-[var(--border)] flex items-center gap-[11px] shrink-0">
+            <div className="w-10 h-10 flex items-center justify-center font-bold text-[13px] text-[var(--hire-btn-text)] font-mono">
+              <img className="w-full h-full object-contain" src={CHATBOT_ICON_SRC} alt="" />
             </div>
             <div className="flex-1">
-              <div className="font-bold text-sm text-[#eeeef5] tracking-wide mono">
+              <div className="font-bold text-sm text-[var(--text-main)] tracking-wide mono">
                 Ask Sahed
               </div>
-              <div className="text-[11px] text-[#6e6e88] mt-0.5 flex items-center gap-1.5 font-bold tracking-wider">
+              <div className="text-[11px] text-[var(--text-muted)] mt-0.5 flex items-center gap-1.5 font-bold tracking-wider">
                 <span className="w-1.5 h-1.5 rounded-full bg-[#4ade80] animate-pulse" />
                 Sahed's AI Assistant · Always Online
               </div>
             </div>
             <button
-              className="p-1.5 rounded-lg text-[#6e6e88] hover:text-[#eeeef5] hover:bg-[#1e1e2c] transition-all"
+              className="p-1.5 rounded-lg text-[var(--text-muted)] hover:text-[var(--text-main)] hover:bg-[var(--card-hover-bg)] transition-all"
               onClick={() => setOpen(false)}
               aria-label="Close"
             >
@@ -535,7 +531,7 @@ export default function SahedChatbot() {
               {Object.entries(sourceMeta).map(([key, { label }]) => (
                 <span
                   key={key}
-                  className={`text-[10px] px-2.5 py-0.5 rounded-full border transition-all font-medium tracking-tight ${activeSource === key ? "text-[#c084fc] border-[#7c6dfa] bg-[#7c6dfa]/10" : "border-white/10 text-[#6e6e88] bg-[#1e1e2c]"}`}
+                  className={`text-[10px] px-2.5 py-0.5 rounded-md border transition-all font-medium tracking-tight ${activeSource === key ? "text-[var(--accent-light)] border-[var(--accent)] bg-[var(--accent-glow)]" : "border-[var(--border)] text-[var(--text-muted)] bg-[var(--card-hover-bg)]"}`}
                   title={sourceMeta[key].tip}
                 >
                   {label}
@@ -554,30 +550,30 @@ export default function SahedChatbot() {
                     className={`flex gap-2 items-end ${m.role === "user" ? "flex-row-reverse" : ""}`}
                   >
                     {m.role === "bot" && (
-                      <div className="w-6 h-6 rounded-md bg-gradient-to-br from-[#7c6dfa] to-[#c084fc] flex items-center justify-center font-bold text-[9px] text-white shrink-0 mb-1">
+                      <div className="w-6 h-6 flex items-center justify-center font-bold text-[9px] text-[var(--hire-btn-text)] shrink-0 mb-1">
                         <img
-                          src="/img/ask-sahed-icon-only-sahedalomsumit.svg"
+                          className="w-full h-full object-contain"
+                          src={CHATBOT_ICON_SRC}
                           alt=""
                         />
                       </div>
                     )}
                     <div
-                      className={`max-w-[85%] p-3 px-4 rounded-[18px] text-[13.5px] leading-relaxed break-words ${m.role === "bot" ? "bg-[#1e1e2c] text-[#eeeef5] border border-white/10 rounded-bl-[4px]" : "bg-gradient-to-br from-[#7c6dfa] to-[#c084fc] text-white rounded-br-[4px]"}`}
+                      className={`max-w-[85%] p-3 px-4 rounded-xl text-[13.5px] leading-relaxed break-words ${m.role === "bot" ? "bg-[var(--card-hover-bg)] text-[var(--text-main)] border border-[var(--border)] rounded-bl-[4px]" : "bg-[var(--accent)] text-[var(--hire-btn-text)] rounded-br-[4px]"}`}
                       dangerouslySetInnerHTML={{ __html: m.text }}
                     />
                   </div>
                   <div
-                    className={`text-[10px] text-[#6e6e88] mt-1 px-1 ${m.role === "bot" ? "pl-[31px]" : "text-right"}`}
+                    className={`text-[10px] text-[var(--text-muted)] mt-1 px-1 ${m.role === "bot" ? "pl-[31px]" : "text-right"}`}
                   >
                     {m.time}
                   </div>
-                  {/* Suggestions pinned to the first message */}
                   {i === 0 && (
                     <div className="p-2 pl-[31px] pb-2.5 flex flex-wrap gap-2 shrink-0 animate-in fade-in slide-in-from-bottom-2 delay-300 duration-500">
                       {SUGGESTIONS.map((s) => (
                         <button
                           key={s}
-                          className="bg-[#1e1e2c] border border-white/10 text-[#eeeef5] text-[11.5px] px-3.5 py-1.5 rounded-full transition-all hover:bg-[#7c6dfa]/10 hover:border-[#7c6dfa] hover:-translate-y-0.5 font-medium"
+                          className="bg-[var(--card-hover-bg)] border border-[var(--border)] text-[var(--text-main)] text-[11.5px] px-3.5 py-1.5 rounded-lg transition-all hover:bg-[var(--accent-glow)] hover:border-[var(--accent)] hover:-translate-y-0.5 font-medium"
                           onClick={() => sendMessage(s)}
                         >
                           {s}
@@ -591,17 +587,18 @@ export default function SahedChatbot() {
 
             {loading && (
               <div className="flex gap-2 items-end">
-                <div className="w-6 h-6 rounded-md bg-gradient-to-br from-[#7c6dfa] to-[#c084fc] flex items-center justify-center font-bold text-[9px] text-white shrink-0 mb-1">
+                <div className="w-6 h-6 flex items-center justify-center font-bold text-[9px] text-[var(--hire-btn-text)] shrink-0 mb-1">
                   <img
-                    src="/img/ask-sahed-icon-only-sahedalomsumit.svg"
+                    className="w-full h-full object-contain"
+                    src={CHATBOT_ICON_SRC}
                     alt=""
                   />
                 </div>
-                <div className="bg-[#1e1e2c] text-[#eeeef5] border border-white/10 p-3 px-4 rounded-[18px] rounded-bl-[4px]">
+                <div className="bg-[var(--card-hover-bg)] text-[var(--text-main)] border border-[var(--border)] p-3 px-4 rounded-xl rounded-bl-[4px]">
                   <div className="flex gap-1.5 items-center py-0.5">
-                    <span className="w-1.5 h-1.5 rounded-full bg-[#6e6e88] animate-bounce" />
-                    <span className="w-1.5 h-1.5 rounded-full bg-[#6e6e88] animate-bounce [animation-delay:0.2s]" />
-                    <span className="w-1.5 h-1.5 rounded-full bg-[#6e6e88] animate-bounce [animation-delay:0.4s]" />
+                    <span className="w-1.5 h-1.5 rounded-full bg-[var(--text-muted)] animate-bounce" />
+                    <span className="w-1.5 h-1.5 rounded-full bg-[var(--text-muted)] animate-bounce [animation-delay:0.2s]" />
+                    <span className="w-1.5 h-1.5 rounded-full bg-[var(--text-muted)] animate-bounce [animation-delay:0.4s]" />
                   </div>
                 </div>
               </div>
@@ -610,11 +607,11 @@ export default function SahedChatbot() {
           </div>
 
           {/* Input */}
-          <div className="p-3 px-4 pb-4 bg-[#15151f] border-t border-white/10 flex gap-2.5 items-end shrink-0">
-            <div className="flex-1 bg-[#1e1e2c] border border-white/10 rounded-xl focus-within:border-[#7c6dfa]/50 transition-colors duration-200 overflow-hidden">
+          <div className="p-3 px-4 pb-4 bg-[var(--bg-secondary)] border-t border-[var(--border)] flex gap-2.5 items-end shrink-0">
+            <div className="flex-1 bg-[var(--card-hover-bg)] border border-[var(--border)] rounded-lg focus-within:border-[var(--accent)] transition-colors duration-200 overflow-hidden">
               <textarea
                 ref={textareaRef}
-                className="block w-full bg-transparent border-none text-[#eeeef5] text-[13.5px] p-2.5 px-3.5 resize-none outline-none max-h-[100px] leading-normal placeholder:text-[#6e6e88]"
+                className="block w-full bg-transparent border-none text-[var(--text-main)] text-[13.5px] p-2.5 px-3.5 resize-none outline-none max-h-[100px] leading-normal placeholder:text-[var(--text-muted)]"
                 style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}
                 rows={1}
                 placeholder="Ask me anything…"
@@ -625,12 +622,15 @@ export default function SahedChatbot() {
               />
             </div>
             <button
-              className="w-10 h-10 rounded-xl bg-gradient-to-br from-[#7c6dfa] to-[#c084fc] flex items-center justify-center shrink-0 transition-all hover:scale-105 hover:rotate-[-3deg] active:scale-95 disabled:opacity-35 disabled:grayscale"
+              className="w-10 h-10 rounded-lg bg-[var(--accent)] flex items-center justify-center shrink-0 transition-all hover:scale-105 active:scale-95 disabled:opacity-35 disabled:grayscale"
               onClick={() => sendMessage(input)}
               disabled={!input.trim() || loading}
               aria-label="Send"
             >
-              <svg viewBox="0 0 24 24" className="w-[18px] h-[18px] fill-white">
+              <svg
+                viewBox="0 0 24 24"
+                className="w-[18px] h-[18px] fill-[var(--hire-btn-text)]"
+              >
                 <path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z" />
               </svg>
             </button>
@@ -640,16 +640,16 @@ export default function SahedChatbot() {
 
       {/* Trigger button */}
       <button
-        className="w-[58px] h-[58px] rounded-full bg-gradient-to-br from-[#7c6dfa] to-[#c084fc] flex items-center justify-center shadow-[0_8px_30px_rgba(124,109,250,0.5)] transition-all hover:scale-105 hover:shadow-[0_12px_40px_rgba(124,109,250,0.65)] active:scale-95 relative"
+        className="chatbot-trigger w-[58px] h-[58px] bg-[var(--accent)] flex items-center justify-center transition-all hover:scale-105 active:scale-95 relative"
+        style={{ boxShadow: "0 8px 30px var(--accent-glow)" }}
         onClick={() => setOpen((o) => !o)}
         aria-label="Open chat"
       >
-        <span className="absolute -top-0.5 -right-0.5 w-[14px] h-[14px] rounded-full bg-[#4ade80] border-2 border-[#0d0d14]" />
-        {open ? (
-          <img src="/img/ask-sahed-icon-only-sahedalomsumit.svg" alt="" />
-        ) : (
-          <img src="/img/ask-sahed-icon-only-sahedalomsumit.svg" alt="" />
-        )}
+        <img
+          className="w-full h-full object-contain"
+          src={CHATBOT_ICON_SRC}
+          alt=""
+        />
       </button>
     </div>
   );

@@ -10,6 +10,7 @@ export default function Header() {
     const [helsinkiTime, setHelsinkiTime] = useState('')
     const menuRef = useRef(null)
     const linkRef = useRef([])
+    const bodyOverflowBeforeMenuRef = useRef('')
     const { theme, toggleTheme } = useTheme()
 
     // Real-time Helsinki Clock
@@ -70,7 +71,17 @@ export default function Header() {
 
     useEffect(() => {
         if (isMenuOpen) {
+            bodyOverflowBeforeMenuRef.current = document.body.style.overflow
             document.body.style.overflow = 'hidden'
+            if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+                gsap.set(menuRef.current, { display: 'flex', x: 0, opacity: 1 })
+                gsap.set(linkRef.current, { y: 0, opacity: 1 })
+                return () => {
+                    document.body.style.overflow = bodyOverflowBeforeMenuRef.current
+                    gsap.set(menuRef.current, { display: 'none' })
+                }
+            }
+
             const tl = gsap.timeline()
             tl.set(menuRef.current, { display: 'flex' })
             tl.to(menuRef.current, { x: 0, opacity: 1, duration: 0.4, ease: 'power4.out' })
@@ -79,8 +90,18 @@ export default function Header() {
                 { y: 0, opacity: 1, duration: 0.35, stagger: 0.06, ease: 'power3.out' },
                 "-=0.15"
             )
+            return () => {
+                tl.kill()
+                document.body.style.overflow = bodyOverflowBeforeMenuRef.current
+            }
         } else {
-            document.body.style.overflow = 'unset'
+            document.body.style.overflow = bodyOverflowBeforeMenuRef.current
+            if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+                gsap.set(menuRef.current, { display: 'none', x: '100%', opacity: 0 })
+                gsap.set(linkRef.current, { y: 20, opacity: 0 })
+                return
+            }
+
             const tl = gsap.timeline()
             tl.to(linkRef.current, {
                 y: 20,
@@ -96,6 +117,7 @@ export default function Header() {
                 ease: 'power4.in'
             }, "-=0.1")
             tl.set(menuRef.current, { display: 'none' })
+            return () => tl.kill()
         }
     }, [isMenuOpen])
 
@@ -119,18 +141,18 @@ export default function Header() {
     const closeMenu = () => setIsMenuOpen(false)
 
     const scrollToContact = (e) => {
+        closeMenu()
         const contactSection = document.getElementById('contact')
         if (contactSection) {
             e.preventDefault()
             contactSection.scrollIntoView({ behavior: 'smooth' })
-            closeMenu()
         }
     }
 
     return (
         <>
             <header
-                className={`fixed top-0 w-full z-[70] transition-all duration-300 ${
+                className={`site-header fixed top-0 w-full z-[70] transition-all duration-300 ${
                     isMenuOpen ? 'opacity-0 pointer-events-none -translate-y-4' : 'opacity-100'
                 } ${scrolled ? 'sticky-header py-2.5' : 'py-3 md:py-4'}`}
                 style={{
@@ -142,59 +164,57 @@ export default function Header() {
             >
                 {/* Top Status Bar */}
                 <div
-                    className={`w-full px-6 hidden lg:flex justify-between items-center text-[10px] tracking-wider transition-all duration-500 overflow-hidden ${scrolled ? 'max-h-0 opacity-0 py-0 border-none' : 'max-h-8 opacity-100 pb-2.5 mb-2'}`}
-                    style={{
-                        borderBottom: '1px solid var(--border-light)',
-                        color: 'var(--text-dim)',
-                    }}
+                    className={`site-status-bar hidden lg:block transition-all duration-500 overflow-hidden ${scrolled ? 'is-collapsed max-h-0 opacity-0' : 'max-h-10 opacity-100'}`}
                 >
-                    <div className="flex items-center gap-3">
-                        <span className="flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 font-medium">
-                            <span className="w-1.5 h-1.5 bg-emerald-400 rounded-full animate-pulse" />
-                            Available for Upcoming Projects
-                        </span>
-                        <span className="text-gray-500">•</span>
-                        <span>Product Designer & AI-Enhanced Web Developer</span>
-                    </div>
-
-                    <div className="flex items-center gap-5">
-                        {helsinkiTime && (
-                            <span className="flex items-center gap-1.5 font-mono text-[9px]">
-                                <span className="opacity-60">Helsinki:</span>
-                                <span className="font-semibold text-emerald-400">{helsinkiTime}</span>
+                    <div className="site-status-inner px-6 flex justify-between items-center text-[10px] tracking-wider pt-2 pb-2.5" style={{ color: 'var(--text-dim)' }}>
+                        <div className="flex items-center gap-3">
+                            <span className="flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 font-medium">
+                                <span className="w-1.5 h-1.5 bg-emerald-400 rounded-full animate-pulse" />
+                                Available for Upcoming Projects
                             </span>
-                        )}
-                        <span className="text-gray-600">|</span>
-                        <a
-                            href="https://wa.me/+358415765539"
-                            className="hover:text-emerald-400 transition-colors flex items-center gap-1.5 font-medium"
-                            target="_blank"
-                            rel="noopener noreferrer"
-                        >
-                            <svg className="w-3 h-3 text-emerald-400" viewBox="0 0 24 24" fill="currentColor">
-                                <path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981z" />
-                            </svg>
-                            Direct WhatsApp
-                        </a>
-                        <span className="text-gray-600">|</span>
-                        <a
-                            href="/img/web-designer-and-developer-sahed-alom-sumit.pdf"
-                            className="hover:text-violet-400 transition-colors font-medium flex items-center gap-1"
-                            target="_blank"
-                            rel="noopener noreferrer"
-                        >
-                            Resume
-                            <svg className="w-2.5 h-2.5 opacity-70" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
-                                <path d="M7 17L17 7M17 7H7M17 7V17" />
-                            </svg>
-                        </a>
+                            <span className="text-gray-500">•</span>
+                            <span>Product Designer & AI-Enhanced Web Developer</span>
+                        </div>
+
+                        <div className="flex items-center gap-5">
+                            {helsinkiTime && (
+                                <span className="flex items-center gap-1.5 font-mono text-[9px]">
+                                    <span className="opacity-60">Helsinki:</span>
+                                    <span className="font-semibold text-emerald-400">{helsinkiTime}</span>
+                                </span>
+                            )}
+                            <span className="text-gray-600">|</span>
+                            <a
+                                href="https://wa.me/+358415765539"
+                                className="hover:text-emerald-400 transition-colors flex items-center gap-1.5 font-medium"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                            >
+                                <svg className="w-3 h-3 text-emerald-400" viewBox="0 0 24 24" fill="currentColor">
+                                    <path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981z" />
+                                </svg>
+                                Direct WhatsApp
+                            </a>
+                            <span className="text-gray-600">|</span>
+                            <a
+                                href="/img/web-designer-and-developer-sahed-alom-sumit.pdf"
+                                className="hover:text-violet-400 transition-colors font-medium flex items-center gap-1"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                            >
+                                Resume
+                                <svg className="w-2.5 h-2.5 opacity-70" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
+                                    <path d="M7 17L17 7M17 7H7M17 7V17" />
+                                </svg>
+                            </a>
+                        </div>
                     </div>
                 </div>
 
                 {/* Main Navigation Bar */}
-                <div className="px-4 sm:px-6 max-w-7xl mx-auto flex items-center justify-between">
+                <div className="site-header-inner px-4 sm:px-6 max-w-7xl mx-auto flex items-center justify-between">
                     {/* Brand */}
-                    <Link to="/" onClick={closeMenu} className="flex items-center gap-3.5 group cursor-pointer z-[60]">
+                    <Link to="/" onClick={closeMenu} className="site-brand flex min-w-0 items-center gap-2 md:gap-3.5 group cursor-pointer z-[60]">
                         <div className="relative">
                             <img
                                 className="sas-logo transition-transform duration-300 group-hover:scale-105 w-28 md:w-32"
@@ -203,19 +223,19 @@ export default function Header() {
                             />
                             <div className="absolute -inset-1 rounded-lg bg-violet-500/10 blur-sm opacity-0 group-hover:opacity-100 transition-opacity" />
                         </div>
-                        <div className="hidden sm:block h-6 w-[1px]" style={{ backgroundColor: 'var(--border)' }} />
-                        <div className="hidden sm:flex flex-col">
-                            <span className="text-[11px] font-semibold tracking-tight" style={{ color: 'var(--text-main)' }}>
+                        <div className="h-6 w-px shrink-0" style={{ backgroundColor: 'var(--border)' }} />
+                        <div className="flex min-w-0 flex-col">
+                            <span className="whitespace-nowrap text-[10px] sm:text-[11px] font-semibold tracking-tight" style={{ color: 'var(--text-main)' }}>
                                 Sahed Alom Sumit
                             </span>
-                            <span className="text-[9px] uppercase tracking-wider font-mono text-emerald-400">
+                            <span className="text-[8px] sm:text-[9px] leading-tight uppercase tracking-wide sm:tracking-wider font-mono text-emerald-400">
                                 Product Designer & AI-Enhanced Dev
                             </span>
                         </div>
                     </Link>
 
                     {/* Desktop Navigation Pill Dock */}
-                    <nav className="hidden md:flex items-center gap-1 p-1.5 rounded-full border shadow-sm backdrop-blur-xl transition-all"
+                    <nav className="site-nav hidden md:flex items-center gap-1 p-1.5 rounded-full border shadow-sm backdrop-blur-xl transition-all"
                         style={{
                             backgroundColor: 'var(--card-bg)',
                             borderColor: 'var(--border)',
@@ -227,16 +247,9 @@ export default function Header() {
                                 <Link
                                     key={link.to}
                                     to={link.to}
-                                    className={`relative px-4 py-1.5 rounded-full text-xs font-medium tracking-wide transition-all duration-300 ${
-                                        isActive
-                                            ? 'text-white shadow-sm'
-                                            : 'hover:text-violet-400'
-                                    }`}
-                                    style={!isActive ? { color: 'var(--text-muted)' } : {}}
+                                    aria-current={isActive ? 'page' : undefined}
+                                    className={`site-nav-link relative px-4 py-1.5 rounded-full text-xs font-medium tracking-wide transition-all duration-300 ${isActive ? 'is-active' : ''}`}
                                 >
-                                    {isActive && (
-                                        <span className="absolute inset-0 rounded-full bg-violet-600 shadow-lg shadow-violet-500/25 -z-10 animate-fade-in" />
-                                    )}
                                     {link.label}
                                 </Link>
                             )
@@ -244,11 +257,11 @@ export default function Header() {
                     </nav>
 
                     {/* Right Action Group */}
-                    <div className="hidden md:flex items-center gap-3">
+                    <div className="site-header-actions hidden md:flex items-center gap-3">
                         <Link
                             to="/#contact"
                             onClick={scrollToContact}
-                            className="shimmer-button flex items-center gap-2 px-5 py-2.5 rounded-full text-xs font-semibold tracking-wide transition-all shadow-md transform hover:-translate-y-0.5 hover:shadow-violet-500/20"
+                            className="site-header-cta shimmer-button flex items-center gap-2 px-5 py-2.5 rounded-full text-xs font-semibold tracking-wide transition-all shadow-md transform hover:-translate-y-0.5 hover:shadow-violet-500/20"
                             style={{
                                 backgroundColor: 'var(--hire-btn-bg)',
                                 color: 'var(--hire-btn-text)',
@@ -264,7 +277,7 @@ export default function Header() {
                         <button
                             id="theme-toggle-desktop"
                             onClick={toggleTheme}
-                            className="theme-toggle"
+                            className="site-theme-toggle theme-toggle"
                             aria-label={theme === 'dark' ? 'Switch to light mode' : 'Switch to dark mode'}
                             title={theme === 'dark' ? 'Switch to Light Mode' : 'Switch to Dark Mode'}
                         >
@@ -290,7 +303,7 @@ export default function Header() {
                         <button
                             id="theme-toggle-mobile"
                             onClick={toggleTheme}
-                            className="theme-toggle"
+                            className="site-theme-toggle theme-toggle"
                             aria-label={theme === 'dark' ? 'Switch to light mode' : 'Switch to dark mode'}
                         >
                             <svg className="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
@@ -405,10 +418,11 @@ export default function Header() {
                             onClick={closeMenu}
                             ref={el => linkRef.current[i] = el}
                             className="group flex items-center justify-between py-2 border-b transition-colors"
+                            aria-current={isLinkActive(link.to) ? 'page' : undefined}
                             style={{ borderColor: 'var(--border-light)' }}
                         >
                             <span
-                                className="text-2xl sm:text-3xl font-heading font-bold tracking-tight uppercase transition-colors"
+                                className={`text-2xl sm:text-3xl font-heading font-bold tracking-tight uppercase transition-colors ${isLinkActive(link.to) ? 'is-active' : ''}`}
                                 style={{ color: isLinkActive(link.to) ? 'var(--accent)' : 'var(--text-main)' }}
                             >
                                 {link.label}
@@ -425,9 +439,16 @@ export default function Header() {
                     <Link
                         to="/#contact"
                         onClick={scrollToContact}
-                        className="w-full py-3.5 sm:py-4 text-center rounded-xl bg-violet-600 text-white font-semibold text-sm tracking-wide shadow-lg shadow-violet-600/30 hover:bg-violet-500 transition-colors"
+                        className="site-header-cta shimmer-button flex w-full items-center justify-center gap-2 px-5 py-3.5 sm:py-4 rounded-full text-sm font-semibold tracking-wide transition-all shadow-md"
+                        style={{
+                            backgroundColor: 'var(--hire-btn-bg)',
+                            color: 'var(--hire-btn-text)',
+                        }}
                     >
-                        Start a Project Now
+                        <span>Let's Talk</span>
+                        <svg className="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
+                            <path d="M5 12h14M12 5l7 7-7 7" strokeLinecap="round" strokeLinejoin="round" />
+                        </svg>
                     </Link>
                     <div className="flex justify-between items-center text-xs font-mono" style={{ color: 'var(--text-dim)' }}>
                         <span>Helsinki, Finland 🇫🇮</span>

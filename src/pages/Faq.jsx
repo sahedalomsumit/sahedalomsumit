@@ -128,54 +128,57 @@ export default function Faq() {
               Everything you need to know about working together, pricing models, project milestones, communication, and ongoing post-launch support.
             </p>
 
-            {/* Search Box */}
-            <div className="relative max-w-md mb-8">
-              <svg className="w-4 h-4 absolute left-3.5 top-1/2 -translate-y-1/2 text-gray-400 pointer-events-none" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                <circle cx="11" cy="11" r="8" />
-                <line x1="21" y1="21" x2="16.65" y2="16.65" />
-              </svg>
-              <input
-                type="text"
-                placeholder="Search questions (e.g. pricing, timeline, Webflow)..."
-                value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
-                className="w-full pl-10 pr-9 py-2.5 rounded-full text-xs transition-all outline-none border focus:border-violet-500"
-                style={{
-                  backgroundColor: 'var(--card-bg)',
-                  borderColor: 'var(--border)',
-                  color: 'var(--text-main)',
-                }}
-              />
-              {searchQuery && (
-                <button
-                  onClick={() => setSearchQuery('')}
-                  className="absolute right-3 top-1/2 -translate-y-1/2 text-xs text-gray-400 hover:text-white"
-                >
-                  ✕
-                </button>
-              )}
-            </div>
-
-            {/* Filter Pills */}
-            <div className="flex overflow-x-auto no-scrollbar gap-2 pb-2">
-              {topics.map((topic, i) => (
-                <button
-                  key={i}
-                  onClick={() => setActiveTab(topic)}
-                  className={`px-4 py-2 rounded-full text-xs font-semibold tracking-wide transition-all whitespace-nowrap border ${
-                    activeTab === topic
-                      ? 'bg-violet-600 text-white border-violet-500 shadow-md shadow-violet-600/30'
-                      : 'hover:border-white/20'
-                  }`}
-                  style={activeTab !== topic ? {
+            <div className="site-full-bleed-divider pt-8">
+              {/* Search Box */}
+              <div className="relative max-w-md mb-8">
+                <svg className="w-4 h-4 absolute left-3.5 top-1/2 -translate-y-1/2 text-gray-400 pointer-events-none" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                  <circle cx="11" cy="11" r="8" />
+                  <line x1="21" y1="21" x2="16.65" y2="16.65" />
+                </svg>
+                <input
+                  type="text"
+                  placeholder="Search questions (e.g. pricing, timeline, Webflow)..."
+                  value={searchQuery}
+                  onChange={(e) => setSearchQuery(e.target.value)}
+                  className="w-full pl-10 pr-9 py-2.5 rounded-full text-xs transition-all outline-none border focus:border-violet-500"
+                  style={{
                     backgroundColor: 'var(--card-bg)',
                     borderColor: 'var(--border)',
-                    color: 'var(--text-muted)'
-                  } : {}}
-                >
-                  {topic}
-                </button>
-              ))}
+                    color: 'var(--text-main)',
+                  }}
+                />
+                {searchQuery && (
+                  <button
+                    onClick={() => setSearchQuery('')}
+                    className="absolute right-3 top-1/2 -translate-y-1/2 text-xs text-gray-400 hover:text-white"
+                  >
+                    ✕
+                  </button>
+                )}
+              </div>
+
+              {/* Filter Pills */}
+              <div className="flex flex-wrap gap-2 pb-2">
+                {topics.map((topic, i) => (
+                  <button
+                    key={i}
+                    onClick={() => setActiveTab(topic)}
+                    aria-pressed={activeTab === topic}
+                    className={`site-tab-control px-4 py-2 rounded-full text-xs font-semibold tracking-wide transition-all whitespace-nowrap border ${
+                      activeTab === topic
+                        ? 'bg-violet-600 text-white border-violet-500 shadow-md shadow-violet-600/30'
+                        : 'hover:border-white/20'
+                    }`}
+                    style={activeTab !== topic ? {
+                      backgroundColor: 'var(--card-bg)',
+                      borderColor: 'var(--border)',
+                      color: 'var(--text-muted)'
+                    } : {}}
+                  >
+                    {topic}
+                  </button>
+                ))}
+              </div>
             </div>
           </header>
         </RevealOnScroll>

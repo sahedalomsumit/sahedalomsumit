@@ -15,24 +15,33 @@ export default function ScrambleText({ text, delay = 0, duration = 1.5, classNam
     const el = ref.current;
     if (!el) return;
 
-    ScrollTrigger.create({
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      setHasStarted(true);
+      return;
+    }
+
+    const trigger = ScrollTrigger.create({
       trigger: el,
       start: "top 90%",
       onEnter: () => setHasStarted(true),
       once: true
     });
+
+    return () => trigger.kill();
   }, []);
 
   useEffect(() => {
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      setDisplayText(text);
+      return;
+    }
+
     if (!hasStarted) {
       // Set initial state to scrambled or empty
       setDisplayText(text.split('').map(() => CHARS[Math.floor(Math.random() * CHARS.length)]).join(''));
       return;
     }
 
-    let iteration = 0;
-    const totalSteps = text.length * 2;
-    
     const tl = gsap.timeline({ delay });
 
     tl.to({}, {

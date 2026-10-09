@@ -54,9 +54,9 @@ function parseInlineFormatting(text) {
           key={key++}
           className="px-1.5 py-0.5 rounded-md font-mono text-[0.85em] border"
           style={{
-            backgroundColor: 'rgba(139, 92, 246, 0.08)',
-            borderColor: 'rgba(139, 92, 246, 0.2)',
-            color: 'var(--accent-light, #a78bfa)'
+            backgroundColor: 'var(--accent-glow)',
+            borderColor: 'var(--border-hover)',
+            color: 'var(--accent-light)'
           }}
         >
           {codeMatch[1]}

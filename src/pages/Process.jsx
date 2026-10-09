@@ -95,7 +95,7 @@ export default function Process() {
   return (
     <>
       <section className="py-20 sm:py-24 px-4 max-w-7xl mx-auto">
-        <RevealOnScroll>
+        <RevealOnScroll className="site-page-intro-divider">
           <header className="mb-14">
             <nav aria-label="breadcrumb" className="text-xs tracking-wider mb-6 flex items-center gap-2" style={{ color: 'var(--text-dim)' }}>
               <Link to="/" className="hover:text-violet-400 transition-colors">Home</Link>
@@ -126,7 +126,8 @@ export default function Process() {
                    style={{ backgroundColor: 'var(--card-bg)', borderColor: 'var(--border)' }}>
                 <button
                   onClick={() => switchTab('design')}
-                  className={`flex-1 sm:flex-initial px-3.5 sm:px-5 py-2 sm:py-2.5 rounded-full text-[11px] sm:text-xs font-semibold tracking-wide transition-all whitespace-nowrap text-center ${
+                  aria-pressed={isDesign}
+                  className={`site-tab-control flex-1 sm:flex-initial px-3.5 sm:px-5 py-2 sm:py-2.5 rounded-full text-[11px] sm:text-xs font-semibold tracking-wide transition-all whitespace-nowrap text-center ${
                     isDesign
                       ? 'bg-violet-600 text-white shadow-md shadow-violet-600/30'
                       : 'hover:text-white'
@@ -137,7 +138,8 @@ export default function Process() {
                 </button>
                 <button
                   onClick={() => switchTab('dev')}
-                  className={`flex-1 sm:flex-initial px-3.5 sm:px-5 py-2 sm:py-2.5 rounded-full text-[11px] sm:text-xs font-semibold tracking-wide transition-all whitespace-nowrap text-center ${
+                  aria-pressed={!isDesign}
+                  className={`site-tab-control flex-1 sm:flex-initial px-3.5 sm:px-5 py-2 sm:py-2.5 rounded-full text-[11px] sm:text-xs font-semibold tracking-wide transition-all whitespace-nowrap text-center ${
                     !isDesign
                       ? 'bg-violet-600 text-white shadow-md shadow-violet-600/30'
                       : 'hover:text-white'

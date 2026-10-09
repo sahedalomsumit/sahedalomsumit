@@ -70,7 +70,7 @@ export default function ProjectDetail() {
   return (
     <>
       <section className="py-16 sm:py-20 px-4 max-w-7xl mx-auto">
-        <RevealOnScroll>
+        <RevealOnScroll className="site-page-intro-divider">
           <header className="mb-12">
             {/* Breadcrumb */}
             <nav aria-label="breadcrumb" className="text-xs tracking-wider mb-6 flex items-center gap-2" style={{ color: 'var(--text-dim)' }}>
@@ -136,18 +136,20 @@ export default function ProjectDetail() {
         </RevealOnScroll>
 
         {/* Hero Showcase Image */}
-        <RevealOnScroll>
-          <div className="aspect-[16/9] bento-card overflow-hidden relative border shadow-2xl mb-16 rounded-3xl"
-               style={{ borderColor: 'var(--border)' }}>
-            <img
-              src={project.thumbnailUrl}
-              alt={`${project.title} - Showcase Presentation`}
-              fetchpriority="high"
-              decoding="async"
-              className="object-cover w-full h-full"
-            />
-          </div>
-        </RevealOnScroll>
+        <div className="pt-8">
+          <RevealOnScroll>
+            <div className="aspect-[16/9] bento-card overflow-hidden relative border shadow-2xl mb-16 rounded-3xl"
+                 style={{ borderColor: 'var(--border)' }}>
+              <img
+                src={project.thumbnailUrl}
+                alt={`${project.title} - Showcase Presentation`}
+                fetchpriority="high"
+                decoding="async"
+                className="object-cover w-full h-full"
+              />
+            </div>
+          </RevealOnScroll>
+        </div>
 
         {/* Content Grid */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 mb-16">
@@ -298,8 +300,8 @@ export default function ProjectDetail() {
         )}
 
         {/* Adjacent Navigation */}
-        <RevealOnScroll>
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 pt-6 border-t" style={{ borderColor: 'var(--border)' }}>
+        <RevealOnScroll className="site-full-bleed-divider site-full-bleed-divider-bottom py-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 items-center">
             {adjacent.prev && (
               <Link to={`/work/${adjacent.prev.slug}`} className="bento-card p-6 sm:p-8 group hover:-translate-y-1 transition-all">
                 <span className="text-[10px] font-mono text-violet-400 uppercase tracking-wider block mb-2">

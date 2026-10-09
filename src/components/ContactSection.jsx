@@ -108,7 +108,7 @@ export default function ContactSection() {
 
         {/* Primary Estimator Banner */}
         <div className="bento-card p-6 sm:p-10 border relative overflow-hidden flex flex-col sm:flex-row items-center justify-between gap-6 text-left"
-             style={{ borderColor: 'rgba(139, 92, 246, 0.3)' }}>
+             style={{ borderColor: 'rgba(113, 201, 206, 0.3)' }}>
           <div className="space-y-2">
             <span className="text-[10px] font-mono uppercase tracking-widest text-violet-400 font-bold">
               Transparent Pricing & Blueprint

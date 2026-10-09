@@ -48,7 +48,7 @@ function AccordionItem({ id, openId, setOpenId, num, title, subtitle, badge, chi
         !isLast ? 'border-b' : ''
       }`}
       style={{
-        borderColor: isOpen ? 'rgba(139, 92, 246, 0.3)' : 'var(--border)',
+        borderColor: isOpen ? 'rgba(113, 201, 206, 0.3)' : 'var(--border)',
         cursor: 'pointer',
       }}
     >
@@ -288,7 +288,6 @@ export default function Home() {
   const [openCert, setOpenCert] = useState(null);
   const [openExp, setOpenExp] = useState(1);
   const [activeSkillTab, setActiveSkillTab] = useState(0);
-  const [activeRole, setActiveRole] = useState(1);
   const [copiedEmail, setCopiedEmail] = useState(false);
 
   useSEO({
@@ -297,27 +296,6 @@ export default function Home() {
       "Sahed Alom Sumit is a Product Designer & AI-Enhanced Web Developer based in Helsinki, Finland. Crafting digital products that feel effortless, load at lightspeed, and convert.",
     canonical: "/",
   });
-
-  const roles = [
-    {
-      title: "Product Designer",
-      icon: "✨",
-      summary: "Crafting human-centered UI/UX systems, wireframes, and high-fidelity interactive prototypes in Figma.",
-      highlight: "Design Systems & Conversion"
-    },
-    {
-      title: "Full-Stack Developer",
-      icon: "⚡",
-      summary: "Building fast, dynamic web applications with React, Next.js, Supabase, Webflow, and WordPress.",
-      highlight: "Clean Code & Performance"
-    },
-    {
-      title: "AI Technologist",
-      icon: "🤖",
-      summary: "Integrating generative AI, automated workflows, and modern tooling to build and scale products 10x faster.",
-      highlight: "Automations & Vibe Coding"
-    }
-  ];
 
   useEffect(() => {
     let isMounted = true;
@@ -391,19 +369,23 @@ export default function Home() {
       <section
         id="hero"
         ref={heroRef}
-        className="min-h-[92vh] flex flex-col justify-center items-center text-center relative px-4 pt-6 pb-20 max-w-7xl mx-auto"
+        className="home-hero min-h-[92vh] flex flex-col justify-center relative px-4 sm:px-8 pt-8 pb-24 max-w-7xl mx-auto"
       >
-        <div className="space-y-6 flex flex-col items-center max-w-5xl mx-auto">
-          {/* Status Badge */}
+        <div className="home-hero-content space-y-6">
           <div className="hero-el">
-            <div className="inline-flex items-center gap-2.5 px-4 py-1.5 rounded-full backdrop-blur-xl border transition-all duration-300 hover:scale-105"
-                 style={{
-                   backgroundColor: 'var(--card-bg)',
-                   borderColor: 'rgba(16, 185, 129, 0.3)',
-                 }}>
+            <div
+              className="inline-flex items-center gap-2.5 px-4 py-1.5 border transition-all duration-300"
+              style={{ backgroundColor: 'var(--card-bg)', borderColor: 'var(--border)' }}
+            >
               <span className="relative flex h-2 w-2">
-                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
-                <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500 shadow-[0_0_8px_#10b981]"></span>
+                <span
+                  className="animate-ping absolute inline-flex h-full w-full opacity-75"
+                  style={{ backgroundColor: 'var(--accent)' }}
+                />
+                <span
+                  className="relative inline-flex h-2 w-2"
+                  style={{ backgroundColor: 'var(--accent)', boxShadow: '0 0 8px var(--accent)' }}
+                />
               </span>
               <span className="text-[11px] font-medium tracking-wide" style={{ color: 'var(--text-main)' }}>
                 Based in Helsinki, Finland
@@ -411,67 +393,24 @@ export default function Home() {
             </div>
           </div>
 
-          {/* Main Headline */}
-          <h1 className="hero-el text-5xl sm:text-7xl md:text-8xl lg:text-[7rem] font-heading font-extrabold tracking-[-0.04em] leading-[0.92] uppercase text-white"
-              style={{ color: 'var(--text-main)' }}>
-            SAHED ALOM{" "}
-            <span className="bg-gradient-to-r from-violet-400 via-purple-300 to-indigo-400 bg-clip-text text-transparent">
-              SUMIT<span className="text-violet-500 animate-pulse">.</span>
-            </span>
+          <h1 className="home-hero-title hero-el">
+            <span>Sahed Alom</span>
+            <span className="home-hero-accent">Sumit<span>.</span></span>
           </h1>
 
-          {/* Typewriter Subheading */}
-          <div className="hero-el flex items-center justify-center gap-2 h-8">
-            <span
-              ref={typewriterRef}
-              className="font-mono text-sm sm:text-lg md:text-xl font-medium tracking-wider uppercase"
-              style={{ color: 'var(--accent-light)' }}
-            />
-            <span className="inline-block w-1.5 h-5 bg-violet-500 animate-pulse rounded-full" />
+          <div className="home-hero-role hero-el">
+            <span ref={typewriterRef} />
+            <span className="home-hero-caret" aria-hidden="true" />
           </div>
 
-          {/* Interactive Role Switcher Pills */}
-          <div className="hero-el flex flex-wrap justify-center gap-2 pt-2 pb-1">
-            {roles.map((role, idx) => (
-              <button
-                key={role.title}
-                onClick={() => setActiveRole(idx)}
-                className={`px-4 py-2 rounded-full text-xs font-medium tracking-wide transition-all duration-300 flex items-center gap-2 border ${
-                  activeRole === idx
-                    ? 'bg-violet-600 text-white border-violet-500 shadow-lg shadow-violet-600/30 scale-105'
-                    : 'bg-white/[0.03] hover:bg-white/[0.08] text-gray-400 border-white/10 hover:border-white/25'
-                }`}
-                style={activeRole !== idx ? { color: 'var(--text-muted)', borderColor: 'var(--border)' } : {}}
-              >
-                <span>{role.icon}</span>
-                <span>{role.title}</span>
-                {activeRole === idx && (
-                  <span className="w-1.5 h-1.5 rounded-full bg-white animate-pulse" />
-                )}
-              </button>
-            ))}
-          </div>
+          <p className="home-hero-intro hero-el">
+            You bring the idea. I turn it into a digital product that works.
+          </p>
 
-          {/* Role Dynamic Bio Card */}
-          <div className="hero-el max-w-2xl mx-auto p-4 rounded-2xl border backdrop-blur-md transition-all duration-500"
-               style={{
-                 backgroundColor: 'var(--card-bg)',
-                 borderColor: 'var(--border)',
-               }}>
-            <p className="text-sm md:text-base leading-relaxed font-normal" style={{ color: 'var(--text-muted)' }}>
-              {roles[activeRole].summary}
-            </p>
-          </div>
-
-          {/* Primary Action Buttons */}
-          <div className="hero-el flex flex-wrap gap-3.5 justify-center pt-4">
+          <div className="home-hero-actions hero-el">
             <Link
               to="/work"
-              className="shimmer-button px-8 py-3.5 rounded-full text-xs font-semibold tracking-wider uppercase transition-all duration-300 transform hover:-translate-y-0.5 shadow-xl flex items-center gap-2.5"
-              style={{
-                backgroundColor: 'var(--hire-btn-bg)',
-                color: 'var(--hire-btn-text)',
-              }}
+              className="home-hero-button home-hero-button-primary"
             >
               <span>Explore Selected Work</span>
               <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
@@ -481,14 +420,9 @@ export default function Home() {
 
             <Link
               to="/estimate"
-              className="px-7 py-3.5 rounded-full text-xs font-semibold tracking-wider uppercase transition-all duration-300 transform hover:-translate-y-0.5 border flex items-center gap-2 hover:border-violet-500"
-              style={{
-                backgroundColor: 'var(--card-bg)',
-                borderColor: 'var(--border)',
-                color: 'var(--text-main)',
-              }}
+              className="home-hero-button"
             >
-              <svg className="w-4 h-4 text-emerald-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+              <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                 <rect x="4" y="2" width="16" height="20" rx="2" />
                 <line x1="8" y1="6" x2="16" y2="6" />
                 <line x1="16" y1="14" x2="16" y2="18" />
@@ -496,74 +430,45 @@ export default function Home() {
               </svg>
               <span>Project Estimator</span>
             </Link>
-
-            <a
-              href="https://wa.me/+358415765539"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="px-5 py-3.5 rounded-full text-xs font-semibold tracking-wider transition-all duration-300 border flex items-center gap-2 hover:border-emerald-500 text-emerald-400"
-              style={{
-                backgroundColor: 'var(--card-bg)',
-                borderColor: 'var(--border)',
-              }}
-            >
-              <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
-              <span>WhatsApp</span>
-            </a>
           </div>
 
-          {/* Quick Metrics Bar */}
-          <div className="hero-el pt-8 w-full max-w-4xl">
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
-              {[
-                { number: "150+", label: "Websites Delivered", sub: "Global Clients" },
-                { number: "99%", label: "Job Success Score", sub: "Top Rated Plus" },
-                { number: "5+ Yrs", label: "Crafting Experience", sub: "Product Design & Dev" },
-                { number: "40%", label: "Repeat Client Rate", sub: "Long-Term Trust" },
-              ].map((stat, i) => (
-                <div
-                  key={i}
-                  className="p-4 rounded-2xl border text-center transition-all duration-300 hover:border-violet-500/40 hover:-translate-y-1"
-                  style={{
-                    backgroundColor: 'var(--card-bg)',
-                    borderColor: 'var(--border)',
-                  }}
-                >
-                  <div className="text-2xl sm:text-3xl font-heading font-black tracking-tight"
-                       style={{ color: i % 2 === 0 ? 'var(--text-main)' : 'var(--accent-light)' }}>
-                    {stat.number}
+          <div className="home-hero-metrics hero-el">
+            {[
+              { number: "150+", label: "Websites Delivered", sub: "Global Clients" },
+              { number: "99%", label: "Job Success Score", sub: "Top Rated Plus" },
+              { number: "5+ Yrs", label: "Crafting Experience", sub: "Product Design & Dev" },
+              { number: "40%", label: "Repeat Client Rate", sub: "Long-Term Trust" },
+            ].map((stat, i) => (
+              <div key={i} className="home-hero-metric">
+                <div className="home-hero-metric-number">{stat.number}</div>
+                <div className="home-hero-metric-label">{stat.label}</div>
+                <div className="home-hero-metric-sub">{stat.sub}</div>
+              </div>
+            ))}
+          </div>
+          <div
+            className="home-hero-ribbon border-y overflow-hidden py-4"
+            style={{
+              backgroundColor: 'var(--topbar-bg)',
+              borderColor: 'var(--border)',
+            }}
+          >
+            <div className="home-hero-ribbon-inner">
+              <div className="flex gap-8 whitespace-nowrap animate-marquee">
+                {[...techStackRibbon, ...techStackRibbon].map((item, idx) => (
+                  <div key={idx} className="inline-flex items-center gap-2.5 text-xs font-mono font-medium tracking-wider uppercase opacity-75 hover:opacity-100 transition-opacity">
+                    <span className="w-1.5 h-1.5 rounded-full bg-violet-400" />
+                    <span style={{ color: 'var(--text-main)' }}>{item.name}</span>
+                    <span className="text-[10px] px-1.5 py-0.5 rounded bg-white/5 border border-white/10" style={{ color: 'var(--text-dim)' }}>
+                      {item.category}
+                    </span>
                   </div>
-                  <div className="text-xs font-semibold mt-1" style={{ color: 'var(--text-main)' }}>
-                    {stat.label}
-                  </div>
-                  <div className="text-[10px] opacity-70 mt-0.5" style={{ color: 'var(--text-dim)' }}>
-                    {stat.sub}
-                  </div>
-                </div>
-              ))}
+                ))}
+              </div>
             </div>
           </div>
         </div>
       </section>
-
-      {/* ── 2. Tech Stack Infinite Ribbon ── */}
-      <div className="w-full border-y overflow-hidden py-4 my-8"
-           style={{
-             backgroundColor: 'var(--topbar-bg)',
-             borderColor: 'var(--border)',
-           }}>
-        <div className="flex gap-8 whitespace-nowrap animate-marquee">
-          {[...techStackRibbon, ...techStackRibbon].map((item, idx) => (
-            <div key={idx} className="inline-flex items-center gap-2.5 text-xs font-mono font-medium tracking-wider uppercase opacity-75 hover:opacity-100 transition-opacity">
-              <span className="w-1.5 h-1.5 rounded-full bg-violet-400" />
-              <span style={{ color: 'var(--text-main)' }}>{item.name}</span>
-              <span className="text-[10px] px-1.5 py-0.5 rounded bg-white/5 border border-white/10" style={{ color: 'var(--text-dim)' }}>
-                {item.category}
-              </span>
-            </div>
-          ))}
-        </div>
-      </div>
 
       {/* ── 3. Cinema-Grade Video Showcase ── */}
       <section id="intro-video" className="py-20 px-4 max-w-7xl mx-auto overflow-hidden">
@@ -771,7 +676,7 @@ export default function Home() {
               <div className="mt-8 pt-6 border-t" style={{ borderColor: 'var(--border)' }}>
                 <Link
                   to="/estimate"
-                  className="w-full py-3 text-center rounded-xl bg-violet-600 hover:bg-violet-500 text-white font-semibold text-xs tracking-wider uppercase block shadow-lg shadow-violet-600/25 transition-all"
+                  className="project-blueprint-button w-full py-3 text-center font-semibold text-xs tracking-wider uppercase block transition-all"
                 >
                   Generate Project Blueprint
                 </Link>
@@ -810,22 +715,23 @@ export default function Home() {
             <button
               key={tab.id}
               onClick={() => setActiveSkillTab(tab.id)}
-              className={`px-5 py-3 rounded-2xl text-xs font-semibold tracking-wider transition-all duration-300 flex items-center gap-3 border whitespace-nowrap ${
-                activeSkillTab === tab.id
-                  ? 'bg-violet-600 text-white border-violet-500 shadow-lg shadow-violet-600/30'
-                  : 'hover:border-white/20'
-              }`}
-              style={activeSkillTab !== tab.id ? {
-                backgroundColor: 'var(--card-bg)',
-                borderColor: 'var(--border)',
-                color: 'var(--text-muted)'
-              } : {}}
+              aria-pressed={activeSkillTab === tab.id}
+              className="site-tab-control skill-category-tab px-5 py-3 text-xs font-semibold tracking-wider transition-all duration-300 flex items-center gap-3 border whitespace-nowrap"
+              style={{
+                backgroundColor: activeSkillTab === tab.id ? 'var(--accent)' : 'var(--card-bg)',
+                borderColor: activeSkillTab === tab.id ? 'var(--accent)' : 'var(--border)',
+                color: activeSkillTab === tab.id ? 'var(--hire-btn-text)' : 'var(--text-muted)',
+              }}
             >
               <span>{tab.icon}</span>
               <span>{tab.label}</span>
-              <span className={`px-2 py-0.5 rounded-full text-[10px] font-mono ${
-                activeSkillTab === tab.id ? 'bg-white/20 text-white' : 'bg-white/5 text-gray-500'
-              }`}>
+              <span
+                className="px-2 py-0.5 text-[10px] font-mono"
+                style={{
+                  backgroundColor: activeSkillTab === tab.id ? 'rgba(7, 23, 25, 0.12)' : 'var(--bg-secondary)',
+                  color: activeSkillTab === tab.id ? 'var(--hire-btn-text)' : 'var(--text-dim)',
+                }}
+              >
                 {tab.count}
               </span>
             </button>
@@ -901,8 +807,8 @@ export default function Home() {
       {/* ── 6. Experience & Education Section ── */}
       <section className="py-20 px-4 max-w-7xl mx-auto">
         {/* University Degree */}
-        <RevealOnScroll direction="left">
-          <div className="bento-card p-8 md:p-12 mb-8 relative overflow-hidden">
+        <RevealOnScroll className="mb-8" direction="left">
+          <div className="bento-card p-8 md:p-12 relative overflow-hidden">
             <div className="flex items-center gap-2 mb-6">
               <span className="pill-badge text-emerald-400 border-emerald-500/20 bg-emerald-500/10">
                 Academic Foundation
@@ -1175,7 +1081,7 @@ export default function Home() {
                         <img
                           src={imgSrc}
                           alt="5-star client review screenshot for Sahed Alom Sumit"
-                          className="w-full h-auto object-cover transition-transform duration-500 hover:scale-[1.02]"
+                          className="w-full h-auto object-cover scale-[1.04] transition-[filter,transform] duration-500 hover:scale-[1.06] hover:brightness-110"
                           loading="lazy"
                         />
                       </div>

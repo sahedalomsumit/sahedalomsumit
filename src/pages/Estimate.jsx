@@ -121,7 +121,9 @@ export default function Estimate() {
       const canvas = await html2canvas(element, {
         scale: 2,
         useCORS: true,
-        backgroundColor: "#050505",
+        backgroundColor: getComputedStyle(document.documentElement)
+          .getPropertyValue("--bg")
+          .trim(),
       });
 
       const imgData = canvas.toDataURL("image/jpeg", 0.75);
@@ -197,7 +199,7 @@ export default function Estimate() {
   return (
     <>
       <div className="pt-32 pb-20 px-4 max-w-7xl mx-auto min-h-screen">
-        <RevealOnScroll>
+        <RevealOnScroll className="site-page-intro-divider">
           <header className="mb-14">
             <nav
               aria-label="breadcrumb"
@@ -278,7 +280,7 @@ export default function Estimate() {
                     setRefNumber(`${yy}${mm}${dd}${rrrr}`);
                     setShowPrompt(true);
                   }}
-                  className="shimmer-button w-full py-3.5 bg-violet-600 text-white font-semibold text-xs tracking-wider uppercase rounded-xl hover:bg-violet-500 transition-all flex items-center justify-center gap-2 shadow-lg shadow-violet-600/25"
+                  className="estimate-blueprint-button shimmer-button w-full py-3.5 font-semibold text-xs tracking-wider uppercase rounded-xl transition-all flex items-center justify-center gap-2"
                 >
                   <span>Generate PDF Blueprint</span>
                   <span>→</span>
@@ -355,7 +357,8 @@ export default function Estimate() {
                       <button
                         key={s.id}
                         onClick={() => setScope(s.id)}
-                        className={`p-5 rounded-2xl border transition-all text-left relative overflow-hidden ${
+                        aria-pressed={scope === s.id}
+                        className={`site-tab-control p-5 rounded-2xl border transition-all text-left relative overflow-hidden ${
                           scope === s.id
                             ? "bg-violet-600/15 border-violet-500 text-white shadow-lg shadow-violet-500/15"
                             : "border-white/10 hover:border-white/25"
@@ -391,7 +394,8 @@ export default function Estimate() {
                       <button
                         key={p.id}
                         onClick={() => setProjectType(p.id)}
-                        className={`p-5 rounded-2xl border transition-all text-left ${
+                        aria-pressed={projectType === p.id}
+                        className={`site-tab-control p-5 rounded-2xl border transition-all text-left ${
                           projectType === p.id
                             ? "bg-violet-600/15 border-violet-500 text-white shadow-md shadow-violet-500/15"
                             : "hover:border-white/20"
@@ -484,7 +488,7 @@ export default function Estimate() {
                         setRefNumber(`${yy}${mm}${dd}${rrrr}`);
                         setShowPrompt(true);
                       }}
-                      className="shimmer-button px-6 py-3.5 bg-violet-600 hover:bg-violet-500 text-white font-semibold text-xs rounded-xl tracking-wider uppercase shadow-lg shadow-violet-600/30 transition-all"
+                      className="estimate-blueprint-button shimmer-button px-6 py-3.5 font-semibold text-xs rounded-xl tracking-wider uppercase transition-all"
                     >
                       Generate PDF Blueprint
                     </button>
@@ -499,11 +503,13 @@ export default function Estimate() {
         <div className="fixed -left-[4000px] top-0 pointer-events-none">
           <div
             ref={pdfRef}
-            className="w-[820px] bg-black text-white font-sans relative overflow-hidden"
+            className="w-[820px] bg-obsidian-950 text-white font-sans relative overflow-hidden"
             style={{
               fontFamily: "'Inter', sans-serif",
+              backgroundColor: "var(--bg)",
+              color: "var(--text-main)",
               backgroundImage:
-                "linear-gradient(rgba(255,255,255,0.02) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.02) 1px, transparent 1px)",
+                "linear-gradient(rgba(113,201,206,0.025) 1px, transparent 1px), linear-gradient(90deg, rgba(113,201,206,0.025) 1px, transparent 1px)",
               backgroundSize: "50px 50px",
             }}
           >
@@ -512,19 +518,19 @@ export default function Estimate() {
               className="absolute top-0 left-0 w-full h-[500px]"
               style={{
                 background:
-                  "radial-gradient(circle at 0% 0%, rgba(139, 92, 246, 0.15) 0%, transparent 70%)",
+                  "radial-gradient(circle at 0% 0%, var(--accent-glow) 0%, transparent 70%)",
               }}
             ></div>
 
             <div className="px-[48px] py-[64px] relative z-10 font-sans">
               {/* Scanline Engine */}
               <div className="h-[1px] bg-gradient-to-r from-transparent via-accent to-transparent mb-12 relative">
-                <div className="absolute -top-1 left-1/2 -translate-x-1/2 w-[5px] h-[11px] bg-emerald-500 shadow-[0_0_10px_rgba(16,185,129,0.6)]"></div>
+                <div className="absolute -top-1 left-1/2 -translate-x-1/2 w-[5px] h-[11px] bg-accent shadow-[0_0_10px_var(--accent-glow)]"></div>
               </div>
 
               {/* Header Grid */}
               <div className="grid grid-cols-[auto_1fr_auto] items-start justify-center gap-8 mb-9">
-                <div className="bg-accent rounded-xl w-[68px] h-[68px] flex items-center justify-center shadow-[0_0_28px_rgba(139,92,246,0.3)]">
+                <div className="bg-accent rounded-xl w-[68px] h-[68px] flex items-center justify-center shadow-[0_0_28px_var(--accent-glow)]">
                   <img
                     src="/img/logo-sahed-alom-sumit.png"
                     alt="Logo"

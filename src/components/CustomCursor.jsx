@@ -30,10 +30,22 @@ export default function CustomCursor() {
       const target = e.target
       const isInteractive = target.closest('a, button, input, select, textarea, .bento-card, [role="button"]')
       if (isInteractive) {
-        gsap.to(ring, { scale: 1.6, borderColor: 'rgba(139, 92, 246, 0.6)', backgroundColor: 'rgba(139, 92, 246, 0.08)', duration: 0.2 })
+        const styles = getComputedStyle(document.documentElement)
+        gsap.to(ring, {
+          scale: 1.6,
+          borderColor: styles.getPropertyValue('--accent').trim(),
+          backgroundColor: styles.getPropertyValue('--accent-glow').trim(),
+          duration: 0.2,
+        })
         gsap.to(dot, { scale: 0.5, duration: 0.2 })
       } else {
-        gsap.to(ring, { scale: 1, borderColor: 'rgba(255, 255, 255, 0.25)', backgroundColor: 'transparent', duration: 0.2 })
+        const styles = getComputedStyle(document.documentElement)
+        gsap.to(ring, {
+          scale: 1,
+          borderColor: styles.getPropertyValue('--border').trim(),
+          backgroundColor: 'transparent',
+          duration: 0.2,
+        })
         gsap.to(dot, { scale: 1, duration: 0.2 })
       }
     }

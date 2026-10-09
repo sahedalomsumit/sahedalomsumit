@@ -109,7 +109,7 @@ export default function Services() {
     <>
       {/* Header */}
       <section className="py-20 sm:py-24 px-4 max-w-7xl mx-auto">
-        <RevealOnScroll>
+        <RevealOnScroll className="site-page-intro-divider">
           <header className="mb-14">
             <nav aria-label="breadcrumb" className="text-xs tracking-wider mb-6 flex items-center gap-2" style={{ color: 'var(--text-dim)' }}>
               <Link to="/" className="hover:text-violet-400 transition-colors">Home</Link>
@@ -224,7 +224,7 @@ export default function Services() {
       </section>
 
       {/* 4-Step Process Section */}
-      <section className="py-24 px-4 border-y" style={{ backgroundColor: 'var(--topbar-bg)', borderColor: 'var(--border)' }}>
+      <section className="py-24 px-4" style={{ backgroundColor: 'var(--topbar-bg)' }}>
         <div className="max-w-7xl mx-auto">
           <RevealOnScroll>
             <div className="text-center max-w-2xl mx-auto mb-16">

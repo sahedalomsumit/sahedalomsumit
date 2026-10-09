@@ -48,7 +48,7 @@ export default function KajabiDevelopment() {
   return (
     <>
       <section className="pt-32 pb-20 px-4 max-w-7xl mx-auto">
-        <RevealOnScroll>
+        <RevealOnScroll className="site-page-intro-divider">
           <header className="mb-20">
             <nav aria-label="breadcrumb" className="text-[10px] font-mono uppercase tracking-widest text-gray-500 mb-8 flex flex-wrap items-center gap-2">
               <Link to="/" className="hover:text-violet-500 transition">Home</Link>

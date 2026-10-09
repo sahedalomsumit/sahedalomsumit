@@ -324,8 +324,7 @@ export default function BlogPostDetail() {
             </p>
 
             {/* Author bar & Share links */}
-            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 py-4 border-y relative"
-                 style={{ borderColor: 'var(--border)' }}>
+            <div className="site-full-bleed-divider site-full-bleed-divider-bottom flex flex-col sm:flex-row sm:items-center justify-between gap-4 py-4">
               <div className="flex items-center gap-3">
                 <img
                   src="/img/sahedalomsumit-profile-purple.png"
@@ -441,7 +440,7 @@ export default function BlogPostDetail() {
           >
             <div
               className="bento-card max-w-lg w-full p-6 sm:p-7 rounded-3xl border border-violet-500/40 shadow-2xl relative text-left"
-              style={{ background: 'var(--card-bg, #0f0b1e)' }}
+              style={{ background: 'var(--card-bg)' }}
               onClick={(e) => e.stopPropagation()}
             >
               {/* Modal Header */}
@@ -473,7 +472,7 @@ export default function BlogPostDetail() {
               </div>
 
               {/* The Realistic Social Preview Card */}
-              <div className="rounded-2xl overflow-hidden border shadow-lg mb-5" style={{ borderColor: 'var(--border)', background: 'rgba(0,0,0,0.5)' }}>
+              <div className="rounded-2xl overflow-hidden border shadow-lg mb-5" style={{ borderColor: 'var(--border)', background: 'var(--bg-secondary)' }}>
                 {/* 16:9 Image using the same blog image */}
                 <div className="aspect-[16/9] w-full overflow-hidden bg-black/50 relative">
                   <img
@@ -727,7 +726,7 @@ export default function BlogPostDetail() {
 
         {/* Related Articles Section */}
         {relatedPosts.length > 0 && (
-          <section className="mt-16 pt-16 border-t text-left" style={{ borderColor: 'var(--border)' }}>
+          <section className="site-full-bleed-divider mt-16 pt-16 text-left">
             <div className="flex items-center justify-between mb-8">
               <div>
                 <span className="text-xs font-mono uppercase tracking-wider text-violet-400 block mb-1">

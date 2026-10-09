@@ -89,7 +89,7 @@ export default function FullStackDevelopment() {
         </RevealOnScroll>
 
         {/* Tab Navigation */}
-        <RevealOnScroll delay={0.1}>
+        <RevealOnScroll className="site-full-bleed-divider" delay={0.1}>
           <div className="mb-24">
             <div className="font-mono text-emerald-500 text-[10px] uppercase tracking-widest mb-10 border-b border-white/5 pb-4">/ Sub_Services_Architecture</div>
             
@@ -99,7 +99,8 @@ export default function FullStackDevelopment() {
                   <button
                     key={id}
                     onClick={() => setActiveTab(id)}
-                    className={`px-6 py-3 rounded-full font-mono text-[10px] uppercase tracking-widest transition-all whitespace-nowrap ${
+                    aria-pressed={activeTab === id}
+                    className={`site-tab-control px-6 py-3 rounded-full font-mono text-[10px] uppercase tracking-widest transition-all whitespace-nowrap ${
                       activeTab === id 
                       ? 'bg-emerald-500 text-black font-black' 
                       : 'bg-white/5 text-gray-400 hover:bg-white/10 hover:text-white'
@@ -173,26 +174,26 @@ export default function FullStackDevelopment() {
             <div className="mt-20">
               <Link 
                 to="/work" 
-                className="group relative flex flex-col items-center justify-center py-20 px-4 rounded-[40px] border border-white/5 bg-white/[0.01] hover:bg-white/[0.03] transition-all duration-700 overflow-hidden"
+                className="work-archive-cta group relative flex flex-col items-center justify-center py-20 px-4 transition-all duration-700 overflow-hidden"
               >
                 {/* Background Glow */}
-                <div className="absolute inset-0 bg-gradient-to-b from-transparent via-emerald-500/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-1000"></div>
+                <div className="work-archive-cta-glow absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-1000"></div>
                 
                 <div className="relative z-10 text-center">
-                  <div className="font-mono text-emerald-500 text-[10px] uppercase tracking-[0.6em] mb-6 opacity-50 group-hover:opacity-100 transition-opacity">Full_Archive_Access</div>
-                  <h3 className="text-4xl md:text-7xl font-black text-white tracking-tighter uppercase italic leading-none mb-8">
-                    Explore_Everything<span className="text-emerald-500">_</span>
+                  <div className="work-archive-cta-accent font-mono text-[10px] uppercase tracking-[0.6em] mb-6 opacity-50 group-hover:opacity-100 transition-opacity">Full_Archive_Access</div>
+                  <h3 className="work-archive-cta-title text-4xl md:text-7xl font-black tracking-tighter uppercase italic leading-none mb-8">
+                    Explore_Everything<span className="work-archive-cta-accent">_</span>
                   </h3>
-                  <div className="flex items-center gap-4 text-gray-400 group-hover:text-white transition-colors duration-500">
-                    <span className="h-[1px] w-12 bg-white/10 group-hover:w-20 group-hover:bg-emerald-500/50 transition-all duration-700"></span>
+                  <div className="work-archive-cta-detail flex items-center gap-4 transition-colors duration-500">
+                    <span className="work-archive-cta-line h-[1px] w-12 group-hover:w-20 transition-all duration-700"></span>
                     <span className="font-mono text-xs uppercase tracking-widest">Enter_Work_Gallery</span>
-                    <span className="h-[1px] w-12 bg-white/10 group-hover:w-20 group-hover:bg-emerald-500/50 transition-all duration-700"></span>
+                    <span className="work-archive-cta-line h-[1px] w-12 group-hover:w-20 transition-all duration-700"></span>
                   </div>
                 </div>
 
                 {/* Animated Corner Decor */}
                 <div className="absolute top-0 right-0 p-8 opacity-20 group-hover:opacity-100 transition-opacity">
-                  <svg className="w-8 h-8 text-emerald-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <svg className="work-archive-cta-accent w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path d="M7 17L17 7M17 7H7M17 7V17" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
                   </svg>
                 </div>

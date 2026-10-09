@@ -2,7 +2,6 @@ import { Routes, Route, useLocation, Navigate, useParams } from "react-router-do
 import { useEffect, lazy, Suspense } from "react";
 import { ThemeProvider } from "./context/ThemeContext";
 import CustomCursor from "./components/CustomCursor";
-import AuraBackground from "./components/AuraBackground";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
 
@@ -19,7 +18,6 @@ const LowNoCodeDevelopment = lazy(() => import("./pages/LowNoCodeDevelopment"));
 const AppDevelopment = lazy(() => import("./pages/AppDevelopment"));
 const FramerDevelopment = lazy(() => import("./pages/FramerDevelopment"));
 const KajabiDevelopment = lazy(() => import("./pages/KajabiDevelopment"));
-const ToolsServices = lazy(() => import("./pages/ToolsServices"));
 const Estimate = lazy(() => import("./pages/Estimate"));
 const Blog = lazy(() => import("./pages/Blog"));
 const BlogPostDetail = lazy(() => import("./pages/BlogPostDetail"));
@@ -99,9 +97,8 @@ export default function App() {
     <ThemeProvider>
       <ScrollToTop />
       <CustomCursor />
-      <AuraBackground />
       <Header />
-      <main className="pt-20 md:pt-28" style={{ overflowX: 'clip' }}>
+      <main className="site-main pt-16">
         <Suspense fallback={<PageLoader />}>
           <Routes>
             {/* ── Main Site Routes ── */}

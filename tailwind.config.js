@@ -7,24 +7,24 @@ export default {
   theme: {
     extend: {
       colors: {
-        accent: '#8b5cf6',
-        'accent-hover': '#7c3aed',
+        accent: 'var(--accent)',
+        'accent-hover': 'var(--accent-light)',
+        obsidian: {
+          950: '#071719',
+          900: '#0d2022',
+          800: '#102a2d',
+          700: '#1d4145',
+        },
         emerald: {
           400: '#34d399',
           500: '#10b981',
           600: '#059669',
         },
-        obsidian: {
-          950: '#05070a',
-          900: '#080a0f',
-          800: '#0e121b',
-          700: '#151b27',
-        },
       },
       fontFamily: {
         sans: ['Inter', 'sans-serif'],
-        heading: ['Inter', 'sans-serif'],
-        display: ['Inter', 'sans-serif'],
+        heading: ['JetBrains Mono', 'monospace'],
+        display: ['JetBrains Mono', 'monospace'],
         mono: ['JetBrains Mono', 'monospace'],
       },
       animation: {

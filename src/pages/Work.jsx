@@ -85,7 +85,7 @@ export default function Work() {
 
             {/* Filter & Search Bar */}
             {!loading && projects.length > 0 && (
-              <div className="space-y-4 pt-2 border-t" style={{ borderColor: 'var(--border)' }}>
+              <div className="site-full-bleed-divider space-y-4 pt-2">
                 <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 pt-4">
                   {/* Search Input */}
                   <div className="relative w-full sm:w-80">
@@ -126,7 +126,8 @@ export default function Work() {
                 <div className="flex overflow-x-auto no-scrollbar gap-2 pt-1 pb-2">
                   <button
                     onClick={() => setSelectedTag('')}
-                    className={`px-4 py-2 rounded-full text-xs font-semibold tracking-wide transition-all whitespace-nowrap border ${
+                    aria-pressed={selectedTag === ''}
+                    className={`site-tab-control px-4 py-2 rounded-full text-xs font-semibold tracking-wide transition-all whitespace-nowrap border ${
                       selectedTag === ''
                         ? 'bg-violet-600 text-white border-violet-500 shadow-md shadow-violet-600/30'
                         : 'hover:border-white/20'
@@ -147,7 +148,8 @@ export default function Work() {
                       <button
                         key={tag}
                         onClick={() => setSelectedTag(isSelected ? '' : tag)}
-                        className={`px-4 py-2 rounded-full text-xs font-semibold tracking-wide transition-all whitespace-nowrap border flex items-center gap-1.5 ${
+                        aria-pressed={isSelected}
+                        className={`site-tab-control px-4 py-2 rounded-full text-xs font-semibold tracking-wide transition-all whitespace-nowrap border flex items-center gap-1.5 ${
                           isSelected
                             ? 'bg-violet-600 text-white border-violet-500 shadow-md shadow-violet-600/30'
                             : 'hover:border-white/20'

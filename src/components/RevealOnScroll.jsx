@@ -11,6 +11,11 @@ export default function RevealOnScroll({ children, className = '', delay = 0, di
     const el = ref.current
     if (!el) return
 
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      gsap.set(el, { clearProps: 'all' })
+      return
+    }
+
     // On mobile (<768px), skip horizontal translations to prevent overflow/scroll
     const isMobile = window.innerWidth < 768
     const usesX = (direction === 'left' || direction === 'right') && !isMobile
@@ -55,8 +60,9 @@ export default function RevealOnScroll({ children, className = '', delay = 0, di
     const tween = gsap.to(el, toVars)
 
     return () => {
-      if (tween.scrollTrigger) tween.scrollTrigger.kill()
+      tween.scrollTrigger?.kill()
       tween.kill()
+      gsap.set(el, { clearProps: 'all' })
     }
   }, [delay, direction])
 

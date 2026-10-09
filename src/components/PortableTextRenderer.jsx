@@ -20,15 +20,15 @@ function CodeSnippet({ value }) {
     <div
       className="my-8 rounded-2xl overflow-hidden border shadow-xl"
       style={{
-        borderColor: 'rgba(255, 255, 255, 0.08)',
-        backgroundColor: '#0c0a14',
+        borderColor: 'var(--border)',
+        backgroundColor: 'var(--bg-secondary)',
       }}
     >
       <div
         className="flex items-center justify-between px-4 py-2.5 border-b text-xs font-mono"
         style={{
-          borderColor: 'rgba(255, 255, 255, 0.08)',
-          backgroundColor: 'rgba(255, 255, 255, 0.03)',
+          borderColor: 'var(--border)',
+          backgroundColor: 'var(--card-bg)',
         }}
       >
         <div className="flex items-center gap-2">
@@ -127,8 +127,8 @@ const portableTextComponents = {
       <blockquote
         className="my-6 pl-5 py-3 border-l-4 rounded-r-xl italic text-gray-200 text-base sm:text-lg"
         style={{
-          borderColor: 'var(--accent, #8b5cf6)',
-          backgroundColor: 'rgba(139, 92, 246, 0.05)',
+          borderColor: 'var(--accent)',
+          backgroundColor: 'var(--accent-glow)',
         }}
       >
         {children}
@@ -166,9 +166,9 @@ const portableTextComponents = {
       <code
         className="px-1.5 py-0.5 rounded-md font-mono text-[0.88em] border"
         style={{
-          backgroundColor: 'rgba(139, 92, 246, 0.1)',
-          borderColor: 'rgba(139, 92, 246, 0.25)',
-          color: 'var(--accent-light, #c4b5fd)',
+          backgroundColor: 'var(--accent-glow)',
+          borderColor: 'var(--border-hover)',
+          color: 'var(--accent-light)',
         }}
       >
         {children}

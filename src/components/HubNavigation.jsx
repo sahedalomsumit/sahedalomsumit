@@ -13,17 +13,20 @@ export default function HubNavigation({ currentSlug }) {
   const otherHubs = hubs.filter(h => h.slug !== currentSlug);
 
   return (
-    <section className="py-16 border-t border-white/5 bg-[#030303]">
+    <section
+      className="py-16 border-t"
+      style={{ borderColor: 'var(--border)', backgroundColor: 'var(--bg-secondary)' }}
+    >
       <RevealOnScroll>
         <div className="max-w-7xl mx-auto px-4">
-          <div className="flex items-center justify-between mb-12">
-            <div className="font-mono text-gray-500 text-[10px] uppercase tracking-widest flex items-center gap-4">
-              <span className="w-8 h-[1px] bg-white/10"></span>
-              Explore_Other_Service_Architecture
+          <div className="flex flex-col items-start gap-4 mb-12 sm:flex-row sm:items-center sm:justify-between sm:gap-6">
+            <div className="min-w-0 max-w-full font-mono text-gray-500 text-[10px] uppercase tracking-widest flex items-center gap-4">
+              <span className="hidden sm:block w-8 h-[1px] bg-white/10 shrink-0"></span>
+              <span className="[overflow-wrap:anywhere]">Explore_Other_Service_Architecture</span>
             </div>
             <Link 
               to="/services" 
-              className="font-mono text-[10px] text-emerald-500 uppercase tracking-widest hover:text-white transition-colors"
+              className="font-mono text-[10px] text-emerald-500 uppercase tracking-widest hover:text-white transition-colors whitespace-nowrap"
             >
               View_All_Services →
             </Link>
@@ -51,4 +54,3 @@ export default function HubNavigation({ currentSlug }) {
     </section>
   );
 }
-

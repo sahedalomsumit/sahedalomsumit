@@ -121,8 +121,7 @@ export default function Blog() {
             </p>
 
             {/* Filter and Search Bar */}
-            <div className="flex flex-col md:flex-row gap-4 justify-between items-stretch md:items-center pb-8 border-b"
-                 style={{ borderColor: 'var(--border)' }}>
+            <div className="site-full-bleed-divider flex flex-col md:flex-row gap-4 justify-between items-stretch md:items-center pt-8">
               {/* Category Pills */}
               <div className="flex flex-wrap gap-2">
                 {categories.map(category => {
@@ -131,15 +130,16 @@ export default function Blog() {
                     <button
                       key={category}
                       onClick={() => setSelectedCategory(category)}
-                      className={`px-3.5 py-1.5 rounded-full text-xs font-mono transition-all ${
+                      aria-pressed={isActive}
+                      className={`site-tab-control px-3.5 py-1.5 rounded-full text-xs font-mono transition-all ${
                         isActive
                           ? 'bg-violet-600 text-white shadow-md shadow-violet-600/30'
                           : 'border hover:border-violet-500/50'
                       }`}
                       style={{
-                        backgroundColor: isActive ? undefined : 'rgba(255, 255, 255, 0.02)',
+                        backgroundColor: isActive ? undefined : 'var(--bg-secondary)',
                         borderColor: isActive ? undefined : 'var(--border)',
-                        color: isActive ? '#ffffff' : 'var(--text-muted)',
+                        color: isActive ? 'var(--hire-btn-text)' : 'var(--text-muted)',
                       }}
                     >
                       {category}
@@ -160,7 +160,7 @@ export default function Blog() {
                   style={{
                     borderColor: 'var(--border)',
                     color: 'var(--text-main)',
-                    backgroundColor: 'rgba(255, 255, 255, 0.02)'
+                    backgroundColor: 'var(--bg-secondary)'
                   }}
                 />
                 {searchQuery && (
@@ -246,7 +246,7 @@ export default function Blog() {
         {/* Project Estimator & Collaboration Banner */}
         <RevealOnScroll>
           <div className="mt-20 bento-card p-8 sm:p-12 relative overflow-hidden flex flex-col md:flex-row items-center justify-between gap-8 text-left border-violet-500/20"
-               style={{ background: 'radial-gradient(ellipse at top left, rgba(139, 92, 246, 0.12), transparent 70%), var(--card-bg)' }}>
+               style={{ background: 'radial-gradient(ellipse at top left, var(--accent-glow), transparent 70%), var(--card-bg)' }}>
             <div>
               <span className="pill-badge text-emerald-400 border-emerald-500/20 bg-emerald-500/10 mb-3 inline-flex">
                 Collaborative Innovation
