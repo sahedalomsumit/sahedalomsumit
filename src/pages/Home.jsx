@@ -395,7 +395,7 @@ export default function Home() {
 
           <h1 className="home-hero-title hero-el">
             <span>Sahed Alom</span>
-            <span className="home-hero-accent">Sumit<span>.</span></span>
+            <span className="home-hero-accent">Sumit<span className="home-hero-period" aria-hidden="true"><i /></span></span>
           </h1>
 
           <div className="home-hero-role hero-el">
@@ -437,7 +437,7 @@ export default function Home() {
               { number: "150+", label: "Websites Delivered", sub: "Global Clients" },
               { number: "99%", label: "Job Success Score", sub: "Top Rated Plus" },
               { number: "5+ Yrs", label: "Crafting Experience", sub: "Product Design & Dev" },
-              { number: "40%", label: "Repeat Client Rate", sub: "Long-Term Trust" },
+              { number: "€20k", label: "Freelance Revenue", sub: "Last 2 Years" },
             ].map((stat, i) => (
               <div key={i} className="home-hero-metric">
                 <div className="home-hero-metric-number">{stat.number}</div>
