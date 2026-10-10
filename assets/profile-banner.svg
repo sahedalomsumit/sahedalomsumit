@@ -9,10 +9,10 @@
       <stop offset="1" stop-color="#9AF7D5" />
     </linearGradient>
     <radialGradient id="glow" cx="0" cy="0" r="1" gradientTransform="matrix(330 0 0 255 224 124)" gradientUnits="userSpaceOnUse">
-      <stop stop-color="#9c88c9" stop-opacity=".22" />
-      <stop offset="1" stop-color="#9c88c9" stop-opacity="0" />
+      <stop stop-color="#8B5CF6" stop-opacity=".22" />
+      <stop offset="1" stop-color="#8B5CF6" stop-opacity="0" />
     </radialGradient>
-    <pattern id="grid" width="64" height="64" patternUnits="userSpaceOnUse">
+    <pattern id="grid" width="32" height="32" patternUnits="userSpaceOnUse">
       <path d="M32 0H0V32" stroke="#D9E2F0" stroke-opacity=".055" />
     </pattern>
   </defs>
