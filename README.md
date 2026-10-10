@@ -1,6 +1,6 @@
 <p align="center">
   <a href="https://sahedalomsumit.com">
-    <img src="./assets/profile-banner.svg" alt="Sahed Alom Sumit — product design and web engineering, from idea to launch" width="100%" />
+    <img src="./public/img/profile-banner.svg" alt="Sahed Alom Sumit — product design and web engineering, from idea to launch" width="100%" />
   </a>
 </p>
 
