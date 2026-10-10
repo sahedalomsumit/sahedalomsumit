@@ -5,14 +5,14 @@
       <stop offset="1" stop-color="#11131B" />
     </linearGradient>
     <linearGradient id="mint" x1="57" y1="248" x2="697" y2="248" gradientUnits="userSpaceOnUse">
-      <stop stop-color="#66F2C2" />
+      <stop stop-color="#71C9CE" />
       <stop offset="1" stop-color="#9AF7D5" />
     </linearGradient>
     <radialGradient id="glow" cx="0" cy="0" r="1" gradientTransform="matrix(330 0 0 255 224 124)" gradientUnits="userSpaceOnUse">
-      <stop stop-color="#8B5CF6" stop-opacity=".22" />
-      <stop offset="1" stop-color="#8B5CF6" stop-opacity="0" />
+      <stop stop-color="#9c88c9" stop-opacity=".22" />
+      <stop offset="1" stop-color="#9c88c9" stop-opacity="0" />
     </radialGradient>
-    <pattern id="grid" width="32" height="32" patternUnits="userSpaceOnUse">
+    <pattern id="grid" width="64" height="64" patternUnits="userSpaceOnUse">
       <path d="M32 0H0V32" stroke="#D9E2F0" stroke-opacity=".055" />
     </pattern>
   </defs>
@@ -22,12 +22,12 @@
   <ellipse cx="224" cy="124" rx="330" ry="255" fill="url(#glow)" />
   <rect x="1" y="1" width="1198" height="358" rx="23" stroke="#AAB5C8" stroke-opacity=".2" />
 
-  <rect x="64" y="55" width="34" height="3" rx="1.5" fill="#66F2C2" />
+  <rect x="64" y="55" width="34" height="3" rx="1.5" fill="#71C9CE" />
   <text x="110" y="62" fill="#B8C3D5" font-family="ui-monospace, SFMono-Regular, Consolas, monospace" font-size="14" letter-spacing="2.4">PRODUCT DESIGN × WEB ENGINEERING</text>
   <text x="64" y="151" fill="#F4F6FA" font-family="Inter, ui-sans-serif, system-ui, sans-serif" font-size="59" font-weight="720" letter-spacing="-2.5">Make it useful.</text>
   <text x="64" y="220" fill="url(#mint)" font-family="Inter, ui-sans-serif, system-ui, sans-serif" font-size="54" font-weight="720" letter-spacing="-2.1">Make it memorable.</text>
   <text x="67" y="263" fill="#C2CBDA" font-family="Inter, ui-sans-serif, system-ui, sans-serif" font-size="17">Thoughtful design. Practical code. A better experience from day one.</text>
-  <circle cx="73" cy="310" r="4" fill="#66F2C2" />
+  <circle cx="73" cy="310" r="4" fill="#71C9CE" />
   <text x="88" y="315" fill="#D9E0EC" font-family="ui-monospace, SFMono-Regular, Consolas, monospace" font-size="13" letter-spacing="1.5">HELSINKI, FINLAND  ·  WORKING WORLDWIDE</text>
 
   <rect x="758" y="62" width="380" height="237" rx="18" fill="#151B28" fill-opacity=".92" stroke="#9AA8BD" stroke-opacity=".24" />
@@ -35,9 +35,9 @@
   <path d="M785 117H1111" stroke="#AAB6C9" stroke-opacity=".2" />
 
   <path d="M832 171H1060" stroke="#617086" stroke-width="2" />
-  <path d="M848 171H1044" stroke="#66F2C2" stroke-opacity=".5" stroke-width="2" stroke-dasharray="4 8" />
+  <path d="M848 171H1044" stroke="#71C9CE" stroke-opacity=".5" stroke-width="2" stroke-dasharray="4 8" />
   <circle cx="832" cy="171" r="22" fill="#292344" stroke="#A78BFA" stroke-width="2" />
-  <circle cx="946" cy="171" r="22" fill="#173C3A" stroke="#66F2C2" stroke-width="2" />
+  <circle cx="946" cy="171" r="22" fill="#173C3A" stroke="#71C9CE" stroke-width="2" />
   <circle cx="1060" cy="171" r="22" fill="#3C2C1C" stroke="#FDBA74" stroke-width="2" />
   <text x="832" y="176" text-anchor="middle" fill="#E9D5FF" font-family="ui-monospace, SFMono-Regular, Consolas, monospace" font-size="13" font-weight="700">01</text>
   <text x="946" y="176" text-anchor="middle" fill="#B7F7E2" font-family="ui-monospace, SFMono-Regular, Consolas, monospace" font-size="13" font-weight="700">02</text>
@@ -51,5 +51,5 @@
   <text x="1060" y="239" text-anchor="middle" fill="#9BA8BA" font-family="ui-monospace, SFMono-Regular, Consolas, monospace" font-size="10" letter-spacing=".7">IMPACT</text>
 
   <rect x="785" y="261" width="326" height="1" fill="#AAB6C9" fill-opacity=".17" />
-  <text x="948" y="283" text-anchor="middle" fill="#66F2C2" font-family="ui-monospace, SFMono-Regular, Consolas, monospace" font-size="11" letter-spacing="1.4">150+ DIGITAL PRODUCTS</text>
+  <text x="948" y="283" text-anchor="middle" fill="#71C9CE" font-family="ui-monospace, SFMono-Regular, Consolas, monospace" font-size="11" letter-spacing="1.4">150+ DIGITAL PRODUCTS</text>
 </svg>
