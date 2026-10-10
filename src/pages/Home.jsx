@@ -669,7 +669,7 @@ export default function Home() {
                   <p>
                     With 5+ years of experience, I’ve worked with founders,
                     brands, and agencies worldwide, turning rough ideas into
-                    150+ digital projects that are fast, user-friendly, visually
+                    150+ digital products that are fast, user-friendly, visually
                     polished, and built to support real business goals.{" "}
                   </p>
                   <p>
