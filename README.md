@@ -29,21 +29,21 @@ I’m Sahed, a Helsinki-based product designer and AI-enhanced web developer. I 
 <table>
   <tr>
     <td align="center" width="33%">
-      <a href="https://sahedalomsumit.com/work"><img src="./public/img/portfolio/Buildoor.webp" alt="Buildoor decentralized app engagement platform" width="100%" /></a><br />
-      <strong>Buildoor</strong><br />dApp engagement
-    </td>
-    <td align="center" width="33%">
-      <a href="https://sahedalomsumit.com/work"><img src="./public/img/portfolio/Sourcify.webp" alt="Sourcify remote hiring and payroll website" width="100%" /></a><br />
-      <strong>Sourcify</strong><br />Remote hiring platform
-    </td>
-    <td align="center" width="33%">
-      <a href="https://sahedalomsumit.com/work"><img src="./public/img/portfolio/Twintwo.webp" alt="Twin Two retail and ecommerce website" width="100%" /></a><br />
+      <a href="https://sahedalomsumit.com/work/twintwo"><img src="./public/img/portfolio/Twintwo.webp" alt="Twin Two retail and ecommerce website" width="100%" /></a><br />
       <strong>Twin Two</strong><br />Retail &amp; e-commerce
+    </td>
+    <td align="center" width="33%">
+      <a href="https://sahedalomsumit.com/work/salah-tracker-app"><img src="./public/img/portfolio/salah-tracker-app.png" alt="Salah Tracker app" width="100%" /></a><br />
+      <strong>Salah Tracker</strong><br />Prayer time tracking app
+    </td>
+    <td align="center" width="33%">
+      <a href="https://sahedalomsumit.com/work/metodo-ongaro"><img src="./public/img/portfolio/Metodo-Ongaro.webp" alt="Metodo Ongaro website" width="100%" /></a><br />
+      <strong>Metodo Ongaro</strong><br />Health &amp; longevity
     </td>
   </tr>
 </table>
 
-<p align="center"><a href="https://sahedalomsumit.com/work"><strong>See more projects in my portfolio →</strong></a></p>
+<p align="center"><a href="https://sahedalomsumit.com/work"><strong>See more works of mine →</strong></a></p>
 
 ### Tools I reach for
 
