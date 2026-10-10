@@ -47,6 +47,6 @@ I’m Sahed, a Helsinki-based product designer and AI-enhanced web developer. I 
 
 ### Tools I reach for
 
-Figma · React · Supabase · Webflow · Framer · WordPress · Sanity · AI-assisted workflows
+Figma · React · Supabase · Webflow · Framer · WordPress · Kajabi · Sanity · AI-assisted workflows
 
 <p align="center"><sub>Good work starts with a good conversation. I’m open to select projects worldwide.</sub></p>
