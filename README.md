@@ -1,5 +1,5 @@
 <p align="center">
-  <a href="https://sahedalomsumit.com" target="_blank">
+  <a href="https://sahedalomsumit.com">
     <img src="./public/img/profile-banner.svg" alt="Sahed Alom Sumit — product design and web engineering, from idea to launch" width="100%" />
   </a>
 </p>
@@ -12,7 +12,7 @@
   <a href="mailto:sahedalomsumit@gmail.com" target="_blank">Start a conversation ↗</a>
 </p>
 
-### I turn ambitious ideas into digital products people love using.
+### You bring the idea. I turn it into a digital product that works.
 
 I’m Sahed, a Helsinki-based product designer and AI-enhanced web developer. I bring product thinking, visual craft, and code together to make digital experiences clear, useful, and a little more delightful.
 
@@ -29,21 +29,21 @@ I’m Sahed, a Helsinki-based product designer and AI-enhanced web developer. I 
 <table>
   <tr>
     <td align="center" width="33%">
-      <a href="https://sahedalomsumit.com/work/twintwo" target="_blank"><img src="./public/img/portfolio/Twintwo.webp" alt="Twin Two retail and ecommerce website" width="100%" /></a><br />
+      <a href="https://sahedalomsumit.com/work/twintwo"><img src="./public/img/portfolio/Twintwo.webp" alt="Twin Two retail and ecommerce website" width="100%" /></a><br />
       <strong>Twin Two</strong><br />Retail &amp; e-commerce
     </td>
     <td align="center" width="33%">
-      <a href="https://sahedalomsumit.com/work/salah-tracker-app" target="_blank"><img src="./public/img/portfolio/salah-tracker-app.png" alt="Salah Tracker app" width="100%" /></a><br />
+      <a href="https://sahedalomsumit.com/work/salah-tracker-app"><img src="./public/img/portfolio/salah-tracker-app.png" alt="Salah Tracker app" width="100%" /></a><br />
       <strong>Salah Tracker</strong><br />Prayer time tracking app
     </td>
     <td align="center" width="33%">
-      <a href="https://sahedalomsumit.com/work/metodo-ongaro" target="_blank"><img src="./public/img/portfolio/Metodo-Ongaro.webp" alt="Metodo Ongaro website" width="100%" /></a><br />
+      <a href="https://sahedalomsumit.com/work/metodo-ongaro"><img src="./public/img/portfolio/Metodo-Ongaro.webp" alt="Metodo Ongaro website" width="100%" /></a><br />
       <strong>Metodo Ongaro</strong><br />Health &amp; longevity
     </td>
   </tr>
 </table>
 
-<p align="center"><a href="https://sahedalomsumit.com/work" target="_blank"><strong>See more works of mine →</strong></a></p>
+<p align="center"><a href="https://sahedalomsumit.com/work"><strong>See more works of mine →</strong></a></p>
 
 ### Tools I reach for
 
