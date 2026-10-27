@@ -50,3 +50,4 @@ I’m Sahed, a Helsinki-based product designer and AI-enhanced web developer. I 
 Figma · React · Supabase · Webflow · Framer · WordPress · Kajabi · Sanity · AI-assisted workflows
 
 <p align="center"><sub>Good work starts with a good conversation. I’m open to select projects worldwide.</sub></p>
+<p align="center"><sub>Built with ❤️ by <b><a href="https://sahedalomsumit.com">Sahed</a></b></sub></p>
